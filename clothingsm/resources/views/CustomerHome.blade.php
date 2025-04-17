@@ -49,7 +49,7 @@
         <button class="nav-button" id="design">Designs</button>
         <button class="nav-button" id="profile">Profile</button>
         <button class="nav-button" id="order">Orders</button>
-        <a class="nav-add-button" id="add"><img src="{{asset("images/tshirt 2.png")}}" alt="">Add a Design</a>
+        <a class="nav-add-button" id="add"><img src="{{asset("images/tshirt 2.png")}}" alt="">da Design</a>
       </div>
     </div>
 
@@ -194,18 +194,18 @@
     <span><b>View Order</b></span>
   </div>
   <div class="loc">
-    <img src="" alt="">
+    <img src="{{asset('images/location.png')}}" alt="">
     <h6>Delivery Address</h6>
     <p>Blk 19 Lot 11, Prk. 5, Apoko, Tagum City, Davao del Norte</p>
   </div>
   <div class="payment">
-    <img src="" alt="">
+    <img src="{{asset('images/wallet.png')}}" alt="">
     <h6>Payment Method</h6>
     <h4>P3600.00</h4>
     <p>Cash</p>
   </div>
   <div class="ordersum">
-    <img src="" alt="">
+    <img src="{{asset('images/clipboard.png')}}" alt="">
     <h4>Order Summary</h4>
 
     <div class="sum1">

@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function addadesign(){
         document.getElementById("title").innerHTML = `
             <div>Add A Design</div>
-            <img src="../images/sampleimg.png" alt="">`;
+            <img src="../images/logo.png" alt="">`;
         document.getElementById("change-container").innerHTML = `
          <div class="completed-container">
         <div class="add-a-design-container">
@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadCardDetails() {
         document.getElementById("title").innerHTML = `
             <div>Product</div>
-            <img src="../images/sampleimg.png" alt="">`;
+            <img src="../images/logo.png" alt="">`;
         document.getElementById("change-container").innerHTML = `
             <div class="completed-container">
                 <div class="add-a-design-container">
@@ -800,7 +800,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function addadesign(){
     document.getElementById("title").innerHTML=`
-        <div>Add Design</div>>`;
+        <div>Add Design</div>
+        <img src="../images/logo.png" alt="">`;
     document.getElementById("change-container").innerHTML=`
         <div class="completed-container">
         <div class="subTitle1">
