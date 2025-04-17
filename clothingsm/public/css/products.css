@@ -1,0 +1,479 @@
+body{
+    width: 100%;
+    max-width: 100%;
+    background: red;
+  }
+  
+  .productcontent{
+    display: grid;
+    grid-template-columns: 700% 700% 700%;
+    grid-template-rows: auto auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0;
+  }
+  .items-1{
+    grid-column: 2/3;
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    border-radius: 10px;
+  }
+  .items-1 img{
+    width: 10px;
+    height: 10px;
+  }
+  .items-1 .searchbars{
+    margin-left: 10px;
+    outline: 0;
+    border: 0;
+    width: 300px;
+    border-radius: 20px;
+  }
+  .items-1 .buttonsubmit{
+    background-color: white;
+    border: 0;
+    border-radius: 20px;
+  }
+  .buttonsubmit:hover{
+    background-color: pink;
+  }
+  .items-2{
+    grid-column: 3/4;
+    align-self: flex-end;
+    justify-self: end;
+  }
+  .items-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column: 1 / 4;
+    margin-top: 100px;
+    background-color: white;
+    gap: 10px;
+    padding: 0 50px;
+    height: 500px;
+    overflow-y: auto;
+    justify-items: center;
+  }
+  .items-3 .sample1 {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+    filter: blur(0);
+    cursor: pointer;
+  }
+  
+  .items-3:hover img {
+    filter: blur(4px);
+    z-index: 10;
+  }
+  .items-3 img:hover {
+    filter: blur(0);
+    transform: scale(1.2);
+    z-index: 10;
+  }
+  .items-2 img{
+    width: 25px;
+    height: 25px;
+  }
+  .items-2 button{
+    background: #ffffff;
+    border: none;
+    border-radius:5px;
+  }
+  .items-2 button:hover{
+    background: pink;
+  }
+  
+  .items-3 img {
+    width: 150px;
+    height:150px;
+  }
+  .items-3-3:hover{
+    background-color: pink;
+  }
+  .sample1 img{
+    width: 150px !important;
+    height: 150px !important;
+    margin-top: 60px;
+    margin-left: 20px;
+  }
+  .additem{
+    display: grid;
+    grid-template-columns: 200px 200px;
+    grid-template-rows: auto auto auto auto auto auto;
+    background-color: white;
+    width: 450px;
+    height: 450px;
+    margin-top: -50px;
+    margin-left: 400px;
+    z-index: 999;
+    border:1px solid black;
+    position: fixed;
+    display: none;
+  }
+  .reject{
+    grid-column: 1/3;
+    grid-row: 1/2;
+  }
+  .reject button{
+    border: 0;
+    background-color: white;
+  }
+  .reject span{
+    margin-left: 20px;
+    font-size: 20px;
+    font-family: Arial;
+  }
+  .sample1{
+    grid-row: 2/6;
+    grid-column: 1/2;
+  }
+  .productid{
+    grid-row: 2/3;
+    grid-column: 2/3;
+  }
+  .name1{
+    grid-row: 3/4;
+    grid-column: 2/3;
+  }
+  .price1{
+    grid-row: 4/5;
+    grid-column: 2/3;
+  }
+  .category1{
+    grid-row: 5/6;
+    grid-column: 2/3;
+  }
+  .productid,.name1, .price1,.category1 {
+    position: relative;
+    width: 196px;
+  }
+  
+  .productid input, .name1 input, .price1 input,.category1 input {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: #000000;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+    border-bottom: 1px solid black  ;
+  }
+  
+  .productid span, .name1 span, .price1 span,.category1 span {
+    position: absolute;
+    left: 0;
+    padding: 20px 10px 10px;
+    font-size: 1em;
+    color: gray;
+    letter-spacing: 00.05em;
+    transition: 0.5s;
+    pointer-events: none;
+    margin-top: -50px;
+  }
+  
+  .productid i, .name1 i, .price1 i,.category1 i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 9;
+    top:35px;
+  }
+  
+  .productid input:valid~span, .name1 input:valid~span, .price1 input:valid~span, .category1 input:valid~span,
+  .productid input:focus~span, .name1 input:focus~span,.price1 input:focus~span, .category1 input:focus~span {
+    color: gray;
+    transform: translateX(-10px) translateY(-20px);
+    font-size: 0.75rem;
+  }
+  
+  .productid input:valid~i,.name1 input:valid~i,.name1 input:focus~span, .category1 input:valid~span,
+  .productid input:focus~i ,.price1 input:focus~i, .category1 input:focus~span{
+    height: 40px;
+  }
+  .sample1 button{
+    border-radius: 10px;
+    border: none;
+    margin-top: 100px;
+    margin-left: 40px;
+  }
+  .sample1 button:hover{
+    background-color: pink;
+  }
+  
+  
+  .edititem{
+    display: grid;
+    grid-template-columns: 200px 200px;
+    grid-template-rows: auto auto auto auto auto auto;
+    background-color: white;
+    width: 450px;
+    height: 450px;
+    margin-top: -50px;
+    margin-left: 400px;
+    z-index: 999;
+    border:1px solid black;
+    position: fixed;
+    display: none;
+  }
+  .sample2 .img2{
+    width: 150px !important;
+    height: 150px !important;
+    margin-top: 60px;
+    margin-left: 20px;
+  }
+  
+  .reject2{
+    grid-column: 1/3;
+    grid-row: 1/2;
+  }
+  .reject2 button{
+    border: 0;
+    background-color: white;
+  }
+  .reject2 span{
+    margin-left: 20px;
+    font-size: 20px;
+    font-family: Arial;
+  }
+  .sample2{
+    grid-row: 2/6;
+    grid-column: 1/2;
+  }
+  .productid2{
+    grid-row: 2/3;
+    grid-column: 2/3;
+  }
+  .name2{
+    grid-row: 3/4;
+    grid-column: 2/3;
+  }
+  .price2{
+    grid-row: 4/5;
+    grid-column: 2/3;
+  }
+  .category2{
+    grid-row: 5/6;
+    grid-column: 2/3;
+  }
+  .productid2,.name2, .price2,.category2 {
+    position: relative;
+    width: 196px;
+  }
+  
+  .productid2 input, .name2 input, .price2 input,.category2 input {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: #000000;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+    border-bottom: 1px solid black  ;
+  }
+  
+  .productid2 span, .name2 span, .price2 span,.category2 span {
+    position: absolute;
+    left: 0;
+    padding: 20px 10px 10px;
+    font-size: 1em;
+    color: gray;
+    letter-spacing: 00.05em;
+    transition: 0.5s;
+    pointer-events: none;
+    margin-top: -50px;
+  }
+  
+  .productid2 i, .name2 i, .price2 i,.category2 i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 9;
+    top:35px;
+  }
+  
+  .productid2 input:valid~span, .name2 input:valid~span, .price2 input:valid~span, .category2 input:valid~span,
+  .productid2 input:focus~span, .name2 input:focus~span,.price2 input:focus~span, .category2 input:focus~span {
+    color: gray;
+    transform: translateX(-10px) translateY(-30px);
+    font-size: 0, 75rem;
+  }
+  
+  .productid2 input:valid~i,.name2 input:valid~i,.name2 input:focus~span, .category2 input:valid~span,
+  .productid2 input:focus~i ,.price2 input:focus~i, .category2 input:focus~span{
+    height: 40px;
+  }
+  .sample2 button{
+    border-radius: 10px;
+    border: none;
+    margin-top: 100px;
+    margin-left: 40px;
+  }
+  .sample2 button:hover{
+    background-color: pink;
+  }
+  
+  .deleteitem{
+    display: grid;
+    grid-template-columns: 200px 200px;
+    grid-template-rows: auto auto auto auto auto auto;
+    background-color: white;
+    width: 450px;
+    height: 450px;
+    margin-top: -50px;
+    margin-left: 400px;
+    z-index: 999;
+    border:1px solid black;
+    position: fixed;
+    display: none;
+  }
+  .sample3 img{
+    width: 150px !important;
+    height: 150px !important;
+    margin-top: 60px;
+    margin-left: 20px;
+  }
+  .reject3{
+    grid-column: 1/3;
+    grid-row: 1/2;
+  }
+  .reject3 button{
+    border: 0;
+    background-color: white;
+  }
+  .reject3 span{
+    margin-left: 20px;
+    font-size: 20px;
+    font-family: Arial;
+  }
+  .sample3{
+    grid-row: 2/6;
+    grid-column: 1/2;
+  }
+  .productid3{
+    grid-row: 2/3;
+    grid-column: 2/3;
+  }
+  .name3{
+    grid-row: 3/4;
+    grid-column: 2/3;
+  }
+  .price3{
+    grid-row: 4/5;
+    grid-column: 2/3;
+  }
+  .category3{
+    grid-row: 5/6;
+    grid-column: 2/3;
+  }
+  .productid3,.name3, .price3,.category3{
+    position: relative;
+    width: 196px;
+  }
+  
+  .productid3 input, .name3 input, .price3 input,.category3 input {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: #000000;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+    border-bottom: 1px solid black  ;
+  }
+  
+  .productid3 span, .name3 span, .price3 span,.category3 span {
+    position: absolute;
+    left: 0;
+    padding: 20px 10px 10px;
+    font-size: 1em;
+    color: gray;
+    letter-spacing: 00.05em;
+    transition: 0.5s;
+    pointer-events: none;
+    margin-top: -50px;
+  }
+  
+  .productid3 i, .name3 i, .price3 i,.category3 i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 9;
+    top:35px;
+  }
+  
+  .productid3 input:valid~span, .name3 input:valid~span, .price3 input:valid~span, .category3 input:valid~span,
+  .productid3 input:focus~span, .name3 input:focus~span,.price3 input:focus~span, .category3 input:focus~span {
+    color: gray;
+    transform: translateX(-10px) translateY(-30px);
+    font-size: 0, 75rem;
+  }
+  
+  .productid3 input:valid~i,.name3 input:valid~i,.name3 input:focus~span, .category3 input:valid~span,
+  .productid3 input:focus~i ,.price3 input:focus~i, .category3 input:focus~span{
+    height: 40px;
+  }
+  .sample3 button{
+    border-radius: 10px;
+    border: none;
+    margin-top: 100px;
+    margin-left: 40px;
+  }
+  .sample3 button:hover{
+    background-color: pink;
+  }
+  
+  @media(max-width: 768px){
+    .items-1{
+      display:flex;
+      min-width: 100%;
+    }
+    .items-1 img{
+      min-width: 40px;
+      min-height: 40px;
+    }
+    .items-2{
+      display:flex;
+      min-width: 100%;
+    }
+    .edititem,.additem,.deleteitem{
+      display: flex;
+      margin-left: 10px;
+      min-height: 50px;
+      display:none;
+    }
+  }
