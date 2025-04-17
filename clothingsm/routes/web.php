@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\registerform;
 Route::get('/', function(){
     return view('LandingPage');
 });
@@ -67,3 +68,5 @@ Route::get('/login', function(){
 Route::get('/registerlogin', function(){
     return view('registerlogin');
 });
+
+Route::post('/register', [registerform::class, 'registerform']);

@@ -9,14 +9,15 @@
 <body>
 <div class="container" id="container">
 	<div class="form-container sign-up-container" class="sign-up-content">
-		<form action="#">
+		<form action="/register" method="POST">
+			@csrf 
 			<h1>Create Account</h1>
-            <input type="text" placeholder="Username"/>
-			<input type="text" placeholder= "Name" />
-			<input type="email" placeholder="Email" />
-            <input type="text" placeholder="Mobile Number">
-			<input type="password" placeholder="Password" />
-            <input type="password" placeholder="Comfirm Password" />
+            <input name="username" type="text" placeholder="Username"/>
+			<input name="name" type="text" placeholder= "Name" />
+			<input name="email" type="email" placeholder="Email" />
+            <input name="mobilenum" type="text" placeholder="Mobile Number">
+			<input name="password" type="password" placeholder="Password" />
+            <input name="confirmpass" type="password" placeholder="Comfirm Password" />
             <div class="termsandcondition"><input type="checkbox"><div class="words"><span>I accept</span> <a href="">Terms and Condition</a></div></div>
 			<button>Sign Up</button>
 		</form>
