@@ -6,7 +6,7 @@
 }
 
 body {
-    background:url(../../../adminphp/resources/images/background.jpg) no-repeat;
+    background:url(../../../images/background.png) no-repeat;
     background-size: cover;
 	display: flex;
 	justify-content: center;
