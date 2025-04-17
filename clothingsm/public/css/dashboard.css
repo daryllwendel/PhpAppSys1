@@ -1,0 +1,246 @@
+
+*{
+    font-family: Poppins, sans-serif;
+  }
+  body{
+    margin: 0;
+    background: url("../images/bg.png");
+    font-family: Poppins, sans-serif;
+  }
+  .nav{
+    background-color: white;
+    padding: 10px 50px 10px 50px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .userNav{
+    display: flex;
+    height: 50px;
+    overflow: hidden;
+    align-items: center;
+  }
+  .userNav img{
+    height: 45px;
+    width: 45px;
+    border-radius: 50px;
+  }
+  .userNav .login-button{
+    margin: 20px;
+    background-color: pink;
+    border-radius: 50px;
+    border: none;
+    padding: 10px 20px 10px 20px;
+    font-family: Poppins;
+    font-size: 12px;
+    border: 2px solid transparent;
+    transition: 0.2s ease;
+    cursor: pointer;
+  }
+  .userNav button{
+    display: flex;
+    flex-flow: column wrap;
+    text-align: left;
+    font-family: Poppins, sans-serif;
+    background: white;
+    border: 2px solid transparent;
+    cursor: pointer;
+    margin: 0px 10px 0px 10px;
+    gap: 0px;
+  }
+  .userNav button p{
+    margin: 0;
+  }
+  .userNav button .customer-name{
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .userNav span{
+    margin: 0px 10px 0px 10px;
+  }
+  
+  .userNav .login-button:hover{
+    background: white;
+    border-color: pink;
+  }
+  .buttonsNav{
+    display: flex;
+    align-items: center;
+    font-family: Poppins;
+    font-size: 13px;
+    color: black;
+  }
+  .buttonsNav a,
+  .buttonsNav .nav-button{
+    background: white;
+    border: 2px solid transparent;
+    text-decoration: none;
+    border-radius: 20px;
+    padding: 5px 20px 5px 20px;
+    margin: 0px 10px 0px 10px;
+    color: black;
+    transition: 0.2s ease;
+  }
+  .buttonsNav a:hover,
+  .buttonsNav .nav-button:hover{
+    background-color: pink;
+  }
+  .buttonsNav button img{
+    height: 40px;
+    width: 40px;
+  }
+  
+  .title1{
+    display: flex;
+    overflow: hidden;
+    background-color: pink;
+    height: 75px;
+    padding: 0px 100px 0px 100px;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    font-family: Poppins;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0px 2px rgba(0, 0, 0, 0.72);
+  }
+  
+  .title1 img {
+    opacity: 66%;
+    width: 750px;
+  }
+  #body1{
+    width: 100%;
+    max-width: 100%;
+    flex-grow: 1;
+    background-color: white !important;
+  }
+  
+  
+  
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+  
+  .menu{
+    display: flex;
+    align-items: center;
+    font-family: Poppins;
+    font-size: 13px;
+    color: black;
+  }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+  
+  .hamburger div {
+    width: 30px;
+    height: 4px;
+    background: pink;
+    transition: 0.3s;
+  }
+  .nav.expanded {
+    height: 250px;
+  }
+  
+  .nav.expanded .buttonsNav {
+    opacity: 1;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .main-container{
+      width: 100%;
+    }
+    .userNav .login-button{
+      font-size: 10px;
+  
+    }
+    .login-button{
+      margin: 0;
+      padding: 0px 10px;
+      height: 10px;
+      font-size: 8px;
+    }
+    .nav{
+      padding: 10px 10px;
+      height: 50px;
+    }
+    .menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 192, 203, 0.49);
+      padding: 10px 0;
+      transition: 0.2s ease-in-out;
+      align-items: center;
+    }
+    .menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background: #333;
+      padding: 10px 0;
+    }
+  
+    .menu.active .nav-button{
+      width: 100%;
+      border-radius: 0;
+    }
+    .buttonsNav{
+      height: 250px;
+    }
+  
+    .menu button {
+      text-align: center;
+      padding: 15px;
+      width: 100%;
+    }
+  
+    .hamburger {
+      display: flex;
+    }
+  
+    .menu.active {
+      display: flex;
+    }
+    .title{
+      padding: 0 20px;
+      font-size: 20px;
+      img{
+        height: 100px;
+        width: 100px;
+      }
+    }
+    .subTitle1{
+      padding: 0 20px;
+      font-size: 20px;
+      img{
+        height: 100px;
+        width: 100px;
+      }
+    }
+    .subTitle2{
+      padding: 0;
+      font-size: 20px;
+    }
+    .newDesigns .newDesigns-selection-container{
+      display: block;
+    }
+  
+    .newDesigns .newDesigns-selection-container a{
+      height: 50px;
+      width: 100px;
+      padding: 15px 100px;
+    }
+  }
+  
+  

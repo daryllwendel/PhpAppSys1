@@ -1,0 +1,90 @@
+body{
+    background-color: transparent;
+  }
+  .reportcontent{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    grid-template-rows: 40px 40px 50px 380px;
+    width: 100%;
+  }
+  .search{
+    grid-column: 1/8;
+    grid-row: 1/2;
+    justify-self: center;
+    background-color: white;
+    padding: 10px 10px 10px 10px;
+    border-radius: 30px;
+  }
+  .search button{
+    border: 0;
+    background-color: white;
+    font-size: 12px;
+  }
+  .search button:hover{
+    background-color: pink;
+    border-radius: 30px;
+  }
+  .search input{
+    border: 0;
+    outline: 0;
+  }
+  .search img{
+    width: 15px;
+    height: 15px;
+  }
+  .choice{
+    grid-column: 1/8;
+    grid-row: 2/3;
+    justify-self: center;
+    margin-top: 5px;
+    background-color: white;
+    padding: 10px 10px 30px 10px;
+    border-radius: 30px;
+  }
+  .choice button{
+    background-color: white;
+    border: 0;
+  }
+  .choice button:hover{
+    color: pink;
+  }
+  .reportcontent{
+    grid-column: 1/8;
+    grid-row: 3/6;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: 60px auto 60px;
+    margin-top: 15px;
+    background-color: white;
+    border-radius: 10px;
+  }
+  .reportcontent .align{
+    margin-left: 5px;
+  }
+  .align1{
+    margin-left: -60px;
+  }
+  .reportcontent .reporttext{
+    grid-column: 1/5;
+    grid-row: 1/2;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: space-around;
+  }
+  .reportcontent .report{
+    grid-row: 2/3;
+    grid-column: 1/5;
+  }
+  .hov{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: space-around;
+  }
+  .hov:hover{
+    background-color: pink;
+  }
+  .reportcontent .total{
+    grid-row: 3/4;
+    grid-column: 4/5;
+    justify-self: start;
+  }
