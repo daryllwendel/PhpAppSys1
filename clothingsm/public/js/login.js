@@ -6,9 +6,6 @@ function login() {
     if (user === "admin" && pass === "password123") {
         alert("Login successful!");
         window.location.href = "../../../dashboard";
-    }else if(user === "" && pass === ""){
-        alert("Customer Login successful!")
-        window.location.href ="../../../CustomerHome";
     } else {
         document.getElementById("message").innerText = "Invalid username or password";
     }

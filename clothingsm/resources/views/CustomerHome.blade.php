@@ -31,7 +31,7 @@
   <div class="nav">
     <div class="userNav">
       <img src="{{asset("images/sampleimg.png")}}" alt="">
-      <button><p class="customer-name">Customer</p>
+      <button><p class="customer-name">{{ $user->name }}</p>
       <p>Customer</p></button>
       <a href="../../../login" class="login-button">Log Out</a>
       <span class="material-symbols-outlined">

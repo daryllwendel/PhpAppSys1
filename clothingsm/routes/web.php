@@ -7,10 +7,10 @@ Route::get('/', function(){
 });
 Route::get('/login', function () {
     return view('login');  
-});
+})->name('login');
 Route::get('/dashboard', function () {
     return view('dashboard');
-});
+})->name('dashboard');
 Route::get('/dashboarddisplay', function () {
     return view('dashboarddisplay');
 });
@@ -26,9 +26,10 @@ Route::get('/report', function(){
 Route::get('/CustomerAddADesign-display',function(){
     return view('CustomerAddADesign-display');
 });
-Route::get('/CustomerHome', function(){
-    return view('CustomerHome');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/CustomerHome', [registerform::class, 'customerHome']);
 });
+
 Route::get('/CustomerHotOrder-display', function(){
     return view('CustomerHotOrder-display');
 });
@@ -70,3 +71,4 @@ Route::get('/registerlogin', function(){
 });
 
 Route::post('/register', [registerform::class, 'registerform']);
+Route::post('/login', [registerform::class, 'login']);
