@@ -26,8 +26,8 @@ Route::get('/report', function(){
 Route::get('/CustomerAddADesign-display',function(){
     return view('CustomerAddADesign-display');
 });
-Route::middleware(['auth'])->group(function () {
-    Route::get('/CustomerHome', [registerform::class, 'customerHome']);
+Route::get('/CustomerHome', function(){
+    return view('CustomerHome');
 });
 
 Route::get('/CustomerHotOrder-display', function(){
@@ -51,9 +51,6 @@ Route::get('/CustomerOrder', function(){
 Route::get('/CustomerProductClicked-display', function(){
     return view('CustomerProductClicked-display');
 });
-Route::get('/CustomerProfile', function(){
-    return view('CustomerProfile');
-});
 Route::get('/empty', function(){
     return view('empty');
 });
@@ -68,6 +65,13 @@ Route::get('/login', function(){
 });
 Route::get('/registerlogin', function(){
     return view('registerlogin');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/CustomerDashboard', [registerform::class, 'customerDashboard']);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/CustomerProfile', [registerform::class, 'customerProfile']);
 });
 
 Route::post('/register', [registerform::class, 'registerform']);

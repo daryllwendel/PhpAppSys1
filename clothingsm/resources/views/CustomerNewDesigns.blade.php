@@ -12,11 +12,11 @@
       <button id="new">New</button>
       <button id="my">My Designs</button>
     </div>
-    <div class="subTitle1">
+    <div class="subTitle1" id="subTitle1">
       <div>Hot Designs🔥</div>
       <img src="{{ asset('images/sampleimg.png')}}" alt="">
     </div>
-      <div class="subTitle2">
+      <div class="subTitle2" id="subTitle2">
 
       </div>
   </div>

@@ -7,13 +7,9 @@
 </head>
 <body>
     <div class="completed-container">
-        <div class="subTitle1">
-            <div>Add A Design</div>
-            <img src="{{ asset('images/sampleimage2.png') }}" alt="">
-        </div>
         <div class="add-a-design-container" id="add-a-design-container">
             <div class="import-design-container">
-                <img src="{{ asset('images/default-tshirt.jpg') }}" alt="" id="default-tshirt">
+                <img src="../images/default-tshirt.jpg" alt="" id="default-tshirt">
                 <label class="input-file-button" for="input-file"><p>Input A Design</p></label>
                 <input class="input-file" type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
             </div>

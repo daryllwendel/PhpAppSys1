@@ -11,9 +11,19 @@ use Illuminate\Support\Facades\Auth;
 class registerform extends Controller
 {
 
-    public function customerHome(){
+    public function customerDashboard(){
         $user = Auth::user();
-        return view('CustomerHome', compact('user'));
+        return view('CustomerDashboard', compact('user'));
+    }
+
+    public function customerProfile(){
+        $user = Auth::user();
+        $name = $user->name;
+        $username = $user->username;
+        $mobile_number = $user->mobile_number;
+        $email = $user->email;
+        $id = $user->id;
+        return view('CustomerProfile', compact('name', 'username','mobile_number','email','id'));
     }
     
 
@@ -28,7 +38,7 @@ class registerform extends Controller
             $user = Auth::user();
             $customerName = $user->name;
             session(['customer-name' => $customerName]);
-            return redirect('/CustomerHome');
+            return redirect('/CustomerDashboard');
         }
         if ($field['loginname'] === 'Admin' && $field['loginpassword'] === 'password123') {
             $request->session()->regenerate();

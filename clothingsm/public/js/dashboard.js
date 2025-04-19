@@ -145,9 +145,8 @@ function loaddashboard(){
 
             const dashboardContent = doc.querySelector(".dashboardcontainer");
             if(dashboardContent){
-                document.getElementById("title1").innerHTML =`
-                <div>Dashboard</div>
-                <img src="/images/profile.jpg" alt="">`
+                document.getElementById("title").innerHTML =`
+                <div>Home</div>`
                 console.log('haaha')
                 const content = document.getElementById("body1");
                 content.innerHTML = "";

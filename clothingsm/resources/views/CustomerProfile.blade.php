@@ -8,13 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward" />
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 <body>
-  <div class="main-container">
+  <div class="profilecontainer" id="profilecontainer">
     <div class="profile-container">
         <div class="slideButton">
           <button class="customerProfile" id="customerProfile"><span>Profile</span></button>
@@ -25,7 +22,7 @@
             <div class="profcus" id="profcus">
                 <div class="item-01">
                     <div>
-                        <img class="user-image" src="{{asset("css/images/sampleimg.png")}}" alt="" id="profile-pic">
+                        <img class="user-image" src="../images/sampleimg.png" alt="" id="profile-pic">
                     </div>
                     <div class="insertImg">
                         <label class="upload-img-button" for="input-file">Update Image</label>
@@ -33,8 +30,8 @@
                     </div>
                 </div>
                 <div class="item-02">
-                    <div><span>Customer Username</span></div>
-                    <span>Customer Full Name</span>
+                    <div><span>{{ $username }}</span></div>
+                    <span>{{ $name}}</span>
                 </div>
             </div>
                     
@@ -44,12 +41,12 @@
                     </div>
                         <div class="item-1">
                             <div><span class="Username">Username:</span></div>
-                            <span class="CustomerUser">Username</span>  
+                            <span class="CustomerUser">{{ $username }}</span>  
                         </div>
                         
                         <div class="item-2">
                             <div><span class="userid">User ID:</span></div>
-                            <span class="CustomerId">00001</span>
+                            <span class="CustomerId">{{ $id}}</span>
                         </div>
 
                         <div class="item-3">
@@ -64,12 +61,12 @@
 
                         <div class="item-5">
                             <div><span class="emill">Email Address:</span></div>
-                            <span class="CustomerEmail">@gmail.com</span>
+                            <span class="CustomerEmail">{{ $email}}</span>
                         </div>
 
                         <div class="item-6">
                             <div><span class="number">Contact Number:</span></div>
-                            <span class="CustomerNum">1234567890</span>
+                            <span class="CustomerNum">{{ $mobile_number}}</span>
                         </div>
                 </div>
 

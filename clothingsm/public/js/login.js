@@ -1,15 +1,4 @@
-function login() {
-    event.preventDefault()
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
 
-    if (user === "admin" && pass === "password123") {
-        alert("Login successful!");
-        window.location.href = "../../../dashboard";
-    } else {
-        document.getElementById("message").innerText = "Invalid username or password";
-    }
-}
 
 const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
