@@ -23,7 +23,7 @@ class registerform extends Controller
             'loginpassword'=> 'required'
         ]);
 
-        if(Auth::attempt(['name' => $field['loginname'], 'password' => $field['loginpassword']])) {
+        if(Auth::attempt(['username' => $field['loginname'], 'password' => $field['loginpassword']])) {
             $request->session()->regenerate();
             $user = Auth::user();
             $customerName = $user->name;
@@ -39,7 +39,8 @@ class registerform extends Controller
 
     public function registerform(Request $request){
         $field = $request->validate([
-            'name' => ['required', Rule::unique('users', 'email')],
+            'username' =>['required', 'min:4', 'max:15'],
+            'name' => ['required'],
             'email' => ['required','email', Rule::unique('users', 'email')],
             'mobile_number'=>['required', 'min:11', 'max:11'],
             'password' =>  ['required', 'min:8', 'max:200']
