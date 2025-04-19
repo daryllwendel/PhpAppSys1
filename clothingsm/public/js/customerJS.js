@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
                 <div class="item-02">
-                    <div><span>Customer Username</span></div>
+                    <div><span class="customer-name">tset</span></div>
                     <span>Customer Full Name</span>
                 </div>
             </div>
