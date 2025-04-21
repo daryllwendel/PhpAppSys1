@@ -27,9 +27,9 @@
 <div class="main-container">
   <div class="nav">
     <div class="userNav">
-      <img src="{{asset("images/sampleimg.png")}}" alt="">
-      <button><p class="customer-name">{{ $user->name }}</p>
-      <p>Customer</p></button>
+      <img src="{{asset("images/user.png")}}" alt="">
+      <button><p class="customer-name">{{ $user->username }}</p>
+      <p>{{ $user->name}}</p></button>
       <a href="../../../login" class="login-button">Log Out</a>
       <span class="material-symbols-outlined" id="cartbutton">
         shopping_cart

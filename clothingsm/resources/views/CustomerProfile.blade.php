@@ -22,7 +22,7 @@
             <div class="profcus" id="profcus">
                 <div class="item-01">
                     <div>
-                        <img class="user-image" src="../images/sampleimg.png" alt="" id="profile-pic">
+                        <img class="user-image" src="{{asset("images/user.png")}}" alt="" id="profile-pic">
                     </div>
                     <div class="insertImg">
                         <label class="upload-img-button" for="input-file">Update Image</label>
@@ -50,13 +50,13 @@
                         </div>
 
                         <div class="item-3">
-                            <div><span class="firstname">First Name:</span></div>
-                            <span class="CustomerFname">Eren</span>
+                            <div><span class="firstname">Name:</span></div>
+                            <span class="CustomerFname">{{ $name}}</span>
                         </div>
 
                         <div class="item-4">
-                            <div><span class="lastname">Last Name:</span></div>
-                            <span class="CustomerLname">Yeager</span>
+                            <div><span class="lastname"></span></div>
+                            <span class="CustomerLname"></span>
                         </div>
 
                         <div class="item-5">
