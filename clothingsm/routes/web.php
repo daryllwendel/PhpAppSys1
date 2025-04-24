@@ -76,3 +76,5 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/register', [registerform::class, 'registerform']);
 Route::post('/login', [registerform::class, 'login']);
+
+Route::post('/ajax/login', [registerform::class, 'ajaxLogin'])->name('ajax.login');

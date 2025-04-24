@@ -44,7 +44,6 @@ class registerform extends Controller
             $request->session()->regenerate();
             return redirect('/dashboard');
         }
-        return redirect('/login');
     }
 
     public function registerform(Request $request){
@@ -58,6 +57,40 @@ class registerform extends Controller
         $field['password'] = bcrypt($field['password']);
         $user = User::create($field);
         Auth::login($user);
-        return redirect('/login');
     }
+
+    public function ajaxLogin(Request $request)
+{
+    $request->validate([
+        'loginname'     => 'required|string',
+        'loginpassword' => 'required|string',
+    ]);
+
+    if ($request->loginname === 'admin' && $request->loginpassword === 'password123') {
+        $request->session()->regenerate();
+        return response()->json([
+            'ok'   => true,
+            'role' => 'admin', 
+        ]);
+    }
+
+    if (Auth::attempt([
+            'username' => $request->loginname,    
+            'password' => $request->loginpassword,
+        ])) {
+
+        $request->session()->regenerate();
+        $role = Auth::user()->role; 
+
+        return response()->json([
+            'ok' => true,
+            'role' => $role,
+        ]);
+    }
+
+    return response()->json([
+        'ok'      => false,
+        'message' => 'Username or password is incorrect',
+    ], 422);
+}
 }

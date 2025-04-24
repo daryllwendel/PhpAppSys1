@@ -145,7 +145,7 @@ function loaddashboard(){
 
             const dashboardContent = doc.querySelector(".dashboardcontainer");
             if(dashboardContent){
-                document.getElementById("title").innerHTML =`
+                document.getElementById("title1").innerHTML =`
                 <div>Home</div>`
                 console.log('haaha')
                 const content = document.getElementById("body1");

@@ -240,3 +240,6 @@ input {
     margin-top: 4px;
     padding-left: 10px;
 }
+.msg        { font-size:.9rem; margin-top:.5rem; }
+.msg.error  { color:#f43f5e; }    /* red‑500 */
+.msg.ok     { color:#16a34a; }    /* green‑600 */

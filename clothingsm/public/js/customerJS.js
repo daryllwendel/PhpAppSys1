@@ -67,19 +67,15 @@ function sortTable(column) {
         const bText = bCell.textContent.trim();
         const aIsNumeric = !isNaN(Number(aText));
         const bIsNumeric = !isNaN(Number(bText));
-
-        // Determine if the column is numeric or string
         if (column === 'Order No.') {
-            return Number(aText) - Number(bText); // Numeric comparison for age
+            return Number(aText) - Number(bText); 
         }else if(column === 'Quantity'){
             return Number(aText) - Number(bText);
         } else {
-            return aText.localeCompare(bText); // String comparison for name and country
+            return aText.localeCompare(bText); 
         }
     });
 
-    // Clear the table and append sorted rows
-    // Instead of appending, we will insert before the header
     sortedRows.forEach(row => {
         table.insertBefore(row, header.nextSibling);
         table.style.overflow = 'auto';
@@ -88,7 +84,6 @@ function sortTable(column) {
         header.style.top = '0';
         header.style.background = 'white';
         header.style.borderBottom = '1px solid black'
-        // Insert after the header
     });
 
 }
@@ -103,22 +98,19 @@ function sortTable1(column) {
 
         if (!aCell || !bCell) {
             console.error('Cell not found for column:', column);
-            return 0; // Skip sorting if cell is not found
+            return 0; 
         }
 
         const aText = aCell.textContent.trim();
         const bText = bCell.textContent.trim();
 
-        // Determine if the column is numeric or string
         if (column === 'Order No.' || column === 'Quantity') {
-            return Number(aText) - Number(bText); // Numeric comparison for age
+            return Number(aText) - Number(bText);
         } else {
-            return aText.localeCompare(bText); // String comparison for name and country
+            return aText.localeCompare(bText);
         }
     });
 
-    // Clear the table and append sorted rows
-    // Instead of appending, we will insert before the header
     sortedRows.forEach(row => {
         table1.insertBefore(row, header1.nextSibling);
         table1.style.overflow = 'auto';
@@ -127,7 +119,7 @@ function sortTable1(column) {
         header1.style.top = '0';
         header1.style.background = 'white';
         header1.style.borderBottom = '1px solid black'
-        // Insert after the header
+      
     });
 
 }
@@ -136,14 +128,12 @@ function swipe(){
         loop: true,
         spaceBetween: 30,
     
-        // If we need pagination
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
             dynamicBullets: true,
         },
     
-        // Navigation arrows
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
@@ -167,7 +157,6 @@ function initCartListeners() {
       const cart = document.getElementById("addtocart");
       const overlay = document.getElementById("overlay");
   
-      // Show cart and overlay
       if (e.target.id === "cartbutton") {
         if (cart && overlay) {
           cart.style.display = "grid";
@@ -181,7 +170,6 @@ function initCartListeners() {
         }
       }
   
-      // Close cart with "x" button
       if (e.target.id== "reject") {
         if (cart && overlay) {
           cart.style.display = "none";
@@ -189,7 +177,6 @@ function initCartListeners() {
         }
       }
   
-      // Optional: Close on "Place Order"
       if (e.target.closest(".accept")) {
         if (cart && overlay) {
           cart.style.display = "none";
@@ -224,12 +211,10 @@ function initCartListeners() {
           content.innerHTML = "";
           content.appendChild(dashboardContent);
   
-          // Append cart and overlay to the DOM body or main-container
           if (cart && overlay) {
             cart.style.display = "none";
             overlay.style.display = "none";
-  
-            // Optional: only append if they don't exist already
+            
             if (!document.getElementById("addtocart")) {
               document.body.appendChild(cart);
             }
@@ -238,8 +223,8 @@ function initCartListeners() {
             }
           }
   
-          swipe(); // Initialize Swiper or any other functions
-          initCartListeners(); // Init the cart popup functionality
+          swipe(); 
+          initCartListeners();
         } else {
           console.log('Failed to find dashboard content in response.');
         }

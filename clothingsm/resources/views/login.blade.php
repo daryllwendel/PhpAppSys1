@@ -30,6 +30,7 @@
 			<input name="loginname" type="text" placeholder="Username" id="username" />
 			<input name="loginpassword" type="password" placeholder="Password" id="password" />
 			<a href="#">Forgot your password?</a>
+			<p id="loginMsg" class="msg"></p>
 			<button>Sign In</button>
 		</form>
 	</div>
