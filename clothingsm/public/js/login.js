@@ -43,7 +43,7 @@ loginForm.addEventListener('submit', async e => {
     });
 
     const ajaxURL = '/ajax/login';  
-
+ 
     try {
         const r = await fetch(ajaxURL, {
             method: 'POST',  
@@ -72,5 +72,15 @@ loginForm.addEventListener('submit', async e => {
         console.error(err);
     }
 });
+
+function toggleButton(){
+    const checkbox = document.getElementById('toggleCheckbox')
+    const button = document.getElementById('myButton')
+    button.disabled= !checkbox.checked
+}
+
+function showmsg(){
+    alert('Account Created!')
+}
 
 

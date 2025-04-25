@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\addressform;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerform;
 Route::get('/', function(){
@@ -75,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::post('/register', [registerform::class, 'registerform']);
-Route::post('/login', [registerform::class, 'login']);
+Route::post('/login', [registerform::class, 'login'])->name('login');
+Route::post('/location', [addressform::class,'locations']);
 
 Route::post('/ajax/login', [registerform::class, 'ajaxLogin'])->name('ajax.login');

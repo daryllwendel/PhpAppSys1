@@ -23,7 +23,11 @@ class registerform extends Controller
         $mobile_number = $user->mobile_number;
         $email = $user->email;
         $id = $user->id;
-        return view('CustomerProfile', compact('name', 'username','mobile_number','email','id'));
+        $city = $user->City;
+        $purok = $user->Purok;
+        $zipcode = $user->ZipCode;
+        $baranggay = $user->Baranggay;
+        return view('CustomerProfile', compact('name', 'username','mobile_number','email','id','city', 'purok', 'zipcode','baranggay'));
     }
     
 
@@ -34,6 +38,14 @@ class registerform extends Controller
         ]);
 
         if(Auth::attempt(['username' => $field['loginname'], 'password' => $field['loginpassword']])) {
+            $request->session()->regenerate();
+            $user = Auth::user();
+            $customerName = $user->name;
+            session(['customer-name' => $customerName]);
+            return redirect('/CustomerDashboard');
+        }
+
+        if(Auth::attempt(['email' => $field['loginname'], 'password' => $field['loginpassword']])) {
             $request->session()->regenerate();
             $user = Auth::user();
             $customerName = $user->name;
@@ -57,6 +69,7 @@ class registerform extends Controller
         $field['password'] = bcrypt($field['password']);
         $user = User::create($field);
         Auth::login($user);
+        return redirect('/login')->with('Success','Account created! Please sign in.');
     }
 
     public function ajaxLogin(Request $request)

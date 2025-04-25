@@ -75,28 +75,28 @@
                     <h4>Address</h4>
                 </div>
                 <div class="item-11">
-                    <div><span>Country</span></div>
-                    <span class="country">PH</span>
+                    <div><span></span>City</div>
+                    <span class="country">{{$city}}</span>
                 </div>    
 
                 <div class="item-12">
-                    <div><span>City</span></div>
-                    <span class="city">Tagum</span>
+                    <div><span>Baranggay</span></div>
+                    <span class="city">{{$baranggay}}</span>
                 </div>
                     
                 <div class="item-13">
                     <div><span>Zip Code</span></div>
-                    <span class="zipcode">8100</span>
+                    <span class="zipcode">{{$zipcode}}</span>
                 </div>
                     
                 <div class="item-14">
-                    <div><span>Baranggay</span></div>
-                    <span class="baranggay">Apokon</span>
+                    <div><span>Purok</span></div>
+                    <span class="baranggay">{{$purok}}</span>
                 </div> 
                     
                 <div class="item-15">
-                    <div><span>Purok</span></div>
-                    <span class="purok">Prk.1</span>
+                    <div><span></span></div>
+                    <span class="purok"></span>
                 </div>
             </div>
             </div>
@@ -126,49 +126,47 @@
                 </div>
             </div>
 
-            <div class="location">
-                <div class="item-30">
-                    <h2>Change Location</h2>
+            <form action="/location" method="POST">
+                @csrf
+                <div class="location">
+                    <div class="item-30">
+                        <h2>Change Location</h2>
+                    </div>
+                    
+    
+                    <div class="item-32">
+                        <input type="text" required="required" name="City">
+                        <span>City</span>
+                        <i></i>
+                    </div>
+    
+                    <div class="item-33">
+                        <input type="text" required="required" name="ZipCode">
+                        <span>Zip Code</span>
+                        <i></i>
+                    </div>
+    
+                    <div class="item-34">
+                        <input type="text" required="required" name="Baranggay">
+                        <span>Baranggay</span>
+                        <i></i>
+                    </div>
+    
+                    <div class="item-35">
+                        <input type="text" required="required" name="Purok">
+                        <span>Purok</span>
+                        <i></i>
+                    </div>
+    
+                    <div class="item-36">
+                        <button>
+                            <span>Change Address</span>
+                        </button>
+                    </div>
+    
                 </div>
-                
-                <div class="item-31">
-                    <input type="text" required="required">
-                    <span>Country</span>
-                    <i></i>
-                </div>
-
-                <div class="item-32">
-                    <input type="text" required="required">
-                    <span>City</span>
-                    <i></i>
-                </div>
-
-                <div class="item-33">
-                    <input type="text" required="required">
-                    <span>Zip Code</span>
-                    <i></i>
-                </div>
-
-                <div class="item-34">
-                    <input type="text" required="required">
-                    <span>Baranggay</span>
-                    <i></i>
-                </div>
-
-                <div class="item-35">
-                    <input type="text" required="required">
-                    <span>Purok</span>
-                    <i></i>
-                </div>
-
-                <div class="item-36">
-                    <button>
-                        <span>Change Address</span>
-                    </button>
-                </div>
-
-            </div>
-
+    
+            </form>
       </div>
   </div>
   <script src="{{asset("js/customer-profile.js")}}"></script>

@@ -13,13 +13,13 @@
 		<form action="/register" method="POST">
 			@csrf 
 			<h1>Create Account</h1>
-            <input name="username" type="text" placeholder="Username"/>
+            <input name="username" type="text" placeholder="Username or Email`"/>
 			<input name="name" type="text" placeholder= "Name" />
 			<input name="email" type="email" placeholder="Email" />
             <input name="mobile_number" type="text" placeholder="Mobile Number">
 			<input name="password" type="password" placeholder="Password" />
-            <div class="termsandcondition"><input type="checkbox"><div class="words"><span>I accept</span> <a href="">Terms and Condition</a></div></div>
-			<button>Sign Up</button>
+            <div class="termsandcondition"><input type="checkbox" id="toggleCheckbox" onchange="toggleButton()"><div class="words"><span>I accept</span> <a href="">Terms and Condition</a></div></div>
+			<button id="myButton" disabled onclick="showmsg()">Sign Up</button>
 		</form>
 	</div>
 
@@ -33,7 +33,7 @@
 			<p id="loginMsg" class="msg"></p>
 			<button>Sign In</button>
 		</form>
-	</div>
+	</div> 
 	
 	<div class="overlay-container">
 		<div class="overlay">

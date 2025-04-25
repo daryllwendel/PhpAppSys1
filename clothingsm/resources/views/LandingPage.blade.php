@@ -18,7 +18,7 @@
   <div class="main-container">
     <div class="nav">
         <div class="userNav">
-            <img src="{{asset("images/sampleimg.png")}}" alt="">
+            <img src="{{asset("images/user.png")}}" alt="">
             <a href="../../../login" class="login-button">Log In</a>
         </div>
         <div class="buttonsNav">
