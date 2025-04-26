@@ -27,6 +27,7 @@ class User extends Authenticatable
         'ZipCode', 
         'Baranggay', 
         'Purok',
+        'Pronvince',
     ];
 
     /**

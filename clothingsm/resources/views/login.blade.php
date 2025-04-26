@@ -13,7 +13,7 @@
 		<form action="/register" method="POST">
 			@csrf 
 			<h1>Create Account</h1>
-            <input name="username" type="text" placeholder="Username or Email`"/>
+            <input name="username" type="text" placeholder="Username"/>
 			<input name="name" type="text" placeholder= "Name" />
 			<input name="email" type="email" placeholder="Email" />
             <input name="mobile_number" type="text" placeholder="Mobile Number">
@@ -27,7 +27,7 @@
 		<form method="POST" action="/login">
 			@csrf 
 			<h1>Sign in</h1>
-			<input name="loginname" type="text" placeholder="Username" id="username" />
+			<input name="loginname" type="text" placeholder="Username or Email" id="username" />
 			<input name="loginpassword" type="password" placeholder="Password" id="password" />
 			<a href="#">Forgot your password?</a>
 			<p id="loginMsg" class="msg"></p>

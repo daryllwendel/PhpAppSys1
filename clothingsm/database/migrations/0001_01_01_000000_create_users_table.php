@@ -19,11 +19,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('mobile_number')->nullable();
             $table->string('password');
+            $table->string('Province')->nullable();
             $table->string('Purok')->nullable();
             $table->string('City')->nullable();
             $table->string('ZipCode')->nullable();
             $table->string('Baranggay')->nullable();
-            $table->binary('profile')->nullable();
+            $table->string('profile')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -27,7 +27,8 @@ class registerform extends Controller
         $purok = $user->Purok;
         $zipcode = $user->ZipCode;
         $baranggay = $user->Baranggay;
-        return view('CustomerProfile', compact('name', 'username','mobile_number','email','id','city', 'purok', 'zipcode','baranggay'));
+        $province = $user->Province;
+        return view('CustomerProfile', compact('name', 'username','mobile_number','email','id','city', 'purok', 'zipcode','baranggay','province'));
     }
     
 
@@ -37,15 +38,8 @@ class registerform extends Controller
             'loginpassword'=> 'required'
         ]);
 
-        if(Auth::attempt(['username' => $field['loginname'], 'password' => $field['loginpassword']])) {
-            $request->session()->regenerate();
-            $user = Auth::user();
-            $customerName = $user->name;
-            session(['customer-name' => $customerName]);
-            return redirect('/CustomerDashboard');
-        }
-
-        if(Auth::attempt(['email' => $field['loginname'], 'password' => $field['loginpassword']])) {
+        if(Auth::attempt(['username' => $field['loginname'], 'password' => $field['loginpassword']]) ||
+           Auth::attempt(['email' => $field['loginname'], 'password' => $field['loginpassword']])) {
             $request->session()->regenerate();
             $user = Auth::user();
             $customerName = $user->name;
@@ -64,7 +58,7 @@ class registerform extends Controller
             'name' => ['required'],
             'email' => ['required','email', Rule::unique('users', 'email')],
             'mobile_number'=>['required', 'min:11', 'max:11'],
-            'password' =>  ['required', 'min:8', 'max:200']
+            'password' =>  ['required', 'min:8', 'max:200'],
         ]);
         $field['password'] = bcrypt($field['password']);
         $user = User::create($field);
@@ -87,19 +81,26 @@ class registerform extends Controller
         ]);
     }
 
-    if (Auth::attempt([
-            'username' => $request->loginname,    
-            'password' => $request->loginpassword,
-        ])) {
-
+    if (Auth::attempt(['username' => $request->loginname, 'password' => $request->loginpassword])) {
         $request->session()->regenerate();
-        $role = Auth::user()->role; 
+        $role = Auth::user()->role;
 
         return response()->json([
             'ok' => true,
             'role' => $role,
-        ]);
-    }
+    ]);
+}
+
+// Try with email
+if (Auth::attempt(['email' => $request->loginname, 'password' => $request->loginpassword])) {
+    $request->session()->regenerate();
+    $role = Auth::user()->role;
+
+    return response()->json([
+        'ok' => true,
+        'role' => $role,
+    ]);
+}
 
     return response()->json([
         'ok'      => false,

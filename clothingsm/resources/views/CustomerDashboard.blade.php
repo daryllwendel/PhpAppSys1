@@ -27,7 +27,11 @@
 <div class="main-container">
   <div class="nav">
     <div class="userNav">
-      <img src="{{asset("images/user.png")}}" alt="">
+      @if(Auth::user()->profile)
+          <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile Picture">
+      @else
+          <img src="{{ asset('images/user.png') }}" alt="Profile Picture">
+      @endif
       <button><p class="customer-name">{{ $user->username }}</p>
       <p>{{ $user->name}}</p></button>
       <a href="../../../login" class="login-button">Log Out</a>

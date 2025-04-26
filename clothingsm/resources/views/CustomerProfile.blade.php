@@ -21,13 +21,23 @@
         <div>
             <div class="profcus" id="profcus">
                 <div class="item-01">
+                    <form action="{{route('user.upload')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
                     <div>
-                        <img class="user-image" src="{{asset("images/user.png")}}" alt="" id="profile-pic">
+                        @if(Auth::user()->profile)
+                            <img class="user-image" src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile Picture" id="profile-pic">
+                        @else
+                            <img class="user-image" src="{{ asset('images/user.png') }}" alt="Profile Picture" id="profile-pic">
+                        @endif
+
                     </div>
-                    <div class="insertImg">
-                        <label class="upload-img-button" for="input-file">Update Image</label>
-                        <input class="input" type="file" accept="image/jpg, image/png, image/jpeg" id="input-file">
-                    </div>
+                   
+                        <div class="insertImg">
+                            <label class="upload-img-button" for="input-file">Update Image</label>
+                            <input class="input" type="file" name="profilepic" accept="image/jpg, image/png, image/jpeg" id="input-file">
+                            <button type="submit">Save</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="item-02">
                     <div><span>{{ $username }}</span></div>
@@ -74,14 +84,20 @@
                 <div class="item-10">
                     <h4>Address</h4>
                 </div>
+
+                <div class="item-11-1">
+                    <div><span>Province</span></div>
+                    <span>{{$province}}</span>
+                </div>
+
                 <div class="item-11">
                     <div><span></span>City</div>
-                    <span class="country">{{$city}}</span>
+                    <span class="city">{{$city}}</span>
                 </div>    
 
                 <div class="item-12">
                     <div><span>Baranggay</span></div>
-                    <span class="city">{{$baranggay}}</span>
+                    <span class="baranggay">{{$baranggay}}</span>
                 </div>
                     
                 <div class="item-13">
@@ -91,13 +107,9 @@
                     
                 <div class="item-14">
                     <div><span>Purok</span></div>
-                    <span class="baranggay">{{$purok}}</span>
+                    <span class="purok">{{$purok}}</span>
                 </div> 
                     
-                <div class="item-15">
-                    <div><span></span></div>
-                    <span class="purok"></span>
-                </div>
             </div>
             </div>
 
@@ -133,42 +145,43 @@
                         <h2>Change Location</h2>
                     </div>
                     
-    
+                    <div class="item-31-1">
+                        <select name="Province" id="provinceSelect">
+                            <option value="">Choose a Province</option>
+                        </select>
+                    </div>
+
                     <div class="item-32">
-                        <input type="text" required="required" name="City">
-                        <span>City</span>
-                        <i></i>
+                        <select name="City" id="citySelect" required disabled>
+                            <option value="">Choose a city</option>
+                        </select>
                     </div>
-    
+            
                     <div class="item-33">
-                        <input type="text" required="required" name="ZipCode">
-                        <span>Zip Code</span>
-                        <i></i>
+                        <input type="text" name="ZipCode" id="zipcode"  required placeholder="ZipCode">
                     </div>
-    
+            
                     <div class="item-34">
-                        <input type="text" required="required" name="Baranggay">
-                        <span>Baranggay</span>
-                        <i></i>
+                        <select name="Baranggay" id="baranggaySelect" disabled required>
+                            <option value="">Choose a barangay</option>
+                        </select>
                     </div>
-    
+            
                     <div class="item-35">
-                        <input type="text" required="required" name="Purok">
-                        <span>Purok</span>
+                        <input type="text" required name="Purok" id="purokInput" placeholder="Purok" disabled>
                         <i></i>
                     </div>
-    
+            
                     <div class="item-36">
-                        <button>
+                        <button type="submit">
                             <span>Change Address</span>
                         </button>
                     </div>
-    
                 </div>
-    
             </form>
       </div>
   </div>
   <script src="{{asset("js/customer-profile.js")}}"></script>
+  <script src="{{asset("js/customerJS.js")}}"></script>
 </body>
 </html>

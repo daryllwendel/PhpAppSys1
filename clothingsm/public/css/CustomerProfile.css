@@ -43,7 +43,16 @@ body{
 }
 .insertImg{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.insertImg button{
+    font-size: 12px;
+    padding: 10px 20px 10px 20px;
+    background: #d2d2d2;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    transition: 0.2s ease
 }
 .item-01{
     grid-row: 1 / 4;
@@ -74,7 +83,6 @@ body{
     margin: 10px 10px 10px 10px;
     height: 200px;
     width: 200px;
-    background: black;
     border-radius: 50%;
 }
 .input{
@@ -122,12 +130,12 @@ body{
     grid-column: 1 / 4;
     justify-items:center;
 }
-.item-11,.item-12,.item-13,.item-14,.item-15,.item-16{
+.item-11,.item-12,.item-13,.item-14,.item-15,.item-16,.item-11-1{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 17px;
     margin-left: 70px;
 }
-.item-11 div,.item-12 div,.item-13 div,.item-14 div,.item-15 div,.item-16 div{
+.item-11 div,.item-12 div,.item-13 div,.item-14 div,.item-15 div,.item-16 div, .item-11-1 div{
     color: gray;
 }
 .changepass{
@@ -219,7 +227,7 @@ body{
 }
 .location{
     display: grid;
-    margin-left: 160px;
+    margin-left: 130px;
     height: fit-content;
     grid-template-columns:  500px 200px;
     grid-template-rows: 100px 100px 100px 100px 100px 100px 100px;
@@ -233,6 +241,42 @@ body{
 .item-30,.item-31,.item-34,.item-35,.item-36{
     grid-column: 1 / 3;
 }
+.item-31-1, .item-34{
+    grid-column: 1/3;
+}
+.item-31-1 select{
+    border: 0;
+    outline: none;
+    margin-left: 25px;  
+    height: 30px;
+    width: 90%;
+}
+.item-32 select{
+    height: 30px;
+    width: 95%;
+    border: 0;
+    outline: none;
+}
+.item-33 input{
+    height: 30px;
+    width: 95%;
+    border: 0;
+    outline: none;
+}
+.item-34 select{
+    border: 0;
+    outline: none;
+    margin-left: 25px;
+    height: 30px;
+    width: 90%;
+}
+.item-35 input{
+    border: 0;
+    outline: none;
+    margin-left: 25px;
+    height: 30px;
+    width: 90%;
+}
 .item-32{
     grid-column: 2 / 1;
 }
@@ -240,68 +284,10 @@ body{
     grid-column: 2 / 2;
     left: -50px;
 }
-.item-31,.item-32, .item-33,.item-34,.item-35,.item-36{
+.item-31,.item-32, .item-33,.item-36{
     position: relative;
     width:80%;
     margin-left: 30px;
-}
-
-.item-31 input,.item-32 input, .item-33 input,.item-34 input,.item-35 input,.item-36 input{
-    position: relative;
-    width: 100%;
-    padding: 20px 10px 10px;
-    background: transparent;
-    outline: none;
-    box-shadow: none;
-    border: none;
-    color: #000;
-    font-size: 1em;
-    letter-spacing: 0.05em;
-    transition: 0.5s;
-    z-index: 10;
-    border-bottom: 1px solid black;
-}
-
-.item-31 span,.item-32 span,.item-33 span,.item-34 span,.item-35 span{
-    position: absolute;
-    left: 0;
-    padding: 20px 10px 10px;
-    font-size: 1em;
-    color: #8f8f8f;
-    letter-spacing: 00.05em;
-    transition: 0.5s;
-    pointer-events: none;
-    margin-top: -50px;
-}
-
-.item-31 i,.item-32 i, .item-33 i,.item-34 i,.item-35 i{
-    display: flex;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    border-radius: 40px;
-    transition: 0.5s;
-    pointer-events: none;
-    z-index: 9;
-    top:10px;
-}
-
-.item-31 input:valid~span,.item-32 input:valid~span, .item-33 input:valid~span,
-.item-34 input:valid~span,.item-35 input:valid~span,.item-36 input:valid~span,
-.item-31 input:focus~span ,.item-32 input:focus~span, .item-33 input:focus~span,
-.item-34 input:focus~span,.item-35 input:focus~span {
-    color: #000;
-    transform: translateX(-10px) translateY(-36px);
-    font-size: 0.75rem;
-}
-
-.item-31 input:valid~i,.item-32 input:valid~i, .item-33 input:valid~i,
-.item-34 input:valid~i,.item-35 input:valid~i,.item-36 input:valid~i,
-.item-31 input:focus~i,.item-32 input:focus~i, .item-33 input:focus~i,
-.item-34 input:focus~i,.item-35 input:focus~i {
-    height: 44px;
 }
 .item-36{
     display: grid;
