@@ -41,7 +41,7 @@
                 </div>
                 <div class="item-02">
                     <div><span>{{ $username }}</span></div>
-                    <span>{{ $name}}</span>
+                    <span class="name121">{{ $name}}</span>
                 </div>
             </div>
                     
@@ -112,23 +112,25 @@
                     
             </div>
             </div>
-
+ 
+           <form action="/changepass" method="POST">
+            @csrf
             <div class="changepass">
                 <div class="item-20"><h2>Change Password</h2></div>
                 <div class="item-21">
-                    <input type="text" required="required">
+                    <input type="text" required="required" name="newpass" id="newpass">
                     <span>New Password</span>
                     <i></i>
                 </div>
 
                 <div class="item-22">
-                    <input type="text" required="required">
+                    <input type="text" required="required" name="renewpass" id="renewpass">
                     <span>Re-enter new password</span>
                     <i></i>
                 </div>
 
                 <div class="item-23">
-                    <input type="text" required="required">
+                    <input type="text" required="required" name="currpass" id="currpass">
                     <span>Current password</span>
                     <i></i>
                 </div>
@@ -137,6 +139,7 @@
                     <button><span>Change Password</span></button>
                 </div>
             </div>
+           </form>
 
             <form action="/location" method="POST">
                 @csrf

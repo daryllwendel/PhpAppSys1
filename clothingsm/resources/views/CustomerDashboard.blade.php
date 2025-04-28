@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Home</title>
+  <title>Smclothing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="{{asset("css/CustomerHome.css")}}">
   <link rel="stylesheet" href="{{asset("css/CustomerAddADesign-display.css")}}">
@@ -33,7 +33,7 @@
           <img src="{{ asset('images/user.png') }}" alt="Profile Picture">
       @endif
       <button><p class="customer-name">{{ $user->username }}</p>
-      <p>{{ $user->name}}</p></button>
+      <p class="name12">{{ $user->name}}</p></button>
       <a href="../../../login" class="login-button">Log Out</a>
       <span class="material-symbols-outlined" id="cartbutton">
         shopping_cart

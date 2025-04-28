@@ -47,4 +47,18 @@ class addressform extends Controller
         $user->save();
         return back()->with('success', 'Image uploaded!');
     }
+
+    public function changepass(Request $request){
+       $field = $request->validate([
+            'newpass' => 'required',
+            'renewpass' => 'required',
+            'currpass' => 'required'
+        ]);
+        $user = Auth::user();
+
+        $user->password = $field['newpass'];
+
+        $user->save();
+        return redirect('/CustomerDashboard');
+    }
 }

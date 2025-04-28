@@ -37,6 +37,12 @@ body{
     transition: 0.2s ease;
     cursor: pointer;
 }
+.name12{
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .userNav button{
     display: flex;
     flex-flow: column wrap;

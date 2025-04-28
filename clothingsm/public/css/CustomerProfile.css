@@ -257,6 +257,19 @@ body{
     border: 0;
     outline: none;
 }
+.name121{
+    width: 170%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+.CustomerFname {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: visible;
+    display: block;
+}
 .item-33 input{
     height: 30px;
     width: 95%;

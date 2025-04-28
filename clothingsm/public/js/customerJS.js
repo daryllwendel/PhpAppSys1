@@ -389,7 +389,88 @@ function profilepic(){
         }
     });
 }
-        
+function changepass() {
+  const changepassForm = document.querySelector('#changepassform'); // Select the form correctly
+const msg = document.getElementById('changepassMsg'); // Message container
+
+changepassForm.addEventListener('submit', async e => {
+    e.preventDefault();  
+
+    msg.className = 'msg';
+    msg.textContent = 'Updating…';
+
+    const currpass = changepassForm.currpass.value;
+    const newpass = changepassForm.newpass.value;
+    const renewpass = changepassForm.renewpass.value;
+
+    if (!currpass) {
+        msg.classList.add('error');
+        msg.textContent = 'Current password is required.';
+        return;
+    }
+
+    if (!newpass) {
+        msg.classList.add('error');
+        msg.textContent = 'New password is required.';
+        return;
+    }
+
+    if (!renewpass) {
+        msg.classList.add('error');
+        msg.textContent = 'Please retype the new password.';
+        return;
+    }
+
+    if (newpass !== renewpass) {
+        msg.classList.add('error');
+        msg.textContent = 'New passwords do not match.';
+        return;
+    }
+
+    const payload = new URLSearchParams({
+        currpass: currpass,
+        newpass: newpass,
+        renewpass: renewpass,
+        _token: changepassForm._token.value
+    });
+
+    const ajaxURL = '/ajax/changepass'; // correct endpoint
+
+    try {
+        const r = await fetch(ajaxURL, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: payload
+        });
+
+        const data = await r.json();
+
+        if (r.ok && data.ok) {  // Check the 'ok' field from backend
+            msg.classList.add('ok');
+            msg.textContent = data.message || 'Password validated successfully!'; // Display message
+            setTimeout(() => {
+                window.location = '/CustomerDashboard';
+            }, 1200);
+        } else {
+            msg.classList.add('error');
+            msg.textContent = data.message || 'Failed to validate password.'; // Use 'message' instead of 'error'
+        }
+
+    } catch (err) {
+        msg.classList.add('error');
+        msg.textContent = 'Server error – please try again.';
+        console.error(err);
+    }
+});
+
+
+
+}
+
+
+
+
+          
 
 
 
@@ -414,6 +495,7 @@ document.addEventListener("DOMContentLoaded", function(){
 document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("add").addEventListener("click", adddesign)
 })
+
 
 
 
