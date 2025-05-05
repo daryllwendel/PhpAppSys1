@@ -40,10 +40,11 @@
 </div>
 
    
-    <div>
-        <form action="/adddesign" method="POST">
-            <div class="additem">
+    <body>
         
+            <div class="additem">
+                <form action="/adddesign" method="POST">
+                    @csrf
                 <div class="reject">
                     <button> X </button>
                     <span>Add Stock</span>
@@ -70,10 +71,10 @@
                 <div class="sample1">
                     <img src="{{ asset('images/sampleimage2.png') }}">
                     <button type="submit">Add Stock</button>
-                </div>
+                </div></form>
             </div>
-        </form>
-    </div>
+        
+    </body>
  
 
 <div class="edititem">
@@ -89,7 +90,7 @@
 
     <div class="productid2">
         <input type="text" required="required" readonly>
-        <span>{{$count + 1}}</span>
+        <span></span>
         <i></i>
     </div>
 
@@ -126,7 +127,7 @@
 
     <div class="productid3">
         <input type="text" required="required" readonly>
-        <span>{{$count +1}}</span>
+        <span></span>
         <i></i>
     </div>
 
