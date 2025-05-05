@@ -2,11 +2,11 @@
 
 
 use App\Http\Controllers\addressform;
-use App\Http\Controllers\passwordcontroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerform;
 
 use function Laravel\Prompts\password;
+use App\Http\Controllers\passwordcontroller;
 
 Route::get('/', function(){
     return view('LandingPage');

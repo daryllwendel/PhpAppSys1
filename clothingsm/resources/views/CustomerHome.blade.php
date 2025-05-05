@@ -29,7 +29,7 @@
     <div class="hotDesigns">
       <div class="hotDesigns-container swiper">
         <div class="card-wrapper">
-          <ul class="card-list swiper-wrapper">
+          <ul ul class="card-list swiper-wrapper">
             <li class="card-item swiper-slide">
               <a href="" class="card-link" id="card-link">
                 <img src="{{asset("images/sampleimg.png")}}" alt="" class="card-image">
