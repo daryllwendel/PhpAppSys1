@@ -19,8 +19,6 @@ class addressform extends Controller
             'ZipCode' => 'required',
             'Baranggay' => 'required'
         ]); 
-    
-        $field['Province']= $field['Purok'] =$field['City']=$field['ZipCode']=$field['Baranggay']= bcrypt($field['Province']);
         $user = Auth::user();
 
         $user->Province = $field['Province'];

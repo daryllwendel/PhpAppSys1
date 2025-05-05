@@ -12,16 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->id('orderId');
+            $table->unsignedBigInteger('customerId');
+            $table->unsignedBigInteger('paymentMethodId');
+            $table->timestamp('dateOrdered')->useCurrent();
+            $table->enum('deliveryStatus', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending');
             $table->timestamps();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            
+            $table->foreign('customerId')->references('customerId')->on('users')->onDelete('cascade');
+            $table->foreign('paymentMethodId')->references('paymentMethodId')->on('payment_methods')->onDelete('restrict');
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('orders');
     }

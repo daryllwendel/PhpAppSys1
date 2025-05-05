@@ -63,7 +63,7 @@
           <div class="swiper-slide-button swiper-button-next"></div>
         </div>
       </div>
-      <a href="" class="explore-new-button">Explore New Designs</a>
+      <a href="" id="explore" class="explore-new-button">Explore New Designs</a>
     </div>
     <div class="subTitle2">
       <div></div>
@@ -109,7 +109,7 @@
       </div>
       <div class="newDesigns-selection-container">
         <a class="add-design-button" id="add-design-button" href="#"><img src="../images/add-design.png" alt="">Add A Design</a>
-        <a href="" class="customize-design-button"><img src="{{asset("images/custom-design.png")}}" alt="">Customize a Design</a>
+        <a href="#" id="customize-design-button" class="customize-design-button"><img src="{{asset("images/custom-design.png")}}" alt="">Customize a Design</a>
       </div>
     </div>
   </div>

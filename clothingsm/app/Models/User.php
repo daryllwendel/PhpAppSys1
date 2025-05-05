@@ -17,6 +17,8 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    protected $primaryKey = 'customerId';
+
     protected $fillable = [
         'username',
         'name',
@@ -28,6 +30,8 @@ class User extends Authenticatable
         'Baranggay', 
         'Purok',
         'Pronvince',
+        'name',
+        'price',
     ];
 
     /**

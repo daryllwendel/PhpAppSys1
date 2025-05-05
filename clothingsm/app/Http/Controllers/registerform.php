@@ -59,7 +59,7 @@ class registerform extends Controller
             'email' => ['required','email', Rule::unique('users', 'email')],
             'mobile_number'=>['required', 'min:11', 'max:11'],
             'password' =>  ['required', 'min:8', 'max:200'],
-        ]);
+        ]); 
         $field['password'] = bcrypt($field['password']);
         $user = User::create($field);
         Auth::login($user);

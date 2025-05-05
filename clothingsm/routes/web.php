@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\addressform;
+use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerform;
 
@@ -23,9 +24,10 @@ Route::get('/dashboarddisplay', function () {
 Route::get('/orders', function(){
     return view('orders');
 });
-Route::get('/product', function(){
-    return view('product');
+Route::middleware(['auth'])->group(function(){
+    Route::get('/product', [AdminDashboardController::class, 'productid']);
 });
+
 Route::get('/report', function(){
     return view('report');
 });
@@ -85,5 +87,6 @@ Route::post('/login', [registerform::class, 'login'])->name('login');
 Route::post('/location', [addressform::class,'locations']);
 Route::post('/upload-profile', [addressform::class, 'profilepicture'])->name('user.upload');
 Route::post('/changepass', [passwordcontroller::class, 'changepass'])->name('changepass');
+Route::post('/adddesign',[AdminDashboardController::class, 'adddesign']);
 
 Route::post('/ajax/login', [registerform::class, 'ajaxLogin'])->name('ajax.login');

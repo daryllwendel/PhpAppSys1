@@ -38,42 +38,43 @@
     </div>
 
 </div>
-<div class="additem">
-    <div class="reject">
-        <button> X </button>
-        <span>Add Stock</span>
-    </div>
 
-    <div class="sample1">
-        <img src="{{ asset('images/sampleimage2.png') }}">
-        <button><span>Add Stock</span></button>
+   
+    <div>
+        <form action="/adddesign" method="POST">
+            <div class="additem">
+        
+                <div class="reject">
+                    <button> X </button>
+                    <span>Add Stock</span>
+                </div>
+            
+                <div class="productid">
+                    <input type="text" required="required" readonly>
+                    <span>{{$count + 1}}</span>
+                    <i></i>
+                </div>
+            
+                <div class="name1">
+                    <input type="text" required="required" name="name">
+                    <span>Name</span>
+                    <i></i>
+                </div>
+            
+                <div class="price1">
+                    <input type="text" required="required" name="price">
+                    <span>Price</span>
+                    <i></i>
+                </div>
+            
+                <div class="sample1">
+                    <img src="{{ asset('images/sampleimage2.png') }}">
+                    <button type="submit">Add Stock</button>
+                </div>
+            </div>
+        </form>
     </div>
-
-    <div class="productid">
-        <input type="text" required="required">
-        <span>Product ID</span>
-        <i></i>
-    </div>
-
-    <div class="name1">
-        <input type="text" required="required">
-        <span>Name</span>
-        <i></i>
-    </div>
-
-    <div class="price1">
-        <input type="text" required="required">
-        <span>Price</span>
-        <i></i>
-    </div>
-
-
-    <div class="category1">
-        <input type="text" required="required">
-        <span>Catergory</span>
-        <i></i>
-    </div>
-</div>
+ 
 
 <div class="edititem">
     <div class="reject2">
@@ -87,8 +88,8 @@
     </div>
 
     <div class="productid2">
-        <input type="text" required="required">
-        <span>Product ID</span>
+        <input type="text" required="required" readonly>
+        <span>{{$count + 1}}</span>
         <i></i>
     </div>
 
@@ -124,8 +125,8 @@
     </div>
 
     <div class="productid3">
-        <input type="text" required="required">
-        <span>Product ID</span>
+        <input type="text" required="required" readonly>
+        <span>{{$count +1}}</span>
         <i></i>
     </div>
 

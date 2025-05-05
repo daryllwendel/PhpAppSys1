@@ -37,7 +37,7 @@
         </div>
     </div>
 
-</div>
+</div> 
 <div class="title1" id="title1">
     <div>Dashboard</div>
     <img src="{{ asset('images/profile.jpg') }}" alt="">

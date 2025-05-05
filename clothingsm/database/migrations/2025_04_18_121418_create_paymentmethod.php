@@ -11,19 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clothes', function (Blueprint $table) {
-            $table->id();
+        Schema::create('payment_methods', function (Blueprint $table) {
+            $table->id('paymentMethodId');
+            $table->string('paymentName');
             $table->timestamps();
-            $table->string('title');
-            $table->foreignId('user_id')->constrained();
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('clothes');
+        Schema::dropIfExists('payment_methods');
     }
 };

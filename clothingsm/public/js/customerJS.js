@@ -222,6 +222,12 @@ function initCartListeners() {
               document.body.appendChild(overlay);
             }
           }
+          document.getElementById('add-design-button').addEventListener('click',function(){
+            adddesign()
+          })
+          document.getElementById('customize-design-button').addEventListener('click', function(){
+            adddesign()
+          })
   
           swipe(); 
           initCartListeners();

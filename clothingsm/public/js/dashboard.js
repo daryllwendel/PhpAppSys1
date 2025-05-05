@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, "text/html");
 
-                const dashboardContent = doc.querySelector(".productcontent");
+                const dashboardContent = doc.querySelector(".productcontainer");
                 const deleteitem = doc.querySelector(".deleteitem");
                 const edititem = doc.querySelector(".edititem");
                 const additem = doc.querySelector(".additem")
