@@ -114,7 +114,6 @@
   #body1{
     width: 100%;
     max-width: 100%;
-    flex-grow: 1;
     background-color: white !important;
   }
   

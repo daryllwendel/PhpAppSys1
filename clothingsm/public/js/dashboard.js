@@ -78,64 +78,120 @@ function loadCharts() {
         });
     }
 }
+function profilepic(){
+    const inputFile = document.getElementById("addimg");
+    const profilePic = document.getElementById("newimg");
 
-function optionitem(){
-    const additem = document.querySelector(".addbutton")
-    const deleteitem = document.querySelector(".deletebutton");
-    const edititem = document.querySelectorAll("#editbutton");
+    inputFile.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                profilePic.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+function profilepic1(){
+    const inputFile = document.getElementById("editimg");
+    const profilePic = document.querySelector(".img2");
+
+    inputFile.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                profilePic.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+function optionitem() {
+    const additem = document.querySelector(".addbutton");
+    const deleteitem = document.querySelectorAll(".deletebutton");
+    const edititem = document.querySelectorAll(".editbutton");
 
     const add = document.querySelector(".additem");
     const close1 = document.querySelector(".reject button");
 
     const edit = document.querySelector(".edititem");
-    const close2 = document.querySelector(".reject2 button");
+    const close2 = document.querySelector("#closeEditModal");
 
     const delete2 = document.querySelector(".deleteitem");
     const close3 = document.querySelector(".reject3 button");
 
-    const productcontainer =document.querySelector(".productcontainer");
-    const item3 = document.querySelector(".items-3");
-    const item4 = document.querySelector(".items-3 img");
+    const productcontainer = document.querySelector(".productcontainer");
 
+    // Show "Add Item" Modal
     additem.addEventListener("click", function () {
         add.style.display = "grid";
-        productcontainer.style.filter="blur(10px)"
-        productcontainer.style.pointerEvents="none";
-    })
+    });
 
     close1.addEventListener("click", function () {
         add.style.display = "none";
-        productcontainer.style.filter="blur(0)"
-        productcontainer.style.pointerEvents="auto";
-    })
+    });
 
+    // Show "Edit Item" Modal
     edititem.forEach(button => {
         button.addEventListener("click", function () {
+            const productId = button.getAttribute('data-id');
+            const productName = button.getAttribute('data-name');
+            const productPrice = button.getAttribute('data-price');
+            const productType = button.getAttribute('data-type');
+            const productPrintType = button.getAttribute('data-printtype');
+            const productImg = button.getAttribute('data-productImg');
+
+            document.getElementById("editProductImage1").src = productImg;
+            document.getElementById("editId").value = productId;
+            document.getElementById("editName").value = productName;
+            document.getElementById("editPrice").value = productPrice;
+            document.getElementById("editCategory").value = productType;
+            document.getElementById("printType1").value = productPrintType;
+
             edit.style.display = "grid";
             productcontainer.style.filter = "blur(10px)";
-            productcontainer.style.pointerEvents="none";
+            productcontainer.style.pointerEvents = "none";
         });
     });
 
     close2.addEventListener("click", function () {
         edit.style.display = "none";
-        productcontainer.style.filter="blur(0)"
-        productcontainer.style.pointerEvents="auto";
-    })
+        productcontainer.style.filter = "none";
+        productcontainer.style.pointerEvents = "auto";
+    });
 
-    deleteitem.addEventListener("click", function () {
-        delete2.style.display = "grid";
-        productcontainer.style.filter="blur(10px)"
-        productcontainer.style.pointerEvents="none";
+    // Show "Delete Item" Modal
+    deleteitem.forEach(button => {
+        button.addEventListener("click", function () {
+            const productId = button.getAttribute('data-id');
+            const productName = button.getAttribute('data-name');
+            const productPrice = button.getAttribute('data-price');
+            const productType = button.getAttribute('data-type');
+            const productPrintType = button.getAttribute('data-printtype');
+            const productImg = button.getAttribute('data-productImg');
 
-    })
+            document.getElementById("deleteProductImage").src = productImg;
+            document.getElementById("deleteId").value = productId;
+            document.getElementById("deleteName").value = productName;
+            document.getElementById("deletePrice").value = productPrice;
+            document.getElementById("deleteType").value = productType;
+            document.getElementById("deletePrintType").value = productPrintType;
+
+            delete2.style.display = "grid";
+            productcontainer.style.filter = "blur(10px)";
+            productcontainer.style.pointerEvents = "none";
+        });
+    });
 
     close3.addEventListener("click", function () {
         delete2.style.display = "none";
-        productcontainer.style.filter="blur(0)"
-        productcontainer.style.pointerEvents="auto";
-    })
+        productcontainer.style.filter = "none";
+        productcontainer.style.pointerEvents = "auto";
+    });
 }
+
 function loaddashboard(){
         fetch("/dashboarddisplay")
         .then(res => res.text())
@@ -202,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, "text/html");
 
-                const dashboardContent = doc.querySelector(".productcontainer");
+                const dashboardContent = doc.querySelector(".productcontent");
                 const deleteitem = doc.querySelector(".deleteitem");
                 const edititem = doc.querySelector(".edititem");
                 const additem = doc.querySelector(".additem")
@@ -218,6 +274,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     content.appendChild(edititem);
                     content.appendChild(additem);
                     optionitem();
+                    profilepic()
+                    profilepic1()
                 } else {
                     console.error("The element .productscontainer was not found.");
                     console.log(dashboardContent)

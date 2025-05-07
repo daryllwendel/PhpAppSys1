@@ -25,6 +25,8 @@ Route::get('/orders', function(){
     return view('orders');
 });
 Route::get('/product', [AdminDashboardController::class, 'productid'])->name('product');
+Route::put('/product', [AdminDashboardController::class, 'editProduct']);
+Route::delete('/deletedesign',[AdminDashboardController::class, 'deleteproduct']);
 
 Route::get('/report', function(){
     return view('report');
@@ -86,5 +88,5 @@ Route::post('/location', [addressform::class,'locations']);
 Route::post('/upload-profile', [addressform::class, 'profilepicture'])->name('user.upload');
 Route::post('/changepass', [passwordcontroller::class, 'changepass'])->name('changepass');
 Route::post('/adddesign', [AdminDashboardController::class, 'adddesign']);
-
+// Route::post('/editdesign', [AdminDashboardController::class, 'editdesign'])->name('editdesign');
 Route::post('/ajax/login', [registerform::class, 'ajaxLogin'])->name('ajax.login');
