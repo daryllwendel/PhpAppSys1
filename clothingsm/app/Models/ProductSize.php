@@ -14,7 +14,10 @@ class ProductSize extends Model
         'size'
     ];
 
-    // Relationship with Product
+    public $incrementing = false;
+    
+    protected $primaryKey = ['product_id', 'size'];
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'productId');

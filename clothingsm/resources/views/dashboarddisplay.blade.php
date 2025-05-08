@@ -145,7 +145,7 @@
         <div class="totalproduct">
             <img src="{{ asset('images/cart.png') }}">
             <h4>TOTAL PRODUCTS</h4>
-            <h2>40</h2>
+            <h2>{{$count}}</h2>
         </div>
 
         <div class="totalorder">

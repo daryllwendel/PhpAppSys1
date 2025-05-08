@@ -19,85 +19,48 @@
                 <button class="addbutton"><img src="{{ asset('images/cart.png') }}" alt="Add"></button>
             </div>
     
-            <div class="items-3">
-                <!-- Hidden original table structure -->
-                <table class="table table-bordered table-striped" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Type</th>
-                            <th>Print Type</th>
-                        </tr>
-                    </thead>
-    
-                    <tbody>
-                        @foreach ($products as $item)
-                            <tr>
-                                <td><img src="{{ asset('storage/' . $item->productImg) }}" width="70px" height="70px" alt=""></td>
-                                <td>{{$item->productId}}</td>
-                                <td>{{$item->name}}</td>
-                                <td>{{$item->price}}</td>
-                                <td>{{$item->type}}</td>
-                                <td>{{$item->printType}}</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm editbutton" 
-                                    data-id="{{ $item->productId }}" 
-                                    data-name="{{ $item->name }}" 
-                                    data-price="{{ $item->price }}" 
-                                    data-type="{{ $item->type }}" 
-                                    data-printtype="{{ $item->printType }}" 
-                                    data-productImg= "{{ asset('storage/' . $item->productImg) }}"
-                                    id="editbutton">Edit
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger btn-sm deletebutton" 
-                                    data-id="{{ $item->productId }}" 
-                                    data-name="{{ $item->name }}" 
-                                    data-price="{{ $item->price }}" 
-                                    data-type="{{ $item->type }}"
-                                    data-productImg= "{{ asset('storage/' . $item->productImg) }}"
-                                    data-printtype="{{ $item->printType }}" 
-                                    id="deletebutton">Delete
-                                    </button>
-                                </td>
-                            </tr> 
-                        @endforeach
-                    </tbody>
-                </table>
-                
-                <!-- New grid-based product display -->
-                @foreach ($products as $item)
-                <div class="product-card">
-                    <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}">
-                    <div class="product-actions">
-                        <button class="edit-btn editbutton" 
-                            data-id="{{ $item->productId }}" 
-                            data-name="{{ $item->name }}" 
-                            data-price="{{ $item->price }}" 
-                            data-type="{{ $item->type }}" 
-                            data-printtype="{{ $item->printType }}" 
-                            data-productImg= "{{ asset('storage/' . $item->productImg) }}"
-                            id="editbutton">EDIT
-                        </button>
-                        <button class="delete-btn deletebutton" 
-                            data-id="{{ $item->productId }}" 
-                            data-name="{{ $item->name }}" 
-                            data-price="{{ $item->price }}" 
-                            data-type="{{ $item->type }}"
-                            data-productImg= "{{ asset('storage/' . $item->productImg) }}"
-                            data-printtype="{{ $item->printType }}" 
-                            id="deletebutton">DELETE
-                        </button>
-                    </div>
-                </div>
+            <!-- Update this part in the items-3 div of your HTML -->
+<div class="items-3">
+    <!-- Product cards grid layout -->
+    @foreach ($products as $item)
+    <div class="product-card">
+        <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}">
+        <div class="product-info">
+            <div class="product-name">{{ $item->name }}</div>
+            <div class="product-type">Type: {{ $item->printType }}</div>
+            <div class="product-sizes">
+                @php
+                    $sizes = App\Models\ProductSize::where('product_id', $item->productId)->get();
+                @endphp
+                Sizes: 
+                @foreach($sizes as $size)
+                    <span class="size-badge">{{ $size->size }}</span>
                 @endforeach
             </div>
         </div>
+        <div class="product-actions">
+            <button class="edit-btn editbutton" 
+                data-id="{{ $item->productId }}" 
+                data-name="{{ $item->name }}" 
+                data-price="{{ $item->price }}" 
+                data-type="{{ $item->type }}" 
+                data-printtype="{{ $item->printType }}" 
+                data-productImg="{{ asset('storage/' . $item->productImg) }}"
+                id="editbutton">EDIT
+            </button>
+            <button class="delete-btn deletebutton" 
+                data-id="{{ $item->productId }}" 
+                data-name="{{ $item->name }}" 
+                data-price="{{ $item->price }}" 
+                data-type="{{ $item->type }}"
+                data-productImg="{{ asset('storage/' . $item->productImg) }}"
+                data-printtype="{{ $item->printType }}" 
+                id="deletebutton">DELETE
+            </button>
+        </div>
     </div>
+    @endforeach
+</div>
     
     <!-- Modal overlay -->
     <div class="modal-overlay" id="modalOverlay"></div>
@@ -143,6 +106,18 @@
                     <option value="embroidery">Embroidery</option>
                     <option value="print">Print</option>
                 </select>
+            </div>
+
+            <div class="sizes">
+                <span>Available Sizes:</span>
+                <div class="size-options">
+                    <label><input type="checkbox" name="sizes[]" value="XS"> XS</label>
+                    <label><input type="checkbox" name="sizes[]" value="S"> S</label>
+                    <label><input type="checkbox" name="sizes[]" value="M"> M</label>
+                    <label><input type="checkbox" name="sizes[]" value="L"> L</label>
+                    <label><input type="checkbox" name="sizes[]" value="XL"> XL</label>
+                    <label><input type="checkbox" name="sizes[]" value="XXL"> XXL</label>
+                </div>
             </div>
         
             <div class="sample1">
@@ -201,6 +176,18 @@
                     <option value="print">Print</option>
                 </select>
             </div>
+
+            <div class="sizes">
+                <span>Available Sizes:</span>
+                <div class="size-options">
+                    <label><input type="checkbox" name="sizes[]" value="XS"> XS</label>
+                    <label><input type="checkbox" name="sizes[]" value="S"> S</label>
+                    <label><input type="checkbox" name="sizes[]" value="M"> M</label>
+                    <label><input type="checkbox" name="sizes[]" value="L"> L</label>
+                    <label><input type="checkbox" name="sizes[]" value="XL"> XL</label>
+                    <label><input type="checkbox" name="sizes[]" value="XXL"> XXL</label>
+                </div>
+            </div>
     
             <button type="submit" class="submit-btn">Update Stock</button>
         </form>
@@ -248,3 +235,4 @@
         </form>
     </div>
 </html>
+

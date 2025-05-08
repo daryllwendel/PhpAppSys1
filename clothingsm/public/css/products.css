@@ -2,7 +2,9 @@
 .name3 input, .price3 input, .type2 input, .printtype2 input {
   background-color: #f9f9f9;
   cursor: not-allowed;
-}body {
+}
+
+body {
   width: 100%;
   max-width: 100%;
   background: #f5f5f5;
@@ -95,7 +97,7 @@
   overflow-y: auto;
 }
 
-/* Fixed Product card styling with consistent dimensions */
+/* Updated Product card styling to match the image */
 .items-3 .product-card {
   position: relative;
   background: white;
@@ -104,43 +106,115 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  height: 300px; /* Fixed height for all cards */
-  width: 100%; /* Full width within grid cell */
+  height: auto;
+  width: 100%;
+}
+
+/* First item with pink background */
+.items-3 .product-card:first-child {
+  background: white; /* Changed from pink to white like other cards */
+  padding: 0; /* Remove extra padding */
+  border-radius: 8px; /* Match other cards */
 }
 
 .items-3 .product-card img {
   width: 100%;
-  height: 250px; /* Fixed height for images */
-  object-fit: cover; /* Maintain aspect ratio without distortion */
+  background: #f0f0f0;
+  object-fit: contain;
   display: block;
+  padding: 5px;
+  height: 180px;
 }
 
-.items-3 .product-actions {
+.items-3 .product-card:first-child img {
+  background-color: #f0f0f0; /* Match other cards */
+  border-radius: 0; /* Match other cards */
+}
+
+.items-3 .product-info {
+  padding: 10px;
+  background: transparent;
+}
+
+.items-3 .product-name {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.items-3 .product-type {
+  font-size: 0.9em;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.items-3 .product-sizes {
   display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  background: rgba(255, 192, 203, 0.7);
-  margin-top: auto; /* Push to bottom */
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
 }
 
-.items-3 .product-actions button {
+.items-3 .size-badge {
+  background: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  color: #333;
+}
+
+.items-3 .product-card:first-child .product-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px 0;
+  margin-top: 5px;
+}
+
+.items-3 .product-card .product-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0;
+  opacity: 0; /* Hide by default */
+  transition: opacity 0.3s ease;
+}
+
+/* Show actions on hover */
+.items-3 .product-card:hover .product-actions {
+  opacity: 1;
+}
+
+/* Style buttons consistently for all cards */
+.items-3 .product-card .product-actions button {
   padding: 5px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 0.8em;
+  text-transform: uppercase;
 }
 
-.items-3 .product-actions .edit-btn {
-  background: #4CAF50;
+.items-3 .product-card .product-actions .edit-btn {
+  background: #2196F3;
   color: white;
 }
 
-.items-3 .product-actions .delete-btn {
+.items-3 .product-card .product-actions .delete-btn {
   background: #f44336;
   color: white;
 }
 
+/* Add a subtle hover effect to product cards */
+.items-3 .product-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.items-3 .product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
 .sample1 input[type="file"] {
   display: none;
 }
@@ -166,13 +240,15 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  width: 450px;
-  max-width: 90%;
+  width: 600px;
+  max-width: 95%;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.2);
   z-index: 1000;
   display: none;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 /* Modal overlay background */
@@ -204,8 +280,8 @@
   color: #666;
   padding: 0;
   margin: 0;
-  order: -1; /* Makes button appear first */
-  margin-right: 20px; /* Gap between button and title */
+  order: -1;
+  margin-right: 20px;
 }
 
 .reject span, .reject2 span, .reject3 span {
@@ -218,6 +294,34 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+}
+
+/* Size choices styling */
+.size-choices {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.size-choices label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background: #f5f5f5;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.size-choices label:hover {
+  background: #e0e0e0;
+}
+
+.size-choices input[type="checkbox"] {
+  margin: 0;
 }
 
 .sample1, .sample2, .sample3 {
@@ -267,20 +371,21 @@
 .productid2 input, .productid3 input {
   background-color: #f9f9f9;
   cursor: not-allowed;
-  padding-top: 15px; /* Create space for label above */
+  padding-top: 15px;
 }
 
 .productid2 span, .productid3 span{
   position: absolute;
-  top: 0px; 
+  top: 0px;
   left: 0;
   font-size: 0.8rem;
   color: #333;
   transition: none;
 }
+
 .name3 span,.price3 span,.type2 span,.printtype2 span {
   position: absolute;
-  top: -15px; 
+  top: -15px;
   left: 0;
   font-size: 0.8rem;
   color: #333;
@@ -369,7 +474,7 @@
 
 /* Table styles - to be replaced with grid cards */
 .items-3 table {
-  display: none; /* Hide the table in favor of grid */
+  display: none;
 }
 
 /* Upload image styles for edit modal */
@@ -421,6 +526,10 @@
     grid-row: auto;
     grid-column: 1;
     margin-bottom: 20px;
+  }
+
+  .size-choices {
+    justify-content: center;
   }
 }
 

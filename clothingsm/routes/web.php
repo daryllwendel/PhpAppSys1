@@ -18,9 +18,8 @@ Route::get('/login', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-Route::get('/dashboarddisplay', function () {
-    return view('dashboarddisplay');
-});
+Route::get('/dashboarddisplay', [AdminDashboardController::class, 'productid'])->name('dashboarddisplay');
+
 Route::get('/orders', function(){
     return view('orders');
 });

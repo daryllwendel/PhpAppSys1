@@ -21,6 +21,7 @@ return new class extends Migration
             
             $table->foreign('orderId')->references('orderId')->on('orders')->onDelete('cascade');
             $table->foreign('productId')->references('productId')->on('products')->onDelete('restrict');
+            $table->foreign(['productId', 'size'])->references(['product_id', 'size'])->on('product_sizes')->onDelete('restrict');
         });
     }
 

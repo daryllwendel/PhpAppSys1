@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_sizes', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('product_id');
             $table->string('size'); // S, M, L, XL, XXL, etc.
             $table->timestamps();
@@ -23,8 +22,8 @@ return new class extends Migration
                   ->on('products')
                   ->onDelete('cascade');
                   
-            // Add a unique constraint to prevent duplicates
-            $table->unique(['product_id', 'size']);
+            // Make product_id and size the composite primary key
+            $table->primary(['product_id', 'size']);
         });
     }
 
