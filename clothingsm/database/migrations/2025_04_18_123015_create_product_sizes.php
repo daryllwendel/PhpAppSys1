@@ -13,13 +13,18 @@ return new class extends Migration
     {
         Schema::create('product_sizes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('productId');
-            $table->string('sizes');
+            $table->unsignedBigInteger('product_id');
+            $table->string('size'); // S, M, L, XL, XXL, etc.
             $table->timestamps();
             
-            $table->foreign('productId')->references('productId')->on('products')->onDelete('cascade');
-            
-            $table->unique(['productId', 'sizes']);
+            // Add foreign key constraint
+            $table->foreign('product_id')
+                  ->references('productId')
+                  ->on('products')
+                  ->onDelete('cascade');
+                  
+            // Add a unique constraint to prevent duplicates
+            $table->unique(['product_id', 'size']);
         });
     }
 

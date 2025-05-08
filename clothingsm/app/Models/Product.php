@@ -8,17 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    
-    // Define the primary key to be productId instead of id
+
+    // Define the primary key (important since it's not the default 'id')
     protected $primaryKey = 'productId';
     
-    // Define which columns can be mass-assigned
+    // Define fillable fields
     protected $fillable = [
-        'productId',
         'name',
         'price',
         'type',
         'printType',
-        'productImg'
+        'productImg',
     ];
+
+    // Relationship with ProductSize
+    public function sizes()
+    {
+        return $this->hasMany(ProductSize::class, 'product_id', 'productId');
+    }
 }
