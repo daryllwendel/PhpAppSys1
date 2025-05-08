@@ -19,7 +19,6 @@
   <div class="main-container">
     <div class="nav">
         <div class="userNav">
-            <img src="images/user.png" alt="">
             <a href="../../../login" class="login-button">Log In</a>
         </div>
         <div class="buttonsNav">
@@ -37,7 +36,7 @@
     </div>
     <div class="title">
         <div>Home</div>
-        <img src="images/logo.png" alt="">
+        {{-- <img src="images/selcouthBG.png" alt=""> --}}
     </div>
     <div class="subTitle1">
         <div>Hot Designs🔥</div>
