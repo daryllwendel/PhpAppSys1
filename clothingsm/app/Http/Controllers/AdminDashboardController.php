@@ -94,7 +94,7 @@ class AdminDashboardController extends Controller
         } catch(\Exception $e) {
             return redirect('/dashboard')->with('error', 'Failed to update product: ' . $e->getMessage());
         }
-    }
+    } 
     
     public function productid() {
         try {
@@ -163,4 +163,5 @@ class AdminDashboardController extends Controller
             return redirect('/dashboard')->with('error', 'Failed to add product: ' . $e->getMessage());
         }
     }
+
 }

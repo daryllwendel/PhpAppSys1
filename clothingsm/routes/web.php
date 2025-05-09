@@ -2,12 +2,15 @@
 
 
 use App\Http\Controllers\addressform;
-use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerform;
-
 use function Laravel\Prompts\password;
+
 use App\Http\Controllers\passwordcontroller;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminDisplayController;
+use App\Http\Controllers\CustomerDisplay;
+use App\Http\Controllers\CustomerDisplayController;
 
 Route::get('/', function(){
     return view('LandingPage');
@@ -17,8 +20,9 @@ Route::get('/login', function () {
 })->name('login');
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
-Route::get('/dashboarddisplay', [AdminDashboardController::class, 'productid'])->name('dashboarddisplay');
+})->name('dashboard'); 
+
+Route::get('/dashboarddisplay',[AdminDisplayController::class, 'dashboardDisplay'])->name('dashboarddisplay');
 
 Route::get('/orders', function(){
     return view('orders');
@@ -33,9 +37,7 @@ Route::get('/report', function(){
 Route::get('/CustomerAddADesign-display',function(){
     return view('CustomerAddADesign-display');
 });
-Route::get('/CustomerHome', function(){
-    return view('CustomerHome');
-});
+Route::get('/CustomerHome',[CustomerDisplayController::class, 'CustomerDisplay'])->name('CustomerHome');
 
 Route::get('/CustomerHotOrder-display', function(){
     return view('CustomerHotOrder-display');
@@ -87,5 +89,5 @@ Route::post('/location', [addressform::class,'locations']);
 Route::post('/upload-profile', [addressform::class, 'profilepicture'])->name('user.upload');
 Route::post('/changepass', [passwordcontroller::class, 'changepass'])->name('changepass');
 Route::post('/adddesign', [AdminDashboardController::class, 'adddesign']);
-// Route::post('/editdesign', [AdminDashboardController::class, 'editdesign'])->name('editdesign');
+
 Route::post('/ajax/login', [registerform::class, 'ajaxLogin'])->name('ajax.login');

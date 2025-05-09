@@ -19,9 +19,7 @@
                 <button class="addbutton"><img src="{{ asset('images/cart.png') }}" alt="Add"></button>
             </div>
     
-            <!-- Update this part in the items-3 div of your HTML -->
 <div class="items-3">
-    <!-- Product cards grid layout -->
     @foreach ($products as $item)
     <div class="product-card">
         <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}">

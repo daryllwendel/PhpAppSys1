@@ -29,34 +29,15 @@
     <div class="hotDesigns">
       <div class="hotDesigns-container swiper">
         <div class="card-wrapper">
-          <ul ul class="card-list swiper-wrapper">
+          <ul class="card-list swiper-wrapper">
+            @foreach($product as $item)
             <li class="card-item swiper-slide">
               <a href="" class="card-link" id="card-link">
-                <img src="{{asset("images/sampleimg.png")}}" alt="" class="card-image">
-
-                <h2 class="card-title">Black and Yellow Gaming Sports Jersey</h2>
+                <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}" class="card-image">
+                <h2 class="card-title">{{ $item->name }}</h2>
               </a>
             </li>
-            <li class="card-item swiper-slide">
-              <a href="" class="card-link" id="card-link">
-                <img src="{{asset("images/sampleimage2.jpg")}}" alt="" class="card-image">
-
-                <h2 class="card-title">Black and Red Football Jersey</h2>
-              </a>
-            </li>
-            <li class="card-item swiper-slide">
-              <a href="" class="card-link" id="card-link">
-                <img src="{{asset("images/sampleimage3.jpg")}}" alt="" class="card-image">
-
-                <h2 class="card-title">Black, White, and Red Stripe Jersey</h2>
-              </a>
-            </li>
-            <li class="card-item swiper-slide">
-              <a href="" class="card-link" id="card-link">
-                <img src="{{asset("images/sampleimage4.jpg")}}" alt="" class="card-image">
-                <h2 class="card-title">Golden State Warriors Style Jersey</h2>
-              </a>
-            </li>
+            @endforeach
           </ul>
           <div class="swiper-pagination"></div>
           <div class="swiper-slide-button swiper-button-prev"></div>
@@ -73,34 +54,14 @@
       <div class="newDesigns-container swiper">
         <div class="card-wrapper">
           <ul class="card-list swiper-wrapper">
+            @foreach($product as $item)
             <li class="card-item swiper-slide">
               <a href="" class="card-link">
-                <img src="{{asset("images/sampleimg.png")}}" alt="" class="card-image">
-
-                <h2 class="card-title">Black and Yellow Gaming Sports Jersey</h2>
+                <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}" class="card-image">
+                <h2 class="card-title">{{ $item->name }}</h2>
               </a>
             </li>
-            <li class="card-item swiper-slide">
-              <a href="" class="card-link">
-                <img src="{{asset("images/sampleimage2.jpg")}}" alt="" class="card-image">
-
-                <h2 class="card-title">Black and Red Football Jersey</h2>
-              </a>
-            </li>
-            <li class="card-item swiper-slide">
-              <a href="" class="card-link">
-                <img src="{{asset("images/sampleimage3.jpg")}}" alt="" class="card-image">
-
-                <h2 class="card-title">Black, White, and Red Stripe Jersey</h2>
-              </a>
-            </li>
-            <li class="card-item swiper-slide">
-              <a href="" class="card-link">
-                <img src="{{asset("images/sampleimage4.jpg")}}" alt="" class="card-image">
-
-                <h2 class="card-title">Golden State Warriors Style Jersey</h2>
-              </a>
-            </li>
+            @endforeach
           </ul>
           <div class="swiper-pagination"></div>
           <div class="swiper-slide-button swiper-button-prev"></div>
