@@ -191,7 +191,7 @@ function initCartListeners() {
       }
     });
   }
-  
+   
   function loadcustomerdashboard() {
     fetch('/CustomerHome')
       .then(res => res.text())
@@ -200,8 +200,6 @@ function initCartListeners() {
         const doc = parser.parseFromString(html, "text/html");
   
         const dashboardContent = doc.querySelector(".customerdashboard");
-        const cart = doc.querySelector("#addtocart");
-        const overlay = doc.querySelector("#overlay");
   
         if (dashboardContent) {
           console.log('Loading customer dashboard...');
@@ -211,23 +209,6 @@ function initCartListeners() {
           content.innerHTML = "";
           content.appendChild(dashboardContent);
   
-          if (cart && overlay) {
-            cart.style.display = "none";
-            overlay.style.display = "none";
-            
-            if (!document.getElementById("addtocart")) {
-              document.body.appendChild(cart);
-            }
-            if (!document.getElementById("overlay")) {
-              document.body.appendChild(overlay);
-            }
-          }
-          document.getElementById('add-design-button').addEventListener('click',function(){
-            adddesign()
-          })
-          document.getElementById('customize-design-button').addEventListener('click', function(){
-            adddesign()
-          })
   
           swipe(); 
           initCartListeners();

@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=shopping_cart" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=undo" />
+  <link rel="stylesheet" href="{{asset('css/AddtoCart.css')}}">
 
 
 </head>
@@ -59,6 +60,6 @@
   <div class="change-container" id="change-container"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="{{asset("js/customerJS.js")}}"></script>
+<script src="{{asset("js/customerJS.js")}}"></script> 
 </body>
 </html>
