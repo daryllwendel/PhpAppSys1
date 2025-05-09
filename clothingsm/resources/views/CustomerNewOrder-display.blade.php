@@ -6,6 +6,6 @@
   <link rel="stylesheet" href="{{ asset("css/CustomerNewOrder-display.css")}}">
 </head>
 <body>
-  <div class="customerNewOrder-container"></div>
+  <div class="customerNewOrder-container" id="customerNewOrder-container"></div>
 </body>
 </html>

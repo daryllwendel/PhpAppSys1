@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Smclothing</title>
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/dashboarddisplay.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/order.css') }}" />
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-</div>
+</div> 
 <div class="title1" id="title1">
     <div>Dashboard</div>
     <img src="{{ asset('images/profile.jpg') }}" alt="">

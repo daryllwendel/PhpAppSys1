@@ -1,479 +1,600 @@
-body{
-    width: 100%;
-    max-width: 100%;
-    background: red;
+/* For disabled inputs in delete form */
+.name3 input, .price3 input, .type2 input, .printtype2 input {
+  background-color: #f9f9f9;
+  cursor: not-allowed;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.productcontent {
+  display: grid;
+  grid-template-columns: 1000% 1000% 1000%;
+  grid-template-rows: auto auto;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 20px;
+}
+
+.items-1 {
+  grid-column: 1;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+}
+
+.items-1 img {
+  width: 20px;
+  height: 20px;
+}
+
+.items-1 .searchbars {
+  flex-grow: 1;
+  outline: 0;
+  border: 0;
+  padding: 8px 15px;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.items-1 .buttonsubmit {
+  background-color: #ffffff;
+  border: 0;
+  border-radius: 20px;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+.items-1 button:hover {
+  background: pink;
+}
+
+.items-2 {
+  grid-column: 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.items-2 button {
+  background: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.items-2 button:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.items-2 img {
+  width: 20px;
+  height: 20px;
+}
+
+/* UPDATED ITEMS-3 SECTION */
+.items-3 {
+  grid-column: 1 / 3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+/* Ensure product cards have proper positioning for absolute elements */
+.items-3 .product-card {
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  overflow: visible; /* Changed from hidden to visible */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+}
+
+/* First item with pink background */
+.items-3 .product-card:first-child {
+  background: white; /* Changed from pink to white like other cards */
+  padding: 0; /* Remove extra padding */
+  border-radius: 8px; /* Match other cards */
+}
+
+.items-3 .product-card img {
+  width: 100%;
+  background: #f0f0f0;
+  object-fit: contain;
+  display: block;
+  padding: 5px;
+  height: 180px;
+}
+
+.items-3 .product-card:first-child img {
+  background-color: #f0f0f0; /* Match other cards */
+  border-radius: 0; /* Match other cards */
+}
+
+.items-3 .product-info {
+  padding: 10px;
+  padding-bottom: 40px; /* Add extra padding to prevent content overlap with buttons */
+  background: transparent;
+}
+
+.items-3 .product-name {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.items-3 .product-type {
+  font-size: 0.9em;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.items-3 .product-sizes {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.items-3 .size-badge {
+  background: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  color: #333;
+}
+
+.items-3 .product-card:first-child .product-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px 0;
+  margin-top: 5px;
+}
+
+/* Improved product actions positioning */
+.items-3 .product-card .product-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0;
+  /* Position this at the bottom of the card but initially hidden */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(100%); /* Start below the card */
+  z-index: 2;
+}
+
+/* Show actions on hover with animation */
+.items-3 .product-card:hover .product-actions {
+  opacity: 1;
+  transform: translateY(0); /* Slide up into view */
+}
+
+/* Ensure buttons are styled properly */
+.items-3 .product-card .product-actions button {
+  padding: 5px 15px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  z-index: 3;
+}
+
+.items-3 .product-card .product-actions .edit-btn {
+  background: #2196F3;
+  color: white;
+}
+
+.items-3 .product-card .product-actions .delete-btn {
+  background: #f44336;
+  color: white;
+}
+
+/* Add a subtle hover effect to product cards */
+.items-3 .product-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.items-3 .product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+/* END OF UPDATED ITEMS-3 SECTION */
+
+.sample1 input[type="file"] {
+  display: none;
+}
+
+.sample1 label {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.sample1 label:hover {
+  background-color: #45a049;
+}
+
+/* Modal Styles - Adjusted to match the image */
+.additem, .edititem, .deleteitem {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 600px;
+  max-width: 95%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  z-index: 1000;
+  display: none;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Modal overlay background */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+.reject, .reject2, .reject3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.reject button, .reject2 button, .reject3 button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  margin: 0;
+  order: -1;
+  margin-right: 20px;
+}
+
+.reject span, .reject2 span, .reject3 span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.additem form, .edititem form, .deleteitem form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Size choices styling */
+.size-choices {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.size-choices label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background: #f5f5f5;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.size-choices label:hover {
+  background: #e0e0e0;
+}
+
+.size-choices input[type="checkbox"] {
+  margin: 0;
+}
+
+.sample1, .sample2, .sample3 {
+  grid-column: 1;
+  grid-row: 2 / span 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sample1 img, .sample2 img, .sample3 img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.productid, .productid2, .productid3,
+.name1, .name2, .name3,
+.price1, .price2, .price3,
+.category2, .category3,
+.type2, .printtype2 {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Unified input styling for text inputs and select elements */
+.productid input, .productid2 input, .productid3 input,
+.name1 input, .name2 input, .name3 input,
+.price1 input, .price2 input, .price3 input,
+.category1 select, .type select, .edittype select, .printtype select,
+.type2 input, .printtype2 input {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  background: transparent;
+  font-size: 1em;
+  color: #333;
+}
+
+/* Special styling for fixed product ID fields */
+.productid2 input, .productid3 input {
+  background-color: #f9f9f9;
+  cursor: not-allowed;
+  padding-top: 15px;
+}
+
+.productid2 span, .productid3 span{
+  position: absolute;
+  top: 0px;
+  left: 0;
+  font-size: 0.8rem;
+  color: #333;
+  transition: none;
+}
+
+.name3 span,.price3 span,.type2 span,.printtype2 span {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.productid span, .name1 span, .name2 span,
+.price1 span, .price2 span,
+.category2 span {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  color: #999;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+.productid input:focus ~ span, .productid input:valid ~ span,
+.name1 input:focus ~ span, .name2 input:focus ~ span, .name3 input:focus ~ span,
+.price1 input:focus ~ span, .price2 input:focus ~ span, .price3 input:focus ~ span,
+.category2 input:focus ~ span, .category3 input:focus ~ span,
+.type2 input:focus ~ span, .printtype2 input:focus ~ span,
+.name1 input:valid ~ span, .name2 input:valid ~ span, .name3 input:valid ~ span,
+.price1 input:valid ~ span, .price2 input:valid ~ span, .price3 input:valid ~ span,
+.category2 input:valid ~ span, .category3 input:valid ~ span,
+.type2 input:valid ~ span, .printtype2 input:valid ~ span {
+  top: -15px;
+  left: 0;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+/* Fix dropdown styling for edit modal */
+.category1, .type, .edittype, .printtype {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Style dropdowns to match inputs */
+.category1 select, .type select, .edittype select, .printtype select {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  background: transparent;
+  font-size: 1em;
+  color: #333;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0 top 50%;
+}
+
+.submit-btn, .editbutton, .delete-btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.editbutton {
+  background-color: #2196F3;
+}
+
+.delete-btn {
+  background-color: #f44336;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.editbutton:hover {
+  background-color: #0b7dda;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Table styles - to be replaced with grid cards */
+.items-3 table {
+  display: none;
+}
+
+/* Upload image styles for edit modal */
+.sample2 input[type="file"] {
+  display: none;
+}
+
+.sample2 label {
+  display: inline-block;
+  background-color: #2196F3;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.sample2 label:hover {
+  background-color: #0b7dda;
+}
+
+/* Size options styling */
+.sizes {
+  grid-column: 1 / -1;
+  margin-bottom: 20px;
+}
+
+.sizes span {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.size-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.size-options label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background: #f5f5f5;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.size-options label:hover {
+  background: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .productcontent {
+    grid-template-columns: 1fr;
   }
   
-  .productcontent{
-    display: grid;
-    grid-template-columns: 700% 700% 700%;
-    grid-template-rows: auto auto;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0;
+  .items-1, .items-2 {
+    grid-column: 1;
   }
-  .items-1{
-    grid-column: 2/3;
-    background-color: white;
-    border-radius: 10px;
-    width: 100%;
-    display: flex;
-    gap: 5px;
-    border-radius: 10px;
+  
+  .items-2 {
+    justify-content: flex-start;
   }
-  .items-1 img{
-    width: 10px;
-    height: 10px;
-  }
-  .items-1 .searchbars{
-    margin-left: 10px;
-    outline: 0;
-    border: 0;
-    width: 300px;
-    border-radius: 20px;
-  }
-  .items-1 .buttonsubmit{
-    background-color: white;
-    border: 0;
-    border-radius: 20px;
-  }
-  .buttonsubmit:hover{
-    background-color: pink;
-  }
-  .items-2{
-    grid-column: 3/4;
-    align-self: flex-end;
-    justify-self: end;
-  }
+  
   .items-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-column: 1 / 4;
-    margin-top: 100px;
-    background-color: white;
-    gap: 10px;
-    padding: 0 50px;
-    height: 500px;
-    overflow-y: auto;
-    justify-items: center;
-  }
-  .items-3 .sample1 {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    transition: transform 0.3s ease-in-out;
-    filter: blur(0);
-    cursor: pointer;
+    grid-template-columns: repeat(2, 1fr);
   }
   
-  .items-3:hover img {
-    filter: blur(4px);
-    z-index: 10;
-  }
-  .items-3 img:hover {
-    filter: blur(0);
-    transform: scale(1.2);
-    z-index: 10;
-  }
-  .items-2 img{
-    width: 25px;
-    height: 25px;
-  }
-  .items-2 button{
-    background: #ffffff;
-    border: none;
-    border-radius:5px;
-  }
-  .items-2 button:hover{
-    background: pink;
+  .items-3 .product-card .product-actions {
+    /* On mobile, always show the buttons instead of on hover */
+    opacity: 1;
+    transform: translateY(0);
+    position: static; /* Not absolute on mobile */
+    background-color: transparent;
   }
   
-  .items-3 img {
-    width: 150px;
-    height:150px;
-  }
-  .items-3-3:hover{
-    background-color: pink;
-  }
-  .sample1 img{
-    width: 150px !important;
-    height: 150px !important;
-    margin-top: 60px;
-    margin-left: 20px;
-  }
-  .additem{
-    display: grid;
-    grid-template-columns: 200px 200px;
-    grid-template-rows: auto auto auto auto auto auto;
-    background-color: white;
-    width: 450px;
-    height: 450px;
-    margin-top: -50px;
-    margin-left: 400px;
-    z-index: 999;
-    border:1px solid black;
-    position: fixed;
-    display: none;
-  }
-  .reject{
-    grid-column: 1/3;
-    grid-row: 1/2;
-  }
-  .reject button{
-    border: 0;
-    background-color: white;
-  }
-  .reject span{
-    margin-left: 20px;
-    font-size: 20px;
-    font-family: Arial;
-  }
-  .sample1{
-    grid-row: 2/6;
-    grid-column: 1/2;
-  }
-  .productid{
-    grid-row: 2/3;
-    grid-column: 2/3;
-  }
-  .name1{
-    grid-row: 3/4;
-    grid-column: 2/3;
-  }
-  .price1{
-    grid-row: 4/5;
-    grid-column: 2/3;
-  }
-  .category1{
-    grid-row: 5/6;
-    grid-column: 2/3;
-  }
-  .productid,.name1, .price1,.category1 {
-    position: relative;
-    width: 196px;
+  .items-3 .product-info {
+    padding-bottom: 10px; /* Reset padding on mobile */
   }
   
-  .productid input, .name1 input, .price1 input,.category1 input {
-    position: relative;
-    width: 100%;
-    padding: 20px 10px 10px;
-    background: transparent;
-    outline: none;
-    box-shadow: none;
-    border: none;
-    color: #000000;
-    font-size: 1em;
-    letter-spacing: 0.05em;
-    transition: 0.5s;
-    z-index: 10;
-    border-bottom: 1px solid black  ;
+  .additem, .edititem, .deleteitem {
+    width: 90%;
+    padding: 15px;
   }
   
-  .productid span, .name1 span, .price1 span,.category1 span {
-    position: absolute;
-    left: 0;
-    padding: 20px 10px 10px;
-    font-size: 1em;
-    color: gray;
-    letter-spacing: 00.05em;
-    transition: 0.5s;
-    pointer-events: none;
-    margin-top: -50px;
+  .additem form, .edititem form, .deleteitem form {
+    grid-template-columns: 1fr;
   }
   
-  .productid i, .name1 i, .price1 i,.category1 i {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    border-radius: 4px;
-    transition: 0.5s;
-    pointer-events: none;
-    z-index: 9;
-    top:35px;
+  .sample1, .sample2, .sample3 {
+    grid-row: auto;
+    grid-column: 1;
+    margin-bottom: 20px;
   }
-  
-  .productid input:valid~span, .name1 input:valid~span, .price1 input:valid~span, .category1 input:valid~span,
-  .productid input:focus~span, .name1 input:focus~span,.price1 input:focus~span, .category1 input:focus~span {
-    color: gray;
-    transform: translateX(-10px) translateY(-20px);
-    font-size: 0.75rem;
+
+  .size-options {
+    justify-content: center;
   }
-  
-  .productid input:valid~i,.name1 input:valid~i,.name1 input:focus~span, .category1 input:valid~span,
-  .productid input:focus~i ,.price1 input:focus~i, .category1 input:focus~span{
-    height: 40px;
+}
+
+@media (max-width: 480px) {
+  .items-3 {
+    grid-template-columns: 1fr;
   }
-  .sample1 button{
-    border-radius: 10px;
-    border: none;
-    margin-top: 100px;
-    margin-left: 40px;
-  }
-  .sample1 button:hover{
-    background-color: pink;
-  }
-  
-  
-  .edititem{
-    display: grid;
-    grid-template-columns: 200px 200px;
-    grid-template-rows: auto auto auto auto auto auto;
-    background-color: white;
-    width: 450px;
-    height: 450px;
-    margin-top: -50px;
-    margin-left: 400px;
-    z-index: 999;
-    border:1px solid black;
-    position: fixed;
-    display: none;
-  }
-  .sample2 .img2{
-    width: 150px !important;
-    height: 150px !important;
-    margin-top: 60px;
-    margin-left: 20px;
-  }
-  
-  .reject2{
-    grid-column: 1/3;
-    grid-row: 1/2;
-  }
-  .reject2 button{
-    border: 0;
-    background-color: white;
-  }
-  .reject2 span{
-    margin-left: 20px;
-    font-size: 20px;
-    font-family: Arial;
-  }
-  .sample2{
-    grid-row: 2/6;
-    grid-column: 1/2;
-  }
-  .productid2{
-    grid-row: 2/3;
-    grid-column: 2/3;
-  }
-  .name2{
-    grid-row: 3/4;
-    grid-column: 2/3;
-  }
-  .price2{
-    grid-row: 4/5;
-    grid-column: 2/3;
-  }
-  .category2{
-    grid-row: 5/6;
-    grid-column: 2/3;
-  }
-  .productid2,.name2, .price2,.category2 {
-    position: relative;
-    width: 196px;
-  }
-  
-  .productid2 input, .name2 input, .price2 input,.category2 input {
-    position: relative;
-    width: 100%;
-    padding: 20px 10px 10px;
-    background: transparent;
-    outline: none;
-    box-shadow: none;
-    border: none;
-    color: #000000;
-    font-size: 1em;
-    letter-spacing: 0.05em;
-    transition: 0.5s;
-    z-index: 10;
-    border-bottom: 1px solid black  ;
-  }
-  
-  .productid2 span, .name2 span, .price2 span,.category2 span {
-    position: absolute;
-    left: 0;
-    padding: 20px 10px 10px;
-    font-size: 1em;
-    color: gray;
-    letter-spacing: 00.05em;
-    transition: 0.5s;
-    pointer-events: none;
-    margin-top: -50px;
-  }
-  
-  .productid2 i, .name2 i, .price2 i,.category2 i {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    border-radius: 4px;
-    transition: 0.5s;
-    pointer-events: none;
-    z-index: 9;
-    top:35px;
-  }
-  
-  .productid2 input:valid~span, .name2 input:valid~span, .price2 input:valid~span, .category2 input:valid~span,
-  .productid2 input:focus~span, .name2 input:focus~span,.price2 input:focus~span, .category2 input:focus~span {
-    color: gray;
-    transform: translateX(-10px) translateY(-30px);
-    font-size: 0, 75rem;
-  }
-  
-  .productid2 input:valid~i,.name2 input:valid~i,.name2 input:focus~span, .category2 input:valid~span,
-  .productid2 input:focus~i ,.price2 input:focus~i, .category2 input:focus~span{
-    height: 40px;
-  }
-  .sample2 button{
-    border-radius: 10px;
-    border: none;
-    margin-top: 100px;
-    margin-left: 40px;
-  }
-  .sample2 button:hover{
-    background-color: pink;
-  }
-  
-  .deleteitem{
-    display: grid;
-    grid-template-columns: 200px 200px;
-    grid-template-rows: auto auto auto auto auto auto;
-    background-color: white;
-    width: 450px;
-    height: 450px;
-    margin-top: -50px;
-    margin-left: 400px;
-    z-index: 999;
-    border:1px solid black;
-    position: fixed;
-    display: none;
-  }
-  .sample3 img{
-    width: 150px !important;
-    height: 150px !important;
-    margin-top: 60px;
-    margin-left: 20px;
-  }
-  .reject3{
-    grid-column: 1/3;
-    grid-row: 1/2;
-  }
-  .reject3 button{
-    border: 0;
-    background-color: white;
-  }
-  .reject3 span{
-    margin-left: 20px;
-    font-size: 20px;
-    font-family: Arial;
-  }
-  .sample3{
-    grid-row: 2/6;
-    grid-column: 1/2;
-  }
-  .productid3{
-    grid-row: 2/3;
-    grid-column: 2/3;
-  }
-  .name3{
-    grid-row: 3/4;
-    grid-column: 2/3;
-  }
-  .price3{
-    grid-row: 4/5;
-    grid-column: 2/3;
-  }
-  .category3{
-    grid-row: 5/6;
-    grid-column: 2/3;
-  }
-  .productid3,.name3, .price3,.category3{
-    position: relative;
-    width: 196px;
-  }
-  
-  .productid3 input, .name3 input, .price3 input,.category3 input {
-    position: relative;
-    width: 100%;
-    padding: 20px 10px 10px;
-    background: transparent;
-    outline: none;
-    box-shadow: none;
-    border: none;
-    color: #000000;
-    font-size: 1em;
-    letter-spacing: 0.05em;
-    transition: 0.5s;
-    z-index: 10;
-    border-bottom: 1px solid black  ;
-  }
-  
-  .productid3 span, .name3 span, .price3 span,.category3 span {
-    position: absolute;
-    left: 0;
-    padding: 20px 10px 10px;
-    font-size: 1em;
-    color: gray;
-    letter-spacing: 00.05em;
-    transition: 0.5s;
-    pointer-events: none;
-    margin-top: -50px;
-  }
-  
-  .productid3 i, .name3 i, .price3 i,.category3 i {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    border-radius: 4px;
-    transition: 0.5s;
-    pointer-events: none;
-    z-index: 9;
-    top:35px;
-  }
-  
-  .productid3 input:valid~span, .name3 input:valid~span, .price3 input:valid~span, .category3 input:valid~span,
-  .productid3 input:focus~span, .name3 input:focus~span,.price3 input:focus~span, .category3 input:focus~span {
-    color: gray;
-    transform: translateX(-10px) translateY(-30px);
-    font-size: 0, 75rem;
-  }
-  
-  .productid3 input:valid~i,.name3 input:valid~i,.name3 input:focus~span, .category3 input:valid~span,
-  .productid3 input:focus~i ,.price3 input:focus~i, .category3 input:focus~span{
-    height: 40px;
-  }
-  .sample3 button{
-    border-radius: 10px;
-    border: none;
-    margin-top: 100px;
-    margin-left: 40px;
-  }
-  .sample3 button:hover{
-    background-color: pink;
-  }
-  
-  @media(max-width: 768px){
-    .items-1{
-      display:flex;
-      min-width: 100%;
-    }
-    .items-1 img{
-      min-width: 40px;
-      min-height: 40px;
-    }
-    .items-2{
-      display:flex;
-      min-width: 100%;
-    }
-    .edititem,.additem,.deleteitem{
-      display: flex;
-      margin-left: 10px;
-      min-height: 50px;
-      display:none;
-    }
-  }
+}

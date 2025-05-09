@@ -8,28 +8,33 @@
 </head>
 <body>
 <div class="container" id="container">
+
 	<div class="form-container sign-up-container" class="sign-up-content">
-		<form action="#">
+		<form action="/register" method="POST">
+			@csrf 
 			<h1>Create Account</h1>
-            <input type="text" placeholder="Username"/>
-			<input type="text" placeholder= "Name" />
-			<input type="email" placeholder="Email" />
-            <input type="text" placeholder="Mobile Number">
-			<input type="password" placeholder="Password" />
-            <input type="password" placeholder="Comfirm Password" />
-            <div class="termsandcondition"><input type="checkbox"><div class="words"><span>I accept</span> <a href="">Terms and Condition</a></div></div>
-			<button>Sign Up</button>
+            <input name="username" type="text" placeholder="Username"/>
+			<input name="name" type="text" placeholder= "Name" />
+			<input name="email" type="email" placeholder="Email" />
+            <input name="mobile_number" type="text" placeholder="Mobile Number">
+			<input name="password" type="password" placeholder="Password" />
+            <div class="termsandcondition"><input type="checkbox" id="toggleCheckbox" onchange="toggleButton()"><div class="words"><span>I accept</span> <a href="">Terms and Condition</a></div></div>
+			<button id="myButton" disabled onclick="showmsg()">Sign Up</button>
 		</form>
 	</div>
+
 	<div class="form-container sign-in-container">
-		<form action="#">
+		<form method="POST" action="/login">
+			@csrf 
 			<h1>Sign in</h1>
-			<input type="text" placeholder="Username" id="username" />
-			<input type="password" placeholder="Password" id="password" />
+			<input name="loginname" type="text" placeholder="Username or Email" id="username" />
+			<input name="loginpassword" type="password" placeholder="Password" id="password" />
 			<a href="#">Forgot your password?</a>
-			<button onclick="login()">Sign In</button>
+			<p id="loginMsg" class="msg"></p>
+			<button>Sign In</button>
 		</form>
-	</div>
+	</div> 
+	
 	<div class="overlay-container">
 		<div class="overlay">
 			<div class="overlay-panel overlay-left">
