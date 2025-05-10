@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductSize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,12 +40,13 @@ class AdminDashboardController extends Controller
             $field = $request->validate([
                 'productId' => 'required',
                 'editProductImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'editName' => 'required|string',
-                'editPrice' => 'required|numeric',
-                'edittype1' => 'required|string',
-                'printType1'=> 'required|string',
-                'sizes' => 'required|array',
-                'sizes.*' => 'required|string'
+                'editName' => 'nullable|string',
+                'editPrice' => 'nullable|numeric',
+                'edittype1' => 'nullable|string', 
+                'printType1' => 'nullable|string',
+                'sizes' => 'nullable|array',
+                'sizes.*' => 'nullable|string|in:XS,S,M,L,XL,XXL',
+                'status' => 'nullable|string|in:display,hidden'
             ]);
             
             $product = Product::where('productId', $field['productId'])->first();
@@ -56,30 +58,44 @@ class AdminDashboardController extends Controller
             DB::beginTransaction();
             
             try {
+                // Only update fields that were actually changed
                 if ($request->hasFile('editProductImage')) {
                     if ($product->productImg) {
                         Storage::disk('public')->delete($product->productImg);
                     }
-                    
                     $path = $request->file('editProductImage')->store('profiles', 'public');
                     $product->productImg = $path;
                 }
                 
-                $product->name = $field['editName'];
-                $product->price = $field['editPrice'];
-                $product->type = $field['edittype1'];
-                $product->printType = $field['printType1'];
+                if ($field['editName']) {
+                    $product->name = $field['editName'];
+                }
+                if ($field['editPrice']) {
+                    $product->price = $field['editPrice'];
+                }
+                if ($field['edittype1']) {
+                    $product->type = $field['edittype1'];
+                }
+                if ($field['printType1']) {
+                    $product->printType = $field['printType1'];
+                }
+                if ($field['status']) {
+                    $product->status = $field['status'];
+                }
                 $product->save();
 
-                // Delete existing sizes
-                ProductSize::where('product_id', $product->productId)->delete();
+                // Always update sizes if provided
+                if (!empty($field['sizes'])) {
+                    // Delete existing sizes
+                    ProductSize::where('product_id', $product->productId)->delete();
 
-                // Add new sizes
-                foreach($field['sizes'] as $size) {
-                    ProductSize::create([
-                        'product_id' => $product->productId,
-                        'size' => $size
-                    ]);
+                    // Add new sizes
+                    foreach($field['sizes'] as $size) {
+                        ProductSize::create([
+                            'product_id' => $product->productId,
+                            'size' => $size
+                        ]);
+                    }
                 }
                 
                 DB::commit();
@@ -94,16 +110,20 @@ class AdminDashboardController extends Controller
         } catch(\Exception $e) {
             return redirect('/dashboard')->with('error', 'Failed to update product: ' . $e->getMessage());
         }
-    } 
+    }
     
     public function productid() {
         try {
-            $products = Product::with('sizes')->get();
-            $count = Product::max('productId') ?? 0;
+            $products = DB::table('product_with_sizes')
+                ->select('productId', 'name', 'type', 'price', 'printType', 'productImg', 'status')
+                ->distinct()
+                ->get();
+            $size = DB::table('product_with_sizes')->select('size')->get();
+            $count = DB::table('products')->max('productId') ?? 0;
             DB::statement("ALTER TABLE products AUTO_INCREMENT = " . ($count + 1));
             return view('product', compact('products', 'count'));
         } catch(\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to fetch products: ' . $e->getMessage());
+            dd($e->getMessage()); 
         }
     }
     
@@ -116,7 +136,7 @@ class AdminDashboardController extends Controller
                 'printType' => 'required|string',
                 'productImg' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'sizes' => 'required|array',
-                'sizes.*' => 'required|string'
+                'sizes.*' => 'required|string',
             ]);
 
             $path = $request->file('productImg')->store('profiles', 'public');
@@ -125,12 +145,22 @@ class AdminDashboardController extends Controller
             DB::beginTransaction();
 
             try {
+                // Log the actual status value being received
+                Log::info('Status value from request: ' . $request->status);
+
+                // Ensure status is explicitly set from request
+                $status = $request->status;
+                if (!$status) {
+                    $status = 'display'; // Fallback default if somehow empty
+                }
+
                 $product = Product::create([
                     'name' => $field['name'],
                     'price' => $field['price'], 
                     'type' => $field['type'],
                     'printType' => $field['printType'],
-                    'productImg' => $field['productImg']
+                    'productImg' => $field['productImg'],
+                    'status' => 'display' 
                 ]);
 
                 if (!$product) {
@@ -149,7 +179,7 @@ class AdminDashboardController extends Controller
                 }
 
                 DB::commit();
-                return redirect('/dashboard')->with('success', 'Product and sizes added successfully');
+                return redirect('/dashboard')->with('success', 'Product and sizes added successfully with status: ' . $status);
 
             } catch (\Exception $e) {
                 DB::rollback();

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->double('price');
             $table->string('printType')->nullable();
             $table->string('productImg')->nullable();
+            $table->string('status')->default('hidden');
             $table->timestamp('dateCreated')->useCurrent();
             $table->timestamps();
             

@@ -38,18 +38,37 @@ class registerform extends Controller
             'loginpassword'=> 'required'
         ]);
 
-        if(Auth::attempt(['username' => $field['loginname'], 'password' => $field['loginpassword']]) ||
-           Auth::attempt(['email' => $field['loginname'], 'password' => $field['loginpassword']])) {
+        // Try login with username
+        if (Auth::attempt(['username' => $field['loginname'], 'password' => $field['loginpassword']])) {
             $request->session()->regenerate();
             $user = Auth::user();
             $customerName = $user->name;
             session(['customer-name' => $customerName]);
-            return redirect('/CustomerDashboard');
+
+            if ($user->role === 'admin') {
+                return redirect('/dashboard');
+            } else if ($user->role === 'customer') {
+                return redirect('/CustomerDashboard');
+            }
         }
-        if ($field['loginname'] === 'Admin' && $field['loginpassword'] === 'password123') {
+
+        // Try login with email 
+        if (Auth::attempt(['email' => $field['loginname'], 'password' => $field['loginpassword']])) {
             $request->session()->regenerate();
-            return redirect('/dashboard');
+            $user = Auth::user();
+            $customerName = $user->name;
+            session(['customer-name' => $customerName]);
+
+            if ($user->role === 'admin') {
+                return redirect('/dashboard');
+            } else if ($user->role === 'customer') {
+                return redirect('/CustomerDashboard');
+            }
         }
+
+        return back()->withErrors([
+            'loginname' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     public function registerform(Request $request){

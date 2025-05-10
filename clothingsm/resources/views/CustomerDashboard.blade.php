@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Smclothing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{asset('css/CustomerAddtoCart.css')}}">
+  <link rel="stylesheet" href="{{asset('css/CustomerDashboard.css')}}">
   <link rel="stylesheet" href="{{asset("css/CustomerHome.css")}}">
   <link rel="stylesheet" href="{{asset("css/CustomerAddADesign-display.css")}}">
   <link rel="stylesheet" href="{{asset("css/CustomerProfile.css")}}">

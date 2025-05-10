@@ -6,147 +6,7 @@ body{
     background: url("../images/bg.png");
     font-family: Poppins, sans-serif;
 }
-.nav{
-    background-color: white;
-    padding: 10px 50px 10px 50px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: center;
-}
-.userNav{
-    display: flex;
-    height: 50px;
-    overflow: hidden;
-    align-items: center;
-}
-.userNav img{
-    height: 45px;
-    width: 45px;
-    border-radius: 50px;
-}
-.userNav .login-button{
-    margin: 20px;
-    background-color: pink;
-    border-radius: 50px;
-    border: none;
-    padding: 10px 20px 10px 20px;
-    font-family: Poppins;
-    font-size: 12px;
-    border: 2px solid transparent;
-    transition: 0.2s ease;
-    cursor: pointer;
-}
-.name12{
-    width: 150px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.userNav button{
-    display: flex;
-    flex-flow: column wrap;
-    text-align: left;
-    font-family: Poppins, sans-serif;
-    background: white;
-    border: 2px solid transparent;
-    cursor: pointer;
-    margin: 0px 10px 0px 10px;
-    gap: 0px;
-}
-.userNav button p{
-    margin: 0;
-}
-.userNav button .customer-name{
-    font-weight: bold;
-    font-size: 18px;
-}
-/*cart button*/
- .material-symbols-outlined {
-     font-variation-settings:
-             'FILL' 0,
-             'wght' 400,
-             'GRAD' 0,
-             'opsz' 24;
-     cursor: pointer;
-     padding: 10px 10px 10px 10px;
-     border-radius: 50px;
- }
-.material-symbols-outlined:hover{
-    background: pink;
-}
- .userNav span{
-     margin: 0px 10px 0px 10px;
- }
 
-.userNav .login-button:hover{
-    background: white;
-    border-color: pink;
-}
-.buttonsNav{
-    display: flex;
-    align-items: center;
-    font-family: Poppins;
-    font-size: 13px;
-    color: black;
-}
-.buttonsNav a,
-.buttonsNav .nav-button{
-    background: white;
-    border: 2px solid transparent;
-    text-decoration: none;
-    border-radius: 20px;
-    padding: 5px 20px 5px 20px;
-    margin: 0px 10px 0px 10px;
-    color: black;
-    transition: 0.2s ease;
-}
-.buttonsNav a:hover,
-.buttonsNav .nav-button:hover{
-    background-color: pink;
-}
-.buttonsNav button img{
-    height: 40px;
-    width: 40px;
-}
-.buttonsNav .nav-add-button{
-    background-color: pink;
-    border-radius: 40px;
-    border: none;
-    padding: 5px 50px 5px 50px;
-    display: flex;
-    align-content: center;
-    align-items: center;
-    font-family: Poppins;
-    font-size: 15px;
-    border: 2px solid transparent;
-    transition: 0.2s ease;
-}
-.buttonsNav .nav-add-button:hover{
-    border-color: pink;
-    background: white;
-}
-
-.title{
-    display: flex;
-    overflow: hidden;
-    background-color: pink;
-    height: 75px;
-    padding: 0px 100px 0px 100px;
-    justify-content: space-between;
-    align-items: center;
-    align-content: center;
-    font-family: Poppins;
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 0px 2px rgba(0, 0, 0, 0.72);
-}
-
-.title img{
-    opacity: 66%;
-    width: 750px;
-}
 .subTitle1{
     display: flex;
     overflow: hidden;
@@ -240,7 +100,7 @@ body{
 .card-list .card-item .card-link:active{
     cursor: grabbing;
 }
-
+ 
 .card-list .card-link .card-image{
     width: 100%;
     height: 50%;
@@ -276,29 +136,33 @@ body{
 }
 .newDesigns .newDesigns-selection-container{
     display: flex;
-    justify-items: center;
+    justify-content: center;
     align-items: center;
+    gap: 20px;
 }
-.newDesigns .newDesigns-selection-container a{
-    background: white;
-    border: 2px solid pink;
-    margin: 10px 10px;
-    padding: 15px 50px;
+.newDesigns .newDesigns-selection-container button{
     text-decoration: none;
-    color: black;
+    background: pink;
+    padding: 15px 30px;
     border-radius: 50px;
+    color: black;
+    border: 2px solid transparent;
+    transition: 0.2s ease;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    transition: 0.2s ease;
+    justify-content: center;
 }
-.newDesigns .newDesigns-selection-container a:hover{
-    background: pink;
+.newDesigns .newDesigns-selection-container button:hover{
+    border-color: pink;
+    background: white;
 }
-.newDesigns .newDesigns-selection-container a img{
-    height: 40px;
-    width: 40px;
-    margin: 0;
-    padding: 0 5px;
+.newDesigns .newDesigns-selection-container button img{
+    height: 24px;
+    width: 24px;
+    margin-right: 8px;
 }
 
 .menu{
@@ -329,7 +193,7 @@ body{
     opacity: 1;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px){
     .main-container{
         width: 100%;
     }
@@ -392,9 +256,6 @@ body{
         display: flex;
     }
 
-
-
-
     .title{
         padding: 0 20px;
         font-size: 20px;
@@ -418,13 +279,10 @@ body{
         font-size: 20px;
     }
     .newDesigns .newDesigns-selection-container{
-        display: block;
+        flex-direction: column;
+        gap: 15px;
     }
-
-    .newDesigns .newDesigns-selection-container a{
-        height: 50px;
-        width: 100px;
-        padding: 15px 100px;
+    .newDesigns .newDesigns-selection-container button{
+        width: 200px;
     }
 }
-

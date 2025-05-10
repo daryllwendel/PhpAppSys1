@@ -218,8 +218,29 @@ function initCartListeners() {
       })
       .catch((err) => console.error("Failed to load dashboard content:", err));
   }
-  
+function loadaddtocart(){
+    fetch('/CustomerAddtoCart')
+    .then(res => res.text())
+    .then((html)=>{
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(html,"text/html")
 
+        const addtocartdisplay = doc.querySelector(".shopping-cart-container")
+        if(addtocartdisplay){
+            console.log('haxaha')
+            document.getElementById("title").innerHTML=`
+            <div>Cart</div>`
+            const content = document.getElementById("change-container");
+            content.innerHTML = "";
+            content.appendChild(addtocartdisplay)
+            
+            document.getElementById("back").addEventListener('click', loadcustomerdashboard)
+            document.getElementById("back1").addEventListener('click', loadcustomerdashboard)
+        }else{
+            console.log('okay')
+        }
+    })
+}
 function loaddesigns(){
     fetch('/CustomerNewDesigns')
     .then(res => res.text())
@@ -258,7 +279,7 @@ function loaddesigns(){
                 })
             })
 
-
+ 
             document.getElementById("my").addEventListener('click', function(){
                 fetch('/CustomerMyDesignOrder-display')
                 .then(res => res.text())
@@ -339,7 +360,21 @@ function loadorders(){
         }
     })
 }
+function profile3(){
+  const inputFile = document.getElementById("input-file");
+  const profilePic = document.getElementById("design-preview");
 
+  inputFile.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+              profilePic.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+      }
+  });
+}
 function adddesign(){
     fetch('/CustomerAddADesign-display')
     .then(res => res.text())
@@ -355,6 +390,8 @@ function adddesign(){
             const content = document.getElementById("change-container");
             content.innerHTML = "";
             content.appendChild(addadesign)
+            profile3()
+            document.getElementById('cancel').addEventListener('click', loadcustomerdashboard)
         }else{
             console.log('okay')
         }
@@ -475,6 +512,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
 document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("profile").addEventListener("click", loadprofile)
+})
+document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById("cartbutton").addEventListener("click", loadaddtocart)
 })
 document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("order").addEventListener("click", loadorders)

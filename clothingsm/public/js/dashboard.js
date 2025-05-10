@@ -142,6 +142,7 @@ function optionitem() {
             const productType = button.getAttribute('data-type');
             const productPrintType = button.getAttribute('data-printtype');
             const productImg = button.getAttribute('data-productImg');
+            const productStatus = button.getAttribute('data-status');
 
             document.getElementById("editProductImage1").src = productImg;
             document.getElementById("editId").value = productId;
@@ -149,6 +150,8 @@ function optionitem() {
             document.getElementById("editPrice").value = productPrice;
             document.getElementById("editCategory").value = productType;
             document.getElementById("printType1").value = productPrintType;
+            document.getElementById("add-status").value = productStatus;
+            console.log(productType)
 
             edit.style.display = "grid";
             productcontainer.style.filter = "blur(10px)";
@@ -249,41 +252,41 @@ document.addEventListener("DOMContentLoaded",function (){
     })
 })
 
+function product(){
+    fetch("/product")
+    .then((res) => res.text())
+    .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
 
+        const dashboardContent = doc.querySelector(".productcontent");
+        const deleteitem = doc.querySelector(".deleteitem");
+        const edititem = doc.querySelector(".edititem");
+        const additem = doc.querySelector(".additem")
+
+        if (dashboardContent) {
+            document.getElementById("title1").innerHTML =`
+            <div>Products</div>
+            <img src="/images/profile.jpg" alt="">`
+            const content = document.getElementById("body1");
+            content.innerHTML = "";
+            content.appendChild(dashboardContent);
+            content.appendChild(deleteitem);
+            content.appendChild(edititem);
+            content.appendChild(additem);
+            optionitem();
+            profilepic()
+            profilepic1()
+        } else {
+            console.error("The element .productscontainer was not found.");
+            console.log(dashboardContent)
+            console.log(deleteitem)
+        }
+    })
+    .catch((err) => console.error("Failed to load dashboard content:", err));
+}
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("buttonproducts").addEventListener("click", function () {
-        fetch("/product")
-            .then((res) => res.text())
-            .then((html) => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-
-                const dashboardContent = doc.querySelector(".productcontent");
-                const deleteitem = doc.querySelector(".deleteitem");
-                const edititem = doc.querySelector(".edititem");
-                const additem = doc.querySelector(".additem")
-
-                if (dashboardContent) {
-                    document.getElementById("title1").innerHTML =`
-                    <div>Products</div>
-                    <img src="/images/profile.jpg" alt="">`
-                    const content = document.getElementById("body1");
-                    content.innerHTML = "";
-                    content.appendChild(dashboardContent);
-                    content.appendChild(deleteitem);
-                    content.appendChild(edititem);
-                    content.appendChild(additem);
-                    optionitem();
-                    profilepic()
-                    profilepic1()
-                } else {
-                    console.error("The element .productscontainer was not found.");
-                    console.log(dashboardContent)
-                    console.log(deleteitem)
-                }
-            })
-            .catch((err) => console.error("Failed to load dashboard content:", err));
-    });
+    document.getElementById("buttonproducts").addEventListener("click", product);
 
 });
 

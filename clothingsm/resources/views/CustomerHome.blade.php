@@ -12,8 +12,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=shopping_cart" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=undo" />
-
-
 </head>
 <body>
 <div class="main-container">
@@ -44,7 +42,7 @@
           <div class="swiper-slide-button swiper-button-next"></div>
         </div>
       </div>
-      <a href="" id="explore" class="explore-new-button">Explore New Designs</a>
+      <button id="explore" class="explore-new-button">Explore New Designs</button>
     </div>
     <div class="subTitle2">
       <div></div>
@@ -69,13 +67,19 @@
         </div>
       </div>
       <div class="newDesigns-selection-container">
-        <a class="add-design-button" id="add-design-button" href="#"><img src="../images/add-design.png" alt="">Add A Design</a>
-        <a href="#" id="customize-design-button" class="customize-design-button"><img src="{{asset("images/custom-design.png")}}" alt="">Customize a Design</a>
+        <button id="add-design-button" class="explore-new-button">
+          <img src="{{asset("images/add-design.png")}}" alt="">
+          Add A Design
+        </button>
+        <button id="customize-design-button" class="explore-new-button">
+          <img src="{{asset("images/custom-design.png")}}" alt="">
+          Customize a Design
+        </button>
       </div>
     </div>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="{{asset("js/customerJS.js")}}"></script>
-
+</body>
 </html>

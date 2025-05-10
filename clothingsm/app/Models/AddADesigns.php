@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class AddADesigns extends Model
 {
     protected $primaryKey = 'productId';
     protected $fillable = [
@@ -14,8 +14,7 @@ class Product extends Model
         'price',
         'printType',
         'productImg',
-        'dateCreated',
-        'status'
+        'dateCreated'
     ];
 
     protected $dates = ['dateCreated', 'created_at', 'updated_at'];

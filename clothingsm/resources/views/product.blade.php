@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/products.css') }}" />
+    <script src="{{ asset('js/dashboard.js') }}"></script>
 </head>
 <body>
     <div class="productcontainer">
@@ -44,6 +45,7 @@
                 data-type="{{ $item->type }}" 
                 data-printtype="{{ $item->printType }}" 
                 data-productImg="{{ asset('storage/' . $item->productImg) }}"
+                data-status="{{ $item->status }}"
                 id="editbutton">EDIT
             </button>
             <button class="delete-btn deletebutton" 
@@ -123,7 +125,6 @@
                 <label for="addimg">Upload Image</label>
                 <input type="file" name="productImg" id="addimg">
             </div>
-        
             <button type="submit" class="submit-btn">Add Stock</button>
         </form>
     </div>
@@ -157,21 +158,28 @@
             <div class="price2">
                 <input type="text" required="required" name="editPrice" id="editPrice">
                 <span>Price</span>
-            </div>
+            </div> 
     
             <div class="edittype">
                 <select name="edittype1" id="editCategory" class="edittype1">
                     <option value="Polo">Polo</option>
-                    <option value="Tshirt">T-Shirt</option>
+                    <option value="T-Shirt">T-Shirt</option>
                     <option value="Hoodie">Hoodie</option>
                 </select>
             </div>
     
             <div class="printtype">
                 <select name="printType1" id="printType1" class="printType1">
-                    <option value="sublimation">Sublimation</option>
-                    <option value="embroidery">Embroidery</option>
-                    <option value="print">Print</option>
+                    <option value="Sublimation">Sublimation</option>
+                    <option value="Embroidery">Embroidery</option>
+                    <option value="Print">Print</option>
+                </select>
+            </div>
+            <div class="status-container">
+                <label for="add-status">Status</label>
+                <select name="status" id="add-status">
+                    <option class="status-display" value="display" selected>Display</option>
+                    <option class="status-hidden" value="hidden">Hide</option>
                 </select>
             </div>
 
@@ -233,4 +241,3 @@
         </form>
     </div>
 </html>
-
