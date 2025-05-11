@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('tblusers', function (Blueprint $table) {
             $table->id('customerId');
             $table->string('username');
             $table->string('name');
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('role')->default('customer');
         });
-        DB::table('users')->insert([
+        DB::table('tblusers')->insert([
             'username' => 'admin',
             'name' => 'Admin User',
             'email' => 'admin@clothing',

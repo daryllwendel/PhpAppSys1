@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('tblproducts', function (Blueprint $table) {
             $table->id('productId');
             $table->unsignedBigInteger('customerId')->nullable(); 
             $table->string('name');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamp('dateCreated')->useCurrent();
             $table->timestamps();
             
-            $table->foreign('customerId')->references('customerId')->on('users')->onDelete('set null');
+            $table->foreign('customerId')->references('customerId')->on('tblusers')->onDelete('set null');
         });
     }
 

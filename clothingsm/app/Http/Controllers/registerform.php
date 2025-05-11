@@ -75,7 +75,7 @@ class registerform extends Controller
         $field = $request->validate([
             'username' =>['required', 'min:4', 'max:15'],
             'name' => ['required'],
-            'email' => ['required','email', Rule::unique('users', 'email')],
+            'email' => ['required','email', Rule::unique('tblusers', 'email')],
             'mobile_number'=>['required', 'min:11', 'max:11'],
             'password' =>  ['required', 'min:8', 'max:200'],
         ]); 

@@ -65,7 +65,7 @@ class AddADesign extends Controller
     }
 
     public function myDesignOrder(){
-        $all = DB::table('product_with_sizes')->get();
+        $all = DB::table('vwproduct_with_sizes')->get();
         return view('CustomerMyDesignOrder-display', compact('all'));
     }
 }

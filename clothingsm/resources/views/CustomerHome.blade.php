@@ -28,12 +28,22 @@
       <div class="hotDesigns-container swiper">
         <div class="card-wrapper">
           <ul class="card-list swiper-wrapper">
-            @foreach($product as $item)
+            @foreach($all as $item)
             <li class="card-item swiper-slide">
-              <a href="" class="card-link" id="card-link">
+              <button class="card-link" id="card-link">
                 <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}" class="card-image">
                 <h2 class="card-title">{{ $item->name }}</h2>
-              </a>
+              </button>
+              <button class="buy-button card-link"
+                data-id="{{ $item->productId }}" 
+                data-name="{{ $item->name }}" 
+                data-price="{{ $item->price }}" 
+                data-type="{{ $item->type }}" 
+                data-printtype="{{ $item->printType }}" 
+                data-img="{{ asset('storage/' . $item->productImg) }}"
+                data-status="{{ $item->status }}">
+                Buy
+              </button>
             </li>
             @endforeach
           </ul>
@@ -52,15 +62,25 @@
       <div class="newDesigns-container swiper">
         <div class="card-wrapper">
           <ul class="card-list swiper-wrapper">
-            @foreach($product as $item)
+            @foreach($all as $item)
             <li class="card-item swiper-slide">
-              <a href="" class="card-link">
+              <button class="card-link">
                 <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}" class="card-image">
                 <h2 class="card-title">{{ $item->name }}</h2>
-              </a>
+              </button>
+              <button class="buy-button card-link"
+                data-id="{{ $item->productId }}" 
+                data-name="{{ $item->name }}" 
+                data-price="{{ $item->price }}" 
+                data-type="{{ $item->type }}" 
+                data-printtype="{{ $item->printType }}" 
+                data-img="{{ asset('storage/' . $item->productImg) }}"
+                data-status="{{ $item->status }}">
+                Buy
+              </button>
             </li>
             @endforeach
-          </ul>
+          </ul> 
           <div class="swiper-pagination"></div>
           <div class="swiper-slide-button swiper-button-prev"></div>
           <div class="swiper-slide-button swiper-button-next"></div>
@@ -77,6 +97,24 @@
         </button>
       </div>
     </div>
+  </div>
+</div> 
+<div class="overlay" id="overlay">
+  <div class="product-modal" id="product-modal">
+      <form action="">
+          <button type="button" class="close-btn" aria-label="Close" id="close-btn">×</button>
+          <div class="modal-header">Black and Yellow Gaming Sports Jersey</div>
+          
+          <img src="{{ asset('storage/product-image.jpg') }}" alt="Black and Yellow Gaming Sports Jersey" class="product-image" id="modal-product-image">
+          
+          <div class="product-info">
+              <div class="price">₱ <span id="modal-price">360</span></div>
+          </div>
+          
+          <div class="button-container">
+              <button type="button" class="add-to-cart-btn">Add to cart</button>
+          </div>
+      </form>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

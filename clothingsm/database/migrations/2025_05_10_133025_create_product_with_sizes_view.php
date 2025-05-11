@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::statement("
-            CREATE VIEW product_with_sizes AS
+            CREATE VIEW vwproduct_with_sizes AS
             SELECT 
                 p.productId,
                 p.customerId,
@@ -25,8 +25,8 @@ return new class extends Migration
                 p.created_at,
                 p.updated_at,
                 p.status
-            FROM products p
-            JOIN product_sizes ps ON p.productId = ps.product_id
+            FROM tblproducts p
+            JOIN tblproduct_sizes ps ON p.productId = ps.product_id
         ");
     }
 

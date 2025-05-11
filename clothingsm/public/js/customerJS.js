@@ -152,6 +152,51 @@ function swipe(){
     
     });
 }
+function initProductOverlay() {
+  // Make sure the DOM is fully loaded before accessing elements
+  const buyButtons = document.querySelectorAll(".buy-button"); // Select all buy buttons
+  const overlay = document.getElementById("overlay");
+  const modal = document.getElementById("product-modal");
+  const closeBtn = document.getElementById("close-btn");
+  const mainContainer = document.querySelector(".main-container");
+
+  // Check if necessary elements exist
+  if (!overlay || !modal || !closeBtn || !mainContainer) {
+    console.log(overlay)
+    console.log(modal)
+    console.log(closeBtn)
+    console.log(mainContainer)
+    console.error("Required elements for product modal not found in DOM");
+    return; // Exit function if any required element is missing
+  }
+
+  buyButtons.forEach(button => {
+    button.addEventListener("click", function() {
+      const productId = button.getAttribute('data-id');
+      const productName = button.getAttribute('data-name');
+      const productPrice = button.getAttribute('data-price');
+      const productType = button.getAttribute('data-type');
+      const productPrintType = button.getAttribute('data-printtype');
+      const productImg = button.getAttribute('data-img');
+      const productStatus = button.getAttribute('data-status');
+
+      // Update modal content
+      document.querySelector(".modal-header").textContent = productName;
+      document.querySelector(".product-image").src = productImg;
+      document.querySelector(".price").textContent = productPrice;
+
+      // Show modal and overlay
+      overlay.style.display = "flex"; 
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  closeBtn.addEventListener("click", function(e) {
+    e.preventDefault(); // Prevent form submission
+    overlay.style.display = "none"; 
+    document.body.style.overflow = "auto";
+  });
+}
 function initCartListeners() {
     document.addEventListener("click", function (e) {
       const cart = document.getElementById("addtocart");
@@ -200,6 +245,7 @@ function initCartListeners() {
         const doc = parser.parseFromString(html, "text/html");
   
         const dashboardContent = doc.querySelector(".customerdashboard");
+        const overlay = doc.querySelector(".overlay")
   
         if (dashboardContent) {
           console.log('Loading customer dashboard...');
@@ -208,10 +254,12 @@ function initCartListeners() {
           const content = document.getElementById("change-container");
           content.innerHTML = "";
           content.appendChild(dashboardContent);
+          content.appendChild(overlay)
   
   
           swipe(); 
           initCartListeners();
+          initProductOverlay()
         } else {
           console.log('Failed to find dashboard content in response.');
         }

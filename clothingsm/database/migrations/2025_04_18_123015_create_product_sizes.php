@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_sizes', function (Blueprint $table) {
+        Schema::create('tblproduct_sizes', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id');
             $table->string('size'); // S, M, L, XL, XXL, etc.
             $table->timestamps();
@@ -19,7 +19,7 @@ return new class extends Migration
             // Add foreign key constraint
             $table->foreign('product_id')
                   ->references('productId')
-                  ->on('products')
+                  ->on('tblproducts')
                   ->onDelete('cascade');
                   
             // Make product_id and size the composite primary key
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_sizes');
+        Schema::dropIfExists('tblproduct_sizes');
     }
 };

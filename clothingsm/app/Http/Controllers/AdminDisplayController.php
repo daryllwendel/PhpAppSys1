@@ -9,11 +9,11 @@ use App\Http\Controllers\Controller;
 class AdminDisplayController extends Controller
 {
     public function dashboardDisplay() {
-        $product = DB::table('products')
+        $product = DB::table('tblproducts')
             ->select('productId', 'name', 'productImg')
             ->get();
-        $productCount = DB::table('products')->count();
-        $orders = DB::table('orders')->count();
+        $productCount = DB::table('tblproducts')->count();
+        $orders = DB::table('tblorders')->count();
 
        
         return view('dashboarddisplay', compact('product', 'productCount', 'orders'));

@@ -67,22 +67,24 @@ class AdminDashboardController extends Controller
                     $product->productImg = $path;
                 }
                 
-                if ($field['editName']) {
+                if (array_key_exists('editName', $field)) {
                     $product->name = $field['editName'];
                 }
-                if ($field['editPrice']) {
+                if (array_key_exists('editPrice', $field)) {
                     $product->price = $field['editPrice'];
                 }
-                if ($field['edittype1']) {
+                if (array_key_exists('edittype1', $field)) {
                     $product->type = $field['edittype1'];
                 }
-                if ($field['printType1']) {
+                if (array_key_exists('printType1', $field)) {
                     $product->printType = $field['printType1'];
                 }
-                if ($field['status']) {
+                if (array_key_exists('status', $field)) {
                     $product->status = $field['status'];
                 }
+                
                 $product->save();
+                
 
                 // Always update sizes if provided
                 if (!empty($field['sizes'])) {
@@ -114,13 +116,13 @@ class AdminDashboardController extends Controller
     
     public function productid() {
         try {
-            $products = DB::table('product_with_sizes')
+            $products = DB::table('vwproduct_with_sizes')
                 ->select('productId', 'name', 'type', 'price', 'printType', 'productImg', 'status')
                 ->distinct()
                 ->get();
-            $size = DB::table('product_with_sizes')->select('size')->get();
-            $count = DB::table('products')->max('productId') ?? 0;
-            DB::statement("ALTER TABLE products AUTO_INCREMENT = " . ($count + 1));
+            $size = DB::table('vwproduct_with_sizes')->select('size')->get();
+            $count = DB::table('tblproducts')->max('productId') ?? 0;
+            DB::statement("ALTER TABLE tblproducts AUTO_INCREMENT = " . ($count + 1));
             return view('product', compact('products', 'count'));
         } catch(\Exception $e) {
             dd($e->getMessage()); 

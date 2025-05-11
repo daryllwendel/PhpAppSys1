@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
-{
+{   
+    protected $table = 'tblorder_items';
     protected $primaryKey = 'orderItemId';
     protected $fillable = [
         'orderId',

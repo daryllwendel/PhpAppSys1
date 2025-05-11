@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductSize extends Model
 {
+    protected $table = 'tblproduct_sizes';
     protected $primaryKey = ['product_id', 'size'];
     public $incrementing = false;
     

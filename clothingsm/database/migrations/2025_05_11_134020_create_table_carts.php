@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tblpayment_methods', function (Blueprint $table) {
-            $table->id('paymentMethodId');
-            $table->string('paymentName');
+        Schema::create('table_carts', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -21,8 +20,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('tblpayment_methods');
+        Schema::dropIfExists('table_carts');
     }
 };

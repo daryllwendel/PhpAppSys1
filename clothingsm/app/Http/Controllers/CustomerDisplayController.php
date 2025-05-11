@@ -9,11 +9,15 @@ use App\Http\Controllers\Controller;
 class CustomerDisplayController extends Controller
 {
     public function CustomerDisplay(){
-        $product = DB::table('product_with_sizes')
+        $product = DB::table('vwproduct_with_sizes')
             ->select('productId', 'name', 'productImg', 'status')
             ->where('status', 'display')
             ->get();
-        $productCount = DB::table('products')->count();
-        return view('CustomerHome', compact('product', 'productCount'));
+        $all = DB::table('vwproduct_with_sizes')
+        ->select('productId', 'name', 'productImg', 'status', 'price', 'type', 'printType')
+        ->where('status', 'display')
+        ->get();
+        $productCount = DB::table('tblproducts')->count();
+        return view('CustomerHome', compact('product', 'productCount', 'all'));
     }
 }

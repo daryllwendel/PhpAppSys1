@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('tblorders', function (Blueprint $table) {
             $table->id('orderId');
             $table->unsignedBigInteger('customerId');
             $table->unsignedBigInteger('paymentMethodId');
@@ -19,8 +19,8 @@ return new class extends Migration
             $table->enum('deliveryStatus', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending');
             $table->timestamps();
             
-            $table->foreign('customerId')->references('customerId')->on('users')->onDelete('cascade');
-            $table->foreign('paymentMethodId')->references('paymentMethodId')->on('payment_methods')->onDelete('restrict');
+            $table->foreign('customerId')->references('customerId')->on('tblusers')->onDelete('cascade');
+            $table->foreign('paymentMethodId')->references('paymentMethodId')->on('tblpayment_methods')->onDelete('restrict');
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('tblorders');
     }
 };

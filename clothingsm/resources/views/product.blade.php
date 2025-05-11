@@ -149,7 +149,7 @@
                 <input type="text" required="required" readonly name="productId" id="editId">
                 <span>Product ID</span>
             </div>
-    
+     
             <div class="name2">
                 <input type="text" required="required" name="editName" id="editName">
                 <span>Name</span>
@@ -169,7 +169,7 @@
             </div>
     
             <div class="printtype">
-                <select name="printType1" id="printType1" class="printType1">
+                <select name="printType1" id="editprintType" class="printType1">
                     <option value="Sublimation">Sublimation</option>
                     <option value="Embroidery">Embroidery</option>
                     <option value="Print">Print</option>

@@ -143,19 +143,18 @@ function optionitem() {
             const productPrintType = button.getAttribute('data-printtype');
             const productImg = button.getAttribute('data-productImg');
             const productStatus = button.getAttribute('data-status');
+            console.log(productPrintType); // Check this output
 
             document.getElementById("editProductImage1").src = productImg;
             document.getElementById("editId").value = productId;
             document.getElementById("editName").value = productName;
             document.getElementById("editPrice").value = productPrice;
             document.getElementById("editCategory").value = productType;
-            document.getElementById("printType1").value = productPrintType;
+            document.getElementById("editprintType").value = productPrintType;
             document.getElementById("add-status").value = productStatus;
             console.log(productType)
 
             edit.style.display = "grid";
-            productcontainer.style.filter = "blur(10px)";
-            productcontainer.style.pointerEvents = "none";
         });
     });
 

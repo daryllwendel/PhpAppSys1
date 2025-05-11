@@ -286,3 +286,164 @@ body{
         width: 200px;
     }
 }
+/* Modal Overlay Styles - Updated */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background for better blur effect */
+    display: none; /* Will be changed to flex when active */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px); /* Add blur effect to background */
+    -webkit-backdrop-filter: blur(5px); /* For Safari support */
+}
+
+.product-modal {
+    background-color: white;
+    border-radius: 20px;
+    width: 380px; /* Fixed width for consistency */
+    max-width: 90%;
+    padding: 15px;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    margin: 20px;
+    max-height: 90vh; /* Maximum height to prevent overflow on small screens */
+    overflow-y: auto; /* Add scroll if content overflows */
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    color: #000;
+    z-index: 10; /* Ensure button stays above other elements */
+}
+
+.modal-header {
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 0 30px;
+}
+
+.product-image {
+    width: 100%;
+    height: 220px; /* Fixed height for consistent appearance */
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.product-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    padding: 5px 10px;
+}
+
+.quantity-selector button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.quantity-selector span {
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffb6b6;
+    color: black;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #ff9e9e;
+}
+
+/* Style for buy buttons */
+.buy-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffb6b6;
+    color: black;
+    border: none;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.buy-button:hover {
+    background-color: #ff9e9e;
+}
+
+/* Product card styling */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-link {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.10);
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.button-container {
+    margin-top: 10px;
+}
