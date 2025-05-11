@@ -202,7 +202,7 @@ function loaddashboard(){
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, "text/html");
 
-            const dashboardContent = doc.querySelector(".dashboardcontainer");
+            const dashboardContent = doc.querySelector(".main-container");
             if(dashboardContent){
                 document.getElementById("title1").innerHTML =`
                 <div>Home</div>`
@@ -212,6 +212,7 @@ function loaddashboard(){
                 content.appendChild(dashboardContent)
                 swiper()
                 loadCharts()
+                document.getElementById('body1').style.display = 'flex'
             }else{
                 console.log("Errorz")
             }
@@ -237,13 +238,13 @@ document.addEventListener("DOMContentLoaded",function (){
                 const overlay = doc.querySelector(".overlay");
                 if(dashboardContent){
                     document.getElementById("title1").innerHTML =`
-                    <div>Orders</div>
-                    <img src="/images/profile.jpg" alt="">`
+                    <div>Orders</div>`
                     const content = document.getElementById("body1");
                     content.innerHTML = "";
                     content.appendChild(dashboardContent)
                     content.appendChild(overlay)
                     attachOverlayEvents()
+                    document.getElementById('body1').style.display = 'grid'
                 }else{
                     console.log("Error ga")
                 }
@@ -266,8 +267,7 @@ function product(){
 
         if (dashboardContent) {
             document.getElementById("title1").innerHTML =`
-            <div>Products</div>
-            <img src="/images/profile.jpg" alt="">`
+            <div>Products</div>`
             const content = document.getElementById("body1");
             content.innerHTML = "";
             content.appendChild(dashboardContent);
@@ -277,6 +277,7 @@ function product(){
             optionitem();
             profilepic()
             profilepic1()
+            document.getElementById('body1').style.display = 'grid'
         } else {
             console.error("The element .productscontainer was not found.");
             console.log(dashboardContent)
@@ -307,8 +308,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (dashboardContent) {
                     document.getElementById("title1").innerHTML =`
-                    <div>Reports</div>
-                    <img src="/images/profile.jpg" alt="">`
+                    <div>Reports</div>`
                     const content = document.getElementById("body1");
                     content.innerHTML = "";
                     content.appendChild(dashboardContent);

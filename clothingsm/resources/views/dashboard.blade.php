@@ -18,7 +18,7 @@
 <body>
 <div class="nav">
     <div class="userNav">
-        <img src="{{ asset('images/profile.jpg') }}" alt="">
+        <img src="{{ asset('images/selcouth.jpg') }}" alt="">
         <button><p class="customer-name">Admin</p>
             <p>Administrator</p></button>
         <a href="../../../login" class="login-button">Log Out</a>
@@ -39,8 +39,7 @@
 
 </div> 
 <div class="title1" id="title1">
-    <div>Dashboard</div>
-    <img src="{{ asset('images/profile.jpg') }}" alt="">
+    <div>Home</div>
 </div>
 <div class="body1" id="body1"></div>
 </body>

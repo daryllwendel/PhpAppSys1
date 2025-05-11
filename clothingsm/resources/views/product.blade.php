@@ -17,7 +17,7 @@
             </div>
     
             <div class="items-2">
-                <button class="addbutton"><img src="{{ asset('images/cart.png') }}" alt="Add"></button>
+                <button class="addbutton"><img src="{{ asset('images/addProduct.png') }}" alt="Add"></button>
             </div>
     
 <div class="items-3">
