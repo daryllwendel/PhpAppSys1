@@ -14,11 +14,11 @@
             Schema::create('tblcartitems', function (Blueprint $table) {
                 $table->id();
                 $table->integer('quantity');
-                $table->double('total');
+                $table->double('total')->default(0);
                 $table->timestamps();
             
                 $table->unsignedBigInteger('product_id');
-                $table->string('size');
+                $table->string('size')->nullable();
             
                 $table->unsignedBigInteger('cart_id')->nullable();
                 $table->foreign('cart_id')->references('cart_id')->on('tblcarts')->onDelete('cascade');

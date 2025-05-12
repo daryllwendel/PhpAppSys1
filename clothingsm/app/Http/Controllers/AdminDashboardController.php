@@ -36,7 +36,7 @@ class AdminDashboardController extends Controller
     }
 
     public function editProduct(Request $request) {
-        try {
+        try { 
             $field = $request->validate([
                 'productId' => 'required',
                 'editProductImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -113,7 +113,7 @@ class AdminDashboardController extends Controller
             return redirect('/dashboard')->with('error', 'Failed to update product: ' . $e->getMessage());
         }
     }
-    
+     
     public function productid() {
         try {
             $products = DB::table('vwproduct_with_sizes')

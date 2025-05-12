@@ -2,46 +2,81 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
-use App\Models\OrdersItem;
+use Exception;
+use App\Models\carts;
+use App\Models\cartitems;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Container\Attributes\Log;
 
 class AddtoCartController extends Controller
 {
-    public function addtocart(){
-        // Get the currently logged in customer's ID
-        $customerId = Auth::user()->customerId;
+    public function displaycart(){
+        $order_items = DB::table('view_cart_details')->get();
+        return view('CustomerAddtoCart', compact('order_items'));
+}
 
-        // First check if there's a pending order for this customer
-        $pendingOrder = Order::where('customerId', $customerId)
-            ->where('deliveryStatus', 'pending')
-            ->first();
+    public function addtocart(Request $request){
+        $field = $request->validate([
+            'customerId' => 'required',
+            'productId' => 'required',
+            'price' => 'required',
+        ]);
+        DB::beginTransaction();
 
-        if (!$pendingOrder) {
-            // If no pending order exists, return empty cart view
-            return view('CustomerAddtoCart', ['order_items' => collect()]);
+        try{
+            $cart = carts::create([
+                'customerId' => $field['customerId'],
+                'subTotal'=> 0
+            ]);
+            cartitems::create([
+                'cart_id' => $cart->cart_id,
+                'product_id' => $field['productId'],
+                'quantity' => 0,
+                'price' => $field['price'],
+            ]);
+            
+            DB::commit();
+        }catch(\Exception $e) {
+            DB::rollBack();
+            dd('field');
+            dd($e);
+            Log::error('Failed to add cart: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to add cart: ' . $e->getMessage());
+        }
+        
+        return redirect()->back()->with('success', 'Product added to cart successfully');
+    }
+    public function editcart(Request $request){
+
+    }
+
+    public function deletecart(Request $request)
+{
+    try {
+        // Validate incoming request
+        $field = $request->validate([
+            'productId' => 'required|exists:cartitems,productId', // Ensure the productId exists in the cartitems table
+        ]);
+
+        // Retrieve the product by productId, optionally checking for user or session-related cart items
+        $product = cartitems::where('productId', $field['productId'])->first();
+
+        if (!$product) {
+            return redirect()->back()->with('error', 'Product not found in cart');
         }
 
-        $order_items = OrdersItem::join('products', 'order_items.productId', '=', 'products.productId')
-            ->join('orders', 'order_items.orderId', '=', 'orders.orderId')
-            ->join('product_sizes', function($join) {
-                $join->on('products.productId', '=', 'product_sizes.product_id')
-                     ->on('order_items.size', '=', 'product_sizes.size');
-            })
-            ->where('orders.customerId', $customerId)
-            ->where('orders.deliveryStatus', 'pending')
-            ->select('order_items.*', 'products.*', 'product_sizes.size')
-            ->get();
+        // Perform deletion
+        $product->delete();
 
-        // Debug output
-        \Log::info('Customer ID: ' . $customerId);
-        \Log::info('Order Items Count: ' . $order_items->count());
-        \Log::info('Order Items: ', $order_items->toArray());
-
-        return view('CustomerAddtoCart', ['order_items' => $order_items]);
+        // Provide feedback
+        return redirect()->back()->with('success', 'Product removed from cart successfully');
+    } catch (\Exception $e) {
+        // Return detailed error message for debugging purposes
+        return redirect()->back()->with('error', 'Failed to remove product: ' . $e->getMessage());
     }
+}
+
 }

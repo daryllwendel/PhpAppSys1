@@ -101,18 +101,23 @@
 </div> 
 <div class="overlay" id="overlay">
   <div class="product-modal" id="product-modal">
-      <form action="">
+      <form action="/addtocart" method="POST">
+        @csrf
+        <input type="hidden" name="customerId" value="{{ Auth::id() }}">
+        <input type="hidden" name="productId" id="productId" >
+        <input type="hidden" name="price" id="productPrice">
+
           <button type="button" class="close-btn" aria-label="Close" id="close-btn">×</button>
-          <div class="modal-header">Black and Yellow Gaming Sports Jersey</div>
+          <div class="modal-header" name="product_name">Black and Yellow Gaming Sports Jersey</div>
           
           <img src="{{ asset('storage/product-image.jpg') }}" alt="Black and Yellow Gaming Sports Jersey" class="product-image" id="modal-product-image">
           
           <div class="product-info">
-              <div class="price">₱ <span id="modal-price">360</span></div>
+              <div class="price">₱ <span id="modal-price" name="product_price">360</span></div>
           </div>
           
           <div class="button-container">
-              <button type="button" class="add-to-cart-btn">Add to cart</button>
+              <button type="submit" class="add-to-cart-btn">Add to cart</button>
           </div>
       </form>
   </div>

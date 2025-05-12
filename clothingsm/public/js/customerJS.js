@@ -184,6 +184,8 @@ function initProductOverlay() {
       document.querySelector(".modal-header").textContent = productName;
       document.querySelector(".product-image").src = productImg;
       document.querySelector(".price").textContent = productPrice;
+      document.getElementById('productId').value = productId;
+      document.getElementById('productPrice').value = productPrice;
 
       // Show modal and overlay
       overlay.style.display = "flex"; 
@@ -266,29 +268,55 @@ function initCartListeners() {
       })
       .catch((err) => console.error("Failed to load dashboard content:", err));
   }
+  function quantityset() {
+    console.log('okay??')
+        document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
+            const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
+            const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
+            const input = control.querySelector('.shopping-cart-quantity-input');
+            console.log('hahaha')
+            minus.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                input.value = Math.max(0, parseInt(input.value) - 1);
+                console.log('minus')
+            });
+
+            plus.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                input.value = parseInt(input.value) + 1;
+                console.log('plus')
+            });
+        });
+}
+
+
 function loadaddtocart(){
     fetch('/CustomerAddtoCart')
     .then(res => res.text())
-    .then((html)=>{
-        const parser = new DOMParser()
-        const doc = parser.parseFromString(html,"text/html")
+    .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
 
-        const addtocartdisplay = doc.querySelector(".shopping-cart-container")
-        if(addtocartdisplay){
-            console.log('haxaha')
-            document.getElementById("title").innerHTML=`
-            <div>Cart</div>`
+        const addtocartdisplay = doc.querySelector(".shopping-cart-container");
+        if (addtocartdisplay) {
+            console.log('haxaha');
+            document.getElementById("title").innerHTML = `
+                <div>Cart</div>`;
             const content = document.getElementById("change-container");
             content.innerHTML = "";
-            content.appendChild(addtocartdisplay)
+            content.appendChild(addtocartdisplay);
             
-            document.getElementById("back").addEventListener('click', loadcustomerdashboard)
-            document.getElementById("back1").addEventListener('click', loadcustomerdashboard)
-        }else{
-            console.log('okay')
+            document.getElementById("back").addEventListener('click', loadcustomerdashboard);
+            document.getElementById("back1").addEventListener('click', loadcustomerdashboard);
+
+        } else {
+            console.log('okay');
         }
-    })
+    });
 }
+
 function loaddesigns(){
     fetch('/CustomerNewDesigns')
     .then(res => res.text())

@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('tblcarts', function (Blueprint $table) {
             $table->id('cart_id');
-            $table->timestamp('dateCreated')->nullable();
-            $table->timestamp('dateUpdated')->nullable();
+            $table->timestamp('dateCreated')->useCurrent();
+            $table->timestamp('dateUpdated')->useCurrent()->useCurrentOnUpdate();
             $table->double('subTotal');
             $table->unsignedBigInteger('customerId')->nullable();
             $table->foreign('customerId')->references('customerId')->on('tblusers')->onDelete('set null');

@@ -53,7 +53,8 @@ Route::get('/CustomerNewDesigns', function(){
 Route::get('/CustomerNewOrder-display', function(){
     return view('CustomerNewOrder-display');
 });
-Route::get('/CustomerAddtoCart', [AddtoCartController::class, 'addtocart'])->name('CustomerAddtoCart');
+Route::get('/CustomerAddtoCart', [AddtoCartController::class, 'displaycart'])->name('CustomerAddtoCart');
+
 Route::get('/CustomerOrder', function(){
     return view('CustomerOrder');
 });
@@ -62,10 +63,6 @@ Route::get('/CustomerOrder-display', function(){
 });
 Route::get('/CustomerProductClicked-display', function(){
     return view('CustomerProductClicked-display');
-});
-
-Route::get('/CustomerAddtoCart', function(){
-    return view('CustomerAddtoCart');
 });
 Route::get('/empty', function(){
     return view('empty');
@@ -96,6 +93,8 @@ Route::post('/location', [addressform::class,'locations']);
 Route::post('/upload-profile', [addressform::class, 'profilepicture'])->name('user.upload');
 Route::post('/changepass', [passwordcontroller::class, 'changepass'])->name('changepass');
 Route::post('/adddesign', [AdminDashboardController::class, 'adddesign']);
+Route::post('/addtocart',[AddtoCartController::class, 'addtocart']);
+
 Route::middleware(['auth'])->group(function () {
 Route::post('/addadesign', [AddADesign::class, 'AddADesign']);
 });
