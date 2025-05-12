@@ -97,7 +97,7 @@ Route::post('/upload-profile', [addressform::class, 'profilepicture'])->name('us
 Route::post('/changepass', [passwordcontroller::class, 'changepass'])->name('changepass');
 Route::post('/adddesign', [AdminDashboardController::class, 'adddesign']);
 Route::middleware(['auth'])->group(function () {
-    Route::post('/addadesign', [AddADesign::class, 'AddADesign']);
+Route::post('/addadesign', [AddADesign::class, 'AddADesign']);
 });
 
 Route::post('/ajax/login', [registerform::class, 'ajaxLogin'])->name('ajax.login');

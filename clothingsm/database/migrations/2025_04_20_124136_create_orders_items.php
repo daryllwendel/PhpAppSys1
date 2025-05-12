@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('size');
             $table->integer('quantity');
             $table->timestamps();
-            
+            $table->unsignedBigInteger('cart_id')->nullable();
+            $table->foreign('cart_id')->references('cart_id')->on('tblcarts')->onDelete('cascade');
             $table->foreign('orderId')->references('orderId')->on('tblorders')->onDelete('cascade');
             $table->foreign('productId')->references('productId')->on('tblproducts')->onDelete('restrict');
             $table->foreign(['productId', 'size'])->references(['product_id', 'size'])->on('tblproduct_sizes')->onDelete('restrict');
