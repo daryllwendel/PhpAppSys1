@@ -10,13 +10,13 @@ signUpButton.addEventListener('click', () => {
 
 signInButton.addEventListener('click', () => {
 	container.classList.remove("right-panel-active");
-}); 
+});
 
     const loginForm = document.querySelector('.sign-in-container form');
     const msg = document.getElementById('loginMsg');
 
     loginForm.addEventListener('submit', async e => {
-        e.preventDefault();  
+        e.preventDefault();
 
         msg.className = 'msg';
         msg.textContent = 'Checking…';
@@ -39,14 +39,14 @@ signInButton.addEventListener('click', () => {
         const payload = new URLSearchParams({
             loginname: loginForm.loginname.value,
             loginpassword: loginForm.loginpassword.value,
-            _token: loginForm._token.value, 
+            _token: loginForm._token.value,
         });
 
-        const ajaxURL = '/ajax/login';  
-    
+        const ajaxURL = '/ajax/login';
+
         try {
             const r = await fetch(ajaxURL, {
-                method: 'POST',  
+                method: 'POST',
                 headers: { 'Accept': 'application/json' },
                 body: payload
             });
@@ -80,7 +80,18 @@ function toggleButton(){
 }
 
 function showmsg(){
-    alert('Account Created!')
+    const username = document.getElementById('username')
+    const name = document.getElementById('name')
+    const email = document.getElementById('email')
+    const number = document.getElementById('mobile_number')
+    const password = document.getElementById('password')
+
+    if(username.value === "" || name.value === "" || email.value === "" || number.value === "" || password.value === ""){
+        alert("Please input required fields!")
+    }else{
+        alert('Account Created!')
+    }
+
 }
 
 

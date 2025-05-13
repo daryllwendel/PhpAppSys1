@@ -28,14 +28,14 @@
                                 @php
                                     $sizes = App\Models\ProductSize::where('product_id', $item->product_id)->get();
                                 @endphp
-                            Sizes: 
+                            Sizes:
                             @foreach($sizes as $size)
                                 <span class="size-badge">{{ $size->size }}</span>
                             @endforeach
                             </div>
                             <div class="shopping-cart-item-price">Price: ₱ {{$item->price}}</div>
                         </div>
-                        
+
                         <div class="shopping-cart-quantity-selector">
                             @php
                                     $sizes = App\Models\ProductSize::where('product_id', $item->product_id)->get();
@@ -45,7 +45,7 @@
                                     <span class="shopping-cart-size-label">{{$items->size}}</span>
                                     <div class="shopping-cart-quantity-control">
                                         <button type="button" class="shopping-cart-quantity-btn minus">-</button>
-                                        <input type="text" class="shopping-cart-quantity-input" value="{{$items->size ? $item->quantity : 0}}">
+                                        <input type="number" class="shopping-cart-quantity-input" value="{{$items->size ? $item->quantity : 0}}">
                                         <button type="button" class="shopping-cart-quantity-btn plus">+</button>
 
                                     </div>
@@ -53,7 +53,7 @@
                             @endforeach
                         </div>
                     </div>
-                    
+
                     <form action="">
                         <button class="shopping-cart-remove-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -63,7 +63,7 @@
                         </button>
                     </form>
                 @endforeach
-                
+
                 <div class="shopping-cart-footer">
                     <button class="shopping-cart-checkout-btn">Proceed to Checkout</button>
                     <div class="shopping-cart-total">
@@ -77,33 +77,37 @@
                     <button class="shopping-cart-checkout-btn" id="back1" style="margin-top: 20px;">Back</button>
                 </div>
             @endif
+            <script>
+                function quantityset() {
+                    console.log('okay??')
+                    document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
+                        const minus = control.querySelector('.shopping-cart-quantity-btn minus');
+                        const plus = control.querySelector('.shopping-cart-quantity-btn plus');
+                        const input = control.querySelector('.shopping-cart-quantity-input');
+                        console.log('hahaha')
+                        minus.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            input.value = Math.max(0, parseInt(input.value) - 1);
+                            console.log('minus')
+                        });
+
+                        plus.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            input.value = parseInt(input.value) + 1;
+                            console.log('plus')
+                        });
+                    });
+                }
+
+                document.addEventListener('DOMContentLoaded', quantityset);
+
+            </script>
         </div>
+
+
     </div>
-    <script>
-        function quantityset() {
-    console.log('okay??')
-        document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
-            const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
-            const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
-            const input = control.querySelector('.shopping-cart-quantity-input');
-            console.log('hahaha')
-            minus.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                input.value = Math.max(0, parseInt(input.value) - 1);
-                console.log('minus')
-            });
 
-            plus.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                input.value = parseInt(input.value) + 1;
-                console.log('plus')
-            });
-        });
-}
-
-document.addEventListener('DOMContentLoaded', quantityset);
-    </script>
 </body>
 </html>
