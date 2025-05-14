@@ -40,6 +40,7 @@ Route::get('/CustomerAddADesign-display', function() {
 })->name('CustomerAddADesign-display');
 
 Route::get('/CustomerHome',[CustomerDisplayController::class, 'CustomerDisplay'])->name('CustomerHome');
+Route::delete('/deletecart',[AddtoCartController::class, 'deletecart']);
 
 Route::get('/CustomerHotOrder-display', function(){
     return view('CustomerHotOrder-display');

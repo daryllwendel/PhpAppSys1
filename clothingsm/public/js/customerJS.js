@@ -268,29 +268,53 @@ function initCartListeners() {
       })
       .catch((err) => console.error("Failed to load dashboard content:", err));
   }
-  function quantityset() {
-    console.log('okay??')
-        document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
-            const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
-            const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
-            const input = control.querySelector('.shopping-cart-quantity-input');
-            console.log('hahaha')
-            minus.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                input.value = Math.max(0, parseInt(input.value) - 1);
-                console.log('minus')
-            });
 
-            plus.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                input.value = parseInt(input.value) + 1;
-                console.log('plus')
-            });
+  function quantityset() {
+   
+    const updateTotal = () => {
+        let total = 0;
+        document.querySelectorAll('.shopping-cart-quantity-input').forEach(input => {
+            const qty = parseInt(input.value) || 0;
+            const price = parseFloat(input.dataset.price) || 0;
+            total += qty * price;
         });
+        document.getElementById('cart-total').textContent = `₱${total.toFixed(2)}`;
+    };
+
+    // Set up event listeners for all quantity controls
+    document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
+        const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
+        const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
+        const input = control.querySelector('.shopping-cart-quantity-input');
+
+        minus.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            input.value = Math.max(0, parseInt(input.value) - 1);
+            updateTotal();
+        });
+
+        plus.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            input.value = parseInt(input.value) + 1;
+            updateTotal();
+        });
+
+        // Also update when manually changing the input value
+        input.addEventListener('change', updateTotal);
+        input.addEventListener('input', updateTotal);
+    });
+
+    // Initialize the total on page load
+    updateTotal();
 }
 
+
+
+function confirmDelete() {
+  return confirm("Are you sure you want to delete?");
+}
 
 function loadaddtocart(){
     fetch('/CustomerAddtoCart')
@@ -307,10 +331,111 @@ function loadaddtocart(){
             const content = document.getElementById("change-container");
             content.innerHTML = "";
             content.appendChild(addtocartdisplay);
-            
+             // Add data-product-id attribute to each shopping-cart-item div
+             document.querySelectorAll('.shopping-cart-item').forEach((item, index) => {
+              // Try to get the product ID from the form if it exists
+              const productIdInput = item.nextElementSibling?.querySelector('input[name="productId"]');
+              const productId = productIdInput ? productIdInput.value : `product-${index}`;
+              item.dataset.productId = productId;
+          });
+          
+          const updateTotal = () => {
+              let total = 0;
+              document.querySelectorAll('.shopping-cart-quantity-input').forEach(input => {
+                  const qty = parseInt(input.value) || 0;
+                  const price = parseFloat(input.dataset.price) || 0;
+                  total += qty * price;
+                  
+                  // Save the quantity value to localStorage
+                  // Create a unique key using product ID and size
+                  const productId = input.closest('.shopping-cart-item').dataset.productId;
+                  const sizeElement = input.closest('.shopping-cart-size-row').querySelector('.shopping-cart-size-label');
+                  const size = sizeElement ? sizeElement.textContent : 'default';
+                  const storageKey = `cart_item_${productId}_${size}`;
+                  
+                  localStorage.setItem(storageKey, qty.toString());
+              });
+              
+              const cartTotal = document.getElementById('cart-total');
+              if (cartTotal) {
+                  cartTotal.textContent = `₱${total.toFixed(2)}`;
+                  
+                  // Also save the total
+                  localStorage.setItem('cart_total', total.toFixed(2));
+              }
+          };
+    
+          document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
+              const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
+              const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
+              const input = control.querySelector('.shopping-cart-quantity-input');
+              
+              // Get the stored value from localStorage if it exists
+              const productId = input.closest('.shopping-cart-item').dataset.productId;
+              const sizeElement = input.closest('.shopping-cart-size-row').querySelector('.shopping-cart-size-label');
+              const size = sizeElement ? sizeElement.textContent : 'default';
+              const storageKey = `cart_item_${productId}_${size}`;
+              
+              const savedValue = localStorage.getItem(storageKey);
+              if (savedValue !== null) {
+                  input.value = savedValue;
+              }
+    
+              minus.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  input.value = Math.max(0, parseInt(input.value) - 1);
+                  updateTotal();
+              });
+    
+              plus.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  input.value = parseInt(input.value) + 1;
+                  updateTotal();
+              });
+              
+              input.addEventListener('change', updateTotal);
+              input.addEventListener('input', updateTotal);
+          });
+    
+          // Initialize the total on page load
+          updateTotal();
+          
+          // Restore saved total if available
+          const savedTotal = localStorage.getItem('cart_total');
+          if (savedTotal !== null) {
+              const cartTotal = document.getElementById('cart-total');
+              if (cartTotal) {
+                  cartTotal.textContent = `₱${savedTotal}`;
+              }
+          }
+          
+          // Add event listeners to back buttons
+          const backButton = document.getElementById("back");
+          const backButton1 = document.getElementById("back1");
+          
+          if (backButton) {
+              backButton.addEventListener('click', loadcustomerdashboard);
+          }
+          
+          if (backButton1) {
+              backButton1.addEventListener('click', loadcustomerdashboard);
+          }
+          
+          // Add listener for checkout button
+          const checkoutBtn = document.querySelector('.shopping-cart-checkout-btn');
+          if (checkoutBtn) {
+              checkoutBtn.addEventListener('click', function() {
+                  // Here you would typically handle checkout
+                  // But for now, just ensure all values are saved
+                  updateTotal();
+              });
+          }
             document.getElementById("back").addEventListener('click', loadcustomerdashboard);
             document.getElementById("back1").addEventListener('click', loadcustomerdashboard);
-
+            
+          
         } else {
             console.log('okay');
         }

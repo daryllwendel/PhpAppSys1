@@ -45,16 +45,18 @@
                                     <span class="shopping-cart-size-label">{{$items->size}}</span>
                                     <div class="shopping-cart-quantity-control">
                                         <button type="button" class="shopping-cart-quantity-btn minus">-</button>
-                                        <input type="text" class="shopping-cart-quantity-input" value="{{$items->size ? $item->quantity : 0}}">
+                                        <input type="text" class="shopping-cart-quantity-input" value="0" data-price="{{ $item->price }}">
                                         <button type="button" class="shopping-cart-quantity-btn plus">+</button>
-
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     </div>
                     
-                    <form action="">
+                    <form action="/deletecart" method="POST" onclick="return confirmDelete()">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="productId" value="{{ $item->product_id }}">
                         <button class="shopping-cart-remove-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="3 6 5 6 21 6"></polyline>
@@ -62,15 +64,15 @@
                             </svg>
                         </button>
                     </form>
-                @endforeach
                 
                 <div class="shopping-cart-footer">
                     <button class="shopping-cart-checkout-btn">Proceed to Checkout</button>
                     <div class="shopping-cart-total">
                         <span>Total:</span>
-                        <span>₱{{$order_items->sum('price')}}</span>
+                        <span id="cart-total">₱0.00</span>
                     </div>
                 </div>
+                @endforeach
             @else
                 <div style="text-align: center; padding: 40px 0;">
                     <h2>Oops, Your Cart is Empty</h2>
@@ -81,29 +83,110 @@
     </div>
     <script>
         function quantityset() {
-    console.log('okay??')
-        document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
-            const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
-            const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
-            const input = control.querySelector('.shopping-cart-quantity-input');
-            console.log('hahaha')
-            minus.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                input.value = Math.max(0, parseInt(input.value) - 1);
-                console.log('minus')
+            console.log('quantityset function running');
+            
+            // Function to update the total price based on quantities
+            const updateTotal = () => {
+                console.log('updateTotal function called');
+                let total = 0;
+                
+                // Get all quantity inputs
+                const inputs = document.querySelectorAll('.shopping-cart-quantity-input');
+                console.log(`Found ${inputs.length} quantity inputs`);
+                
+                inputs.forEach((input, index) => {
+                    const qty = parseInt(input.value) || 0;
+                    const price = parseFloat(input.dataset.price) || 0;
+                    console.log(`Item ${index+1}: qty=${qty}, price=${price}, subtotal=${qty * price}`);
+                    total += qty * price;
+                });
+                
+                console.log(`Total calculated: ${total}`);
+                const totalElement = document.getElementById('cart-total');
+                
+                if (totalElement) {
+                    totalElement.textContent = `₱${total.toFixed(2)}`;
+                    console.log('Total updated in DOM');
+                } else {
+                    console.error('Total element not found in DOM');
+                }
+            };
+
+            // Set up event listeners for all quantity controls
+            const controls = document.querySelectorAll('.shopping-cart-quantity-control');
+            console.log(`Found ${controls.length} quantity controls`);
+            
+            controls.forEach((control, index) => {
+                const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
+                const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
+                const input = control.querySelector('.shopping-cart-quantity-input');
+                
+                if (!input) {
+                    console.error(`Input not found for control ${index}`);
+                    return;
+                }
+                
+                if (!input.dataset.price) {
+                    console.warn(`No price data found for input ${index}`);
+                }
+                
+                console.log(`Setting up listeners for control ${index}, current value: ${input.value}, price: ${input.dataset.price}`);
+
+                minus.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const oldValue = input.value;
+                    input.value = Math.max(0, parseInt(input.value) - 1);
+                    console.log(`Minus clicked: ${oldValue} -> ${input.value}`);
+                    updateTotal();
+                });
+
+                plus.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const oldValue = input.value;
+                    input.value = parseInt(input.value) + 1;
+                    console.log(`Plus clicked: ${oldValue} -> ${input.value}`);
+                    updateTotal();
+                });
+
+                // Also update when manually changing the input value
+                input.addEventListener('change', function() {
+                    console.log(`Input changed: ${this.value}`);
+                    updateTotal();
+                });
+                
+                input.addEventListener('input', function() {
+                    console.log(`Input typing: ${this.value}`);
+                    updateTotal();
+                });
             });
 
-            plus.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                input.value = parseInt(input.value) + 1;
-                console.log('plus')
-            });
+            // Initialize the total on page load
+            console.log('Initializing total calculation');
+            updateTotal();
+        }
+
+        // Make sure the DOM is fully loaded before attaching event listeners
+        document.addEventListener('DOMContentLoaded', quantityset);
+
+        // Close cart functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const backButton = document.getElementById('back');
+            const backButton1 = document.getElementById('back1');
+            
+            if (backButton) {
+                backButton.addEventListener('click', function() {
+                    window.history.back();
+                });
+            }
+            
+            if (backButton1) {
+                backButton1.addEventListener('click', function() {
+                    window.history.back();
+                });
+            }
         });
-}
-
-document.addEventListener('DOMContentLoaded', quantityset);
     </script>
 </body>
 </html>
