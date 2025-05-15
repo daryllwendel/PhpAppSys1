@@ -62,32 +62,8 @@
   <div class="change-container" id="change-container"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="{{asset("js/customerJS.js")}}"></script> 
-<script>
-  function quantityset() {
-console.log('okay??')
-  document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
-      const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
-      const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
-      const input = control.querySelector('.shopping-cart-quantity-input');
-      console.log('hahaha')
-      minus.addEventListener('click', function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          input.value = Math.max(0, parseInt(input.value) - 1);
-          console.log('minus')
-      });
+<script src="{{asset("js/customerJS.js")}}"></script>     
+<script>const currentCustomerId = {{ Auth::id() }};</script>
 
-      plus.addEventListener('click', function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          input.value = parseInt(input.value) + 1;
-          console.log('plus')
-      });
-  });
-}
-
-document.addEventListener('DOMContentLoaded', quantityset);
-</script>
 </body>
 </html>

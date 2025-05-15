@@ -269,47 +269,6 @@ function initCartListeners() {
       .catch((err) => console.error("Failed to load dashboard content:", err));
   }
 
-  function quantityset() {
-   
-    const updateTotal = () => {
-        let total = 0;
-        document.querySelectorAll('.shopping-cart-quantity-input').forEach(input => {
-            const qty = parseInt(input.value) || 0;
-            const price = parseFloat(input.dataset.price) || 0;
-            total += qty * price;
-        });
-        document.getElementById('cart-total').textContent = `₱${total.toFixed(2)}`;
-    };
-
-    // Set up event listeners for all quantity controls
-    document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
-        const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
-        const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
-        const input = control.querySelector('.shopping-cart-quantity-input');
-
-        minus.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            input.value = Math.max(0, parseInt(input.value) - 1);
-            updateTotal();
-        });
-
-        plus.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            input.value = parseInt(input.value) + 1;
-            updateTotal();
-        });
-
-        // Also update when manually changing the input value
-        input.addEventListener('change', updateTotal);
-        input.addEventListener('input', updateTotal);
-    });
-
-    // Initialize the total on page load
-    updateTotal();
-}
-
 
 
 function confirmDelete() {
@@ -317,92 +276,107 @@ function confirmDelete() {
 }
 
 function loadaddtocart(){
-    fetch('/CustomerAddtoCart')
-    .then(res => res.text())
-    .then((html) => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
+  fetch('/CustomerAddtoCart')
+  .then(res => res.text())
+  .then((html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
 
-        const addtocartdisplay = doc.querySelector(".shopping-cart-container");
-        if (addtocartdisplay) {
-            console.log('haxaha');
-            document.getElementById("title").innerHTML = `
-                <div>Cart</div>`;
-            const content = document.getElementById("change-container");
-            content.innerHTML = "";
-            content.appendChild(addtocartdisplay);
-             // Add data-product-id attribute to each shopping-cart-item div
-             document.querySelectorAll('.shopping-cart-item').forEach((item, index) => {
+      const addtocartdisplay = doc.querySelector(".shopping-cart-container");
+      if (addtocartdisplay) {
+          console.log('haxaha');
+          document.getElementById("title").innerHTML = `<div>Cart</div>`;
+          const content = document.getElementById("change-container");
+          content.innerHTML = "";
+          content.appendChild(addtocartdisplay);
+
+          // Add data-product-id attribute to each shopping-cart-item div
+          document.querySelectorAll('.shopping-cart-item').forEach((item, index) => {
               // Try to get the product ID from the form if it exists
               const productIdInput = item.nextElementSibling?.querySelector('input[name="productId"]');
               const productId = productIdInput ? productIdInput.value : `product-${index}`;
               item.dataset.productId = productId;
           });
-          
+
           const updateTotal = () => {
               let total = 0;
               document.querySelectorAll('.shopping-cart-quantity-input').forEach(input => {
                   const qty = parseInt(input.value) || 0;
                   const price = parseFloat(input.dataset.price) || 0;
                   total += qty * price;
-                  
+
                   // Save the quantity value to localStorage
                   // Create a unique key using product ID and size
                   const productId = input.closest('.shopping-cart-item').dataset.productId;
                   const sizeElement = input.closest('.shopping-cart-size-row').querySelector('.shopping-cart-size-label');
                   const size = sizeElement ? sizeElement.textContent : 'default';
-                  const storageKey = `cart_item_${productId}_${size}`;
-                  
+                  const storageKey = `cart_item_user${currentCustomerId}_${productId}_${size}`;
+
                   localStorage.setItem(storageKey, qty.toString());
               });
-              
+
               const cartTotal = document.getElementById('cart-total');
               if (cartTotal) {
                   cartTotal.textContent = `₱${total.toFixed(2)}`;
-                  
+
                   // Also save the total
                   localStorage.setItem('cart_total', total.toFixed(2));
               }
           };
-    
+
+          // Restore quantities from localStorage and track valid keys
+          const validKeys = new Set();
           document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
               const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
               const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
               const input = control.querySelector('.shopping-cart-quantity-input');
-              
-              // Get the stored value from localStorage if it exists
+
               const productId = input.closest('.shopping-cart-item').dataset.productId;
               const sizeElement = input.closest('.shopping-cart-size-row').querySelector('.shopping-cart-size-label');
               const size = sizeElement ? sizeElement.textContent : 'default';
-              const storageKey = `cart_item_${productId}_${size}`;
-              
+              const storageKey = `cart_item_user${currentCustomerId}_${productId}_${size}`;
+              validKeys.add(storageKey);
+
               const savedValue = localStorage.getItem(storageKey);
               if (savedValue !== null) {
                   input.value = savedValue;
+              } else {
+                  input.value = "0";
               }
-    
+
               minus.addEventListener('click', function(e) {
                   e.preventDefault();
                   e.stopPropagation();
                   input.value = Math.max(0, parseInt(input.value) - 1);
                   updateTotal();
               });
-    
+
               plus.addEventListener('click', function(e) {
                   e.preventDefault();
                   e.stopPropagation();
                   input.value = parseInt(input.value) + 1;
                   updateTotal();
               });
-              
+
               input.addEventListener('change', updateTotal);
               input.addEventListener('input', updateTotal);
           });
-    
+
+          // Cleanup localStorage keys that don't exist in current cart
+          // Collect keys to remove first to avoid issues iterating while removing
+          const keysToRemove = [];
+          for (let i = 0; i < localStorage.length; i++) {
+              const key = localStorage.key(i);
+              if (key && key.startsWith(`cart_item_user${currentCustomerId}_`) && !validKeys.has(key)) {
+                  keysToRemove.push(key);
+              }
+          }
+          keysToRemove.forEach(key => localStorage.removeItem(key));
+
           // Initialize the total on page load
           updateTotal();
-          
-          // Restore saved total if available
+
+          // Restore saved total if available (optional, since updateTotal sets it)
           const savedTotal = localStorage.getItem('cart_total');
           if (savedTotal !== null) {
               const cartTotal = document.getElementById('cart-total');
@@ -410,19 +384,19 @@ function loadaddtocart(){
                   cartTotal.textContent = `₱${savedTotal}`;
               }
           }
-          
+
           // Add event listeners to back buttons
           const backButton = document.getElementById("back");
           const backButton1 = document.getElementById("back1");
-          
+
           if (backButton) {
               backButton.addEventListener('click', loadcustomerdashboard);
           }
-          
+
           if (backButton1) {
               backButton1.addEventListener('click', loadcustomerdashboard);
           }
-          
+
           // Add listener for checkout button
           const checkoutBtn = document.querySelector('.shopping-cart-checkout-btn');
           if (checkoutBtn) {
@@ -432,15 +406,22 @@ function loadaddtocart(){
                   updateTotal();
               });
           }
-            document.getElementById("back").addEventListener('click', loadcustomerdashboard);
-            document.getElementById("back1").addEventListener('click', loadcustomerdashboard);
-            
-          
-        } else {
-            console.log('okay');
-        }
-    });
+
+          // Redundant back button listeners - you can remove these duplicates if you want
+          if (document.getElementById("back")) {
+              document.getElementById("back").addEventListener('click', loadcustomerdashboard);
+          }
+          if (document.getElementById("back1")) {
+              document.getElementById("back1").addEventListener('click', loadcustomerdashboard);
+          }
+
+      } else {
+          console.log('okay');
+          console.log(addtocartdisplay)
+      }
+  });
 }
+
 
 function loaddesigns(){
     fetch('/CustomerNewDesigns')

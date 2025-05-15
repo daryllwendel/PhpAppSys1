@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Auth;
 
 class AddtoCartController extends Controller
 {
-    public function displaycart(){
-        $order_items = DB::table('view_cart_details')->get();
+    public function displaycart() {
+        $customerId = Auth::id(); 
+    
+        $order_items = DB::table('vwcartdetails')
+            ->where('customerId', $customerId)
+            ->get();
+    
         return view('CustomerAddtoCart', compact('order_items'));
-}
+    }
 
     public function addtocart(Request $request){
         $field = $request->validate([
