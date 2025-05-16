@@ -40,14 +40,21 @@
                             @php
                                     $sizes = App\Models\ProductSize::where('product_id', $item->product_id)->get();
                                 @endphp
+                                <form action="/checkout" method="POST">
                                 @foreach ($sizes as $items)
                                 <div class="shopping-cart-size-row">
                                     <span class="shopping-cart-size-label">{{$items->size}}</span>
                                     <div class="shopping-cart-quantity-control">
                                         <button type="button" class="shopping-cart-quantity-btn minus">-</button>
-                                        <input type="text" class="shopping-cart-quantity-input" value="0" data-price="{{ $item->price }}">
+                                        <input 
+                                            type="text" 
+                                            name="quantities[{{ $item->product_id }}][{{ $items->size }}]" 
+                                            class="shopping-cart-quantity-input" 
+                                            value="0" 
+                                            data-price="{{ $item->price }}">
                                         <button type="button" class="shopping-cart-quantity-btn plus">+</button>
                                     </div>
+                                   </form>
                                 </div>
                             @endforeach
                         </div>

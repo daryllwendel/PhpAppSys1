@@ -55,6 +55,7 @@ Route::get('/CustomerNewOrder-display', function(){
     return view('CustomerNewOrder-display');
 });
 Route::get('/CustomerAddtoCart', [AddtoCartController::class, 'displaycart'])->middleware('auth')->name('CustomerAddtoCart');
+//Route::get('/CustomerAddtoCart', [AddtoCartController::class, 'checkout'])->middleware('auth')->name('CustomerAddtoCart');
 
 Route::get('/CustomerOrder', function(){
     return view('CustomerOrder');

@@ -77,4 +77,36 @@ public function deletecart(Request $request)
     }
 }
 
+public function checkout(Request $request)
+{
+    $quantities = $request->input('quantities');
+
+    $orderId = DB::table('tblorders')->insertGetId([
+        'customerId' => Auth::id(),
+        'paymentMethodId' => 1, // adjust as needed
+        'deliveryStatus' => 'pending',
+        'created_at' => now(),
+        'updated_at' => now()
+    ]);
+
+    foreach ($quantities as $productId => $sizeQuantities) {
+        foreach ($sizeQuantities as $size => $quantity) {
+            if ((int)$quantity > 0) {
+                DB::table('tblorder_items')->insert([
+                    'orderId' => $orderId,
+                    'productId' => $productId,
+                    'size' => $size,
+                    'quantity' => $quantity,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            }
+        }
+    }
+
+    return redirect('/CustomerDashboard')->with('success', 'Order placed!');
+}
+
+
+
 }
