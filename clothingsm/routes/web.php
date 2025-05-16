@@ -40,6 +40,7 @@ Route::get('/CustomerAddADesign-display', function() {
 })->name('CustomerAddADesign-display');
 
 Route::get('/CustomerHome',[CustomerDisplayController::class, 'CustomerDisplay'])->name('CustomerHome');
+Route::delete('/deletecart',[AddtoCartController::class, 'deletecart']);
 
 Route::get('/CustomerHotOrder-display', function(){
     return view('CustomerHotOrder-display');
@@ -53,7 +54,7 @@ Route::get('/CustomerNewDesigns', function(){
 Route::get('/CustomerNewOrder-display', function(){
     return view('CustomerNewOrder-display');
 });
-Route::get('/CustomerAddtoCart', [AddtoCartController::class, 'displaycart'])->name('CustomerAddtoCart');
+Route::get('/CustomerAddtoCart', [AddtoCartController::class, 'displaycart'])->middleware('auth')->name('CustomerAddtoCart');
 
 Route::get('/CustomerOrder', function(){
     return view('CustomerOrder');

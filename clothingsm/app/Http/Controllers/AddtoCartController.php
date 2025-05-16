@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Auth;
 
 class AddtoCartController extends Controller
 {
-    public function displaycart(){
-        $order_items = DB::table('view_cart_details')->get();
+    public function displaycart() {
+        $customerId = Auth::id(); 
+    
+        $order_items = DB::table('vwcartdetails')
+            ->where('customerId', $customerId)
+            ->get();
+    
         return view('CustomerAddtoCart', compact('order_items'));
-}
+    }
 
     public function addtocart(Request $request){
         $field = $request->validate([
@@ -52,29 +57,22 @@ class AddtoCartController extends Controller
     public function editcart(Request $request){
 
     }
-
-    public function deletecart(Request $request)
+public function deletecart(Request $request)
 {
     try {
-        // Validate incoming request
-        $field = $request->validate([
-            'productId' => 'required|exists:cartitems,productId', // Ensure the productId exists in the cartitems table
+        $fields = $request->validate([
+            'productId' => 'required',
         ]);
 
-        // Retrieve the product by productId, optionally checking for user or session-related cart items
-        $product = cartitems::where('productId', $field['productId'])->first();
+        $deleted = cartitems::where('product_id', $fields['productId'])->delete();
 
-        if (!$product) {
+        if ($deleted === 0) {
             return redirect()->back()->with('error', 'Product not found in cart');
         }
 
-        // Perform deletion
-        $product->delete();
-
-        // Provide feedback
         return redirect()->back()->with('success', 'Product removed from cart successfully');
     } catch (\Exception $e) {
-        // Return detailed error message for debugging purposes
+        Log::error('Cart delete error: ' . $e->getMessage());
         return redirect()->back()->with('error', 'Failed to remove product: ' . $e->getMessage());
     }
 }

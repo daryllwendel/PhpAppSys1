@@ -18,7 +18,7 @@
   <div class="dashboardtitle" id="dashboardtitle">
     <div>Home</div>
     <img src="{{asset("images/logo.png")}}" alt="">
-  </div>
+  </div> 
   <div class="customerdashboard" id="customerdashboard">
     <div class="subTitle1">
       <div>Hot Designs🔥</div>

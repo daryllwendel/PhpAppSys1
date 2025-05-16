@@ -15,7 +15,7 @@
                 <span class="material-symbols-outlined" id="back" style="cursor: pointer; margin-right: 20px; font-family: 'Material Symbols Outlined';">X</span>
                 <h1 class="shopping-cart-header" style="margin: 0;">Your Cart</h1>
             </div>
-            @if(isset($order_items))
+            @if(isset($order_items) && $order_items->count() > 0)
                 @foreach ($order_items as $item)
                     <div class="shopping-cart-item">
                         <div class="shopping-cart-item-image">
@@ -45,16 +45,18 @@
                                     <span class="shopping-cart-size-label">{{$items->size}}</span>
                                     <div class="shopping-cart-quantity-control">
                                         <button type="button" class="shopping-cart-quantity-btn minus">-</button>
-                                        <input type="number" class="shopping-cart-quantity-input" value="{{$items->size ? $item->quantity : 0}}">
+                                        <input type="text" class="shopping-cart-quantity-input" value="0" data-price="{{ $item->price }}">
                                         <button type="button" class="shopping-cart-quantity-btn plus">+</button>
-
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     </div>
 
-                    <form action="">
+                    <form action="/deletecart" method="POST" onclick="return confirmDelete()">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="productId" value="{{ $item->product_id }}">
                         <button class="shopping-cart-remove-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="3 6 5 6 21 6"></polyline>
@@ -62,52 +64,24 @@
                             </svg>
                         </button>
                     </form>
-                @endforeach
 
                 <div class="shopping-cart-footer">
                     <button class="shopping-cart-checkout-btn">Proceed to Checkout</button>
                     <div class="shopping-cart-total">
                         <span>Total:</span>
-                        <span>₱{{$order_items->sum('price')}}</span>
+                        <span id="cart-total">₱0.00</span>
                     </div>
                 </div>
+                @endforeach
             @else
                 <div style="text-align: center; padding: 40px 0;">
                     <h2>Oops, Your Cart is Empty</h2>
                     <button class="shopping-cart-checkout-btn" id="back1" style="margin-top: 20px;">Back</button>
                 </div>
             @endif
-            <script>
-                function quantityset() {
-                    console.log('okay??')
-                    document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
-                        const minus = control.querySelector('.shopping-cart-quantity-btn minus');
-                        const plus = control.querySelector('.shopping-cart-quantity-btn plus');
-                        const input = control.querySelector('.shopping-cart-quantity-input');
-                        console.log('hahaha')
-                        minus.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            input.value = Math.max(0, parseInt(input.value) - 1);
-                            console.log('minus')
-                        });
-
-                        plus.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            input.value = parseInt(input.value) + 1;
-                            console.log('plus')
-                        });
-                    });
-                }
-
-                document.addEventListener('DOMContentLoaded', quantityset);
-
-            </script>
         </div>
-
-
     </div>
-
+    <script>const currentCustomerId = {{ Auth::id() }};</script>
+    <script src="{{asset('js/customerJS.js')}}"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::statement("
-            CREATE VIEW view_cart_details AS
+            CREATE VIEW vwcartdetails AS
             SELECT 
                 ci.id AS cart_item_id,
                 ci.cart_id,
