@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\carts;
+use App\Models\orders;
 use App\Models\cartitems;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +17,13 @@ class AddtoCartController extends Controller
 {
     public function displaycart() {
         $customerId = Auth::id(); 
-    
+        $paymentname = DB::table('tblpayment_methods')->get();
         $order_items = DB::table('vwcartdetails')
             ->where('customerId', $customerId)
+            ->where('status', 'available')
             ->get();
     
-        return view('CustomerAddtoCart', compact('order_items'));
+        return view('CustomerAddtoCart', compact('order_items', 'paymentname'));
     }
 
     public function addtocart(Request $request){
@@ -79,34 +82,56 @@ public function deletecart(Request $request)
 
 public function checkout(Request $request)
 {
-    $quantities = $request->input('quantities');
-
-    $orderId = DB::table('tblorders')->insertGetId([
-        'customerId' => Auth::id(),
-        'paymentMethodId' => 1, // adjust as needed
-        'deliveryStatus' => 'pending',
-        'created_at' => now(),
-        'updated_at' => now()
+    $fields = $request->validate([
+        'payment_method' => 'required',
+        'order_items' => 'required|json',
+        'grand_total' => 'required|numeric|min:0',
     ]);
 
-    foreach ($quantities as $productId => $sizeQuantities) {
-        foreach ($sizeQuantities as $size => $quantity) {
-            if ((int)$quantity > 0) {
-                DB::table('tblorder_items')->insert([
-                    'orderId' => $orderId,
-                    'productId' => $productId,
-                    'size' => $size,
-                    'quantity' => $quantity,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ]);
-            }
+    $orderItems = json_decode($fields['order_items'], true);
+
+    if (!is_array($orderItems) || empty($orderItems)) {
+        return redirect()->back()->with('error', 'Invalid order items.');
+    }
+
+    foreach ($orderItems as $item) {
+        if (
+            !isset($item['product_id'], $item['size'], $item['quantity'], $item['price']) ||
+            !is_numeric($item['quantity']) || $item['quantity'] <= 0 ||
+            !is_numeric($item['price']) || $item['price'] < 0
+        ) {
+            return redirect()->back()->with('error', 'Invalid order item details.');
         }
     }
 
-    return redirect('/CustomerDashboard')->with('success', 'Order placed!');
+    DB::beginTransaction();
+
+    try {
+        $order = orders::create([
+            'customerId' => Auth::id(),
+            'paymentMethodId' => $fields['payment_method'],
+            'delivery_status' => 'pending',
+        ]);
+
+        foreach ($orderItems as $item) {
+            OrderItem::create([
+                'orderId' => $order->orderId,
+                'productId' => $item['product_id'],
+                'size' => $item['size'],
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+            ]);
+            cartitems::where('product_id', $item['product_id'])->update(['status' => 'sold']);
+        }
+
+        DB::commit();
+        return redirect('/CustomerDashboard')->with('success', 'Order placed!');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        Log::error('Failed to place order: ' . $e->getMessage());
+        dd($e);
+        return redirect()->back()->with('error', 'Failed to place order. Please try again.');
+    }
 }
-
-
 
 }

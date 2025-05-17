@@ -105,6 +105,7 @@
                     <option value="sublimation">Sublimation</option>
                     <option value="embroidery">Embroidery</option>
                     <option value="print">Print</option>
+                    <option value="jersey">Jersey</option>
                 </select>
             </div>
 
