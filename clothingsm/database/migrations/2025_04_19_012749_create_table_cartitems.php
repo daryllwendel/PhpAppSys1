@@ -19,7 +19,7 @@
             
                 $table->unsignedBigInteger('product_id');
                 $table->string('size')->nullable();
-            
+                $table->string('status')->default('available');
                 $table->unsignedBigInteger('cart_id')->nullable();
                 $table->foreign('cart_id')->references('cart_id')->on('tblcarts')->onDelete('cascade');
             

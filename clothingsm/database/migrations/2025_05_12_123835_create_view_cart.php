@@ -22,7 +22,8 @@ return new class extends Migration
                 p.productImg,
                 c.customerId,
                 c.subTotal,
-                c.dateCreated AS cartDateCreated
+                c.dateCreated AS cartDateCreated,
+                ci.status
             FROM tblcartitems ci
             LEFT JOIN tblcarts c ON ci.cart_id = c.cart_id
             LEFT JOIN tblproducts p ON ci.product_id = p.productId

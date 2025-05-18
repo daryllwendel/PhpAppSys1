@@ -14,6 +14,7 @@ class cartitems extends Model
         'total',
         'product_id',
         'size',
+        'status',
         'cart_id',
     ];
 }

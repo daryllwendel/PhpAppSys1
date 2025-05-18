@@ -275,86 +275,127 @@ function confirmDelete() {
   return confirm("Are you sure you want to delete?");
 }
 
-function loadaddtocart(){
+function loadaddtocart() {
   fetch('/CustomerAddtoCart')
-  .then(res => res.text())
-  .then((html) => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
+      .then(res => res.text())
+      .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
 
-      const addtocartdisplay = doc.querySelector(".shopping-cart-container");
-      if (addtocartdisplay) {
-          console.log('haxaha');
-          document.getElementById("title").innerHTML = `<div>Cart</div>`;
+          const addtocartdisplay = doc.querySelector(".shopping-cart-container");
+          const checkoutdisplay = doc.querySelector('.checkout-form');
           const content = document.getElementById("change-container");
+
+          document.getElementById("title").innerHTML = `<div>Cart</div>`;
           content.innerHTML = "";
           content.appendChild(addtocartdisplay);
+          content.appendChild(checkoutdisplay);
+          const paymentSelect = document.getElementById('payment');
+          const chargeTotal = document.getElementById('charge-total');
+          const grandTotalInput = document.getElementById('grand-total');
+          const cartSubtotalDisplay = document.getElementById('cart-total1');
 
-          // Add data-product-id attribute to each shopping-cart-item div
-          document.querySelectorAll('.shopping-cart-item').forEach((item, index) => {
-              // Try to get the product ID from the form if it exists
-              const productIdInput = item.nextElementSibling?.querySelector('input[name="productId"]');
-              const productId = productIdInput ? productIdInput.value : `product-${index}`;
-              item.dataset.productId = productId;
-          });
+          function parsePeso(pesoString) {
+              return parseFloat(pesoString.replace(/[^\d.]/g, '')) || 0;
+          }
 
-          const updateTotal = () => {
+          function updateGrandTotal() {
+              if (!paymentSelect || !paymentSelect.selectedOptions.length) return;
+              const charge = parseFloat(paymentSelect.selectedOptions[0].dataset.charge) || 0;
+              const subtotal = parsePeso(cartSubtotalDisplay.textContent);
+              const grandTotal = subtotal + charge;
+              chargeTotal.textContent = `₱${charge.toFixed(2)}`;
+              grandTotalInput.value = `₱${grandTotal.toFixed(2)}`;
+          }
+
+          function updateCheckoutQuantities() {
+            const quantityInputs = document.querySelectorAll('.shopping-cart-quantity-input');
+            const summaryContainer = document.getElementById('checkout-items-container');
+        
+            // Clear previous displays
+            summaryContainer.querySelectorAll('.order-item').forEach(item => {
+                item.querySelectorAll('.quantity-size').forEach(q => q.textContent = '');
+                item.querySelectorAll('.total-price').forEach(tp => tp.textContent = '');
+            });
+        
+            const productTotals = {}; // Store totals to place at the end per product
+        
+            quantityInputs.forEach(input => {
+                const qty = parseInt(input.value) || 0;
+                const sizeLabel = input.closest('.shopping-cart-size-row').querySelector('.shopping-cart-size-label');
+                const size = sizeLabel ? sizeLabel.textContent.trim() : 'default';
+                const productId = input.closest('.shopping-cart-item').dataset.productid;
+                const price = parseFloat(input.dataset.price) || 0;
+        
+                const qtySelector = `.order-item[data-productid="${productId}"] .quantity-size[data-size="${size}"]`;
+                const qtyElement = summaryContainer.querySelector(qtySelector);
+        
+                if (qty > 0 && qtyElement) {
+                    qtyElement.textContent = `x${qty}`;
+                }
+        
+                if (!productTotals[productId]) {
+                    productTotals[productId] = 0;
+                }
+                productTotals[productId] += qty * price;
+            });
+        
+            // Add grand total to last matching .total-price element of each product
+            for (const productId in productTotals) {
+                const totalPriceElements = summaryContainer.querySelectorAll(`.order-item[data-productid="${productId}"] .total-price`);
+                const lastTotal = totalPriceElements[totalPriceElements.length - 1];
+                if (lastTotal) {
+                    lastTotal.textContent = `₱${productTotals[productId].toFixed(2)}`;
+                }
+            }
+        }
+          function updateTotal() {
               let total = 0;
-              document.querySelectorAll('.shopping-cart-quantity-input').forEach(input => {
+              const quantityInputs = document.querySelectorAll('.shopping-cart-quantity-input');
+
+              quantityInputs.forEach(input => {
                   const qty = parseInt(input.value) || 0;
                   const price = parseFloat(input.dataset.price) || 0;
                   total += qty * price;
 
-                  // Save the quantity value to localStorage
-                  // Create a unique key using product ID and size
                   const productId = input.closest('.shopping-cart-item').dataset.productId;
-                  const sizeElement = input.closest('.shopping-cart-size-row').querySelector('.shopping-cart-size-label');
-                  const size = sizeElement ? sizeElement.textContent : 'default';
+                  const size = input.closest('.shopping-cart-size-row').querySelector('.shopping-cart-size-label')?.textContent.trim() || 'default';
                   const storageKey = `cart_item_user${currentCustomerId}_${productId}_${size}`;
-
                   localStorage.setItem(storageKey, qty.toString());
               });
 
-              const cartTotal = document.getElementById('cart-total');
-              if (cartTotal) {
-                  cartTotal.textContent = `₱${total.toFixed(2)}`;
+              document.getElementById('cart-total').textContent = `₱${total.toFixed(2)}`;
+              document.getElementById('cart-total1').textContent = `₱${total.toFixed(2)}`;
+              document.getElementById('checkout-subtotal').textContent = total.toFixed(2);
+              localStorage.setItem('cart_total', total.toFixed(2));
 
-                  // Also save the total
-                  localStorage.setItem('cart_total', total.toFixed(2));
-              }
-          };
+              updateGrandTotal();
+              updateCheckoutQuantities();
+          }
 
-          // Restore quantities from localStorage and track valid keys
           const validKeys = new Set();
           document.querySelectorAll('.shopping-cart-quantity-control').forEach(control => {
-              const minus = control.querySelector('.shopping-cart-quantity-btn.minus');
-              const plus = control.querySelector('.shopping-cart-quantity-btn.plus');
               const input = control.querySelector('.shopping-cart-quantity-input');
+              const minus = control.querySelector('.minus');
+              const plus = control.querySelector('.plus');
 
               const productId = input.closest('.shopping-cart-item').dataset.productId;
-              const sizeElement = input.closest('.shopping-cart-size-row').querySelector('.shopping-cart-size-label');
-              const size = sizeElement ? sizeElement.textContent : 'default';
+              const size = input.closest('.shopping-cart-size-row').querySelector('.shopping-cart-size-label')?.textContent.trim() || 'default';
               const storageKey = `cart_item_user${currentCustomerId}_${productId}_${size}`;
               validKeys.add(storageKey);
 
-              const savedValue = localStorage.getItem(storageKey);
-              if (savedValue !== null) {
-                  input.value = savedValue;
-              } else {
-                  input.value = "0";
-              }
+              const saved = localStorage.getItem(storageKey);
+              input.value = saved !== null ? saved : "0";
 
-              minus.addEventListener('click', function(e) {
+              minus.addEventListener('click', e => {
                   e.preventDefault();
-                  e.stopPropagation();
-                  input.value = Math.max(0, parseInt(input.value) - 1);
+                  input.value = Math.max(0, parseInt(input.value || "0") - 1);
                   updateTotal();
               });
 
-              plus.addEventListener('click', function(e) {
+              plus.addEventListener('click', e => {
                   e.preventDefault();
-                  e.stopPropagation();
-                  input.value = parseInt(input.value) + 1;
+                  input.value = parseInt(input.value || "0") + 1;
                   updateTotal();
               });
 
@@ -362,66 +403,117 @@ function loadaddtocart(){
               input.addEventListener('input', updateTotal);
           });
 
-          // Cleanup localStorage keys that don't exist in current cart
-          // Collect keys to remove first to avoid issues iterating while removing
-          const keysToRemove = [];
-          for (let i = 0; i < localStorage.length; i++) {
-              const key = localStorage.key(i);
-              if (key && key.startsWith(`cart_item_user${currentCustomerId}_`) && !validKeys.has(key)) {
-                  keysToRemove.push(key);
+          // Clean up localStorage
+          Object.keys(localStorage).forEach(key => {
+              if (key.startsWith(`cart_item_user${currentCustomerId}_`) && !validKeys.has(key)) {
+                  localStorage.removeItem(key);
               }
-          }
-          keysToRemove.forEach(key => localStorage.removeItem(key));
+          });
 
-          // Initialize the total on page load
           updateTotal();
+          const checkoutForm = document.querySelector('.checkout-container-layout form#checkout-form');
 
-          // Restore saved total if available (optional, since updateTotal sets it)
-          const savedTotal = localStorage.getItem('cart_total');
-          if (savedTotal !== null) {
-              const cartTotal = document.getElementById('cart-total');
-              if (cartTotal) {
-                  cartTotal.textContent = `₱${savedTotal}`;
-              }
-          }
+if (checkoutForm) {
+    checkoutForm.addEventListener('submit', function (e) {
+        // Prepare order_items JSON
+        const orderItemsArray = [];
+        document.querySelectorAll('.shopping-cart-item').forEach(itemDiv => {
+            const productId = itemDiv.dataset.productid;
+            itemDiv.querySelectorAll('.shopping-cart-quantity-input').forEach(qtyInput => {
+                const qty = parseInt(qtyInput.value) || 0;
+                if (qty > 0) {
+                    const size = qtyInput.closest('.shopping-cart-size-row').querySelector('.shopping-cart-size-label').textContent.trim();
+                    const price = parseFloat(qtyInput.dataset.price) || 0;
 
-          // Add event listeners to back buttons
-          const backButton = document.getElementById("back");
-          const backButton1 = document.getElementById("back1");
+                    orderItemsArray.push({
+                        product_id: productId,
+                        size: size,
+                        quantity: qty,
+                        price: price
+                    });
+                }
+            });
+        });
 
-          if (backButton) {
-              backButton.addEventListener('click', loadcustomerdashboard);
-          }
+        if (orderItemsArray.length === 0) {
+            e.preventDefault();
+            alert('Your cart is empty. Please add items before checking out.');
+            return false;
+        }
 
-          if (backButton1) {
-              backButton1.addEventListener('click', loadcustomerdashboard);
-          }
+        // Set hidden input
+        const orderItemsInput = document.getElementById('order-items-data');
+        orderItemsInput.value = JSON.stringify(orderItemsArray);
 
-          // Add listener for checkout button
-          const checkoutBtn = document.querySelector('.shopping-cart-checkout-btn');
-          if (checkoutBtn) {
-              checkoutBtn.addEventListener('click', function() {
-                  // Here you would typically handle checkout
-                  // But for now, just ensure all values are saved
-                  updateTotal();
-              });
-          }
-
-          // Redundant back button listeners - you can remove these duplicates if you want
-          if (document.getElementById("back")) {
-              document.getElementById("back").addEventListener('click', loadcustomerdashboard);
-          }
-          if (document.getElementById("back1")) {
-              document.getElementById("back1").addEventListener('click', loadcustomerdashboard);
-          }
-
-      } else {
-          console.log('okay');
-          console.log(addtocartdisplay)
-      }
-  });
+        // Set grand total input value as number (remove peso sign)
+        const grandTotalInput = document.getElementById('grand-total');
+        if (grandTotalInput) {
+            grandTotalInput.value = grandTotalInput.value.replace(/[^\d.]/g, '');
+        }
+    });
 }
 
+          const checkoutBtn = document.getElementById('checkout-btn');
+          const backcheckout = document.getElementById('cancel-btn')
+          if (checkoutBtn) {
+              checkoutBtn.addEventListener('click', () => {
+                  checkoutdisplay.style.display = 'grid';
+                  addtocartdisplay.style.display = 'none';
+                  updateCheckoutQuantities();
+              });
+          }
+          if(backcheckout){
+            backcheckout.addEventListener('click',()=>{
+              checkoutdisplay.style.display = 'none'
+              addtocartdisplay.style.display = 'grid'
+            })
+          }
+          if (paymentSelect) {
+              paymentSelect.addEventListener('change', updateGrandTotal);
+          }
+          console.log('hahaha')
+          
+          const back = document.getElementById('back1')
+          const back2 = document.getElementById('back')
+
+          if(back){
+            back.addEventListener('click',loadcustomerdashboard)
+          }
+          if(back2){
+            back2.addEventListener('click',loadcustomerdashboard)
+          }
+      });
+}
+
+
+
+function addresscheck() {
+  const province = document.getElementById('province')?.value;
+  const city = document.getElementById('city')?.value;
+  const barangay = document.getElementById('barangay')?.value
+  const purok = document.getElementById('purok')
+  if (!province || province.trim() === '') {
+      alert('Please fill up the Location first in Profile');
+      loadprofile()
+      return false;
+  }
+  if(!city || city.trim()=== ''){
+      alert('Please fill up the Location first in Profile');
+      loadprofile()
+      return false;
+  }
+  if(!barangay || barangay.trim()=== ''){
+    alert('Please fill up the Location first in Profile');
+    loadprofile()
+      return false;
+  }
+  if(!purok || purok.trim()=== ''){
+    alert('Please fill up the Location first in Profile');
+    loadprofile()
+      return false;
+}
+  return true
+}
 
 function loaddesigns(){
     fetch('/CustomerNewDesigns')
@@ -818,7 +910,95 @@ function address() {
             cities: {"Buenavista":["Abilan", "Agong ong", "Alubijid", "Guinabsan", "Lower Olave", "Macalang", "Malapong", "Malpoc", "Manapa", "Matabao", 
 "Poblacion 1", "Poblacion 2", "Poblacion 3", "Poblacion 4", "Poblacion 5", "Poblacion 6", "Poblacion 7", 
 "Poblacion 8", "Poblacion 9", "Poblacion 10", "Rizal", "Sacol", "Sangay", "Simbalan", "Talo ao"], 
-                    "Butuan":[], 
+                    "Butuan":[
+                      "Agao Pob. (Bgy. 3)",
+                      "Agusan Pequeño",
+                      "Ambago",
+                      "Amparo",
+                      "Ampayon",
+                      "Anticala",
+                      "Antongalon",
+                      "Aupagan",
+                      "Baan KM 3",
+                      "Babag",
+                      "Bading Pob. (Bgy. 22)",
+                      "Bancasi",
+                      "Banza",
+                      "Baobaoan",
+                      "Basag",
+                      "Bayanihan Pob. (Bgy. 27)",
+                      "Bilay",
+                      "Bit-os",
+                      "Bitan-agan",
+                      "Bobon",
+                      "Bonbon",
+                      "Bugabus",
+                      "Buhangin Pob. (Bgy. 19)",
+                      "Cabcabon",
+                      "Camayahan",
+                      "Baan Riverside Pob. (Bgy. 20)",
+                      "Datu Silongan",
+                      "Dankias",
+                      "Imadejas Pob. (Bgy. 24)",
+                      "Diego Silang Pob. (Bgy. 6)",
+                      "Doongan",
+                      "Dumalagan",
+                      "Golden Ribbon Pob. (Bgy. 2)",
+                      "Dagohoy Pob. (Bgy. 7)",
+                      "Jose Rizal Pob. (Bgy. 25)",
+                      "Holy Redeemer Pob. (Bgy. 23)",
+                      "Humabon Pob. (Bgy. 11)",
+                      "Kinamlutan",
+                      "Lapu-lapu Pob. (Bgy. 8)",
+                      "Lemon",
+                      "Leon Kilat Pob. (Bgy. 13)",
+                      "Libertad",
+                      "Limaha Pob. (Bgy. 14)",
+                      "Los Angeles",
+                      "Lumbocan",
+                      "Maguinda",
+                      "Mahay",
+                      "Mahogany Pob. (Bgy. 21)",
+                      "Maibu",
+                      "Mandamo",
+                      "Manila de Bugabus",
+                      "Maon Pob. (Bgy. 1)",
+                      "Masao",
+                      "Maug",
+                      "Port Poyohon Pob. (Bgy. 17)",
+                      "New Society Village Pob.",
+                      "Ong Yiu Pob. (Bgy. 16)",
+                      "Pianing",
+                      "Pinamanculan",
+                      "Rajah Soliman Pob. (Bgy. 4)",
+                      "San Ignacio Pob. (Bgy. 15)",
+                      "San Mateo",
+                      "San Vicente",
+                      "Sikatuna Pob. (Bgy. 10)",
+                      "Silongan Pob. (Bgy. 5)",
+                      "Sumilihon",
+                      "Tagabaca",
+                      "Taguibo",
+                      "Taligaman",
+                      "Tandang Sora Pob. (Bgy. 12)",
+                      "Tiniwisan",
+                      "Tungao",
+                      "Urduja Pob. (Bgy. 9)",
+                      "Villa Kananga",
+                      "Obrero Pob. (Bgy. 18)",
+                      "Bugsukan",
+                      "De Oro",
+                      "Dulag",
+                      "Florida",
+                      "Nong-nong",
+                      "Pagatpatan",
+                      "Pangabugan",
+                      "Salvacion",
+                      "Santo Niño",
+                      "Sumile",
+                      "Don Francisco",
+                      "Pigdaulan"
+                    ], 
                     "Cabadbaran":["Antonio Luna", "Bay ang", "Bayabas", "Caasinan", "Cabinet", "Calamba", "Calibunan", "Comagascas", "Concepcion", 
 "Del Pilar", "Katugasan", "Kauswagan", "La Union", "Mabini", "Mahaba", 
 "Poblacion 1", "Poblacion 2", "Poblacion 3", "Poblacion 4", "Poblacion 5", 
