@@ -216,7 +216,15 @@ body {
   grid-template-rows: 50px auto;
   grid-template-columns: 100px auto;
 }
-
+.totalproduct h2,
+.totalorder h2,
+.totalsale h2 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 100%;  
+  text-align:right;  
+  margin-left: 60px;
+}
 
 @media (max-width: 768px) {
   .item-02-2 {

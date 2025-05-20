@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/dashboarddisplay.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
 </head>
-<body>
+<body> 
 <div class="main-container">
     <div class="dashboardcontainer">
         <div class="recent"><h2>Design</h2>

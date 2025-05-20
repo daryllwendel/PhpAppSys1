@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="{{asset("css/CustomerOrder-display.css")}}">
 </head>
-<body>
+<body> 
     <div class="orderscont">
         <div class="completed-container">
             <div class="title-sort-container">
@@ -90,38 +90,19 @@
                     <p class="column-order-amount cell" data-column="Amount">Amount to Pay</p>
                 </div>
                 <div class="pending-orders">
+                    @foreach ($pendingOrders as $order)
                     <div class="orders row">
-                        <div class="order-no cell" data-column="Order No.">5</div>
-                        <div class="order-image cell" data-column="Image"></div>
-                        <div class="order-description cell" data-column="Description">Black and Yellow Gaming sports Jersey</div>
-                        <div class="order-quantity cell" data-column="Quantity">10</div>
-                        <div class="order-payment cell" data-column="Payment">Self-Pickup</div>
-                        <div class="order-amount cell" data-column="Amount">5000.00</div>
+                        <input type="hidden" name="orderId" value="{{$order->orderId}}">
+                        <div class="order-no cell" data-column="Order No.">{{$order->orderId}}</div>
+                        <div class="order-image cell" data-column="Image">
+                            <img src="{{ asset('storage/' . $order->productImg) }}" alt="Black and Yellow Gaming Jersey" class="order-image-img">
+                        </div>
+                        <div class="order-description cell" data-column="Description">{{$order->ProductName}}</div>
+                        <div class="order-quantity cell" data-column="Quantity">{{$order->totalQuantity}}</div>
+                        <div class="order-payment cell" data-column="Payment">{{$order->paymentMethod}}</div>
+                        <div class="order-amount cell" data-column="Amount">₱{{ number_format($order->totalItemPrice, 2) }}</div>
                     </div>
-                    <div class="orders row">
-                        <div class="order-no cell" data-column="Order No.">6</div>
-                        <div class="order-image cell" data-column="Image"></div>
-                        <div class="order-description cell" data-column="Description">Black and Yellow Gaming sports Jersey</div>
-                        <div class="order-quantity cell" data-column="Quantity">10</div>
-                        <div class="order-payment cell" data-column="Payment">COD</div>
-                        <div class="order-amount cell" data-column="Amount">5100.00</div>
-                    </div>
-                    <div class="orders row">
-                        <div class="order-no cell" data-column="Order No.">7</div>
-                        <div class="order-image cell" data-column="Image"></div>
-                        <div class="order-description cell" data-column="Description">Black and Yellow Gaming sports Jersey</div>
-                        <div class="order-quantity cell" data-column="Quantity">10</div>
-                        <div class="order-payment cell" data-column="Payment">COD</div>
-                        <div class="order-amount cell" data-column="Amount">5100.00</div>
-                    </div>
-                    <div class="orders row">
-                        <div class="order-no cell" data-column="Order No.">8</div>
-                        <div class="order-image cell" data-column="Image"></div>
-                        <div class="order-description cell" data-column="Description">Black and Yellow Gaming sports Jersey</div>
-                        <div class="order-quantity cell" data-column="Quantity">10</div>
-                        <div class="order-payment cell" data-column="Payment">COD</div>
-                        <div class="order-amount cell" data-column="Amount">5100.00</div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

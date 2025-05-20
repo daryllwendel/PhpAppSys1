@@ -225,32 +225,36 @@ document.addEventListener("DOMContentLoaded", ()=>{
     document.getElementById("buttondashboard").addEventListener("click",loaddashboard)
 })
 
-document.addEventListener("DOMContentLoaded",function (){
-    document.getElementById("buttonorders").addEventListener("click", function () {
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("buttonorders").addEventListener("click", function() {
         fetch("/orders")
             .then(res => res.text())
             .then((html) => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, "text/html");
 
-                const dashboardContent = doc.querySelector(".ordercontent");
+                const dashboardContent = doc.querySelector(".ordercontainer");
                 const overlay = doc.querySelector(".overlay");
-                if(dashboardContent){
-                    document.getElementById("title1").innerHTML =`
-                    <div>Orders</div>`
+                
+                if (dashboardContent) {
+                    document.getElementById("title1").innerHTML = "<div>Orders</div>";
                     const content = document.getElementById("body1");
                     content.innerHTML = "";
-                    content.appendChild(dashboardContent)
-                    content.appendChild(overlay)
-                    attachOverlayEvents()
-                    document.getElementById('body1').style.display = 'grid'
-                }else{
-                    console.log("Error ga")
+                    content.appendChild(dashboardContent.cloneNode(true));
+                    
+                    if (overlay) {
+                        content.appendChild(overlay.cloneNode(true));
+                        attachOverlayEvents();
+                    }
+                    
+                    document.getElementById('body1').style.display = 'grid';
+                } else {
+                    console.log("Error loading orders content");
                 }
             })
-            .catch((err) => console.error("Failed to load dashboard content:", err))
-    })
-})
+            .catch((err) => console.error("Failed to load orders content:", err));
+    });
+});
 
 function product(){
     fetch("/product")

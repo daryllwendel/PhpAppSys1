@@ -15,7 +15,7 @@ return new class extends Migration
             SELECT 
                 o.orderId,
                 o.customerId,
-                u.name as UserName,
+                u.name,
                 o.paymentMethodId,
                 pm.paymentName AS paymentMethod,
                 o.dateOrdered,
@@ -26,6 +26,16 @@ return new class extends Migration
                 oi.size,
                 oi.quantity,
                 p.price AS unitPrice,
+                p.productImg,
+                u.email,
+                u.mobile_number as contactNo,
+                u.username,
+                u.Province,
+                u.Purok,
+                u.City,
+                u.Baranggay,
+                u.ZipCode, 
+                pm.charge,
                 (oi.quantity * p.price) AS totalItemPrice
             FROM tblorders o
             LEFT JOIN tblorder_items oi ON o.orderId = oi.orderId

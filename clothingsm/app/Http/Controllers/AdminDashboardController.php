@@ -58,7 +58,6 @@ class AdminDashboardController extends Controller
             DB::beginTransaction();
             
             try {
-                // Only update fields that were actually changed
                 if ($request->hasFile('editProductImage')) {
                     if ($product->productImg) {
                         Storage::disk('public')->delete($product->productImg);

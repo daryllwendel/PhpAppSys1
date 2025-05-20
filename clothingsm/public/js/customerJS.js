@@ -364,7 +364,10 @@ function loadaddtocart() {
                   localStorage.setItem(storageKey, qty.toString());
               });
 
-              document.getElementById('cart-total').textContent = `₱${total.toFixed(2)}`;
+              const cart_total = document.getElementById('cart-total');
+              if(cart_total){
+                cart_total.textContent = `₱${total.toFixed(2)}`
+              }
               document.getElementById('cart-total1').textContent = `₱${total.toFixed(2)}`;
               document.getElementById('checkout-subtotal').textContent = total.toFixed(2);
               localStorage.setItem('cart_total', total.toFixed(2));
@@ -482,6 +485,7 @@ if (checkoutForm) {
           if(back2){
             back2.addEventListener('click',loadcustomerdashboard)
           }
+          
       });
 }
 
@@ -631,6 +635,7 @@ function loadorders(){
             });
         }else{
             console.log('okay')
+            console.log(orderdisplay)
         }
     })
 }

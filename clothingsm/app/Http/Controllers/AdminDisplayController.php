@@ -13,7 +13,9 @@ class AdminDisplayController extends Controller
             ->select('productId', 'name', 'productImg')
             ->get();
         $productCount = DB::table('tblproducts')->count();
-        $orders = DB::table('tblorders')->count();
+        $orders = DB::table('tblorders')
+        ->where('deliveryStatus', 'success')
+        ->count();
 
        
         return view('dashboarddisplay', compact('product', 'productCount', 'orders'));

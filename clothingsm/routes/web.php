@@ -2,13 +2,15 @@
 
 use App\Http\Controllers\AddADesign;
 use App\Http\Controllers\addressform;
+use App\Http\Controllers\AdminOrders;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerform;
-use function Laravel\Prompts\password;
 
+use function Laravel\Prompts\password;
 use App\Http\Controllers\CustomerDisplay;
 use App\Http\Controllers\passwordcontroller;
 use App\Http\Controllers\AddtoCartController;
+use App\Http\Controllers\CustomerOrderDisplay;
 use App\Http\Controllers\AdminDisplayController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CustomerDisplayController;
@@ -25,9 +27,8 @@ Route::get('/dashboard', function () {
 
 Route::get('/dashboarddisplay',[AdminDisplayController::class, 'dashboardDisplay'])->name('dashboarddisplay');
 
-Route::get('/orders', function(){
-    return view('orders');
-});
+Route::get('/orders', [AdminOrders::class, 'viewOrders'])->name('orders');
+Route::post('/orders', [AdminOrders::class, 'acceptOrder'])->name('orders');
 Route::get('/product', [AdminDashboardController::class, 'productid'])->name('product');
 Route::put('/product', [AdminDashboardController::class, 'editProduct']);
 Route::delete('/deletedesign',[AdminDashboardController::class, 'deleteproduct']);
@@ -57,20 +58,9 @@ Route::get('/CustomerNewOrder-display', function(){
 Route::get('/CustomerAddtoCart', [AddtoCartController::class, 'displaycart'])->middleware('auth')->name('CustomerAddtoCart');
 Route::post('/checkout', [AddtoCartController::class, 'checkout'])->middleware('auth')->name('CustomerAddtoCart');
 
-Route::get('/CustomerOrder', function(){
-    return view('CustomerOrder');
-});
-Route::get('/CustomerOrder-display', function(){
-    return view('CustomerOrder-display');
-});
+Route::get('/CustomerOrder-display', [CustomerOrderDisplay::class, 'customerPendingOrders'])->name('CustomerOrder-display');
 Route::get('/CustomerProductClicked-display', function(){
     return view('CustomerProductClicked-display');
-});
-Route::get('/empty', function(){
-    return view('empty');
-});
-Route::get('/imageSlider', function(){
-    return view('imageSlider');
 });
 Route::get('/LandingPage', function(){
     return view('LandingPage');
