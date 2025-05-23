@@ -7,103 +7,113 @@
 </head>
 <body> 
     <div class="orderscont">
-        <div class="completed-container">
-            <div class="title-sort-container">
-                <div class="title">Completed</div>
-                <div class="sort">
-                    <select id="sortOptions1">
-                        <option value="Order No.">Order No.#</option>
-                        <option value="Description">Description</option>
-                        <option value="Quantity">Quantity</option>
-                        <option value="Payment">Payment Method</option>
-                        <option value="Amount">Amount Paid</option>
-                    </select>
-                    <button id="sortButton1">Sort</button>
-                </div>
+        <!-- Top Controls -->
+        <div class="top-controls">
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search orders by description, order number, or payment method...">
+                <span class="search-icon">🔍</span>
             </div>
-            <div class="completed-orders-container table1">
-                <div class="completed-orders-column row1 header1">
-                    <p class="column-order-no cell1" data-column="Order No.">Order No.#</p>
-                    <p class="column-order-image cell1" data-column="Image">Image</p>
-                    <p class="column-order-description cell1" data-column="Description">Description</p>
-                    <p class="column-order-quantity cell1" data-column="Quantity">Quantity</p>
-                    <p class="column-order-payment cell1" data-column="Payment">Payment Method</p>
-                    <p class="column-order-amount cell1" data-column="Amount">Total Amount Paid</p>
-                </div>
-                <div class="completed-orders">
-                    <div class="orders row1">
-                        <div class="order-no cell1" data-column="Order No.">1</div>
-                        <div class="order-image cell1" data-column="Image"></div>
-                        <div class="order-description cell1" data-column="Description">Black and Yellow Gaming sports Jersey</div>
-                        <div class="order-quantity cell1" data-column="Quantity">10</div>
-                        <div class="order-payment cell1" data-column="Payment">Self-Pickup</div>
-                        <div class="order-amount cell1" data-column="Amount">5000.00</div>
-                    </div>
-                    <div class="orders row1">
-                        <div class="order-no cell1" data-column="Order No.">2</div>
-                        <div class="order-image cell1" data-column="Image"></div>
-                        <div class="order-description cell1" data-column="Description">Black and Yellow Gaming sports Jersey</div>
-                        <div class="order-quantity cell1" data-column="Quantity">10</div>
-                        <div class="order-payment cell1" data-column="Payment">COD</div>
-                        <div class="order-amount cell1" data-column="Amount">5100.00</div>
-                    </div>
-                    <div class="orders row1">
-                        <div class="order-no cell1" data-column="Order No.">3</div>
-                        <div class="order-image cell1" data-column="Image"></div>
-                        <div class="order-description cell1" data-column="Description">Black and Yellow Gaming sports Jersey</div>
-                        <div class="order-quantity cell1" data-column="Quantity">10</div>
-                        <div class="order-payment cell1" data-column="Payment">COD</div>
-                        <div class="order-amount cell1" data-column="Amount">5100.00</div>
-                    </div>
-                    <div class="orders row1">
-                        <div class="order-no cell1" data-column="Order No.">4</div>
-                        <div class="order-image cell1" data-column="Image"></div>
-                        <div class="order-description cell1" data-column="Description">Black and Yellow Gaming sports Jersey</div>
-                        <div class="order-quantity cell1" data-column="Quantity">10</div>
-                        <div class="order-payment cell1" data-column="Payment">COD</div>
-                        <div class="order-amount cell1" data-column="Amount">5100.00</div>
-                    </div>
-                </div>
+            <div class="status-filter">
+                <select id="statusFilter" class="status-dropdown">
+                    <option value="pending" selected>Pending</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="shipped">Shipped</option>
+                </select>
             </div>
         </div>
-        <div class="pending-container">
-            <div class="title-sort-container">
-                <div class="title">Pending</div>
-                <div class="sort">
-                    <select id="sortOptions">
-                        <option value="Order No.">Order No.#</option>
-                        <option value="Description">Description</option>
-                        <option value="Quantity">Quantity</option>
-                        <option value="Payment">Payment Method</option>
-                        <option value="Amount">Amount Paid</option>
+
+        <!-- Orders Section -->
+        <div class="orders-section" id="ordersSection">
+            <div class="section-header">
+                <div class="section-title" id="section-title">
+                    Pending Orders   
+                </div>
+                <div class="sort-controls">
+                    <select id="sortOptions" class="sort-select">
+                        <option value="orderNo">Order No.</option>
+                        <option value="description">Description</option>
+                        <option value="quantity">Quantity</option>
+                        <option value="payment">Payment Method</option>
+                        <option value="amount">Amount</option>
                     </select>
-                    <button id="sortButton">Sort</button>
+                    <button class="sort-btn" onclick="" >Sort</button>
                 </div>
             </div>
-            <div class="pending-orders-container table">
-                <div class="pending-orders-column row header">
-                    <p class="column-order-no cell" data-column="Order No.">Order No.#</p>
-                    <p class="column-order-image cell" data-column="Image">Image</p>
-                    <p class="column-order-description cell" data-column="Description">Description</p>
-                    <p class="column-order-quantity cell" data-column="Quantity">Quantity</p>
-                    <p class="column-order-payment cell" data-column="Payment">Payment Method</p>
-                    <p class="column-order-amount cell" data-column="Amount">Amount to Pay</p>
+
+            <div class="orders-table">
+                <div class="table-header">
+                    <div class="cell cell-order-no">Order No.</div>
+                    <div class="cell cell-image">Image</div>
+                    <div class="cell cell-description">Description</div>
+                    <div class="cell cell-quantity">Quantity</div>
+                    <div class="cell cell-payment">Payment</div>
+                    <div class="cell cell-amount">Amount</div>
+                    <div class="cell cell-status">Status</div>
                 </div>
-                <div class="pending-orders">
-                    @foreach ($pendingOrders as $order)
-                    <div class="orders row">
-                        <input type="hidden" name="orderId" value="{{$order->orderId}}">
-                        <div class="order-no cell" data-column="Order No.">{{$order->orderId}}</div>
-                        <div class="order-image cell" data-column="Image">
-                            <img src="{{ asset('storage/' . $order->productImg) }}" alt="Black and Yellow Gaming Jersey" class="order-image-img">
+
+                <div class="orders-list" id="pendingList">
+                    @foreach ($pendingOrders as $pending)
+                    <div class="order-row" id="">
+                        <input type="hidden" name="deliveryStatus" id="deliveryStatus" value="{{$pending->deliveryStatus}}">
+                        <input type="hidden" name="orderId" value="{{$pending->orderId}}">
+                        <div class="cell cell-order-no" data-column="Order No.">{{$pending->orderId}}</div>
+                        <div class="cell cell-image" data-column="Image">
+                            <img src="{{ asset('storage/' . $pending->productImg) }}" alt="Gaming Jersey" class="order-image-img">
                         </div>
-                        <div class="order-description cell" data-column="Description">{{$order->ProductName}}</div>
-                        <div class="order-quantity cell" data-column="Quantity">{{$order->totalQuantity}}</div>
-                        <div class="order-payment cell" data-column="Payment">{{$order->paymentMethod}}</div>
-                        <div class="order-amount cell" data-column="Amount">₱{{ number_format($order->totalItemPrice, 2) }}</div>
+                        <div class="cell cell-description" data-column="Description">{{$pending->ProductName}}</div>
+                        <div class="cell cell-quantity" data-column="Quantity">{{$pending->totalQuantity}}</div>
+                        <div class="cell cell-payment" data-column="Payment">{{$pending->paymentMethod}}</div>
+                        <div class="cell cell-amount" data-column="Amount">₱{{ number_format($pending->totalItemPrice, 2) }}</div>
+                        <div class="cell cell-status" data-column="Status">
+                            <span class="status-indicator status-pending">{{$pending->deliveryStatus}}</span>
+                        </div>
                     </div>
                     @endforeach
                 </div>
+
+                <div class="orders-list" id="shipList" style="display: none">
+                    @foreach ($shippedOrders as $shipped)
+                    <div class="order-row" id="">
+                        <input type="hidden" name="deliveryStatus" id="deliveryStatus" value="{{$shipped->deliveryStatus}}">
+                        <input type="hidden" name="orderId" value="{{$shipped->orderId}}">
+                        <div class="cell cell-order-no" data-column="Order No.">{{$shipped->orderId}}</div>
+                        <div class="cell cell-image" data-column="Image">
+                            <img src="{{ asset('storage/' . $shipped->productImg) }}" alt="Gaming Jersey" class="order-image-img">
+                        </div>
+                        <div class="cell cell-description" data-column="Description">{{$shipped->ProductName}}</div>
+                        <div class="cell cell-quantity" data-column="Quantity">{{$shipped->totalQuantity}}</div>
+                        <div class="cell cell-payment" data-column="Payment">{{$shipped->paymentMethod}}</div>
+                        <div class="cell cell-amount" data-column="Amount">₱{{ number_format($shipped->totalItemPrice, 2) }}</div>
+                        <div class="cell cell-status" data-column="Status">
+                            <span class="status-indicator status-pending">{{$shipped->deliveryStatus}}</span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                <div class="orders-list" id="completeList" style="display: none">
+                    @foreach ($completedOrders as $completed)
+                    <div class="order-row" id="">
+                        <input type="hidden" name="deliveryStatus" id="deliveryStatus" value="{{$completed->deliveryStatus}}">
+                        <input type="hidden" name="orderId" value="{{$completed->orderId}}">
+                        <div class="cell cell-order-no" data-column="Order No.">{{$completed->orderId}}</div>
+                        <div class="cell cell-image" data-column="Image">
+                            <img src="{{ asset('storage/' . $completed->productImg) }}" alt="Gaming Jersey" class="order-image-img">
+                        </div>
+                        <div class="cell cell-description" data-column="Description">{{$completed->ProductName}}</div>
+                        <div class="cell cell-quantity" data-column="Quantity">{{$completed->totalQuantity}}</div>
+                        <div class="cell cell-payment" data-column="Payment">{{$completed->paymentMethod}}</div>
+                        <div class="cell cell-amount" data-column="Amount">₱{{ number_format($completed->totalItemPrice, 2) }}</div>
+                        <div class="cell cell-status" data-column="Status">
+                            <span class="status-indicator status-pending">{{$completed->deliveryStatus}}</span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                <p>No orders found matching your criteria.</p>
             </div>
         </div>
     </div>

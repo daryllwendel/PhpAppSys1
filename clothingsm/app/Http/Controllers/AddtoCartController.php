@@ -57,9 +57,6 @@ class AddtoCartController extends Controller
         
         return redirect()->back()->with('success', 'Product added to cart successfully');
     }
-    public function editcart(Request $request){
-
-    }
 public function deletecart(Request $request)
 {
     try {
@@ -122,7 +119,7 @@ public function checkout(Request $request)
                 'price' => $item['price'],
             ]);
             cartitems::where('product_id', $item['product_id'])->update(['status' => 'sold']);
-        }
+        }  
 
         DB::commit();
         return redirect('/CustomerDashboard')->with('success', 'Order placed!');

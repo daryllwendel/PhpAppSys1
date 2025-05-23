@@ -489,6 +489,31 @@ if (checkoutForm) {
       });
 }
 
+function sortorders() {
+  const sort = document.getElementById('statusFilter').value;
+
+  const sectionTitle = document.getElementById('section-title');
+  const pendingList = document.getElementById('pendingList');
+  const shipList = document.getElementById('shipList');
+  const completeList = document.getElementById('completeList');
+
+  if (sort === 'pending') {
+      sectionTitle.textContent = 'Pending Orders';
+      pendingList.style.display = 'block';
+      shipList.style.display = 'none';
+      completeList.style.display = 'none';
+  } else if (sort === 'shipped') {
+      sectionTitle.textContent = 'Shipped Orders';
+      pendingList.style.display = 'none';
+      shipList.style.display = 'block';
+      completeList.style.display = 'none';
+  } else if (sort === 'delivered') {
+      sectionTitle.textContent = 'Delivered Orders';
+      pendingList.style.display = 'none';
+      shipList.style.display = 'none';
+      completeList.style.display = 'block';
+  }
+}
 
 
 function addresscheck() {
@@ -625,6 +650,7 @@ function loadorders(){
             const content = document.getElementById("change-container");
             content.innerHTML = "";
             content.appendChild(orderdisplay)
+            document.getElementById('statusFilter').addEventListener('change', sortorders);
             document.getElementById('sortButton').addEventListener('click', () => {
                 const selectedOption = document.getElementById('sortOptions').value;
                 sortTable(selectedOption);

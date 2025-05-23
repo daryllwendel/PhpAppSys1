@@ -22,13 +22,46 @@ class CustomerOrderDisplay extends Controller
                 DB::raw('SUM(quantity) as totalQuantity'),
                 DB::raw('MAX(deliveryStatus) as deliveryStatus')
             )
-            ->where('deliveryStatus', 'Pending')
+            ->where('deliveryStatus', 'pending')
             ->where('customerId', $customerId)
             ->groupBy('orderId')
             ->orderBy('orderId', 'desc')
             ->get();
-    
-        return view('CustomerOrder-display', compact('pendingOrders'));
+
+            $shippedOrders = DB::table('vwordersummary')
+            ->select(
+                'ProductName',
+                'paymentMethod',
+                'orderId',
+                'productImg',
+                DB::raw('MAX(dateOrdered) as orderDate'),
+                DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
+                DB::raw('SUM(quantity) as totalQuantity'),
+                DB::raw('MAX(deliveryStatus) as deliveryStatus')
+            )
+            ->where('deliveryStatus', 'shipped')
+            ->where('customerId', $customerId)
+            ->groupBy('orderId')
+            ->orderBy('orderId', 'desc')
+            ->get();
+
+            $completedOrders = DB::table('vwordersummary')
+            ->select(
+                'ProductName',
+                'paymentMethod',
+                'orderId',
+                'productImg',
+                DB::raw('MAX(dateOrdered) as orderDate'),
+                DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
+                DB::raw('SUM(quantity) as totalQuantity'),
+                DB::raw('MAX(deliveryStatus) as deliveryStatus')
+            )
+            ->where('deliveryStatus', 'delivered')
+            ->where('customerId', $customerId)
+            ->groupBy('orderId')
+            ->orderBy('orderId', 'desc')
+            ->get();
+        return view('CustomerOrder-display', compact('pendingOrders','completedOrders','shippedOrders'));
     }
     
 }

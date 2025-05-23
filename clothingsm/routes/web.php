@@ -29,6 +29,8 @@ Route::get('/dashboarddisplay',[AdminDisplayController::class, 'dashboardDisplay
 
 Route::get('/orders', [AdminOrders::class, 'viewOrders'])->name('orders');
 Route::post('/orders', [AdminOrders::class, 'acceptOrder'])->name('orders');
+Route::put('/acceptorder',[AdminOrders::class, 'acceptorders'])->name('orders');
+Route::put('/completeorder',[AdminOrders::class,'completeorders'])->name('orders');
 Route::get('/product', [AdminDashboardController::class, 'productid'])->name('product');
 Route::put('/product', [AdminDashboardController::class, 'editProduct']);
 Route::delete('/deletedesign',[AdminDashboardController::class, 'deleteproduct']);

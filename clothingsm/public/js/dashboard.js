@@ -122,15 +122,19 @@ function optionitem() {
     const delete2 = document.querySelector(".deleteitem");
     const close3 = document.querySelector(".reject3 button");
 
-    const productcontainer = document.querySelector(".productcontainer");
+    const productcontainer = document.querySelector(".productcontent");
 
     // Show "Add Item" Modal
     additem.addEventListener("click", function () {
         add.style.display = "grid";
+        productcontainer.style.pointerEvents = "none"
+        productcontainer.style.filter = "auto";
     });
 
     close1.addEventListener("click", function () {
         add.style.display = "none";
+        productcontainer.style.pointerEvents = "auto"
+        productcontainer.style.filter = "none";
     });
 
     // Show "Edit Item" Modal
@@ -192,6 +196,105 @@ function optionitem() {
         productcontainer.style.filter = "none";
         productcontainer.style.pointerEvents = "auto";
     });
+
+    //add a design ajax
+    document.querySelectorAll(".editProduct").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/product", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {
+                    const overlay = form.closest(".additem");
+                    if (overlay) {
+                        overlay.style.display = "none";
+                    }
+                    product();
+                } else {
+                    alert("Failed to add order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
+
+    //edit a design ajax
+    document.querySelectorAll(".addProductForm").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/adddesign", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {
+                    const overlay = form.closest(".edititem");
+                    if (overlay) {
+                        overlay.style.display = "none";
+                    }
+                    product();
+                } else {
+                    alert("Failed to edit order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
+
+    //delete a design ajax
+    document.querySelectorAll(".deleteProduct").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/deletedesign", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {
+                    const overlay = form.closest(".deleteitem");
+                    if (overlay) {
+                        overlay.style.display = "none";
+                    }
+                    product();
+                } else {
+                    alert("Failed to delete order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
 }
 
 function loaddashboard(){
@@ -225,37 +328,65 @@ document.addEventListener("DOMContentLoaded", ()=>{
     document.getElementById("buttondashboard").addEventListener("click",loaddashboard)
 })
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("buttonorders").addEventListener("click", function() {
-        fetch("/orders")
-            .then(res => res.text())
-            .then((html) => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-
-                const dashboardContent = doc.querySelector(".ordercontainer");
-                const overlay = doc.querySelector(".overlay");
-                
-                if (dashboardContent) {
-                    document.getElementById("title1").innerHTML = "<div>Orders</div>";
-                    const content = document.getElementById("body1");
-                    content.innerHTML = "";
-                    content.appendChild(dashboardContent.cloneNode(true));
-                    
-                    if (overlay) {
-                        content.appendChild(overlay.cloneNode(true));
-                        attachOverlayEvents();
-                    }
-                    
-                    document.getElementById('body1').style.display = 'grid';
-                } else {
-                    console.log("Error loading orders content");
-                }
-            })
-            .catch((err) => console.error("Failed to load orders content:", err));
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("buttonorders").addEventListener("click", orders);
 });
+function sortorders() {
+    const sort = document.getElementById('sortStatus').value;
+  
+    const pendingList = document.getElementById('pendingOrders');
+    const shipList = document.getElementById('shippedOrders');
+    const completeList = document.getElementById('completedOrders')
+  
+    if (sort === 'pending') {
+        pendingList.style.display = 'block';
+        shipList.style.display = 'none';
+        completeList.style.display='none';
+    } else if (sort === 'shipped') {
+        pendingList.style.display = 'none';
+        shipList.style.display = 'block';
+        completeList.style.display='none'
+    }else if(sort === 'delivered'){
+        pendingList.style.display = 'none';
+        shipList.style.display = 'none';
+        completeList.style.display='block'
+    }
+  }
+function orders(){
+    fetch("/orders?_t=" + new Date().getTime())
+    .then(res => res.text())
+    .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
 
+        const dashboardContent = doc.querySelector(".ordercontainer");
+
+        if (dashboardContent) {
+            document.getElementById("title1").innerHTML = "<div>Orders</div>";
+            const content = document.getElementById("body1");
+            content.innerHTML = "";
+
+            content.appendChild(dashboardContent.cloneNode(true));
+            document.getElementById('sortStatus').addEventListener('change', sortorders);
+            const overlays = doc.querySelectorAll(".overlay");
+            overlays.forEach(overlay => {
+                content.appendChild(overlay.cloneNode(true));
+            });
+
+            attachOverlayEvents();
+
+            document.getElementById('body1').style.display = 'grid';
+        } else {
+            const emptyOrder = doc.querySelector('.emptyOrder')
+            if(emptyOrder){
+                const content = document.getElementById('body1')
+                content.innerHTML=""
+                content.appendChild(emptyOrder.cloneNode(true))
+            }
+        }
+    })
+    .catch((err) => console.error("Failed to load orders content:", err));
+}
 function product(){
     fetch("/product")
     .then((res) => res.text())
@@ -282,16 +413,18 @@ function product(){
             profilepic1()
             document.getElementById('body1').style.display = 'grid'
         } else {
-            console.error("The element .productscontainer was not found.");
-            console.log(dashboardContent)
-            console.log(deleteitem)
+            const emptyProduct = doc.querySelector('.emptyProduct')
+            if(emptyProduct){
+                const content = document.getElementById('body1')
+                content.innerHTML=""
+                content.appendChild(emptyProduct.cloneNode(true))
+            }
         }
     })
     .catch((err) => console.error("Failed to load dashboard content:", err));
 }
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("buttonproducts").addEventListener("click", product);
-
 });
 
 
@@ -323,22 +456,98 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 function attachOverlayEvents() {
-    document.querySelector(".ordercontent").addEventListener("click", function () {
-        document.querySelector(".overlay").style.display = "grid";
-        document.querySelector(".ordercontainer").style.pointerEvents = "none";
-        document.querySelector(".ordercontainer").style.filter = "blur(10px)";
-    })
+    const orderElements = document.querySelectorAll(".order");
+    const overlayElements = document.querySelectorAll(".overlay");
 
-    document.querySelector(".reject01").addEventListener("click", function () {
-        document.querySelector(".overlay").style.display = "none";
-        document.querySelector(".ordercontainer").style.pointerEvents = "auto";
-        document.querySelector(".ordercontainer").style.filter = "blur(0)"
-    })
+    orderElements.forEach((orderEl, index) => {
+        const overlayEl = overlayElements[index];
 
-    document.querySelector(".accept-button").addEventListener("click", function () {
-        document.querySelector(".overlay").style.display = "none";
-        document.querySelector(".ordercontainer").style.pointerEvents = "auto";
-        document.querySelector(".ordercontainer").style.filter = "blur(0)"
-    })
+        if (overlayEl) {
+            orderEl.addEventListener("click", function () {
+                overlayEl.style.display = "grid";
+                orderEl.classList.add("blurred");
+            });
 
-}
+            const rejectBtn = overlayEl.querySelector(".reject01");
+            if (rejectBtn) {
+                rejectBtn.addEventListener("click", function () {
+                    overlayEl.style.display = "none";
+                    orderEl.classList.remove("blurred");
+                });
+            }
+        }
+    });
+    document.querySelectorAll(".accept-form").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/acceptorder", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {
+                    const overlay = form.closest(".overlay");
+                    if (overlay) {
+                        overlay.style.display = "none";
+                    }
+                    const blurredOrder = document.querySelector(".order.blurred");
+                    if (blurredOrder) {
+                        blurredOrder.classList.remove("blurred");
+                    }
+                    
+                    orders();
+                } else {
+                    alert("Failed to accept order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
+    //ship
+    document.querySelectorAll(".accept-form2").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/completeorder", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {
+                    const overlay = form.closest(".overlay");
+                    if (overlay) {
+                        overlay.style.display = "none";
+                    }
+                    const blurredOrder = document.querySelector(".order.blurred");
+                    if (blurredOrder) {
+                        blurredOrder.classList.remove("blurred");
+                    }
+                    
+                    orders();
+                } else {
+                    alert("Failed to accept order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
+}  

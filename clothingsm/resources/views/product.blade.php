@@ -6,8 +6,10 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/products.css') }}" />
     <script src="{{ asset('js/dashboard.js') }}"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
+    @if(isset($products) && $products->count() > 0)
     <div class="productcontainer">
         <div class="productcontent">
             <div class="items-1">
@@ -67,7 +69,7 @@
     
     <!-- Add Item Modal -->
     <div class="additem">
-        <form action="/adddesign" method="POST" enctype="multipart/form-data">
+        <form class="addProductForm" action="/adddesign" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="reject">
                 <span>Add Stock</span>
@@ -126,13 +128,13 @@
                 <label for="addimg">Upload Image</label>
                 <input type="file" name="productImg" id="addimg">
             </div>
-            <button type="submit" class="submit-btn">Add Stock</button>
+            <button type="submit" class="submit-btn" id="addProductBtn">Add Stock</button>
         </form>
     </div>
     
     <!-- Edit Item Modal -->
     <div class="edititem" id="editModal">
-        <form action="/product" method="POST" enctype="multipart/form-data">
+        <form class="editProduct" action="/product" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="reject2">
@@ -202,7 +204,7 @@
     
     <!-- Delete Item Modal -->
     <div class="deleteitem">
-        <form action="/deletedesign" method="POST">
+        <form action="/deletedesign" method="POST" class="deleteProduct">
             @csrf
             @method('DELETE')
             <div class="reject3">
@@ -241,4 +243,9 @@
             </div>
         </form>
     </div>
+    @else
+    <div style="text-align: center; padding: 40px 0; margin-left:36 %;" class="emptyProduct">
+        <h2>Oops, Your Product is Empty</h2>
+    </div>
+    @endif
 </html>

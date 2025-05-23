@@ -84,13 +84,9 @@ class AdminDashboardController extends Controller
                 
                 $product->save();
                 
-
-                // Always update sizes if provided
                 if (!empty($field['sizes'])) {
-                    // Delete existing sizes
                     ProductSize::where('product_id', $product->productId)->delete();
 
-                    // Add new sizes
                     foreach($field['sizes'] as $size) {
                         ProductSize::create([
                             'product_id' => $product->productId,

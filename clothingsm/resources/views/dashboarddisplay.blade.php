@@ -53,7 +53,9 @@
             <div class="totalsale">
                 <img src="{{ asset('images/wallet.png') }}">
                 <h4>TOTAL SALES</h4>
-                <h2>₱</h2>
+                @foreach ($reports as $item)
+                <h2> ₱{{$item->totalCharge}}</h2>
+                @endforeach
             </div>
         </div>
     
