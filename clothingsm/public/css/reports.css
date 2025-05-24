@@ -77,8 +77,9 @@ body{
   }
   .hov{
     display: grid;
-    grid-template-columns: auto auto auto auto;
     justify-content: space-around;
+    grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
+
   }
   .hov:hover{
     background-color: pink;

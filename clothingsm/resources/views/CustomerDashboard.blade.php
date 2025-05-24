@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{asset("css/CustomerHome.css")}}">
   <link rel="stylesheet" href="{{asset("css/CustomerAddADesign-display.css")}}">
   <link rel="stylesheet" href="{{asset("css/CustomerProfile.css")}}">
-  <link rel="stylesheet" href="{{asset("css/CustomerOrder-display.css")}}">
+  <link rel="stylesheet" href="{{asset('css/CustomerOrder-display.css')}}">
   <link rel="stylesheet" href="{{asset("css/CustomerNewDesigns.css")}}  ">
   <link rel="stylesheet" href="{{asset("css/CustomerHotOrder-display.css")}}">
   <link rel="stylesheet" href="{{asset("css/CustomerNewOrder-display.css")}}">

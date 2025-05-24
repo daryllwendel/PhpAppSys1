@@ -13,9 +13,24 @@ class AdminDisplayController extends Controller
             ->select('productId', 'name', 'productImg')
             ->get();
         $productCount = DB::table('tblproducts')->count();
-        $orders = DB::table('tblorders')->count();
+        $orders = DB::table('tblorders')
+        ->where('deliveryStatus', 'delivered')
+        ->count();
+
+        $reports = DB::table('vwordersummary')
+        ->select(
+            'ProductName',
+            'paymentMethod',
+            'orderId',
+            'charge',
+            'quantity',
+            'orderId',
+            DB::raw('SUM(charge + (quantity * unitPrice)) as totalCharge') 
+        )
+            ->where('deliveryStatus', 'delivered')
+            ->get();
 
        
-        return view('dashboarddisplay', compact('product', 'productCount', 'orders'));
+        return view('dashboarddisplay', compact('product', 'productCount', 'orders', 'reports'));
     }
 }

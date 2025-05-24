@@ -58,7 +58,6 @@ class AdminDashboardController extends Controller
             DB::beginTransaction();
             
             try {
-                // Only update fields that were actually changed
                 if ($request->hasFile('editProductImage')) {
                     if ($product->productImg) {
                         Storage::disk('public')->delete($product->productImg);
@@ -85,13 +84,9 @@ class AdminDashboardController extends Controller
                 
                 $product->save();
                 
-
-                // Always update sizes if provided
                 if (!empty($field['sizes'])) {
-                    // Delete existing sizes
                     ProductSize::where('product_id', $product->productId)->delete();
 
-                    // Add new sizes
                     foreach($field['sizes'] as $size) {
                         ProductSize::create([
                             'product_id' => $product->productId,

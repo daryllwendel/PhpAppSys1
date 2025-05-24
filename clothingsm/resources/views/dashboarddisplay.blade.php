@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/dashboarddisplay.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
 </head>
-<body>
+<body> 
 <div class="main-container">
     <div class="dashboardcontainer">
         <div class="recent"><h2>Design</h2>
@@ -53,7 +53,9 @@
             <div class="totalsale">
                 <img src="{{ asset('images/wallet.png') }}">
                 <h4>TOTAL SALES</h4>
-                <h2>₱</h2>
+                @foreach ($reports as $item)
+                <h2> ₱{{$item->totalCharge}}</h2>
+                @endforeach
             </div>
         </div>
     

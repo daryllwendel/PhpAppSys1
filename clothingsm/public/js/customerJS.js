@@ -364,7 +364,10 @@ function loadaddtocart() {
                   localStorage.setItem(storageKey, qty.toString());
               });
 
-              document.getElementById('cart-total').textContent = `₱${total.toFixed(2)}`;
+              const cart_total = document.getElementById('cart-total');
+              if(cart_total){
+                cart_total.textContent = `₱${total.toFixed(2)}`
+              }
               document.getElementById('cart-total1').textContent = `₱${total.toFixed(2)}`;
               document.getElementById('checkout-subtotal').textContent = total.toFixed(2);
               localStorage.setItem('cart_total', total.toFixed(2));
@@ -482,9 +485,35 @@ if (checkoutForm) {
           if(back2){
             back2.addEventListener('click',loadcustomerdashboard)
           }
+          
       });
 }
 
+function sortorders() {
+  const sort = document.getElementById('statusFilter').value;
+
+  const sectionTitle = document.getElementById('section-title');
+  const pendingList = document.getElementById('pendingList');
+  const shipList = document.getElementById('shipList');
+  const completeList = document.getElementById('completeList');
+
+  if (sort === 'pending') {
+      sectionTitle.textContent = 'Pending Orders';
+      pendingList.style.display = 'block';
+      shipList.style.display = 'none';
+      completeList.style.display = 'none';
+  } else if (sort === 'shipped') {
+      sectionTitle.textContent = 'Shipped Orders';
+      pendingList.style.display = 'none';
+      shipList.style.display = 'block';
+      completeList.style.display = 'none';
+  } else if (sort === 'delivered') {
+      sectionTitle.textContent = 'Delivered Orders';
+      pendingList.style.display = 'none';
+      shipList.style.display = 'none';
+      completeList.style.display = 'block';
+  }
+}
 
 
 function addresscheck() {
@@ -621,6 +650,7 @@ function loadorders(){
             const content = document.getElementById("change-container");
             content.innerHTML = "";
             content.appendChild(orderdisplay)
+            document.getElementById('statusFilter').addEventListener('change', sortorders);
             document.getElementById('sortButton').addEventListener('click', () => {
                 const selectedOption = document.getElementById('sortOptions').value;
                 sortTable(selectedOption);
@@ -631,6 +661,7 @@ function loadorders(){
             });
         }else{
             console.log('okay')
+            console.log(orderdisplay)
         }
     })
 }
