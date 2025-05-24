@@ -237,6 +237,35 @@ function initCartListeners() {
         }
       }
     });
+
+     document.querySelectorAll(".addtocart").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/addtocart", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {      
+                  document.body.style.overflow = "auto";
+                    loadcustomerdashboard();
+                } else {
+                    alert("Failed to accept order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
   }
    
   function loadcustomerdashboard() {
@@ -485,8 +514,65 @@ if (checkoutForm) {
           if(back2){
             back2.addEventListener('click',loadcustomerdashboard)
           }
-          
+
+            document.querySelectorAll(".deletecart").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/deletecart", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {      
+                  document.body.style.overflow = "auto";
+                    loadaddtocart();
+                } else {
+                    alert("Failed to accept order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
+    //
+     document.querySelectorAll(".checkout").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/checkout", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {      
+                  document.body.style.overflow = "auto";
+                } else {
+                    alert("Failed to accept order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
       });
+     
 }
 
 function sortorders() {
@@ -626,6 +712,64 @@ function loadprofile(){
             const content = document.getElementById("change-container");
             content.innerHTML = "";
             content.appendChild(profledisplay)
+
+            document.querySelectorAll(".location").forEach(form => {
+            form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/location", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {     
+                  alert("Update Successfully!");
+                  loadprofile();
+                } else {
+                    alert("Failed to accept order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
+    //
+      document.querySelectorAll(".profileimgage").forEach(form => {
+            form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/upload-profile", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {     
+                  alert("Update Successfully!");
+                  loadprofile();
+                } else {
+                    alert("Failed to accept order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
             profileset()
             profilepic()
             address();

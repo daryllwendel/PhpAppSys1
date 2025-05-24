@@ -7,63 +7,56 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
-
 class registerform extends Controller
 {
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-    public function customerDashboard(){
+        return redirect('/login');
+    }
+    public function admindashboard(){
         $user = Auth::user();
-        return view('CustomerDashboard', compact('user'));
+        
+        return response()
+        ->view('dashboard')
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
+    }
+   public function customerDashboard(){
+    $user = Auth::user();
+
+    return response()
+        ->view('CustomerDashboard', compact('user'))
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
+}
+
+    public function customerProfile()
+    {
+        $user = Auth::user();
+        return view('CustomerProfile', compact('user'));
     }
 
-    public function customerProfile(){
-        $user = Auth::user();
-        $name = $user->name;
-        $username = $user->username;
-        $mobile_number = $user->mobile_number;
-        $email = $user->email;
-        $id = $user->id;
-        $city = $user->City;
-        $purok = $user->Purok;
-        $zipcode = $user->ZipCode;
-        $baranggay = $user->Baranggay;
-        $province = $user->Province;
-        return view('CustomerProfile', compact('name', 'username','mobile_number','email','id','city', 'purok', 'zipcode','baranggay','province'));
-    }
-    
-
-    public function login(Request $request){
-        $field = $request->validate([
-            'loginname'=> 'required',
-            'loginpassword'=> 'required'
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'loginname' => 'required',
+            'loginpassword' => 'required',
         ]);
 
-        // Try login with username
-        if (Auth::attempt(['username' => $field['loginname'], 'password' => $field['loginpassword']])) {
+        if (Auth::attempt(['username' => $credentials['loginname'], 'password' => $credentials['loginpassword']]) ||
+            Auth::attempt(['email' => $credentials['loginname'], 'password' => $credentials['loginpassword']])) {
+
             $request->session()->regenerate();
             $user = Auth::user();
-            $customerName = $user->name;
-            session(['customer-name' => $customerName]);
+            session(['customer-name' => $user->name]);
 
-            if ($user->role === 'admin') {
-                return redirect('/dashboard');
-            } else if ($user->role === 'customer') {
-                return redirect('/CustomerDashboard');
-            }
-        }
-
-        // Try login with email 
-        if (Auth::attempt(['email' => $field['loginname'], 'password' => $field['loginpassword']])) {
-            $request->session()->regenerate();
-            $user = Auth::user();
-            $customerName = $user->name;
-            session(['customer-name' => $customerName]);
-
-            if ($user->role === 'admin') {
-                return redirect('/dashboard');
-            } else if ($user->role === 'customer') {
-                return redirect('/CustomerDashboard');
-            }
+            return redirect($user->role === 'admin' ? '/dashboard' : '/CustomerDashboard');
         }
 
         return back()->withErrors([
@@ -71,59 +64,56 @@ class registerform extends Controller
         ]);
     }
 
-    public function registerform(Request $request){
-        $field = $request->validate([
-            'username' =>['required', 'min:4', 'max:15'],
+    public function registerform(Request $request)
+    {
+        $validated = $request->validate([
+            'username' => ['required', 'min:4', 'max:15'],
             'name' => ['required'],
-            'email' => ['required','email', Rule::unique('tblusers', 'email')],
-            'mobile_number'=>['required', 'min:11', 'max:11'],
-            'password' =>  ['required', 'min:8', 'max:200'],
-        ]); 
-        $field['password'] = bcrypt($field['password']);
-        $user = User::create($field);
+            'email' => ['required', 'email', Rule::unique('tblusers', 'email')],
+            'mobile_number' => ['required', 'min:11', 'max:13'],
+            'password' => ['required', 'min:8', 'max:200'],
+        ]);
+
+        $validated['password'] = bcrypt($validated['password']);
+        $user = User::create($validated);
         Auth::login($user);
-        return redirect('/login')->with('Success','Account created! Please sign in.');
+
+        if ($request->ajax()) {
+            return response()->json([
+                'ok' => true,
+                'message' => 'Account Created Successfully',
+                'role' => $user->role,
+            ]);
+        }
+
+        return redirect('/login');
     }
 
     public function ajaxLogin(Request $request)
-{
-    $request->validate([
-        'loginname'     => 'required|string',
-        'loginpassword' => 'required|string',
-    ]);
-
-    if ($request->loginname === 'admin' && $request->loginpassword === 'password123') {
-        $request->session()->regenerate();
-        return response()->json([
-            'ok'   => true,
-            'role' => 'admin', 
+    {
+        $request->validate([
+            'loginname' => 'required|string',
+            'loginpassword' => 'required|string',
         ]);
-    }
 
-    if (Auth::attempt(['username' => $request->loginname, 'password' => $request->loginpassword])) {
-        $request->session()->regenerate();
-        $role = Auth::user()->role;
+        // Hardcoded admin fallback
+        if ($request->loginname === 'admin' && $request->loginpassword === 'password123') {
+            $request->session()->regenerate();
+            return response()->json(['ok' => true, 'role' => 'admin']);
+        }
+
+        if (Auth::attempt(['username' => $request->loginname, 'password' => $request->loginpassword]) ||
+            Auth::attempt(['email' => $request->loginname, 'password' => $request->loginpassword])) {
+            
+            $request->session()->regenerate();
+            $role = Auth::user()->role;
+
+            return response()->json(['ok' => true, 'role' => $role]);
+        }
 
         return response()->json([
-            'ok' => true,
-            'role' => $role,
-    ]);
-}
-
-// Try with email
-if (Auth::attempt(['email' => $request->loginname, 'password' => $request->loginpassword])) {
-    $request->session()->regenerate();
-    $role = Auth::user()->role;
-
-    return response()->json([
-        'ok' => true,
-        'role' => $role,
-    ]);
-}
-
-    return response()->json([
-        'ok'      => false,
-        'message' => 'Username or password is incorrect',
-    ], 422);
-}
+            'ok' => false,
+            'message' => 'Username or password is incorrect',
+        ], 422);
+    }
 }

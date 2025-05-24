@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
@@ -93,6 +92,63 @@ input {
 	padding: 12px 15px;
 	margin: 8px 0;
 	width: 100%;
+	border-radius: 4px;
+	font-size: 14px;
+	transition: all 0.3s ease;
+	outline: none;
+	border: 2px solid transparent;
+}
+
+input:focus {
+	border-color: rgb(255, 187, 0);
+	background-color: white;
+	box-shadow: 0 0 0 3px rgba(255, 187, 0, 0.1);
+}
+
+/* Facebook-Style Error States */
+.input-group {
+	position: relative;
+	margin: 8px 0;
+	width: 100%;
+}
+
+input.error {
+	border: 2px solid #e74c3c !important;
+	background-color: #fff5f5 !important;
+	box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+}
+
+.error-message {
+	color: #e74c3c;
+	font-size: 12px;
+	text-align: left;
+	margin-top: 4px;
+	margin-bottom: 8px;
+	display: none;
+	font-weight: 500;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.error-message.show {
+	display: block;
+}
+
+/* Error icon inside input */
+.input-group.has-error::after {
+	content: "⚠";
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #e74c3c;
+	font-size: 16px;
+	pointer-events: none;
+	z-index: 10;
+}
+
+/* Adjust input margin when in input-group */
+.input-group input {
+	margin: 0;
 }
 
 .container {
@@ -232,6 +288,7 @@ input {
 	height: 40px;
 	width: 40px;
 }
+
 .termsandcondition{
     display: grid;
     grid-template-columns: auto auto;
@@ -251,20 +308,38 @@ input {
     margin-top: 4px;
     padding-left: 10px;
 }
-.msg        { font-size:.9rem; margin-top:.5rem; }
-.msg.error  { color:#f43f5e; }    /* red‑500 */
-.msg.ok     { color:#16a34a; }    /* green‑600 */
 
+.msg { 
+	font-size: .9rem; 
+	margin-top: .5rem; 
+	padding: 8px 12px;
+	border-radius: 4px;
+	display: none;
+	text-align: center;
+}
+
+.msg.show {
+	display: block;
+}
+
+.msg.error { 
+	color: #e74c3c;
+	background-color: #fff5f5;
+	border: 1px solid #e74c3c;
+}
+
+.msg.ok { 
+	color: #16a34a;
+	background-color: #f0fdf4;
+	border: 1px solid #16a34a;
+}
 
 @media screen and (max-width: 768px) {
 	.container{
 		display: block;
 		flex-flow: row wrap;
 		width: 500px;
-		
 	}
 	.sign-in-container, .sign-up-container{
-		
-		
 	}
 }

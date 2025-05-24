@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{asset("css/CustomerHome.css")}}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,10 +99,10 @@
       </div>
     </div>
   </div>
-</div> 
+</div>  
 <div class="overlay" id="overlay">
   <div class="product-modal" id="product-modal">
-      <form action="/addtocart" method="POST">
+      <form action="/addtocart" method="POST" class="addtocart">
         @csrf
         <input type="hidden" name="customerId" value="{{ Auth::id() }}">
         <input type="hidden" name="productId" id="productId" >

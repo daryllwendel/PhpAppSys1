@@ -9,7 +9,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-    @if(isset($products) && $products->count() > 0)
     <div class="productcontainer">
         <div class="productcontent">
             <div class="items-1">
@@ -66,7 +65,7 @@
     
     <!-- Modal overlay -->
     <div class="modal-overlay" id="modalOverlay"></div>
-    
+     
     <!-- Add Item Modal -->
     <div class="additem">
         <form class="addProductForm" action="/adddesign" method="POST" enctype="multipart/form-data">
@@ -243,9 +242,4 @@
             </div>
         </form>
     </div>
-    @else
-    <div style="text-align: center; padding: 40px 0; margin-left:36 %;" class="emptyProduct">
-        <h2>Oops, Your Product is Empty</h2>
-    </div>
-    @endif
 </html>

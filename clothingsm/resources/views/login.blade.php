@@ -5,21 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{asset("css/login.css")}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 <div class="container" id="container">
 
 	<div class="form-container sign-up-container" class="sign-up-content">
-		<form action="/register" method="POST">
+		<form action="/register" class="register" method="POST">
 			@csrf 
 			<h1>Create Account</h1>
-            <input name="username" type="text" placeholder="Username"/>
-			<input name="name" type="text" placeholder= "Name" />
-			<input name="email" type="email" placeholder="Email" />
-            <input name="mobile_number" type="text" placeholder="Mobile Number">
-			<input name="password" type="password" placeholder="Password" />
-            <div class="termsandcondition"><input type="checkbox" id="toggleCheckbox" onchange="toggleButton()"><div class="words"><span>I accept</span> <a href="">Terms and Condition</a></div></div>
-			<button id="myButton" disabled onclick="showmsg()">Sign Up</button>
+			
+			<!-- Username Field -->
+			<div class="input-group">
+				<input name="username" type="text" placeholder="Username" id="reg-username"/>
+				<div class="error-message" id="reg-username-error"></div>
+			</div>
+			
+			<!-- Name Field -->
+			<div class="input-group">
+				<input name="name" type="text" placeholder="Name" id="reg-name"/>
+				<div class="error-message" id="reg-name-error"></div>
+			</div>
+			
+			<!-- Email Field -->
+			<div class="input-group">
+				<input name="email" type="email" placeholder="Email" id="reg-email"/>
+				<div class="error-message" id="reg-email-error"></div>
+			</div>
+			
+			<!-- Mobile Number Field -->
+			<div class="input-group">
+				<input name="mobile_number" type="text" placeholder="Mobile Number" id="reg-mobile">
+				<div class="error-message" id="reg-mobile-error"></div>
+			</div>
+			
+			<!-- Password Field -->
+			<div class="input-group">
+				<input name="password" type="password" placeholder="Password" id="reg-password"/>
+				<div class="error-message" id="reg-password-error"></div>
+			</div>
+			
+			<p class="errormsg" style="color: red; font-family:Arial, Helvetica, sans-serif; font-size:10px"></p>
+            <div class="termsandcondition">
+				<input type="checkbox" id="toggleCheckbox" onchange="toggleButton()">
+				<div class="words">
+					<span>I accept</span> <a href="">Terms and Condition</a>
+				</div>
+			</div>
+			<button id="myButton" disabled>Sign Up</button>
 		</form>
 	</div>
 
@@ -27,8 +60,19 @@
 		<form method="POST" action="/login">
 			@csrf 
 			<h1>Sign in</h1>
-			<input name="loginname" type="text" placeholder="Username or Email" id="username" />
-			<input name="loginpassword" type="password" placeholder="Password" id="password" />
+			
+			<!-- Login Username/Email Field -->
+			<div class="input-group">
+				<input name="loginname" type="text" placeholder="Username or Email" id="login-username" />
+				<div class="error-message" id="login-username-error"></div>
+			</div>
+			
+			<!-- Login Password Field -->
+			<div class="input-group">
+				<input name="loginpassword" type="password" placeholder="Password" id="login-password" />
+				<div class="error-message" id="login-password-error"></div>
+			</div>
+			
 			<a href="#">Forgot your password?</a>
 			<p id="loginMsg" class="msg"></p>
 			<button>Sign In</button>

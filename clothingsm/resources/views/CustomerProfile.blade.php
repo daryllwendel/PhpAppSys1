@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link rel="stylesheet" href="{{asset("css/CustomerProfile.css")}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -33,7 +34,7 @@
                 <!-- User Profile Card -->
                 <div class="profcus" id="profcus">
                     <div class="item-01">
-                        <form action="{{route('user.upload')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('user.upload')}}" class="profileimgage" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div>
                                 @if(Auth::user()->profile)
@@ -150,7 +151,7 @@
             </form>
 
             <!-- Location Change Section -->
-            <form action="/location" method="POST" class="location">
+            <form action="/location" class="location" method="POST" class="location">
                 @csrf
                 <div class="item-30">
                     <h2>Change Address</h2>
@@ -159,18 +160,12 @@
                 <div class="item-31-1">
                     <select name="Province" id="provinceSelect" required>
                         <option value="">Choose a Province</option>
-                        <!-- Add province options dynamically or hardcode them -->
-                        <option value="Metro Manila">Metro Manila</option>
-                        <option value="Cebu">Cebu</option>
-                        <option value="Davao">Davao</option>
-                        <!-- Add more provinces as needed -->
                     </select>
                 </div>
 
                 <div class="item-32">
                     <select name="City" id="citySelect" required disabled>
                         <option value="">Choose a city</option>
-                        <!-- Cities will be populated via JavaScript -->
                     </select>
                 </div>
         
