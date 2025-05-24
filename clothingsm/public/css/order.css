@@ -1,6 +1,6 @@
 /* Container Styles */
 .ordercontainer {
-  max-width: 1200px;
+  /*max-width: 1200px;*/
   margin: 0;
   padding: 20px;
   background-color: #f8f9fa;
@@ -333,18 +333,18 @@
       grid-template-columns: 1fr;
       gap: 8px;
   }
-  
+
   .ordertext p::before,
   .hov p::before {
       content: attr(data-label) ": ";
       font-weight: 600;
       color: #6b7280;
   }
-  
+
   .search {
       flex-direction: column;
   }
-  
+
   .sort {
       justify-content: flex-start;
   }

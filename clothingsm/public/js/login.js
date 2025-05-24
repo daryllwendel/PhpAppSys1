@@ -78,20 +78,64 @@ function toggleButton(){
     const button = document.getElementById('myButton')
     button.disabled= !checkbox.checked
 }
+//
+// function showmsg(){
+//     const registerUsername = document.getElementById('registerUsername')
+//     const name = document.getElementById('name')
+//     const email = document.getElementById('email')
+//     const number = document.getElementById('mobile_number')
+//     const registerPassword = document.getElementById('registerPassword')
+//
+//     if(registerUsername.value === "" || name.value === "" || email.value === "" || number.value === "" || registerPassword.value === ""){
+//         alert("Please input required fields!")
+//         //ill put wish to put the prventdefault here
+//     }else{
+//         alert('Account Created!')
+//     }
+//
+// }
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('registerForm');
 
-function showmsg(){
-    const username = document.getElementById('username')
-    const name = document.getElementById('name')
-    const email = document.getElementById('email')
-    const number = document.getElementById('mobile_number')
-    const password = document.getElementById('password')
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent page reload
 
-    if(username.value === "" || name.value === "" || email.value === "" || number.value === "" || password.value === ""){
-        alert("Please input required fields!")
-    }else{
-        alert('Account Created!')
-    }
+        const registerUsername = document.getElementById('registerUsername');
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const number = document.getElementById('mobile_number');
+        const registerPassword = document.getElementById('registerPassword');
 
-}
+        if(registerPassword.value){
+
+        }
+        if (
+            registerUsername.value === "" ||
+            name.value === "" ||
+            email.value === "" ||
+            number.value === "" ||
+            registerPassword.value === ""
+        ) {
+            alert("Please input required fields!");
+            return;
+        }
+        if(registerPassword.value.length < 8){
+            alert("Password must be 8 characters long!")
+            return;
+        }
+
+        alert("Account Created!");
+
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const phoneInput = document.getElementById('mobile_number');
+
+    phoneInput.addEventListener('input', () => {
+        // Remove all non-digit characters
+        phoneInput.value = phoneInput.value.replace(/\D/g, '');
+    });
+});
+
 
 

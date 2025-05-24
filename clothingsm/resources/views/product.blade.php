@@ -9,7 +9,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-    @if(isset($products) && $products->count() > 0)
     <div class="productcontainer">
         <div class="productcontent">
             <div class="items-1">
@@ -17,11 +16,11 @@
                 <input type="search" placeholder="Search.." class="searchbars">
                 <button class="buttonsubmit">Search</button>
             </div>
-    
+
             <div class="items-2">
                 <button class="addbutton"><img src="{{ asset('images/addProduct.png') }}" alt="Add"></button>
             </div>
-    
+
 <div class="items-3">
     @foreach ($products as $item)
     <div class="product-card">
@@ -33,40 +32,40 @@
                 @php
                     $sizes = App\Models\ProductSize::where('product_id', $item->productId)->get();
                 @endphp
-                Sizes: 
+                Sizes:
                 @foreach($sizes as $size)
                     <span class="size-badge">{{ $size->size }}</span>
                 @endforeach
             </div>
         </div>
         <div class="product-actions">
-            <button class="edit-btn editbutton" 
-                data-id="{{ $item->productId }}" 
-                data-name="{{ $item->name }}" 
-                data-price="{{ $item->price }}" 
-                data-type="{{ $item->type }}" 
-                data-printtype="{{ $item->printType }}" 
+            <button class="edit-btn editbutton"
+                data-id="{{ $item->productId }}"
+                data-name="{{ $item->name }}"
+                data-price="{{ $item->price }}"
+                data-type="{{ $item->type }}"
+                data-printtype="{{ $item->printType }}"
                 data-productImg="{{ asset('storage/' . $item->productImg) }}"
                 data-status="{{ $item->status }}"
                 id="editbutton">EDIT
             </button>
-            <button class="delete-btn deletebutton" 
-                data-id="{{ $item->productId }}" 
-                data-name="{{ $item->name }}" 
-                data-price="{{ $item->price }}" 
+            <button class="delete-btn deletebutton"
+                data-id="{{ $item->productId }}"
+                data-name="{{ $item->name }}"
+                data-price="{{ $item->price }}"
                 data-type="{{ $item->type }}"
                 data-productImg="{{ asset('storage/' . $item->productImg) }}"
-                data-printtype="{{ $item->printType }}" 
+                data-printtype="{{ $item->printType }}"
                 id="deletebutton">DELETE
             </button>
         </div>
     </div>
     @endforeach
 </div>
-    
+
     <!-- Modal overlay -->
     <div class="modal-overlay" id="modalOverlay"></div>
-    
+
     <!-- Add Item Modal -->
     <div class="additem">
         <form class="addProductForm" action="/adddesign" method="POST" enctype="multipart/form-data">
@@ -75,25 +74,25 @@
                 <span>Add Stock</span>
                 <button type="button" class="close-btn"> X </button>
             </div>
-        
+
             <div class="productid">
                 <input type="text" required="required" disabled>
                 <span>{{$count + 1}}</span>
                 <i></i>
             </div>
-        
+
             <div class="name1">
                 <input type="text" required="required" name="name">
                 <span>Name</span>
                 <i></i>
             </div>
-        
+
             <div class="price1">
                 <input type="text" required="required" name="price">
                 <span>Price</span>
                 <i></i>
             </div>
-    
+
             <div class="type">
                 <select name="type" id="type" class="type">
                     <option value="Polo">Polo</option>
@@ -101,7 +100,7 @@
                     <option value="Hoodie">Hoodie</option>
                 </select>
             </div>
-            
+
             <div class="category1">
                 <select name="printType" id="printType" class="printType">
                     <option value="sublimation">Sublimation</option>
@@ -122,7 +121,7 @@
                     <label><input type="checkbox" name="sizes[]" value="XXL"> XXL</label>
                 </div>
             </div>
-        
+
             <div class="sample1">
                 <img src="{{ asset('images/sampleimage2.png') }}" id="newimg">
                 <label for="addimg">Upload Image</label>
@@ -131,7 +130,7 @@
             <button type="submit" class="submit-btn" id="addProductBtn">Add Stock</button>
         </form>
     </div>
-    
+
     <!-- Edit Item Modal -->
     <div class="edititem" id="editModal">
         <form class="editProduct" action="/product" method="POST" enctype="multipart/form-data">
@@ -141,28 +140,28 @@
                 <span>Edit Stock</span>
                 <button type="button" class="close-btn" id="closeEditModal"> X </button>
             </div>
-    
+
             <div class="sample2">
                 <img src="" class="img2" id="editProductImage1">
                 <label for="editimg">Upload Image</label>
                 <input type="file" name="editProductImage" id="editimg">
             </div>
-    
+
             <div class="productid2">
                 <input type="text" required="required" readonly name="productId" id="editId">
                 <span>Product ID</span>
             </div>
-     
+
             <div class="name2">
                 <input type="text" required="required" name="editName" id="editName">
                 <span>Name</span>
             </div>
-    
+
             <div class="price2">
                 <input type="text" required="required" name="editPrice" id="editPrice">
                 <span>Price</span>
-            </div> 
-    
+            </div>
+
             <div class="edittype">
                 <select name="edittype1" id="editCategory" class="edittype1">
                     <option value="Polo">Polo</option>
@@ -170,7 +169,7 @@
                     <option value="Hoodie">Hoodie</option>
                 </select>
             </div>
-    
+
             <div class="printtype">
                 <select name="printType1" id="editprintType" class="printType1">
                     <option value="Sublimation">Sublimation</option>
@@ -197,11 +196,11 @@
                     <label><input type="checkbox" name="sizes[]" value="XXL"> XXL</label>
                 </div>
             </div>
-    
+
             <button type="submit" class="submit-btn">Update Stock</button>
         </form>
     </div>
-    
+
     <!-- Delete Item Modal -->
     <div class="deleteitem">
         <form action="/deletedesign" method="POST" class="deleteProduct">
@@ -211,41 +210,44 @@
                 <span>Delete Stock</span>
                 <button type="button" class="close-btn"> X </button>
             </div>
-    
+
             <div class="sample3">
                 <img src="" id="deleteProductImage">
                 <button type="submit" class="delete-btn">Confirm Delete</button>
             </div>
-    
+
             <div class="productid3">
                 <input type="text" required="required" readonly name="productId" id="deleteId">
                 <span>Product ID</span>
             </div>
-    
+
             <div class="name3">
                 <input type="text" required="required" readonly name="name" id="deleteName">
                 <span>Name</span>
             </div>
-    
+
             <div class="price3">
                 <input type="text" required="required" readonly name="price" id="deletePrice">
                 <span>Price</span>
             </div>
-    
+
             <div class="type2">
                 <input type="text" required="required" readonly name="type" id="deleteType">
                 <span>Type</span>
             </div>
-    
+
             <div class="printtype2">
                 <input type="text" required="required" readonly name="printType" id="deletePrintType">
                 <span>Print Type</span>
             </div>
         </form>
     </div>
-    @else
-    <div style="text-align: center; padding: 40px 0; margin-left:36 %;" class="emptyProduct">
-        <h2>Oops, Your Product is Empty</h2>
-    </div>
-    @endif
+        </div>
+            @if(isset($products) && $products->count() > 0)
+                <div style="color: rgba(0,0,0,0.29);text-align: center; padding: 40px 0; margin-left:36%;" class="emptyProduct">
+                    <h2>Oops, Your Product is Empty</h2>
+                </div>
+            @else
+
+            @endif
 </html>

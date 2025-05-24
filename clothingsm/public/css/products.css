@@ -22,6 +22,7 @@
     margin: 0 auto;
     padding: 20px;
     gap: 20px;
+      background: white;
   }
 
   .items-1 {
@@ -548,19 +549,19 @@
     .productcontent {
       grid-template-columns: 1fr;
     }
-    
+
     .items-1, .items-2 {
       grid-column: 1;
     }
-    
+
     .items-2 {
       justify-content: flex-start;
     }
-    
+
     .items-3 {
       grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .items-3 .product-card .product-actions {
       /* On mobile, always show the buttons instead of on hover */
       opacity: 1;
@@ -568,20 +569,20 @@
       position: static; /* Not absolute on mobile */
       background-color: transparent;
     }
-    
+
     .items-3 .product-info {
       padding-bottom: 10px; /* Reset padding on mobile */
     }
-    
+
     .additem, .edititem, .deleteitem {
       width: 90%;
       padding: 15px;
     }
-    
+
     .additem form, .edititem form, .deleteitem form {
       grid-template-columns: 1fr;
     }
-    
+
     .sample1, .sample2, .sample3 {
       grid-row: auto;
       grid-column: 1;
