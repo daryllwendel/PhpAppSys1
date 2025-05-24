@@ -37,7 +37,11 @@
       @endif
       <button><p class="customer-name">{{ $user->username }}</p>
       <p class="name12">{{ $user->name}}</p></button>
-      <a href="../../../login" class="login-button">Log Out</a>
+        <form action="/logout" method="POST">
+          @csrf
+          <button type="submit" class="login-button">Log Out</button>
+      </form>
+
       <span class="material-symbols-outlined" id="cartbutton">
         shopping_cart
       </span>

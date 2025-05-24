@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{asset('css/CustomerAddtoCart.css')}}">
     <script src="{{asset('js/customerJS.js')}}"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close" />
     <title>Shopping Cart</title>
 </head>
@@ -59,7 +60,7 @@
                         </div>
                     </div>
 
-                    <form action="/deletecart" method="POST" onclick="return confirmDelete()">
+                    <form action="/deletecart" class="deletecart" method="POST">
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="productId" value="{{ $item->product_id }}">
@@ -92,7 +93,7 @@
 
         <div class="checkout-container-layout">
             <div class="shipping-details">
-                <form action="/checkout" method="POST" id="checkout-form" onclick="return addresscheck()">
+                <form action="/checkout" class="checkout" method="POST" id="checkout-form" onclick="return addresscheck()">
                     @csrf
                     <h3>Shipping Information</h3>
 

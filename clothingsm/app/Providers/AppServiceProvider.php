@@ -38,5 +38,5 @@ class AppServiceProvider extends ServiceProvider
             // NOW run the migrations
             Artisan::call('migrate', ['--force' => true]);
         }
-    }
+    } 
 }

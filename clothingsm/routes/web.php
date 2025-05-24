@@ -21,10 +21,7 @@ Route::get('/', function(){
 Route::get('/login', function () {
     return view('login');  
 })->name('login');
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard'); 
-
+ 
 Route::get('/dashboarddisplay',[AdminDisplayController::class, 'dashboardDisplay'])->name('dashboarddisplay');
 
 Route::get('/orders', [AdminOrders::class, 'viewOrders'])->name('orders');
@@ -74,12 +71,15 @@ Route::get('/registerlogin', function(){
     return view('registerlogin');
 });
 Route::middleware(['auth'])->group(function () {
-    Route::get('/CustomerDashboard', [registerform::class, 'customerDashboard']);
+    Route::get('/CustomerDashboard', [registerform::class, 'customerDashboard']); 
+    Route::get('/dashboard',[registerform::class, 'admindashboard']); 
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/CustomerProfile', [registerform::class, 'customerProfile']);
 });
+Route::post('/logout', [registerform::class, 'logout']);
+
 
 Route::post('/register', [registerform::class, 'registerform']);
 Route::post('/login', [registerform::class, 'login'])->name('login');

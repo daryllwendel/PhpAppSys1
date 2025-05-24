@@ -26,9 +26,9 @@
                 </div>
 
                 <div class="infoHead">
-                    Pending Orders
+                    Orders
                 </div>
-
+ 
 
                 <div class="ordertext">
                     <p>Email</p>

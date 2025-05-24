@@ -21,7 +21,10 @@
         <img src="{{ asset('images/selcouth.jpg') }}" alt="">
         <button><p class="customer-name">Admin</p>
             <p>Administrator</p></button>
-        <a href="../../../login" class="login-button">Log Out</a>
+        <form action="/logout" method="POST">
+          @csrf
+          <button type="submit" class="login-button">Log Out</button>
+        </form>        
         <div class="hamburger" onclick="toggleMenu()">
             <div></div>
             <div></div>
@@ -42,5 +45,6 @@
     <div>Home</div>
 </div>
 <div class="body1" id="body1"></div>
+<script>const currentCustomerId = {{ Auth::id() }};</script>
 </body>
 </html>
