@@ -36,6 +36,6 @@
          */
         public function down(): void
         {
-            Schema::dropIfExists('table_cartitems');
+            Schema::dropIfExists('tblcartitems');
         }
     };

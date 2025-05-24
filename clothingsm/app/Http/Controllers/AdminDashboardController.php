@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminDashboardController extends Controller
 {    
-
+ 
     public function deleteproduct(Request $request){
         try {
             $field = $request->validate([
@@ -20,6 +20,7 @@ class AdminDashboardController extends Controller
             ]);
             
             $product = Product::where('productId', $field['productId'])->first();
+            $product->sizes()->delete();
             if(!$product) {
                 return redirect()->back()->with('error', 'Product not found');
             }
