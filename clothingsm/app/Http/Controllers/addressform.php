@@ -27,8 +27,7 @@ class addressform extends Controller
         $user->Baranggay = $field['Baranggay'];
         $user->Purok = $field['Purok'];
 
-        $user->save();
-        return redirect('/CustomerDashboard');
+        $user->update();
     }
 
     public function profilepicture(Request $request){

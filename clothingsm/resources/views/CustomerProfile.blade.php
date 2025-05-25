@@ -74,7 +74,7 @@
 
                     <div class="item-3">
                         <span class="firstname">Name</span>
-                        <span class="CustomerFname">{{ $user->name }}</span>
+                        <span class="CustomerFname">{{$user->name }}</span>
                     </div>
 
                     <div class="item-5">
@@ -96,27 +96,27 @@
 
                     <div class="item-11-1">
                         <span>Province</span>
-                        <span>{{$user->province}}</span>
+                        <span>{{$user->Province}}</span>
                     </div>
 
                     <div class="item-11">
                         <span>City</span>
-                        <span class="city">{{$user->city}}</span>
+                        <span class="city">{{$user->City}}</span>
                     </div>
 
                     <div class="item-12">
                         <span>Baranggay</span>
-                        <span class="baranggay">{{$user->baranggay}}</span>
+                        <span class="baranggay">{{$user->Baranggay}}</span>
                     </div>
 
                     <div class="item-13">
                         <span>Zip Code</span>
-                        <span class="zipcode">{{$user->zipcode}}</span>
+                        <span class="zipcode">{{$user->ZipCode}}</span>
                     </div>
 
                     <div class="item-14">
                         <span>Purok</span>
-                        <span class="purok">{{$user->purok}}</span>
+                        <span class="purok">{{$user->Purok}}</span>
                     </div>
                 </div>
             </div>

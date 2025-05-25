@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 
 class AddtoCartController extends Controller
 {
-    public function displaycart() {
+    public function displaycart(Request $request) {
+        
         $customerId = Auth::id(); 
         $paymentname = DB::table('tblpayment_methods')->get();
         $order_items = DB::table('vwcartdetails')

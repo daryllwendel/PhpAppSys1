@@ -314,16 +314,25 @@ function loadaddtocart() {
           const addtocartdisplay = doc.querySelector(".shopping-cart-container");
           const checkoutdisplay = doc.querySelector('.checkout-form');
           const content = document.getElementById("change-container");
+          const container = doc.querySelector('.confirmation-container')
 
           document.getElementById("title").innerHTML = `<div>Cart</div>`;
           content.innerHTML = "";
           content.appendChild(addtocartdisplay);
-          content.appendChild(checkoutdisplay);
+          content.appendChild(checkoutdisplay)
+          content.appendChild(container)
           const paymentSelect = document.getElementById('payment');
           const chargeTotal = document.getElementById('charge-total');
           const grandTotalInput = document.getElementById('grand-total');
           const cartSubtotalDisplay = document.getElementById('cart-total1');
-
+          const seeorder = document.querySelector('.btn-primary')
+          const seehome = document.querySelector('.btn-secondary')
+          if(seeorder){
+            seeorder.addEventListener('click', loadorders)
+          } 
+          if(seehome){
+            seehome.addEventListener('click', loadcustomerdashboard)
+          }
           function parsePeso(pesoString) {
               return parseFloat(pesoString.replace(/[^\d.]/g, '')) || 0;
           }
@@ -562,6 +571,12 @@ if (checkoutForm) {
             .then(res => {
                 if (res.ok) {      
                   document.body.style.overflow = "auto";
+                  const checkoutForm = document.querySelector('.checkout-form');
+                  checkoutForm.style.opacity = '0.3'; // Faded look
+                  checkoutForm.style.pointerEvents = 'none'; // Disables all clicks, form submission, etc.
+                  checkoutForm.style.userSelect = 'none'; // Optional: Prevent text selection
+                  checkoutForm.style.overflow = 'hidden'; // Optional: Disable scroll if form has scrollable content
+                  document.querySelector('.confirmation-container').style.display='block'
                 } else {
                     alert("Failed to accept order.");
                 }
