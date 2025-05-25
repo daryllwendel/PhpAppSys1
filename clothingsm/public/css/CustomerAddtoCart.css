@@ -76,7 +76,7 @@ body {
     margin-bottom: 8px;
 }
 
-.shopping-cart-item-sizes, 
+.shopping-cart-item-sizes,
 .shopping-cart-item-price {
     margin-top: 6px;
     font-size: 14px;
@@ -438,7 +438,7 @@ body {
 }
 
 /* Summary box highlights */
-#checkout-subtotal, 
+#checkout-subtotal,
 #cart-total1,
 #charge-total,
 #grand-total {
@@ -482,10 +482,11 @@ body {
     background-color: #f9f9f9;
 }
 .confirmation-container {
-  position: fixed; 
+    display:none;
+  position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   z-index: 9999;
   max-height: 100%;
   max-width: 120%;
@@ -731,7 +732,7 @@ color: #333;
     .checkout-container-layout {
         flex-direction: column;
     }
-    
+
     .shipping-details {
         padding-right: 0;
     }
