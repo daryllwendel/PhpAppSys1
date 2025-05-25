@@ -215,6 +215,31 @@
         </form>
         </div>
     </div>
+     <div class="confirmation-container"    >
+        <div class="floating-elements">
+            <div class="floating-bag">👜</div>
+            <div class="floating-crown">👑</div>
+            <div class="floating-time">⏰</div>
+            <div class="floating-coin">🪙</div>
+        </div>
+        
+        <div class="success-icon">
+            <div class="cart-icon"></div>
+        </div>
+        
+        <h1 class="confirmation-title">Your Order has been submitted for approval!</h1>
+        
+        <p class="confirmation-message">
+            Hang tight! We're reviewing your order and will send you a confirmation shortly.<br><br>
+            Please wait while we review your order. A confirmation email or SMS will be sent once your order is approved and ready for shipping.
+        </p>
+        
+        
+        <div class="action-buttons">
+            <a href="#" class="btn-primary">See My Orders</a>
+            <a href="#" class="btn-secondary">Back to Home</a>
+        </div>
+    </div>
     <script>const currentCustomerId = {{ Auth::id() }};</script>
     <script src="{{asset('js/customerJS.js')}}"></script>
     

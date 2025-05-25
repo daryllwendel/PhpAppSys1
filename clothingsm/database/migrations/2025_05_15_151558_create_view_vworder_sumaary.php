@@ -36,6 +36,8 @@ return new class extends Migration
                 u.Baranggay,
                 u.ZipCode, 
                 pm.charge,
+                p.type,
+                o.created_at,
                 (oi.quantity * p.price) AS totalItemPrice
             FROM tblorders o
             LEFT JOIN tblorder_items oi ON o.orderId = oi.orderId
