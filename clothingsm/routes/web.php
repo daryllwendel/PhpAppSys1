@@ -15,13 +15,14 @@ use App\Http\Controllers\AdminDisplayController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CustomerDisplayController;
 
-Route::get('/', function(){
-    return view('LandingPage');
-});
+Route::get('/', [CustomerDisplayController::class, 'LandingPageDisplay']);
+//Route::get('/', function(){
+//    return view('LandingPage');
+//});
 Route::get('/login', function () {
-    return view('login');  
+    return view('login');
 })->name('login');
- 
+
 Route::get('/dashboarddisplay',[AdminDisplayController::class, 'dashboardDisplay'])->name('dashboarddisplay');
 
 Route::get('/orders', [AdminOrders::class, 'viewOrders'])->name('orders');
@@ -71,8 +72,8 @@ Route::get('/registerlogin', function(){
     return view('registerlogin');
 });
 Route::middleware(['auth'])->group(function () {
-    Route::get('/CustomerDashboard', [registerform::class, 'customerDashboard']); 
-    Route::get('/dashboard',[registerform::class, 'admindashboard']); 
+    Route::get('/CustomerDashboard', [registerform::class, 'customerDashboard']);
+    Route::get('/dashboard',[registerform::class, 'admindashboard']);
 });
 
 Route::middleware(['auth'])->group(function () {
