@@ -26,7 +26,7 @@
             <span><span class="material-symbols-outlined"></span> My Address</span>
           </button>
         </div>
-        
+
         <!-- Main Content Area -->
         <div class="content-area">
             <!-- Profile Section -->
@@ -43,7 +43,7 @@
                                     <img class="user-image" src="{{ asset('images/user.png') }}" alt="Profile Picture" id="profile-pic">
                                 @endif
                             </div>
-                            
+
                             <div class="insertImg">
                                 <label class="upload-img-button" for="input-file">Update Image</label>
                                 <input class="input" type="file" name="profilepic" accept="image/jpg, image/png, image/jpeg" id="input-file">
@@ -52,11 +52,11 @@
                         </form>
                     </div>
                     <div class="item-02">
-                        <div><span>{{ $username }}</span></div>
-                        <span class="name121">{{ $name }}</span>
+                        <div><span>{{ $user->username }}</span></div>
+                        <span class="name121">{{ $user->name }}</span>
                     </div>
                 </div>
-                
+
                 <!-- Personal Information -->
                 <div class="profileInfo">
                     <div class="item-0">
@@ -64,27 +64,27 @@
                     </div>
                     <div class="item-1">
                         <span class="Username">Username</span>
-                        <span class="CustomerUser">{{ $username }}</span>  
+                        <span class="CustomerUser">{{ $user->username }}</span>
                     </div>
-                    
+
                     <div class="item-2">
                         <span class="userid">User ID</span>
-                        <span class="CustomerId">{{ $id }}</span>
+                        <span class="CustomerId">{{ $user->id }}</span>
                     </div>
 
                     <div class="item-3">
                         <span class="firstname">Name</span>
-                        <span class="CustomerFname">{{ $name }}</span>
+                        <span class="CustomerFname">{{ $user->name }}</span>
                     </div>
 
                     <div class="item-5">
                         <span class="emill">Email Address</span>
-                        <span class="CustomerEmail">{{ $email }}</span>
+                        <span class="CustomerEmail">{{ $user->email }}</span>
                     </div>
 
                     <div class="item-6">
                         <span class="number">Contact Number</span>
-                        <span class="CustomerNum">{{ $mobile_number }}</span>
+                        <span class="CustomerNum">{{ $user->mobile_number }}</span>
                     </div>
                 </div>
 
@@ -96,31 +96,31 @@
 
                     <div class="item-11-1">
                         <span>Province</span>
-                        <span>{{$province}}</span>
+                        <span>{{$user->province}}</span>
                     </div>
 
                     <div class="item-11">
                         <span>City</span>
-                        <span class="city">{{$city}}</span>
-                    </div>    
+                        <span class="city">{{$user->city}}</span>
+                    </div>
 
                     <div class="item-12">
                         <span>Baranggay</span>
-                        <span class="baranggay">{{$baranggay}}</span>
+                        <span class="baranggay">{{$user->baranggay}}</span>
                     </div>
-                        
+
                     <div class="item-13">
                         <span>Zip Code</span>
-                        <span class="zipcode">{{$zipcode}}</span>
+                        <span class="zipcode">{{$user->zipcode}}</span>
                     </div>
-                        
+
                     <div class="item-14">
                         <span>Purok</span>
-                        <span class="purok">{{$purok}}</span>
-                    </div> 
+                        <span class="purok">{{$user->purok}}</span>
+                    </div>
                 </div>
             </div>
- 
+
             <!-- Password Change Section -->
             <form action="/changepass" method="POST" class="changepass">
                 @csrf
@@ -156,7 +156,7 @@
                 <div class="item-30">
                     <h2>Change Address</h2>
                 </div>
-                
+
                 <div class="item-31-1">
                     <select name="Province" id="provinceSelect" required>
                         <option value="">Choose a Province</option>
@@ -168,21 +168,21 @@
                         <option value="">Choose a city</option>
                     </select>
                 </div>
-        
+
                 <div class="item-33">
                     <input type="text" name="ZipCode" id="zipcode" required placeholder="Zip Code">
                 </div>
-        
+
                 <div class="item-34">
                     <select name="Baranggay" id="baranggaySelect" disabled required>
                         <option value="">Choose a barangay</option>
                     </select>
                 </div>
-        
+
                 <div class="item-35">
                     <input type="text" required name="Purok" id="purokInput" placeholder="Purok" disabled>
                 </div>
-        
+
                 <div class="item-36">
                     <button type="submit">
                         <span>Save Changes</span>
@@ -192,7 +192,7 @@
         </div>
     </div>
   </div>
-  
+
   <script src="{{asset('js/customer-profile.js')}}"></script>
 </body>
 </html>
