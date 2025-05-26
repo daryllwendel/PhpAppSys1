@@ -49,80 +49,54 @@ function profileset(){
 }
 
 
-function sortTable(column) {
-    const table = document.querySelector('.table');
-    const header = table.querySelector('.header');
-    const rows = Array.from(table.querySelectorAll('.row:"not(.header)'));
 
-    const sortedRows = rows.sort((a, b) => {
+function sortOrders() {
+    const column = document.getElementById('sortOptions').value;
+    const lists = ['pendingList', 'shipList', 'completeList'];
+    const visibleListId = lists.find(id => {
+        const list = document.getElementById(id);
+        return list && list.style.display !== 'none';
+    });
+
+    if (!visibleListId) return;
+
+    const container = document.getElementById(visibleListId);
+    const rows = Array.from(container.getElementsByClassName('order-row'));
+
+    rows.sort((a, b) => {
         const aCell = a.querySelector(`.cell[data-column="${column}"]`);
         const bCell = b.querySelector(`.cell[data-column="${column}"]`);
+        if (!aCell || !bCell) return 0;
 
-        if (!aCell || !bCell) {
-            console.error('Cell not found for column:"', column);
-            return 0;
-        }
+        const aText = aCell.textContent.trim().replace('₱', '').replace(/,/g, '');
+        const bText = bCell.textContent.trim().replace('₱', '').replace(/,/g, '');
+        const isNumeric = !isNaN(Number(aText)) && !isNaN(Number(bText));
 
-        const aText = aCell.textContent.trim();
-        const bText = bCell.textContent.trim();
-        const aIsNumeric = !isNaN(Number(aText));
-        const bIsNumeric = !isNaN(Number(bText));
-        if (column === 'Order No.') {
-            return Number(aText) - Number(bText); 
-        }else if(column === 'Quantity'){
-            return Number(aText) - Number(bText);
-        } else {
-            return aText.localeCompare(bText); 
-        }
+        return isNumeric ? Number(aText) - Number(bText) : aText.localeCompare(bText);
     });
 
-    sortedRows.forEach(row => {
-        table.insertBefore(row, header.nextSibling);
-        table.style.overflow = 'auto';
-        header.style.position = 'sticky';
-        header.style.zIndex = '1';
-        header.style.top = '0';
-        header.style.background = 'white';
-        header.style.borderBottom = '1px solid black'
-    });
-
+    rows.forEach(row => container.appendChild(row));
 }
-function sortTable1(column) {
-    const table1 = document.querySelector('.table1');
-    const header1 = table1.querySelector('.header1');
-    const rows1 = Array.from(table1.querySelectorAll('.row1:"not(.header1)'));
 
-    const sortedRows = rows1.sort((a, b) => {
-        const aCell = a.querySelector(`.cell1[data-column="${column}"]`);
-        const bCell = b.querySelector(`.cell1[data-column="${column}"]`);
+function toggleOrderList() {
+    const value = document.getElementById('statusFilter').value;
+    const lists = {
+        pending: 'pendingList',
+        shipped: 'shipList',
+        delivered: 'completeList'
+    };
 
-        if (!aCell || !bCell) {
-            console.error('Cell not found for column:"', column);
-            return 0; 
-        }
+    for (const key in lists) {
+        const listEl = document.getElementById(lists[key]);
+        listEl.style.display = (key === value) ? 'block' : 'none';
+    }
 
-        const aText = aCell.textContent.trim();
-        const bText = bCell.textContent.trim();
+    document.getElementById('section-title').textContent = 
+        value.charAt(0).toUpperCase() + value.slice(1) + ' Orders';
 
-        if (column === 'Order No.' || column === 'Quantity') {
-            return Number(aText) - Number(bText);
-        } else {
-            return aText.localeCompare(bText);
-        }
-    });
-
-    sortedRows.forEach(row => {
-        table1.insertBefore(row, header1.nextSibling);
-        table1.style.overflow = 'auto';
-        header1.style.position = 'sticky';
-        header1.style.zIndex = '1';
-        header1.style.top = '0';
-        header1.style.background = 'white';
-        header1.style.borderBottom = '1px solid black'
-      
-    });
-
+    sortOrders(); // Re-sort after changing list
 }
+
 function swipe(){
     new Swiper('.card-wrapper', {
         loop: true,
@@ -152,9 +126,53 @@ function swipe(){
     
     });
 }
+
+function initProductOverlay2(){
+  const buyButtons = document.querySelectorAll(".buy-button");
+  const overlay = document.getElementById("overlay");
+  const modal = document.getElementById("product-modal");
+  const closeBtn = document.getElementById("close-btn");
+  const mainContainer = document.querySelector(".customerhot-container");
+
+  if (!overlay || !modal || !closeBtn || !mainContainer) {
+    console.log(overlay)
+    console.log(modal)
+    console.log(closeBtn)
+    console.log(mainContainer)
+    console.error("Required elements for product modal not found in DOM");
+    return; // Exit function if any required element is missing
+  }
+
+  buyButtons.forEach(button => {
+    button.addEventListener("click", function() {
+      const productId = button.getAttribute('data-id1');
+      const productName = button.getAttribute('data-name1');
+      const productPrice = button.getAttribute('data-price1');
+      const productType = button.getAttribute('data-type1');
+      const productPrintType = button.getAttribute('data-printtype1');
+      const productImg = button.getAttribute('data-img1');
+      const productStatus = button.getAttribute('data-status1');
+
+      // Update modal content
+      document.querySelector(".modal-header").textContent = productName;
+      document.getElementById("product-image1").src = productImg;
+      document.getElementById("price1").textContent = `₱${productPrice}`;
+      document.getElementById('productId').value = productId;
+      document.getElementById('productPrice1').value = `₱${productPrice}`;
+
+      // Show modal and overlay
+      overlay.style.display = "flex"; 
+      document.body.style.overflow = "hidden";
+    });
+  });
+  closeBtn.addEventListener("click", function(e) {
+    e.preventDefault(); // Prevent form submission
+    overlay.style.display = "none"; 
+    document.body.style.overflow = "auto";
+  });
+}
 function initProductOverlay() {
-  // Make sure the DOM is fully loaded before accessing elements
-  const buyButtons = document.querySelectorAll(".buy-button"); // Select all buy buttons
+  const buyButtons = document.querySelectorAll(".buy-button"); 
   const overlay = document.getElementById("overlay");
   const modal = document.getElementById("product-modal");
   const closeBtn = document.getElementById("close-btn");
@@ -287,7 +305,14 @@ function initCartListeners() {
           content.appendChild(dashboardContent);
           content.appendChild(overlay)
   
-  
+          const explore = document.getElementById('explore')
+          const add_design_button = document.getElementById('add-design-button')
+          if(explore){
+            explore.addEventListener('click', loaddesigns)
+          }
+          if(add_design_button){
+            add_design_button.addEventListener('click',adddesign)
+          }
           swipe(); 
           initCartListeners();
           initProductOverlay()
@@ -644,14 +669,79 @@ function addresscheck() {
 }
   return true
 }
+function hotdesign(){
+  fetch('/CustomerHotOrder-display')
+    .then(res => res.text())
+    .then((html)=>{
+        const parser3 = new DOMParser()
+        const doc3 = parser3.parseFromString(html,"text/html")
 
+        const designdisplay3 = doc3.querySelector(".customerhot-container1")
+            if(designdisplay3){
+                console.log('haxasdadaha')
+                document.getElementById("subTitle1").innerHTML=`
+                <div>Hot Design</div>
+                <img src="{{ asset('images/sampleimg.png')}}" alt="">`
+                const content3 = document.getElementById("subTitle2");
+                content3.innerHTML = "";
+                content3.appendChild(designdisplay3)
+        }else{
+            console.log('okay')
+        }
+    })
+}
+function newdesign(){
+  fetch('/CustomerNewOrder-display')
+    .then(res => res.text())
+    .then((html)=>{
+        const parser1 = new DOMParser()
+        const doc1 = parser1.parseFromString(html,"text/html")
+
+        const designdisplay1 = doc1.querySelector(".customerNewOrder-container")
+            if(designdisplay1){
+                console.log('haxasdadaha')
+                document.getElementById("subTitle1").innerHTML=`
+                <div>New Design</div>
+                <img src="{{ asset('images/sampleimg.png')}}" alt="">`
+                const content1 = document.getElementById("subTitle2");
+                content1.innerHTML = "";
+                content1.appendChild(designdisplay1)
+        }else{
+            console.log('okay')
+        }
+    })
+}
+function mydesign(){
+  fetch('/CustomerMyDesignOrder-display')
+    .then(res => res.text())
+    .then((html)=>{
+        const parser2 = new DOMParser()
+        const doc2 = parser2.parseFromString(html,"text/html")
+
+        const designdisplay2 = doc2.querySelector(".customerhot-container")
+        const overlay = doc2.querySelector('.overlay')
+            if(designdisplay2){
+                console.log('haxasdadaha')
+                document.getElementById("subTitle1").innerHTML=`
+                <div>My Design</div>
+                <img src="{{ asset('images/sampleimg.png')}}" alt="">`
+                const content2 = document.getElementById("subTitle2");
+                content2.innerHTML = "";
+                content2.appendChild(designdisplay2)
+                content2.appendChild(overlay)
+                initProductOverlay2()
+        }else{
+            console.log('okay')
+        }
+    })
+}
 function loaddesigns(){
     fetch('/CustomerNewDesigns')
     .then(res => res.text())
     .then((html)=>{
         const parser = new DOMParser()
         const doc = parser.parseFromString(html,"text/html")
-
+ 
         const designdisplay = doc.querySelector(".main-container")
         if(designdisplay){
             console.log('haxaha')
@@ -661,52 +751,10 @@ function loaddesigns(){
             content.innerHTML = "";
             content.appendChild(designdisplay)
 
-            document.getElementById("new").addEventListener('click', function(){
-                fetch('/CustomerNewOrder-display')
-                .then(res => res.text())
-                .then((html)=>{
-                    const parser1 = new DOMParser()
-                    const doc1 = parser1.parseFromString(html,"text/html")
-
-                    const designdisplay1 = doc1.querySelector(".customerNewOrder-container")
-                        if(designdisplay1){
-                            console.log('haxasdadaha')
-                            document.getElementById("subTitle1").innerHTML=`
-                            <div>New Designs</div>
-                            <img src="{{ asset('images/sampleimg.png')}}" alt="">`
-                            const content1 = document.getElementById("subTitle2");
-                            content1.innerHTML = "";
-                            content1.appendChild(designdisplay1)
-                    }else{
-                        console.log('okay')
-                    }
-                })
-            })
-
- 
-            document.getElementById("my").addEventListener('click', function(){
-                fetch('/CustomerMyDesignOrder-display')
-                .then(res => res.text())
-                .then((html)=>{
-                    const parser2 = new DOMParser()
-                    const doc2 = parser2.parseFromString(html,"text/html")
-
-                    const designdisplay2 = doc2.querySelector(".customermyorder-container")
-                        if(designdisplay2){
-                            console.log('haxasdadaha')
-                            document.getElementById("subTitle1").innerHTML=`
-                            <div>My Designs</div>
-                            <img src="{{ asset('images/sampleimg.png')}}" alt="">`
-                            const content2 = document.getElementById("subTitle2");
-                            content2.innerHTML = "";
-                            content2.appendChild(designdisplay2)
-                    }else{
-                        console.log('okay')
-                    }
-                })
-            })
-
-
+             document.getElementById("hot").addEventListener('click', hotdesign())
+             document.getElementById("hot").addEventListener('click', hotdesign)
+             document.getElementById("new").addEventListener('click', newdesign)
+             document.getElementById("my").addEventListener('click', mydesign)
         }else{
             console.log('okayss')
         }
@@ -797,33 +845,29 @@ function loadprofile(){
 function loadorders(){
     fetch('/CustomerOrder-display')
     .then(res => res.text())
-    .then((html)=>{
-        const parser = new DOMParser()
-        const doc = parser.parseFromString(html,"text/html")
+    .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
 
-        const orderdisplay = doc.querySelector(".orderscont")
+        const orderdisplay = doc.querySelector(".orderscont");
         if(orderdisplay){
-            console.log('haxaha')
-            document.getElementById("title").innerHTML=`
-            <div>Orders</div>`
+            console.log('haxaha');
+            document.getElementById("title").innerHTML = `<div>Orders</div>`;
             const content = document.getElementById("change-container");
             content.innerHTML = "";
-            content.appendChild(orderdisplay)
-            document.getElementById('statusFilter').addEventListener('change', sortorders);
-            document.getElementById('sortButton').addEventListener('click', () => {
-                const selectedOption = document.getElementById('sortOptions').value;
-                sortTable(selectedOption);
-            });
-            document.getElementById('sortButton1').addEventListener('click', () => {
-                const selectedOption = document.getElementById('sortOptions1').value;
-                sortTable1(selectedOption);
-            });
-        }else{
-            console.log('okay')
-            console.log(orderdisplay)
+            content.appendChild(orderdisplay);
+            document.getElementById('statusFilter').addEventListener('change', toggleOrderList);
+            document.getElementById('sortOptions').addEventListener('change', sortOrders);
+        } else {
+            console.log('Failed to load .orderscont');
+            console.log(orderdisplay);
         }
     })
+    .catch(err => {
+        console.error("Failed to fetch /CustomerOrder-display:", err);
+    });
 }
+
 function profile3(){
   const inputFile = document.getElementById("input-file");
   const profilePic = document.getElementById("design-preview");

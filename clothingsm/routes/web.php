@@ -45,9 +45,8 @@ Route::delete('/deletecart',[AddtoCartController::class, 'deletecart']);
 Route::get('/CustomerHotOrder-display', function(){
     return view('CustomerHotOrder-display');
 });
-Route::get('/CustomerMyDesignOrder-display', function(){
-    return view('CustomerMyDesignOrder-display');
-});
+Route::get('/CustomerMyDesignOrder-display',[CustomerDisplayController::class, 'mydesign'])->name('CustomerMyDesignOrder-display');
+Route::get('/CustomerHotOrder-display',[CustomerDisplayController::class, 'hotdesign'])->name('CustomerHotOrder-display');
 Route::get('/CustomerNewDesigns', function(){
     return view('CustomerNewDesigns');
 });

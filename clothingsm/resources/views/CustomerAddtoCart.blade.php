@@ -215,7 +215,7 @@
         </form>
         </div>
     </div>
-     <div class="confirmation-container"    >
+     <div class="confirmation-container"  style="display: none"  >
         <div class="floating-elements">
             <div class="floating-bag">👜</div>
             <div class="floating-crown">👑</div>

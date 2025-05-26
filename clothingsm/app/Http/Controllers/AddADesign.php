@@ -40,7 +40,7 @@ class AddADesign extends Controller
                 'printType' => $field['printType'], 
                 'productImg' => $path,
                 'customerId' => $field['customerId'],
-                'price' => 0,
+                'price' => 350,
                 'dateCreated' => now() 
             ]);
 

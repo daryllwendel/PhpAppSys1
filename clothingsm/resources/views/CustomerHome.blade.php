@@ -92,14 +92,14 @@
           <img src="{{asset("images/add-design.png")}}" alt="">
           Add A Design
         </button>
-        <button id="customize-design-button" class="explore-new-button">
+        {{-- <button id="customize-design-button" class="explore-new-button">
           <img src="{{asset("images/custom-design.png")}}" alt="">
           Customize a Design
-        </button>
+        </button> --}}
       </div>
     </div>
   </div>
-</div>  
+</div>   
 <div class="overlay" id="overlay">
   <div class="product-modal" id="product-modal">
       <form action="/addtocart" method="POST" class="addtocart">
