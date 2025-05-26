@@ -340,3 +340,516 @@
                 height: 80px;
             }
         }
+
+         /* My Order Modal Styles */
+        .checkout-form2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .checkout-container-layout2 {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Fixed Header */
+        .modal-header {
+            background: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            border-radius: 8px 8px 0 0;
+            flex-shrink: 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Status Header Styles */
+        .status-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 15px 0 15px;
+            flex-shrink: 0;
+        }
+
+        .status-header.pending {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 1px solid #f1c40f;
+        }
+
+        .status-header.completed {
+            background: linear-gradient(135deg, #d4edda 0%, #a8e6a3 100%);
+            border: 1px solid #27ae60;
+        }
+
+        .status-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .status-icon.pending {
+            background: #f39c12;
+            color: white;
+        }
+
+        .status-icon.completed {
+            background: #27ae60;
+            color: white;
+        }
+
+        .status-message h3 {
+            margin: 0 0 3px 0;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1.2;
+        }
+
+        .status-message p {
+            margin: 0;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        /* Main Content Area */
+        .main-content-wrapper {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .shipping-details2 {
+            padding: 15px;
+            flex: 1;
+            overflow-y: auto;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .shipping-details2 h3 {
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 0 15px 0;
+            border-bottom: 2px solid #f1c40f;
+            padding-bottom: 5px;
+        }
+
+        /* Two Column Layout for Form */
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .form-group2 {
+            margin-bottom: 8px;
+            flex: 1;
+        }
+
+        .form-group2 label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+            font-size: 12px;
+        }
+
+        .form-control2, .form-control {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            background: #f8f9fa;
+            box-sizing: border-box;
+        }
+
+        .form-control2[readonly], .form-control[readonly] {
+            background: #e9ecef;
+            color: #6c757d;
+        }
+
+        /* Payment and Total Sections */
+        .form-group2 span {
+            display: inline-block;
+            padding: 6px 8px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            min-height: 16px;
+            width: calc(100% - 18px);
+        }
+
+        #payment2 {
+            background: #fff3cd;
+            border-color: #f1c40f;
+            font-weight: 600;
+        }
+
+        #charge-total2, #cart-total2 {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            font-weight: 600;
+            color: #1976d2;
+        }
+
+        #grand-total2 {
+            background: #f1c40f !important;
+            border-color: #f39c12 !important;
+            font-weight: bold !important;
+            color: #333 !important;
+            font-size: 14px !important;
+        }
+
+        /* Order Summary Section */
+        .order-summary2 {
+            background: #f8f9fa;
+            padding: 15px;
+            width: 300px;
+            flex-shrink: 0;
+            overflow-y: auto;
+        }
+
+        .order-summary2 h3 {
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 0 15px 0;
+            border-bottom: 2px solid #f1c40f;
+            padding-bottom: 5px;
+        }
+
+        .order-item2 {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-item-details2 {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .order-item-details2 img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            flex-shrink: 0;
+        }
+
+        .order-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .order-item-name2 {
+            font-weight: 600;
+            color: #333;
+            display: block;
+            margin-bottom: 2px;
+            font-size: 12px;
+            line-height: 1.2;
+        }
+
+        .order-item-type2 {
+            color: #666;
+            font-size: 11px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .size-badge2 {
+            background: #f1c40f;
+            color: #333;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-right: 3px;
+        }
+
+        .quantity-size2, .total-price2 {
+            font-size: 11px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .total-price2 {
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        /* Order Total */
+        .order-total2 {
+            border-top: 2px solid #f1c40f;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .order-total2 h4 {
+            text-align: right;
+            color: #333;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        #checkout-subtotal2 {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* Fixed Footer with Buttons */
+        .checkout-buttons2 {
+            text-align: center;
+            padding: 15px 20px;
+            border-top: 1px solid #ddd;
+            background: #f8f9fa;
+            flex-shrink: 0;
+        }
+
+        .cancel-btn2 {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .cancel-btn2:hover {
+            background: #5a6268;
+        }
+
+        /* Show/Hide Status Headers */
+        .status-header.completed {
+            display: none;
+        }
+
+        .order-completed .status-header.pending {
+            display: none;
+        }
+
+        .order-completed .status-header.completed {
+            display: flex;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .checkout-form2 {
+                padding: 10px;
+                align-items: flex-start;
+                overflow-y: auto;
+            }
+
+            .checkout-container-layout2 {
+                width: 100%;
+                max-width: none;
+                max-height: none;
+                min-height: calc(100vh - 20px);
+                margin: 0;
+                border-radius: 8px;
+            }
+            
+            .main-content-wrapper {
+                flex-direction: column;
+                overflow: visible;
+                min-height: auto;
+            }
+            
+            .shipping-details2 {
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+                overflow-y: visible;
+                flex: none;
+                width: 100%;
+            }
+            
+            .order-summary2 {
+                width: 100%;
+                flex: none;
+                overflow-y: visible;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .status-header {
+                margin: 10px;
+                padding: 12px;
+            }
+            
+            .status-message h3 {
+                font-size: 13px;
+            }
+            
+            .status-message p {
+                font-size: 11px;
+            }
+            
+            .status-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+                margin-right: 10px;
+            }
+            
+            .order-item-details2 {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .order-item-details2 img {
+                align-self: flex-start;
+                width: 40px;
+                height: 40px;
+            }
+
+            .modal-header {
+                padding: 12px 15px;
+            }
+
+            .modal-header h2 {
+                font-size: 16px;
+            }
+
+            .shipping-details2 h3,
+            .order-summary2 h3 {
+                font-size: 13px;
+                margin-bottom: 12px;
+            }
+
+            .form-group2 label {
+                font-size: 11px;
+            }
+
+            .form-control2, .form-control {
+                font-size: 11px;
+                padding: 5px 6px;
+            }
+
+            .form-group2 span {
+                font-size: 11px;
+                padding: 5px 6px;
+            }
+
+            .checkout-buttons2 {
+                padding: 12px 15px;
+            }
+
+            .cancel-btn2 {
+                padding: 8px 25px;
+                font-size: 13px;
+            }
+
+            /* Ensure all content is scrollable on mobile */
+            .checkout-container-layout2 {
+                display: flex;
+                flex-direction: column;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .checkout-form2 {
+                padding: 5px;
+            }
+
+            .status-header {
+                margin: 5px;
+                padding: 10px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .status-icon {
+                margin-right: 0;
+                margin-bottom: 8px;
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+
+            .order-item-details2 {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+            
+            .order-item-details2 img {
+                align-self: center;
+                width: 45px;
+                height: 45px;
+            }
+
+            .form-row {
+                gap: 5px;
+            }
+
+            .modal-header h2 {
+                font-size: 15px;
+            }
+        }
+
+        /* Additional utility classes for status states */
+        .order-pending .status-header {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-color: #f1c40f;
+        }
+
+        .order-completed .status-header {
+            background: linear-gradient(135deg, #d4edda 0%, #a8e6a3 100%);
+            border-color: #27ae60;
+        }
+
+        .order-pending .status-icon {
+            background: #f39c12;
+        }
+
+        .order-completed .status-icon {
+            background: #27ae60;
+        }

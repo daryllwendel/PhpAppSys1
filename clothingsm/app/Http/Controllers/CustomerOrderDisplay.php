@@ -17,10 +17,16 @@ class CustomerOrderDisplay extends Controller
                 'paymentMethod',
                 'orderId',
                 'productImg',
-                DB::raw('MAX(dateOrdered) as orderDate'),
+                'charge',
+                'type',
+                'productId',
+                'quantity',
+                'productImg',
+                'size',
                 DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
                 DB::raw('SUM(quantity) as totalQuantity'),
-                DB::raw('MAX(deliveryStatus) as deliveryStatus')
+                DB::raw('MAX(deliveryStatus) as deliveryStatus'),
+                DB::raw('SUM(quantity * unitPrice) + charge as grandTotal')
             )
             ->where('deliveryStatus', 'pending')
             ->where('customerId', $customerId)
@@ -33,11 +39,18 @@ class CustomerOrderDisplay extends Controller
                 'ProductName',
                 'paymentMethod',
                 'orderId',
+                'productImg', 
+                'charge',
+                'type',
+                'productId',
+                'quantity',
                 'productImg',
+                'size',
                 DB::raw('MAX(dateOrdered) as orderDate'),
                 DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
                 DB::raw('SUM(quantity) as totalQuantity'),
-                DB::raw('MAX(deliveryStatus) as deliveryStatus')
+                DB::raw('MAX(deliveryStatus) as deliveryStatus'),
+                DB::raw('SUM(quantity * unitPrice) + charge as grandTotal')
             )
             ->where('deliveryStatus', 'shipped')
             ->where('customerId', $customerId)
@@ -50,11 +63,16 @@ class CustomerOrderDisplay extends Controller
                 'ProductName',
                 'paymentMethod',
                 'orderId',
+                'productImg','charge',
+                'type',
+                'productId',
+                'quantity',
                 'productImg',
-                DB::raw('MAX(dateOrdered) as orderDate'),
+                'size',
                 DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
                 DB::raw('SUM(quantity) as totalQuantity'),
-                DB::raw('MAX(deliveryStatus) as deliveryStatus')
+                DB::raw('MAX(deliveryStatus) as deliveryStatus'),
+                DB::raw('SUM(quantity * unitPrice) + charge as grandTotal')
             )
             ->where('deliveryStatus', 'delivered')
             ->where('customerId', $customerId)

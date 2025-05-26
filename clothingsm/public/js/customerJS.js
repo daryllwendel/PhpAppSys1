@@ -125,6 +125,93 @@ function swipe(){
         }
     
     });
+}function initProductOverlay4(){
+  const buyButtons = document.querySelectorAll(".buy-button");
+  const overlay = document.getElementById("overlay");
+  const modal = document.getElementById("product-modal");
+  const closeBtn = document.getElementById("close-btn");
+  const mainContainer = document.querySelector(".customerNewOrder-container");
+
+  if (!overlay || !modal || !closeBtn || !mainContainer) {
+    console.log(overlay)
+    console.log(modal)
+    console.log(closeBtn)
+    console.log(mainContainer)
+    console.error("Required elements for product modal not found in DOM");
+    return; // Exit function if any required element is missing
+  }
+
+  buyButtons.forEach(button => {
+    button.addEventListener("click", function() {
+      const productId = button.getAttribute('data-id4');
+      const productName = button.getAttribute('data-name4');
+      const productPrice = button.getAttribute('data-price4');
+      const productType = button.getAttribute('data-type4');
+      const productPrintType = button.getAttribute('data-printtype4');
+      const productImg = button.getAttribute('data-img4');
+      const productStatus = button.getAttribute('data-status4');
+
+      // Update modal content
+      document.querySelector(".modal-header").textContent = productName;
+      document.getElementById("product-image4").src = productImg;
+      document.getElementById("price4").textContent = `₱${productPrice}`;
+      document.getElementById('productId').value = productId;
+      document.getElementById('productPrice4').value = `₱${productPrice}`;
+
+      // Show modal and overlay
+      overlay.style.display = "flex"; 
+      document.body.style.overflow = "hidden";
+    });
+  });
+  closeBtn.addEventListener("click", function(e) {
+    e.preventDefault(); // Prevent form submission
+    overlay.style.display = "none"; 
+    document.body.style.overflow = "auto";
+  });
+}
+function initProductOverlay3(){
+  const buyButtons = document.querySelectorAll(".buy-button1");
+  const overlay = document.getElementById("overlay");
+  const modal = document.getElementById("product-modal");
+  const closeBtn = document.getElementById("close-btn");
+  const mainContainer = document.querySelector(".customerhot-container1");
+
+  if (!overlay || !modal || !closeBtn || !mainContainer) {
+    console.log(overlay)
+    console.log(modal)
+    console.log(closeBtn)
+    console.log(mainContainer)
+    console.error("Required elements for product modal not found in DOM");
+    return; // Exit function if any required element is missing
+  }
+
+  buyButtons.forEach(button => {
+    button.addEventListener("click", function() {
+      const productId = button.getAttribute('data-id2');
+      const productName = button.getAttribute('data-name2');
+      const productPrice = button.getAttribute('data-price2');
+      const productType = button.getAttribute('data-type2');
+      const productPrintType = button.getAttribute('data-printtype2');
+      const productImg = button.getAttribute('data-img2');
+      const productStatus = button.getAttribute('data-status2');
+
+      // Update modal content
+      document.querySelector(".modal-header").textContent = productName;
+      document.getElementById("product-image2").src = productImg;
+      document.getElementById("price2").textContent = `₱${productPrice}`;
+      document.getElementById('productId').value = productId;
+      document.getElementById('productPrice2').value = `₱${productPrice}`;
+
+      // Show modal and overlay
+      overlay.style.display = "flex"; 
+      document.body.style.overflow = "hidden";
+    });
+  });
+  closeBtn.addEventListener("click", function(e) {
+    e.preventDefault(); // Prevent form submission
+    overlay.style.display = "none"; 
+    document.body.style.overflow = "auto";
+  });
 }
 
 function initProductOverlay2(){
@@ -549,8 +636,8 @@ if (checkoutForm) {
             back2.addEventListener('click',loadcustomerdashboard)
           }
 
-            document.querySelectorAll(".deletecart").forEach(form => {
-        form.addEventListener("submit", function(e) {
+          document.querySelectorAll(".deletecart").forEach(form => {
+          form.addEventListener("submit", function(e) {
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -677,6 +764,7 @@ function hotdesign(){
         const doc3 = parser3.parseFromString(html,"text/html")
 
         const designdisplay3 = doc3.querySelector(".customerhot-container1")
+        const overlay = doc3.querySelector('.overlay')
             if(designdisplay3){
                 console.log('haxasdadaha')
                 document.getElementById("subTitle1").innerHTML=`
@@ -685,10 +773,41 @@ function hotdesign(){
                 const content3 = document.getElementById("subTitle2");
                 content3.innerHTML = "";
                 content3.appendChild(designdisplay3)
-        }else{
-            console.log('okay')
-        }
-    })
+                content3.appendChild(overlay)
+                initProductOverlay3()
+
+                document.querySelectorAll(".hotdesigncart").forEach(form => {
+                form.addEventListener("submit", function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+                fetch("/addtocart", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                    },
+                    body: formData,
+                })
+                .then(res => {
+                    if (res.ok) {      
+                      document.body.style.overflow = "auto";
+                        hotdesign();
+                    } else {
+                        alert("Failed to accept order.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                });
+            });
+        });
+            }else{
+                console.log('okay')
+            }
+        })
 }
 function newdesign(){
   fetch('/CustomerNewOrder-display')
@@ -698,6 +817,7 @@ function newdesign(){
         const doc1 = parser1.parseFromString(html,"text/html")
 
         const designdisplay1 = doc1.querySelector(".customerNewOrder-container")
+        const overlay = doc1.querySelector('.overlay')
             if(designdisplay1){
                 console.log('haxasdadaha')
                 document.getElementById("subTitle1").innerHTML=`
@@ -706,6 +826,38 @@ function newdesign(){
                 const content1 = document.getElementById("subTitle2");
                 content1.innerHTML = "";
                 content1.appendChild(designdisplay1)
+                content1.appendChild(overlay)
+                initProductOverlay4()
+
+                document.querySelectorAll(".newdesigncart").forEach(form => {
+                form.addEventListener("submit", function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+                fetch("/addtocart", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                    },
+                    body: formData,
+                })
+                .then(res => {
+                    if (res.ok) {      
+                      document.body.style.overflow = "auto";
+                        newdesign();
+                    } else {
+                        alert("Failed to accept order.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                });
+            });
+        });
+                
         }else{
             console.log('okay')
         }
@@ -730,6 +882,34 @@ function mydesign(){
                 content2.appendChild(designdisplay2)
                 content2.appendChild(overlay)
                 initProductOverlay2()
+                document.querySelectorAll(".mydesigncart").forEach(form => {
+                form.addEventListener("submit", function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+                fetch("/addtocart", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                    },
+                    body: formData,
+                })
+                .then(res => {
+                    if (res.ok) {      
+                      document.body.style.overflow = "auto";
+                        mydesign();
+                    } else {
+                        alert("Failed to accept order.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                });
+            });
+        });
         }else{
             console.log('okay')
         }
@@ -841,6 +1021,30 @@ function loadprofile(){
         }
     })
 }
+function attachOverlayEvents() {
+    const orderElements = document.querySelectorAll(".order-row");
+    const overlayElements = document.querySelectorAll(".checkout-form2");
+
+    orderElements.forEach((orderEl, index) => {
+        const overlayEl = overlayElements[index];
+
+        if (overlayEl) {
+            orderEl.addEventListener("click", function () {
+                overlayEl.style.display = "grid";
+                orderEl.classList.add("blurred");
+                orderElements.style.overflow = 'hidden'
+            });
+
+            const rejectBtn = overlayEl.querySelector(".cancel-btn2");
+            if (rejectBtn) {
+                rejectBtn.addEventListener("click", function () {
+                    overlayEl.style.display = "none";
+                    orderEl.classList.remove("blurred");
+                });
+            }
+        }
+    });
+}  
 
 function loadorders(){
     fetch('/CustomerOrder-display')
@@ -858,6 +1062,7 @@ function loadorders(){
             content.appendChild(orderdisplay);
             document.getElementById('statusFilter').addEventListener('change', toggleOrderList);
             document.getElementById('sortOptions').addEventListener('change', sortOrders);
+            attachOverlayEvents()
         } else {
             console.log('Failed to load .orderscont');
             console.log(orderdisplay);

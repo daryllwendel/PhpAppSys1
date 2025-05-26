@@ -113,7 +113,7 @@ class AdminDashboardController extends Controller
     public function productid() {
         try {
             $products = DB::table('vwproduct_with_sizes')
-                ->select('productId', 'name', 'type', 'price', 'printType', 'productImg', 'status')
+                ->select('productId', 'name', 'type', 'price', 'printType', 'productImg', 'status','viewStatus')
                 ->distinct()
                 ->get();
             $size = DB::table('vwproduct_with_sizes')->select('size')->get();
@@ -158,7 +158,8 @@ class AdminDashboardController extends Controller
                     'type' => $field['type'],
                     'printType' => $field['printType'],
                     'productImg' => $field['productImg'],
-                    'status' => 'display' 
+                    'status' => 'display',
+                    'viewStatus' => 'approved'
                 ]);
 
                 if (!$product) {
@@ -191,5 +192,19 @@ class AdminDashboardController extends Controller
             return redirect('/dashboard')->with('error', 'Failed to add product: ' . $e->getMessage());
         }
     }
+
+    
+ public function approve(Request $request)
+{
+    $field = $request->validate([
+        'productId' => 'required'
+    ]);
+
+    DB::table('tblproducts')
+        ->where('productId', $field['productId'])
+        ->update(['viewStatus' => 'approved']);
+
+    return redirect('/dashboard');
+}
 
 }

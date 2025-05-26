@@ -24,10 +24,15 @@
 <div class="items-3">
     @foreach ($products as $item)
     <div class="product-card">
+        <input type="hidden" name="productId" id="" value="{{$item->productId}}">
         <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}">
         <div class="product-info">
-            <div class="product-name">{{ $item->name }}</div>
-            <div class="product-type">Type: {{ $item->printType }}</div>
+            <div class="product-name">{{ $item->name }}
+                <div class="status1">{{$item->viewStatus }}</div>
+            </div>
+            <div class="product-type">Type: {{ $item->printType }}
+                <p>View: {{$item->status}}</p>
+            </div>
             <div class="product-sizes">
                 @php
                     $sizes = App\Models\ProductSize::where('product_id', $item->productId)->get();
@@ -47,6 +52,7 @@
                 data-printtype="{{ $item->printType }}" 
                 data-productImg="{{ asset('storage/' . $item->productImg) }}"
                 data-status="{{ $item->status }}"
+                data-viewStatus="{{$item->viewStatus}}"
                 id="editbutton">EDIT
             </button>
             <button class="delete-btn deletebutton" 
@@ -184,22 +190,36 @@
                     <option class="status-hidden" value="hidden">Hide</option>
                 </select>
             </div>
-
             <div class="sizes">
                 <span>Available Sizes:</span>
                 <div class="size-options">
-                    <label><input type="checkbox" name="sizes[]" value="XS"> XS</label>
-                    <label><input type="checkbox" name="sizes[]" value="S"> S</label>
-                    <label><input type="checkbox" name="sizes[]" value="M"> M</label>
-                    <label><input type="checkbox" name="sizes[]" value="L"> L</label>
-                    <label><input type="checkbox" name="sizes[]" value="XL"> XL</label>
-                    <label><input type="checkbox" name="sizes[]" value="XXL"> XXL</label>
+                    <label><input type="checkbox" name="sizes[]" value="XS" class="sizes"> XS</label>
+                    <label><input type="checkbox" name="sizes[]" value="S" class="sizes"> S</label>
+                    <label><input type="checkbox" name="sizes[]" value="M" class="sizes"> M</label>
+                    <label><input type="checkbox" name="sizes[]" value="L" class="sizes"> L</label>
+                    <label><input type="checkbox" name="sizes[]" value="XL" class="sizes"> XL</label>
+                    <label><input type="checkbox" name="sizes[]" value="XXL" class="sizes"> XXL</label>
                 </div>
             </div>
     
             <button type="submit" class="submit-btn">Update Stock</button>
         </form>
+          
+        <form action="/approve" method="POST" class="approve">
+    @csrf
+    @method('PUT')
+    <input type="hidden" name="productId" id="approveProductId">
+
+    <div class="approve" id="approveMessage" style="display: none;">
+        <p>This product has not yet been approved.
+            Do you want to approve this design?</p>
+        <button type="submit">Approve</button>
+        <button type="button" id="denyButton">Deny</button>
     </div>
+</form>
+
+
+    </div> 
     
     <!-- Delete Item Modal -->
     <div class="deleteitem">

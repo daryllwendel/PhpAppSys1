@@ -16,7 +16,8 @@ class Product extends Model
         'printType',
         'productImg',
         'dateCreated',
-        'status'
+        'status',
+        'viewStatus'
     ];
 
     protected $dates = ['dateCreated', 'created_at', 'updated_at'];

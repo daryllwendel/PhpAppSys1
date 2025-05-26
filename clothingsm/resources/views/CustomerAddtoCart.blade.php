@@ -87,7 +87,7 @@
             @endif
         </div>
     </div>
-
+ 
     <div class="checkout-form" id="checkout-form">
         <h2>Checkout</h2>
         

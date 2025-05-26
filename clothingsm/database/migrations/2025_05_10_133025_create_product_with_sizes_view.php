@@ -24,7 +24,8 @@ return new class extends Migration
                 ps.size,
                 p.created_at,
                 p.updated_at,
-                p.status
+                p.status,
+                p.viewStatus
             FROM tblproducts p
             JOIN tblproduct_sizes ps ON p.productId = ps.product_id
         ");

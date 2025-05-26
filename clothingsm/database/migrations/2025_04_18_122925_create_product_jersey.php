@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('printType')->nullable();
             $table->string('productImg')->nullable();
             $table->string('status')->default('hidden');
+            $table->string('viewStatus')->default('pending');
             $table->timestamp('dateCreated')->useCurrent();
             $table->timestamps();
             

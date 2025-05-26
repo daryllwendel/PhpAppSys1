@@ -137,11 +137,17 @@
     padding-bottom: 40px; /* Add extra padding to prevent content overlap with buttons */
     background: transparent;
   }
-
+  .product-name .status1{
+    background: #FFBB00;
+    border-radius: 30px;
+    padding: 10px;
+  }
   .items-3 .product-name {
+    display: flex;
     font-size: 1.1em;
     font-weight: bold;
     margin-bottom: 5px;
+    justify-content: space-between;
   }
 
   .items-3 .product-type {
