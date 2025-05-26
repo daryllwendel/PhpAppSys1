@@ -23,93 +23,80 @@
   <div class="customerdashboard" id="customerdashboard">
     <div class="subTitle1">
       <div>Hot Designs🔥</div>
-      <img src="{{asset("images/hotDesigns-icon.png")}}" alt="" style="width: 30vh; height: auto">
+      <img src="{{asset("images/sampleimg.png")}}" alt="">
     </div>
     <div class="hotDesigns">
-        @if($productCount > 0)
-            <div class="hotDesigns-container swiper">
-                <div class="card-wrapper">
-                    <ul class="card-list swiper-wrapper">
-                        @foreach($all as $item)
-                            <li class="card-item swiper-slide">
-                                <button class="card-link" id="card-link">
-                                    <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}" class="card-image">
-                                    <h2 class="card-title">{{ $item->name }}</h2>
-                                </button>
-                                <button class="buy-button card-link"
-                                        data-id="{{ $item->productId }}"
-                                        data-name="{{ $item->name }}"
-                                        data-price="{{ $item->price }}"
-                                        data-type="{{ $item->type }}"
-                                        data-printtype="{{ $item->printType }}"
-                                        data-img="{{ asset('storage/' . $item->productImg) }}"
-                                        data-status="{{ $item->status }}">
-                                    Buy
-                                </button>
-                            </li>
-                        @endforeach
-                    </ul>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-slide-button swiper-button-prev"></div>
-                    <div class="swiper-slide-button swiper-button-next"></div>
-                </div>
-            </div>
-            <button id="explore" class="explore-new-button">Explore New Designs</button>
-        @else
-            <div style="color: rgba(0,0,0,0.29);text-align: center;" class="emptyProduct">
-                <h2>Oops! Product is Empty</h2>
-            </div>
-        @endif
-
+      <div class="hotDesigns-container swiper">
+        <div class="card-wrapper">
+          <ul class="card-list swiper-wrapper">
+            @foreach($all as $item)
+            <li class="card-item swiper-slide">
+              <button class="card-link" id="card-link">
+                <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}" class="card-image">
+                <h2 class="card-title">{{ $item->name }}</h2>
+              </button>
+              <button class="buy-button card-link"
+                data-id="{{ $item->productId }}"
+                data-name="{{ $item->name }}"
+                data-price="{{ $item->price }}"
+                data-type="{{ $item->type }}"
+                data-printtype="{{ $item->printType }}"
+                data-img="{{ asset('storage/' . $item->productImg) }}"
+                data-status="{{ $item->status }}">
+                Buy
+              </button>
+            </li>
+            @endforeach
+          </ul>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-slide-button swiper-button-prev"></div>
+          <div class="swiper-slide-button swiper-button-next"></div>
+        </div>
+      </div>
+      <button id="explore" class="explore-new-button">Explore New Designs</button>
     </div>
     <div class="subTitle2">
-        <img src="{{asset("images/newDesigns-icon.png")}}" alt="" style="width: 30vh; height: auto">
+      <div></div>
       <div>New Designs</div>
     </div>
     <div class="newDesigns">
-        @if($productCount > 0)
-            <div class="newDesigns-container swiper">
-                <div class="card-wrapper">
-                    <ul class="card-list swiper-wrapper">
-                        @foreach($all as $item)
-                            <li class="card-item swiper-slide">
-                                <button class="card-link">
-                                    <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}" class="card-image">
-                                    <h2 class="card-title">{{ $item->name }}</h2>
-                                </button>
-                                <button class="buy-button card-link"
-                                        data-id="{{ $item->productId }}"
-                                        data-name="{{ $item->name }}"
-                                        data-price="{{ $item->price }}"
-                                        data-type="{{ $item->type }}"
-                                        data-printtype="{{ $item->printType }}"
-                                        data-img="{{ asset('storage/' . $item->productImg) }}"
-                                        data-status="{{ $item->status }}">
-                                    Buy
-                                </button>
-                            </li>
-                        @endforeach
-                    </ul>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-slide-button swiper-button-prev"></div>
-                    <div class="swiper-slide-button swiper-button-next"></div>
-                </div>
-            </div>
-            <div class="newDesigns-selection-container">
-                <button id="add-design-button" class="explore-new-button">
-                    <img src="{{asset("images/add-design.png")}}" alt="">
-                    Add A Design
-                </button>
-                <button id="customize-design-button" class="explore-new-button">
-                    <img src="{{asset("images/custom-design.png")}}" alt="">
-                    Customize a Design
-                </button>
-            </div>
-        @else
-            <div style="color: rgba(0,0,0,0.29);text-align: center;" class="emptyProduct">
-                <h2>Oops! Product is Empty</h2>
-            </div>
-        @endif
+      <div class="newDesigns-container swiper">
+        <div class="card-wrapper">
+          <ul class="card-list swiper-wrapper">
+            @foreach($all as $item)
+            <li class="card-item swiper-slide">
+              <button class="card-link">
+                <img src="{{ asset('storage/' . $item->productImg) }}" alt="{{ $item->name }}" class="card-image">
+                <h2 class="card-title">{{ $item->name }}</h2>
+              </button>
+              <button class="buy-button card-link"
+                data-id="{{ $item->productId }}"
+                data-name="{{ $item->name }}"
+                data-price="{{ $item->price }}"
+                data-type="{{ $item->type }}"
+                data-printtype="{{ $item->printType }}"
+                data-img="{{ asset('storage/' . $item->productImg) }}"
+                data-status="{{ $item->status }}">
+                Buy
+              </button>
+            </li>
+            @endforeach
+          </ul>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-slide-button swiper-button-prev"></div>
+          <div class="swiper-slide-button swiper-button-next"></div>
+        </div>
+      </div>
+      <div class="newDesigns-selection-container">
+        <button id="add-design-button" class="explore-new-button">
+          <img src="{{asset("images/add-design.png")}}" alt="">
+          Add A Design
+        </button>
+        {{-- <button id="customize-design-button" class="explore-new-button">
+          <img src="{{asset("images/custom-design.png")}}" alt="">
+          Customize a Design
+        </button> --}}
+      </div>
     </div>
   </div>
 </div>

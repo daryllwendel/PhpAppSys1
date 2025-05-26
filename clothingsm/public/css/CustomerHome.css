@@ -408,7 +408,7 @@ body{
     width: 100%;
     padding: 10px;
     background-color: #ffb6b6;
-    color: black;
+    color: black !important;
     border: none;
     border-radius: 50px;
     font-size: 14px;
