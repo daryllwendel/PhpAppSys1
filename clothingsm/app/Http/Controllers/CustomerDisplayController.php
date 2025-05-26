@@ -9,7 +9,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerDisplayController extends Controller
+
 {
+    public function LandingPageDisplay(){
+        $product = DB::table('vwproduct_with_sizes')
+            ->select('productId', 'name', 'productImg', 'status')
+            ->where('status', 'display')
+            ->get();
+        $all = DB::table('vwproduct_with_sizes')
+            ->select('productId', 'name', 'productImg', 'status', 'price', 'type', 'printType')
+            ->where('status', 'display')
+            ->get();
+        $productCount = DB::table('tblproducts')->count();
+        return view('LandingPage', compact('product', 'productCount', 'all'));
+    }
     public function CustomerDisplay(){
         $product = DB::table('vwproduct_with_sizes')
             ->select('productId', 'name', 'productImg', 'status')
