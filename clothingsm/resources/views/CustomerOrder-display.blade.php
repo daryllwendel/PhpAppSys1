@@ -423,7 +423,7 @@
                     </div>
                 </div>
             </div>
-            
+             
             <!-- Fixed Footer with Back Button -->
             <div class="checkout-buttons2">
                 <button type="button" class="cancel-btn2" id="cancel-btn2">Back</button>

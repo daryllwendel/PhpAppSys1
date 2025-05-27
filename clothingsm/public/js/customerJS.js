@@ -809,6 +809,7 @@ function hotdesign(){
             }
         })
 }
+   
 function newdesign(){
   fetch('/CustomerNewOrder-display')
     .then(res => res.text())
@@ -819,7 +820,7 @@ function newdesign(){
         const designdisplay1 = doc1.querySelector(".customerNewOrder-container")
         const overlay = doc1.querySelector('.overlay')
             if(designdisplay1){
-                console.log('haxasdadaha')
+                console.log('newenwenw')
                 document.getElementById("subTitle1").innerHTML=`
                 <div>New Design</div>
                 <img src="{{ asset('images/sampleimg.png')}}" alt="">`
@@ -863,6 +864,11 @@ function newdesign(){
         }
     })
 }
+function test(){
+  const newdesign1  = document.getElementById("new")
+  newdesign1.addEventListener('click', newdesign)
+  alert('aahahah')
+}
 function mydesign(){
   fetch('/CustomerMyDesignOrder-display')
     .then(res => res.text())
@@ -873,7 +879,7 @@ function mydesign(){
         const designdisplay2 = doc2.querySelector(".customerhot-container")
         const overlay = doc2.querySelector('.overlay')
             if(designdisplay2){
-                console.log('haxasdadaha')
+                console.log('my design daw')
                 document.getElementById("subTitle1").innerHTML=`
                 <div>My Design</div>
                 <img src="{{ asset('images/sampleimg.png')}}" alt="">`
@@ -924,22 +930,40 @@ function loaddesigns(){
  
         const designdisplay = doc.querySelector(".main-container")
         if(designdisplay){
-            console.log('haxaha')
+            console.log(' design daw')
             document.getElementById("title").innerHTML=`
             <div>Designs</div>`
             const content = document.getElementById("change-container");
             content.innerHTML = "";
             content.appendChild(designdisplay)
-
-             document.getElementById("hot").addEventListener('click', hotdesign())
-             document.getElementById("hot").addEventListener('click', hotdesign)
-             document.getElementById("new").addEventListener('click', newdesign)
-             document.getElementById("my").addEventListener('click', mydesign)
+             if(designdisplay){
+                document.getElementById("hot").addEventListener('click', hotdesign())
+                document.getElementById("hot").addEventListener('click', hotdesign)
+                document.getElementById("new").addEventListener('click', newdesign)
+                document.getElementById("my").addEventListener('click', mydesign)
+             }
+             
         }else{
             console.log('okayss')
         }
     })
 }
+  function handleButtonClick(category) {
+            console.log('Button clicked:', category);
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.category-container button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            document.getElementById(category).classList.add('active');
+
+            document.getElementById("hot").addEventListener('click', hotdesign)
+            document.getElementById("new").addEventListener('click', newdesign)
+            document.getElementById("my").addEventListener('click', mydesign)
+            
+        }
 function loadprofile(){
     fetch('/CustomerProfile')
     .then(res => res.text())

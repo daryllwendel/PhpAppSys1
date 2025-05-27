@@ -1,9 +1,4 @@
-function toggleMenu() {
-    const menu = document.querySelector(".menu");
-    menu.classList.toggle("active");
-    const nav = document.querySelector(".nav");
-    nav.classList.toggle("expanded");
-}
+
 
 
 function swiper(){
@@ -394,6 +389,16 @@ function loaddashboard(){
 
 document.addEventListener("DOMContentLoaded", ()=>{
     loaddashboard();
+     document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.nav');
+            const menu = document.getElementById('menu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (!nav.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
     document.getElementById("buttondashboard").addEventListener("click",loaddashboard)
 })
 
@@ -437,7 +442,7 @@ function orders(){
 
             content.appendChild(dashboardContent.cloneNode(true));
             document.getElementById('sortStatus').addEventListener('change', sortorders);
-            const overlays = doc.querySelectorAll(".overlay");
+            const overlays = doc.querySelectorAll(".checkout-container-layout2");
             overlays.forEach(overlay => {
                 content.appendChild(overlay.cloneNode(true));
             });
@@ -526,7 +531,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 function attachOverlayEvents() {
     const orderElements = document.querySelectorAll(".order");
-    const overlayElements = document.querySelectorAll(".overlay");
+    const overlayElements = document.querySelectorAll(".checkout-container-layout2");
 
     orderElements.forEach((orderEl, index) => {
         const overlayEl = overlayElements[index];
@@ -537,7 +542,7 @@ function attachOverlayEvents() {
                 orderEl.classList.add("blurred");
             });
 
-            const rejectBtn = overlayEl.querySelector(".reject01");
+            const rejectBtn = overlayEl.querySelector("#reject01");
             if (rejectBtn) {
                 rejectBtn.addEventListener("click", function () {
                     overlayEl.style.display = "none";

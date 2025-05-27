@@ -49,61 +49,112 @@
                     </div>
                 </div>
         
-                <div class="overlay" id="overlay-{{$orderItems->orderId}}">
-                    <div class="overlay-content">
-                        <div class="overlay-header">
-                            <button class="reject01" id="reject01">&lt;</button>
-                            <div class="header1">
-                                <span>View Order</span>
+                 <div class="checkout-container-layout2" style="display: none">
+            <!-- Fixed Header -->
+            <div class="modal-header">
+                <h2>{{$orderItems->username}}'s Order</h2>
+            </div>
+            
+            <!-- Main Content Wrapper -->
+            <div class="main-content-wrapper">
+                <div class="shipping-details2">
+                    <h3>Shipping Information</h3>
+                    
+                    <div class="form-group2">
+                        <label for="recipient2">Recipient Name</label>
+                        <input type="text" id="recipient2" name="recipient2" value="{{$orderItems->name}}" class="form-control2" readonly>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="email2">Email</label>
+                        <input type="email" id="email2" name="email2" value="{{$orderItems->username}}" class="form-control2" readonly>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="contact2">Contact Number</label>
+                        <input type="text" id="contact2" name="contact2" value="{{$orderItems->contactNo}}" class="form-control2" readonly>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group2">
+                            <label for="city2">City</label>
+                            <input type="text" id="city2" name="city2" class="form-control2" value="{{$orderItems->City}}" readonly>
+                        </div>
+                        <div class="form-group2">
+                            <label for="barangay2">Barangay</label>
+                            <input type="text" id="barangay2" name="barangay2" class="form-control2" value="{{$orderItems->Baranggay}}" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group2">
+                            <label for="purok2">Purok</label>
+                            <input type="text" id="purok2" name="purok2" class="form-control2" value="{{$orderItems->Purok}}" readonly>
+                        </div>
+                        <div class="form-group2">
+                            <label for="zipcode2">ZipCode</label>
+                            <input type="text" id="zipcode2" name="zipcode2" value="{{$orderItems->ZipCode}}" class="form-control" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="subtotal2">Sub-total</label>
+                        <span id="cart-total2">₱{{$orderItems->totalItemPrice}}</span>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="payment2">Payment Option</label>
+                        <span id="payment2">{{$orderItems->paymentMethod}}</span>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="charge2">Charge</label>
+                        <span id="charge-total2">{{$orderItems->charge}}</span>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="grand-total2">Grand Total</label>
+                        <input type="text" id="grand-total2" name="grand_total2" value="{{$orderItems->totalCharge}}" class="form-control2" readonly>
+                    </div>
+                </div>
+                
+                <div class="order-summary2">
+                    <h3>Order Summary</h3>
+                    <div class="order-items2" id="checkout-items-container2">
+                        <div class="order-item2">
+                            <div class="order-item-details2">
+                                <img src="{{ asset('storage/' . $orderItems->productImg) }}" alt="Product">
+                                <div class="order-item-info">
+                                    <span class="order-item-name2">{{$orderItems->ProductName}}</span>
+                                    <span class="order-item-type2">{{$orderItems->type}}</span>
+                                    <div>
+                                        <span class="size-badge2">{{$orderItems->size}} </span>
+                                        <span class="quantity-size2">X{{$orderItems->quantity}}</span><br>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-        
-                        <div class="order-section body1">
-                            <img src="{{ asset('images/location.png') }}" alt="Delivery Icon" />
-                            <strong>Delivery Address</strong>
-                            <span>Prk. {{$orderItems->Baranggay}}, {{$orderItems->City}}, {{$orderItems->Province}}</span>
-                        </div>
-        
-                        <div class="order-section body2">
-                            <img src="{{ asset('images/wallet.png') }}" alt="Payment Icon" />
-                            <strong>Payment Method</strong>
-                            <span>{{$orderItems->paymentMethod}}</span>
-                            <h4>₱{{$orderItems->totalItemPrice}}</h4>
-                        </div>
-        
-                        <div class="footer1">
-                            <div class="footer0-1">
-                                <img src="{{ asset('images/clipboard.png') }}" alt="Order Summary Icon" />
-                                <h5>Order Summary</h5>
-                            </div>
-        
-                            <div class="footer1-1">
-                                <span>X{{$orderItems->quantity}} {{$orderItems->ProductName}}</span>
-                                <span class="price1">₱{{$orderItems->totalItemPrice}}</span>
-                            </div>
-        
-                            <div class="footer1-2">
-                                <span class="subtotal-1">Subtotal</span>
-                                <span class="subtotal-2">₱{{$orderItems->totalItemPrice}}</span>
-                                
-                                <span class="deliver">Delivery</span>
-                                <span class="deliver-2">₱{{$orderItems->charge}}</span>
-                                
-                                <span class="total"><b>Total</b></span>
-                                <span class="total-2"><b>₱{{$orderItems->totalCharge}}</b></span>
-                            </div>
-                        </div>
-                        
-                        <form class="accept-form" data-order-id="{{$orderItems->orderId}}">
+                    </div>
+                    
+                    <div class="order-total2">
+                        <h4>Sub-Total: ₱ <span id="checkout-subtotal2">{{$orderItems->totalItemPrice}}</span></h4>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fixed Footer with Back Button -->
+            <div class="checkout-buttons2">
+                 <form class="accept-form" data-order-id="{{$orderItems->orderId}}">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="orderId2" value="{{$orderItems->orderId}}">
-                            <button class="accept-button" type="submit">Accept Orders</button>
-                        </form>                        
-                    </div>
-                </div>
-                @endforeach
-                </div>
+                            <button class="function1" type="submit">Accept Orders</button>
+                        </form>  
+                <button type="button" class="cancel-btn2" id="reject01">Back</button>
+            </div>
+        </div>
+        @endforeach
+        </div>
 
                 <div class="completeOrder" id="shippedOrders" style="display: none">
                     @foreach ($shipData as $orderItems)
@@ -117,59 +168,110 @@
                     </div>
                 </div>
         
-                <div class="overlay" id="overlay-{{$orderItems->orderId}}">
-                    <div class="overlay-content">
-                        <div class="overlay-header">
-                            <button class="reject01" id="reject01">&lt;</button>
-                            <div class="header1">
-                                <span>View Order</span>
+                   <div class="checkout-container-layout2" style="display: none">
+            <!-- Fixed Header -->
+            <div class="modal-header">
+                <h2>{{$orderItems->username}}'s Order</h2>
+            </div>
+            
+            <!-- Main Content Wrapper -->
+            <div class="main-content-wrapper">
+                <div class="shipping-details2">
+                    <h3>Shipping Information</h3>
+                    
+                    <div class="form-group2">
+                        <label for="recipient2">Recipient Name</label>
+                        <input type="text" id="recipient2" name="recipient2" value="{{$orderItems->name}}" class="form-control2" readonly>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="email2">Email</label>
+                        <input type="email" id="email2" name="email2" value="{{$orderItems->username}}" class="form-control2" readonly>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="contact2">Contact Number</label>
+                        <input type="text" id="contact2" name="contact2" value="{{$orderItems->contactNo}}" class="form-control2" readonly>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group2">
+                            <label for="city2">City</label>
+                            <input type="text" id="city2" name="city2" class="form-control2" value="{{$orderItems->City}}" readonly>
+                        </div>
+                        <div class="form-group2">
+                            <label for="barangay2">Barangay</label>
+                            <input type="text" id="barangay2" name="barangay2" class="form-control2" value="{{$orderItems->Baranggay}}" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group2">
+                            <label for="purok2">Purok</label>
+                            <input type="text" id="purok2" name="purok2" class="form-control2" value="{{$orderItems->Purok}}" readonly>
+                        </div>
+                        <div class="form-group2">
+                            <label for="zipcode2">ZipCode</label>
+                            <input type="text" id="zipcode2" name="zipcode2" value="{{$orderItems->ZipCode}}" class="form-control" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="subtotal2">Sub-total</label>
+                        <span id="cart-total2">₱{{$orderItems->totalItemPrice}}</span>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="payment2">Payment Option</label>
+                        <span id="payment2">{{$orderItems->paymentMethod}}</span>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="charge2">Charge</label>
+                        <span id="charge-total2">{{$orderItems->charge}}</span>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="grand-total2">Grand Total</label>
+                        <input type="text" id="grand-total2" name="grand_total2" value="{{$orderItems->totalCharge}}" class="form-control2" readonly>
+                    </div>
+                </div>
+                
+                <div class="order-summary2">
+                    <h3>Order Summary</h3>
+                    <div class="order-items2" id="checkout-items-container2">
+                        <div class="order-item2">
+                            <div class="order-item-details2">
+                                <img src="{{ asset('storage/' . $orderItems->productImg) }}" alt="Product">
+                                <div class="order-item-info">
+                                    <span class="order-item-name2">{{$orderItems->ProductName}}</span>
+                                    <span class="order-item-type2">{{$orderItems->type}}</span>
+                                    <div>
+                                        <span class="size-badge2">{{$orderItems->size}} </span>
+                                        <span class="quantity-size2">X{{$orderItems->quantity}}</span><br>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-        
-                        <div class="order-section body1">
-                            <img src="{{ asset('images/location.png') }}" alt="Delivery Icon" />
-                            <strong>Delivery Address</strong>
-                            <span>Prk. {{$orderItems->Baranggay}}, {{$orderItems->City}}, {{$orderItems->Province}}</span>
-                        </div>
-        
-                        <div class="order-section body2">
-                            <img src="{{ asset('images/wallet.png') }}" alt="Payment Icon" />
-                            <strong>Payment Method</strong>
-                            <span>{{$orderItems->paymentMethod}}</span>
-                            <h4>₱{{$orderItems->totalItemPrice}}</h4>
-                        </div>
-        
-                        <div class="footer1">
-                            <div class="footer0-1">
-                                <img src="{{ asset('images/clipboard.png') }}" alt="Order Summary Icon" />
-                                <h5>Order Summary</h5>
-                            </div>
-        
-                            <div class="footer1-1">
-                                <span>X{{$orderItems->quantity}} {{$orderItems->ProductName}}</span>
-                                <span class="price1">₱{{$orderItems->totalItemPrice}}</span>
-                            </div>
-        
-                            <div class="footer1-2">
-                                <span class="subtotal-1">Subtotal</span>
-                                <span class="subtotal-2">₱{{$orderItems->totalItemPrice}}</span>
-                                
-                                <span class="deliver">Delivery</span>
-                                <span class="deliver-2">₱{{$orderItems->charge}}</span>
-                                
-                                <span class="total"><b>Total</b></span>
-                                <span class="total-2"><b>₱{{$orderItems->totalCharge}}</b></span>
-                            </div>
-                        </div>
-                        
-                        <form class="accept-form2" data-order-id="{{$orderItems->orderId}}">
+                    </div>
+                    
+                    <div class="order-total2">
+                        <h4>Sub-Total: ₱ <span id="checkout-subtotal2">{{$orderItems->totalItemPrice}}</span></h4>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fixed Footer with Back Button -->
+            <div class="checkout-buttons2">
+                 <form class="accept-form2" data-order-id="{{$orderItems->orderId}}">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="orderId2" value="{{$orderItems->orderId}}">
-                            <button class="accept-button" type="submit">Complete Orders</button>
-                        </form>                        
-                    </div>
-                </div>
+                            <button class="function1" type="submit">Complete Orders</button>
+                        </form>  
+                <button type="button" class="cancel-btn2" id="reject01">Back</button>
+            </div>
+        </div>
                 @endforeach
                 </div>
 
@@ -184,60 +286,104 @@
                             <p>{{ $orderItems->contactNo }}</p>
                         </div>
                     </div>
+               <div class="checkout-container-layout2" style="display: none">
+            <!-- Fixed Header -->
+            <div class="modal-header">
+                <h2>{{$orderItems->username}}'s Order</h2>
+            </div>
             
-                    <div class="overlay" id="overlay-{{$orderItems->orderId}}">
-                        <div class="overlay-content">
-                            <div class="overlay-header">
-                                <button class="reject01" id="reject01">&lt;</button>
-                                <div class="header1">
-                                    <span>View Order</span>
-                                </div>
-                            </div>
-            
-                            <div class="order-section body1">
-                                <img src="{{ asset('images/location.png') }}" alt="Delivery Icon" />
-                                <strong>Delivery Address</strong>
-                                <span>Prk. {{$orderItems->Baranggay}}, {{$orderItems->City}}, {{$orderItems->Province}}</span>
-                            </div>
-            
-                            <div class="order-section body2">
-                                <img src="{{ asset('images/wallet.png') }}" alt="Payment Icon" />
-                                <strong>Payment Method</strong>
-                                <span>{{$orderItems->paymentMethod}}</span>
-                                <h4>₱{{$orderItems->totalItemPrice}}</h4>
-                            </div>
-            
-                            <div class="footer1">
-                                <div class="footer0-1">
-                                    <img src="{{ asset('images/clipboard.png') }}" alt="Order Summary Icon" />
-                                    <h5>Order Summary</h5>
-                                </div>
-            
-                                <div class="footer1-1">
-                                    <span>X{{$orderItems->quantity}} {{$orderItems->ProductName}}</span>
-                                    <span class="price1">₱{{$orderItems->totalItemPrice}}</span>
-                                </div>
-            
-                                <div class="footer1-2">
-                                    <span class="subtotal-1">Subtotal</span>
-                                    <span class="subtotal-2">₱{{$orderItems->totalItemPrice}}</span>
-                                    
-                                    <span class="deliver">Delivery</span>
-                                    <span class="deliver-2">₱{{$orderItems->charge}}</span>
-                                    
-                                    <span class="total"><b>Total</b></span>
-                                    <span class="total-2"><b>₱{{$orderItems->totalCharge}}</b></span>
-                                </div>
-                            </div>
-                            
-                            <form class="accept-form" data-order-id="{{$orderItems->orderId}}">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="orderId2" value="{{$orderItems->orderId}}">
-                                <button class="accept-button" type="submit" disabled>Completed Orders</button>
-                            </form>                        
+            <!-- Main Content Wrapper -->
+            <div class="main-content-wrapper">
+                <div class="shipping-details2">
+                    <h3>Shipping Information</h3>
+                    
+                    <div class="form-group2">
+                        <label for="recipient2">Recipient Name</label>
+                        <input type="text" id="recipient2" name="recipient2" value="{{$orderItems->name}}" class="form-control2" readonly>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="email2">Email</label>
+                        <input type="email" id="email2" name="email2" value="{{$orderItems->username}}" class="form-control2" readonly>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="contact2">Contact Number</label>
+                        <input type="text" id="contact2" name="contact2" value="{{$orderItems->contactNo}}" class="form-control2" readonly>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group2">
+                            <label for="city2">City</label>
+                            <input type="text" id="city2" name="city2" class="form-control2" value="{{$orderItems->City}}" readonly>
+                        </div>
+                        <div class="form-group2">
+                            <label for="barangay2">Barangay</label>
+                            <input type="text" id="barangay2" name="barangay2" class="form-control2" value="{{$orderItems->Baranggay}}" readonly>
                         </div>
                     </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group2">
+                            <label for="purok2">Purok</label>
+                            <input type="text" id="purok2" name="purok2" class="form-control2" value="{{$orderItems->Purok}}" readonly>
+                        </div>
+                        <div class="form-group2">
+                            <label for="zipcode2">ZipCode</label>
+                            <input type="text" id="zipcode2" name="zipcode2" value="{{$orderItems->ZipCode}}" class="form-control" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="subtotal2">Sub-total</label>
+                        <span id="cart-total2">₱{{$orderItems->totalItemPrice}}</span>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="payment2">Payment Option</label>
+                        <span id="payment2">{{$orderItems->paymentMethod}}</span>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="charge2">Charge</label>
+                        <span id="charge-total2">{{$orderItems->charge}}</span>
+                    </div>
+                    
+                    <div class="form-group2">
+                        <label for="grand-total2">Grand Total</label>
+                        <input type="text" id="grand-total2" name="grand_total2" value="{{$orderItems->totalCharge}}" class="form-control2" readonly>
+                    </div>
+                </div>
+                
+                <div class="order-summary2">
+                    <h3>Order Summary</h3>
+                    <div class="order-items2" id="checkout-items-container2">
+                        <div class="order-item2">
+                            <div class="order-item-details2">
+                                <img src="{{ asset('storage/' . $orderItems->productImg) }}" alt="Product">
+                                <div class="order-item-info">
+                                    <span class="order-item-name2">{{$orderItems->ProductName}}</span>
+                                    <span class="order-item-type2">{{$orderItems->type}}</span>
+                                    <div>
+                                        <span class="size-badge2">{{$orderItems->size}} </span>
+                                        <span class="quantity-size2">X{{$orderItems->quantity}}</span><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-total2">
+                        <h4>Sub-Total: ₱ <span id="checkout-subtotal2">{{$orderItems->totalItemPrice}}</span></h4>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fixed Footer with Back Button -->
+            <div class="checkout-buttons2">
+                <button type="button" class="cancel-btn2" id="reject01">Back</button>
+            </div>
+        </div>
                     @endforeach
                 </div>
             </div>
