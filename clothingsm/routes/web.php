@@ -14,6 +14,7 @@ use App\Http\Controllers\CustomerOrderDisplay;
 use App\Http\Controllers\AdminDisplayController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CustomerDisplayController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', [CustomerDisplayController::class, 'LandingPageDisplay']);
 //Route::get('/', function(){
@@ -34,9 +35,12 @@ Route::put('/product', [AdminDashboardController::class, 'editProduct']);
 Route::put('/approve', [AdminDashboardController::class, 'approve']);
 Route::delete('/deletedesign',[AdminDashboardController::class, 'deleteproduct']);
 
-Route::get('/report', function(){
-    return view('report');
-});
+Route::get('/report', [ReportController::class, 'salesReport'])->name('sales.report');
+Route::get('/api/sales-report', [ReportController::class, 'getSalesReport']);
+// Route::get('/report', function(){
+//     return view('report');
+// });
+
 Route::get('/CustomerAddADesign-display', function() {
     return view('CustomerAddADesign-display');
 })->name('CustomerAddADesign-display');
