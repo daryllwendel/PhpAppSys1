@@ -54,7 +54,7 @@
                 <div></div>
             </div>
 
-            <div class="buttonsNav" id="hamboger">
+            <div class="buttonsNav" id="hamboger" >
                 <div class="menu" id="menu">
                     <button class="nav-button" id="home">Home</button>
                     <button class="nav-button" id="design">Design</button>
@@ -74,10 +74,10 @@
         <script>const currentCustomerId = {{ Auth::id() }};</script>
      <script>
         const nav5 = document.getElementById('hamboger');
-    const ham = document.querySelector('.hamburger');
+        const ham = document.querySelector('.hamburger');
 
     // Check if screen is 768px or less
-    const isMobile = window.matchMedia("(max-width: 768px)");
+        const isMobile = window.matchMedia("(max-width: 768px)");
 
     if (isMobile.matches) {
         ham.addEventListener('click', function() {
@@ -93,13 +93,16 @@
         function toggleMenu() {
             const menu = document.getElementById('menu');
             const hamburger = document.querySelector('.hamburger');
+            const buttonsNav = document.querySelector('.buttonsNav')
             
             menu.classList.toggle('active');
             hamburger.classList.toggle('active');
+            buttonsNav.style.display='block'
 
             setTimeout(() => {
                 menu.classList.remove('active');
-            hamburger.classList.remove('active');
+                hamburger.classList.remove('active');
+                buttonsNav.style.display='none'
             }, 1000);
         }
 
@@ -127,16 +130,20 @@
         window.addEventListener('resize', function() {
             const menu = document.getElementById('menu');
             const hamburger = document.querySelector('.hamburger');
+            const buttonsNav = document.querySelector('.buttonsNav')
             
             if (window.innerWidth > 768) {
                 menu.classList.remove('active');
                 hamburger.classList.remove('active');
+                buttonsNav.style.display='block'
+
             }
         });
         document.addEventListener('click', function(event) {
             const nav = document.querySelector('.nav');
             const menu = document.getElementById('menu');
             const hamburger = document.querySelector('.hamburger');
+            const buttonNav=  document.getElementById('hamboger')
             
             if (!nav.contains(event.target) && menu.classList.contains('active')) {
                 menu.classList.remove('active');
@@ -144,6 +151,7 @@
                 nav.style.display = 'none'
                 menu.style.display = 'none'
                 hamburger.style.display = 'none'
+                buttonNav.style.display='none'
             }
         });
     </script>

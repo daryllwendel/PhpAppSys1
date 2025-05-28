@@ -16,37 +16,35 @@
             <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
         </head>
         <body>
-        <nav class="nav">
-            <div class="userNav">
-                <img src="{{ asset('images/selcouth.jpg') }}" alt="Admin Profile">
-                <div class="user-info desktop-only">
-                    <div class="customer-name">Admin</div>
-                    <div class="user-role">Administrator</div>
-                </div>
-                <form action="/logout" method="POST">
-                @csrf
-                <button type="submit" class="login-button">Log Out</button>
-                </form>     
-            </div>
-            
-            <div class="hamburger" onclick="toggleMenu()">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+        <nav class="main-container">
+    <div class="userNav">
+        <img src="{{ asset('images/selcouth.jpg') }}" alt="Admin Profile">
+        <div class="user-info desktop-only">
+            <div class="customer-name">Admin</div>
+            <div class="user-role">Administrator</div>
+        </div>
+        <form action="/logout" method="POST">
+            @csrf
+            <button type="submit" class="login-button">Log Out</button>
+        </form>     
+    </div>
+    
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 
-            <div class="buttonsNav">
-                <div class="menu" id="menu">
-                    <input type="hidden" class="nav-button" id="buttondefault" active>
-                    <button class="nav-button" id="buttondashboard">Dashboard</button>
-                    <button class="nav-button" id="buttonorders">Orders</button>
-                    <button class="nav-button" id="buttonproducts">Products</button>
-                    <button class="nav-button" id="buttonreport">Reports</button>
-
-                </div>
-            </div>
-        </nav>
-
+    <div class="buttonsNav">
+        <div class="menu" id="menu">
+            <input type="hidden" class="nav-button" id="buttondefault" active>
+            <button class="nav-button" id="buttondashboard">Dashboard</button>
+            <button class="nav-button" id="buttonorders">Orders</button>
+            <button class="nav-button" id="buttonproducts">Products</button>
+            <button class="nav-button" id="buttonreport">Reports</button>
+        </div>
+    </div>
+</nav>
         <div class="title1" id="title1" ></div>
 
         <div class="body1 fade-in" id="body1" style="display:none">

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Providers;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
@@ -38,5 +37,6 @@ class AppServiceProvider extends ServiceProvider
             // NOW run the migrations
             Artisan::call('migrate', ['--force' => true]);
         }
+
     } 
 }
