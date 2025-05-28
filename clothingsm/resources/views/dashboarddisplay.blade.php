@@ -22,7 +22,7 @@
                             <div class="card-image">
                                 <img src="{{ asset('storage/' . $product->productImg) }}" alt="{{ $product->name }}" class="card-img">
                             </div>
-                        </div>
+                        </div> 
                         <div class="card-content">
                             <h2 class="name">{{ $product->name }}</h2>
                         </div>

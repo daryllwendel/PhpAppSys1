@@ -27,47 +27,133 @@
 
 </head>
 <body>
-<div class="main-container">
-  <div class="nav">
-    <div class="userNav">
-      @if(Auth::user()->profile)
-          <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile Picture">
-      @else
-          <img src="{{ asset('images/user.png') }}" alt="Profile Picture">
-      @endif
-      <button><p class="customer-name">{{ $user->username }}</p>
-      <p class="name12">{{ $user->name}}</p></button>
-        <form action="/logout" method="POST">
-          @csrf
-          <button type="submit" class="login-button">Log Out</button>
-      </form>
+  <div class="main-container">
+ <nav class="nav">
+            <div class="userNav">
+                @if(Auth::user()->profile)
+                  <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile Picture">
+                @else
+                  <img src="{{ asset('images/user.png') }}" alt="Profile Picture">
+                @endif
 
-      <span class="material-symbols-outlined" id="cartbutton">
-        shopping_cart
-      </span>
-      <div class="hamburger" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    <div class="buttonsNav">
-      <div class="menu">
-        <button class="nav-button" id="home">Home</button>
-        <button class="nav-button" id="design">Designs</button>
-        <button class="nav-button" id="profile">Profile</button>
-        <button class="nav-button" id="order">Orders</button>
-        <a class="nav-add-button" id="add"><img src="{{asset("images/tshirt 2.png")}}" alt="">Add a Design</a>
-      </div>
-    </div>
+                <div class="user-info desktop-only">
+                    <p class="customer-name">{{ $user->username }}</p>
+                    <p class="name12">{{ $user->name}}</p>
+                </div>
+                <form action="/logout" method="POST">
+                @csrf
+                <button type="submit" class="login-button">Log Out</button>
+                </form>
+            </div>
+            <span class="material-symbols-outlined" id="cartbutton">
+                shopping_cart
+            </span>
+            <div class="hamburger" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
 
-  </div>
-  <div class="title" id="title"></div>
-  <div class="change-container" id="change-container"></div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="{{asset("js/customerJS.js")}}"></script>
-<script>const currentCustomerId = {{ Auth::id() }};</script>
+            <div class="buttonsNav" id="hamboger" >
+                <div class="menu" id="menu">
+                    <button class="nav-button" id="home">Home</button>
+                    <button class="nav-button" id="design">Design</button>
+                    <button class="nav-button" id="profile">Profile</button>
+                    <button class="nav-button" id="order">Order</button>
+                    <a class="nav-add-button" id="add"><img src="{{asset("images/tshirt 2.png")}}" alt="">Add a Design</a>
+                </div>
+            </div>
+        </nav>
 
+        <div class="title1" id="title" ></div>
+
+        <div class="body1 fade-in" id="change-container" >
+        </div>
+        <script src="{{asset('js/customerJS.js')}}"></script>
+         <script src="{{asset('js/customerButtons.js')}}"></script>
+        <script>const currentCustomerId = {{ Auth::id() }};</script>
+     <script>
+        const nav5 = document.getElementById('hamboger');
+        const ham = document.querySelector('.hamburger');
+
+    // Check if screen is 768px or less
+        const isMobile = window.matchMedia("(max-width: 768px)");
+
+    if (isMobile.matches) {
+        ham.addEventListener('click', function() {
+            nav5.style.display = 'block'; // Show it
+            setTimeout(() => {
+                nav5.style.display = 'none'; // Hide it after 1 second
+            }, 1000);
+        });
+    }
+
+
+
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            const hamburger = document.querySelector('.hamburger');
+            const buttonsNav = document.querySelector('.buttonsNav')
+
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            buttonsNav.style.display='block'
+
+            setTimeout(() => {
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                buttonsNav.style.display='none'
+            }, 1000);
+        }
+
+       document.addEventListener('DOMContentLoaded', function () {
+    const navButtons = document.querySelectorAll('.nav-button');
+    const contentArea = document.getElementById('content-area');
+
+    navButtons.forEach(button => {
+        button.classList.remove('active');
+
+        button.addEventListener('click', function () {
+            navButtons.forEach(btn => btn.classList.remove('active'));
+
+            this.classList.add('active');
+
+            if (window.innerWidth <= 768) {
+                toggleMenu();
+            }
+        });
+    });
+
+    document.getElementById('buttondefault')?.classList.add('active');
+});
+
+        window.addEventListener('resize', function() {
+            const menu = document.getElementById('menu');
+            const hamburger = document.querySelector('.hamburger');
+            const buttonsNav = document.querySelector('.buttonsNav')
+
+            if (window.innerWidth > 768) {
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                buttonsNav.style.display='block'
+
+            }
+        });
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.nav');
+            const menu = document.getElementById('menu');
+            const hamburger = document.querySelector('.hamburger');
+            const buttonNav=  document.getElementById('hamboger')
+
+            if (!nav.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                nav.style.display = 'none'
+                menu.style.display = 'none'
+                hamburger.style.display = 'none'
+                buttonNav.style.display='none'
+            }
+        });
+    </script>
 </body>
 </html>

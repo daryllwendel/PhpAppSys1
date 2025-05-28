@@ -1,9 +1,4 @@
-function toggleMenu() {
-    const menu = document.querySelector(".menu");
-    menu.classList.toggle("active");
-    const nav = document.querySelector(".nav");
-    nav.classList.toggle("expanded");
-}
+
 
 
 function swiper(){
@@ -137,7 +132,6 @@ function optionitem() {
         productcontainer.style.filter = "none";
     });
 
-    // Show "Edit Item" Modal
     edititem.forEach(button => {
         button.addEventListener("click", function () {
             const productId = button.getAttribute('data-id');
@@ -147,6 +141,7 @@ function optionitem() {
             const productPrintType = button.getAttribute('data-printtype');
             const productImg = button.getAttribute('data-productImg');
             const productStatus = button.getAttribute('data-status');
+            const prodcutviewStatus = button.getAttribute('data-viewStatus')
             console.log(productPrintType); // Check this output
 
             document.getElementById("editProductImage1").src = productImg;
@@ -156,6 +151,44 @@ function optionitem() {
             document.getElementById("editCategory").value = productType;
             document.getElementById("editprintType").value = productPrintType;
             document.getElementById("add-status").value = productStatus;
+            document.getElementById('approveProductId').value = productId
+            if(prodcutviewStatus === 'pending'){
+                document.getElementById('approveMessage').style.display = 'block';
+                document.getElementById('editimg').disabled= true
+                document.getElementById('editName').disabled= true
+                document.getElementById('editPrice').disabled= true
+                document.getElementById('editCategory').disabled= true
+                document.getElementById('editprintType').disabled= true
+                document.getElementById('add-status').disabled= true
+                
+                document.getElementById('editimg').value= ''
+                document.getElementById('editName').value= ''
+                document.getElementById('editPrice').value= ''
+                document.getElementById('editCategory').value= ''
+                document.getElementById('editprintType').value= ''
+                document.getElementById('add-status').value= ''
+                const checkboxes = document.querySelectorAll('input[name="sizes[]"]');
+
+                checkboxes.forEach(checkbox => {
+                    checkbox.disabled = true;
+                });
+
+            }
+            if(prodcutviewStatus === 'approved'){
+                document.getElementById('approveMessage').style.display = 'none';
+
+                 document.getElementById('editimg').disabled= false
+                document.getElementById('editName').disabled= false
+                document.getElementById('editPrice').disabled= false
+                document.getElementById('editCategory').disabled= false
+                document.getElementById('editprintType').disabled= false
+                document.getElementById('add-status').disabled= false
+                const checkboxes = document.querySelectorAll('input[name="sizes[]"]');
+
+                checkboxes.forEach(checkbox => {
+                    checkbox.disabled = false;
+                });
+            }
             console.log(productType)
 
             edit.style.display = "grid";
@@ -197,7 +230,7 @@ function optionitem() {
         productcontainer.style.pointerEvents = "auto";
     });
 
-    //add a design ajax
+    //edit a design ajax
     document.querySelectorAll(".editProduct").forEach(form => {
         form.addEventListener("submit", function(e) {
             e.preventDefault();
@@ -230,7 +263,7 @@ function optionitem() {
         });
     });
 
-    //edit a design ajax
+    //add a design ajax
     document.querySelectorAll(".addProductForm").forEach(form => {
         form.addEventListener("submit", function(e) {
             e.preventDefault();
@@ -251,7 +284,7 @@ function optionitem() {
                     const overlay = form.closest(".edititem");
                     if (overlay) {
                         overlay.style.display = "none";
-                    }
+                    }  
                     product();
                 } else {
                     alert("Failed to edit order.");
@@ -262,7 +295,38 @@ function optionitem() {
             });
         });
     });
+     //approve a design ajax
+    document.querySelectorAll(".approve").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
 
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/approve", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) {
+                    const overlay = form.closest(".additem");
+                    if (overlay) {
+                        overlay.style.display = "none";
+                    }
+                    product();
+                } else {
+                    alert("Failed to add order.");
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+            });
+        });
+    });
     //delete a design ajax
     document.querySelectorAll(".deleteProduct").forEach(form => {
         form.addEventListener("submit", function(e) {
@@ -325,6 +389,16 @@ function loaddashboard(){
 
 document.addEventListener("DOMContentLoaded", ()=>{
     loaddashboard();
+     document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.nav');
+            const menu = document.getElementById('menu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (!nav.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
     document.getElementById("buttondashboard").addEventListener("click",loaddashboard)
 })
 
@@ -349,7 +423,7 @@ function sortorders() {
     }else if(sort === 'delivered'){
         pendingList.style.display = 'none';
         shipList.style.display = 'none';
-        completeList.style.display='block'
+        completeList.style.display='block' 
     }
   }
 function orders(){
@@ -368,7 +442,7 @@ function orders(){
 
             content.appendChild(dashboardContent.cloneNode(true));
             document.getElementById('sortStatus').addEventListener('change', sortorders);
-            const overlays = doc.querySelectorAll(".overlay");
+            const overlays = doc.querySelectorAll(".checkout-container-layout2");
             overlays.forEach(overlay => {
                 content.appendChild(overlay.cloneNode(true));
             });
@@ -457,7 +531,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 function attachOverlayEvents() {
     const orderElements = document.querySelectorAll(".order");
-    const overlayElements = document.querySelectorAll(".overlay");
+    const overlayElements = document.querySelectorAll(".checkout-container-layout2");
 
     orderElements.forEach((orderEl, index) => {
         const overlayEl = overlayElements[index];
@@ -468,7 +542,7 @@ function attachOverlayEvents() {
                 orderEl.classList.add("blurred");
             });
 
-            const rejectBtn = overlayEl.querySelector(".reject01");
+            const rejectBtn = overlayEl.querySelector("#reject01");
             if (rejectBtn) {
                 rejectBtn.addEventListener("click", function () {
                     overlayEl.style.display = "none";

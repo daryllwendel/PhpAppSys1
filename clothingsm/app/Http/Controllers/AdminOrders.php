@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AdminOrders extends Controller
-{ 
+{  
     public function viewOrders(Request $request) {
         $ordersData = DB::table('vwordersummary')
         ->select(
@@ -26,7 +26,9 @@ class AdminOrders extends Controller
             'username',
             'name',
             'contactNo',
-            DB::raw('MAX(dateOrdered) as orderDate'),
+            'productImg',
+            'type',
+            'size',
             DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
             DB::raw('SUM(quantity) as totalQuantity'),
             DB::raw('MAX(deliveryStatus) as deliveryStatus'),
@@ -53,7 +55,9 @@ class AdminOrders extends Controller
                 'username',
                 'name',
                 'contactNo',
-                DB::raw('MAX(dateOrdered) as orderDate'),
+                'productImg',
+                'type',
+                'size',
                 DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
                 DB::raw('SUM(quantity) as totalQuantity'),
                 DB::raw('MAX(deliveryStatus) as deliveryStatus'),
@@ -80,7 +84,9 @@ class AdminOrders extends Controller
                     'username',
                     'name',
                     'contactNo',
-                    DB::raw('MAX(dateOrdered) as orderDate'),
+                    'productImg',
+                    'type',
+                    'size',
                     DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
                     DB::raw('SUM(quantity) as totalQuantity'),
                     DB::raw('MAX(deliveryStatus) as deliveryStatus'),

@@ -31,6 +31,7 @@ Route::put('/acceptorder',[AdminOrders::class, 'acceptorders'])->name('orders');
 Route::put('/completeorder',[AdminOrders::class,'completeorders'])->name('orders');
 Route::get('/product', [AdminDashboardController::class, 'productid'])->name('product');
 Route::put('/product', [AdminDashboardController::class, 'editProduct']);
+Route::put('/approve', [AdminDashboardController::class, 'approve']);
 Route::delete('/deletedesign',[AdminDashboardController::class, 'deleteproduct']);
 
 Route::get('/report', function(){
@@ -48,16 +49,14 @@ Route::get('/CustomerHotOrder-display', function(){
 });
 Route::get('/CustomerMyDesignOrder-display',[CustomerDisplayController::class, 'mydesign'])->name('CustomerMyDesignOrder-display');
 Route::get('/CustomerHotOrder-display',[CustomerDisplayController::class, 'hotdesign'])->name('CustomerHotOrder-display');
+Route::get('/CustomerNewOrder-display',[CustomerDisplayController::class, 'newdesign'])->name('CustomerNewOrder-display');
 Route::get('/CustomerNewDesigns', function(){
     return view('CustomerNewDesigns');
-});
-Route::get('/CustomerNewOrder-display', function(){
-    return view('CustomerNewOrder-display');
 });
 Route::get('/CustomerAddtoCart', [AddtoCartController::class, 'displaycart'])->middleware('auth')->name('CustomerAddtoCart');
 Route::post('/checkout', [AddtoCartController::class, 'checkout'])->middleware('auth')->name('CustomerAddtoCart');
 
-Route::get('/CustomerOrder-display', [CustomerOrderDisplay::class, 'customerPendingOrders'])->name('CustomerOrder-display');
+Route::get('/CustomerOrder-display', [CustomerOrderDisplay::class, 'customerPendingOrders'])->middleware('auth')->name('CustomerOrder-display');
 Route::get('/CustomerProductClicked-display', function(){
     return view('CustomerProductClicked-display');
 });

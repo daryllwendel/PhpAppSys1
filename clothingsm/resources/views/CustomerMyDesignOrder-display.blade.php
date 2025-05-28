@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{{ asset('css/CustomerMyDesignOrder-display.css')}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
   <div class="customerhot-container">
@@ -35,7 +36,7 @@
 
     <div class="overlay" id="overlay">
   <div class="product-modal" id="product-modal">
-      <form action="/addtocart" method="POST" class="addtocart">
+      <form action="/addtocart" method="POST" class="mydesigncart">
         @csrf
         <input type="hidden" name="customerId" value="{{ Auth::id() }}">
         <input type="hidden" name="productId" id="productId" >

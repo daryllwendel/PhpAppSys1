@@ -76,5 +76,16 @@ class CustomerDisplayController extends Controller
     return view('CustomerHotOrder-display', compact('mydesign2'));
 }
 
+public function newdesign(){
+    $newdesign = DB::table('vwproduct_with_sizes')
+        ->where('status', 'display')
+        ->orderBy('dateCreated', 'desc')
+        ->groupBy('productId') 
+        ->get();
+
+    return view('CustomerNewOrder-display', compact('newdesign'));
+}
+
+
 
 }
