@@ -32,47 +32,114 @@ function swiper(){
         },
     });
 }
-function loadCharts() {
-    const barchart = document.getElementById("barchart");
-    const doughnut = document.getElementById("doughnut");
+// function loadCharts() {
+//     const barchart = document.getElementById("barchart");
+//     const doughnut = document.getElementById("doughnut");
 
-    if (barchart) {
-        new Chart(barchart.getContext("2d"), {
-            type: "bar",
-            data: {
-                labels: ['Product A', 'Product B', 'Product C'],
-                datasets: [{
-                    label: 'Sales',
-                    data: [12, 19, 3],
-                    backgroundColor: ['red', 'blue', 'green']
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
-    }
+//     if (barchart) {
+//         new Chart(barchart.getContext("2d"), {
+//             type: "bar",
+//             data: {
+//                 labels: ['Product A', 'Product B', 'Product C'],
+//                 datasets: [{
+//                     label: 'Sales',
+//                     data: [12, 19, 3],
+//                     backgroundColor: ['red', 'blue', 'green']
+//                 }]
+//             },
+//             options: {
+//                 responsive: true,
+//                 scales: {
+//                     y: { beginAtZero: true }
+//                 }
+//             }
+//         });
+//     }
 
-    if (doughnut) {
-        new Chart(doughnut.getContext("2d"), {
-            type: "doughnut",
-            data: {
-                labels: ['Red', 'Blue', 'Green'],
-                datasets: [{
-                    label: 'Sales',
-                    data: [10, 20, 30],
-                    backgroundColor: ['red', 'blue', 'green']
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
+//     if (doughnut) {
+//         new Chart(doughnut.getContext("2d"), {
+//             type: "doughnut",
+//             data: {
+//                 labels: ['Red', 'Blue', 'Green'],
+//                 datasets: [{
+//                     label: 'Sales',
+//                     data: [10, 20, 30],
+//                     backgroundColor: ['red', 'blue', 'green']
+//                 }]
+//             },
+//             options: {
+//                 responsive: true
+//             }
+//         });
+//     }
+// }
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
     }
+    return color;
 }
+function loadCharts() {
+    fetch('/api/dashboard-chart-data')
+        .then(res => res.json())
+        .then(data => {
+            const labels = data.labels || [];
+            const quantities = (data.quantities || []).map(Number);
+            const sales = (data.sales || []).map(Number);
+
+            const barchart = document.getElementById("barchart");
+            const doughnut = document.getElementById("doughnut");
+
+            if (barchart) {
+                new Chart(barchart.getContext("2d"), {
+                    type: "bar",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Sales',
+                            data: sales,
+                            backgroundColor: labels.map(() => getRandomColor())
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            }
+
+            if (doughnut) {
+                new Chart(doughnut.getContext("2d"), {
+                    type: "doughnut",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Quantity Sold',
+                            data: quantities,
+                            backgroundColor: labels.map(() => getRandomColor())
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Failed to load chart data:", error);
+        });
+}
+
+
+
+// Load charts when the page is ready
+document.addEventListener('DOMContentLoaded', loadCharts);
+
+
 function profilepic(){
     const inputFile = document.getElementById("addimg");
     const profilePic = document.getElementById("newimg");

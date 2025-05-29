@@ -64,11 +64,20 @@
             <div class="charts-container">
                 <div class="chart">
                     <canvas class="doughnut" id="doughnut" height="300" width="300"></canvas>
+                    <canvas class="barchart" id="barchart" height="300" width="300"></canvas>
+                    {{-- <script>
+                        window.chartData = {
+                                labels: @json($chartReports->pluck('ProductName')),
+                                quantities: @json($chartReports->pluck('totalQuantity')),
+                                sales: @json($chartReports->pluck('totalSales'))
+                            };
+                    </script> --}}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

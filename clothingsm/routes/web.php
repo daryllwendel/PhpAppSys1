@@ -29,6 +29,7 @@ Route::get('/loading',function (){
 })->name('loading');
  
 Route::get('/dashboarddisplay',[AdminDisplayController::class, 'dashboardDisplay'])->name('dashboarddisplay');
+Route::get('/api/dashboard-chart-data', [AdminDisplayController::class, 'getChartData']);
 
 Route::get('/orders', [AdminOrders::class, 'viewOrders'])->name('orders');
 Route::post('/orders', [AdminOrders::class, 'acceptOrder'])->name('orders');

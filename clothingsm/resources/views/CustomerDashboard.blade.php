@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="{{asset("css/CustomerHotOrder-display.css")}}">
     <link rel="stylesheet" href="{{asset("css/CustomerNewOrder-display.css")}}">
     <link rel="stylesheet" href="{{asset("css/CustomerMyDesignOrder-display.css")}}">
-    <link rel="stylesheet" href="{{asset("css/CustomerProductClicked-display.css")}}">
     <link rel="stylesheet" href="{{asset('css/loading.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -30,7 +30,38 @@ class AdminDisplayController extends Controller
             ->where('deliveryStatus', 'delivered')
             ->get();
 
-       
-        return view('dashboarddisplay', compact('product', 'productCount', 'orders', 'reports'));
+
+        $chartReports = DB::table('vwordersummary')
+            ->select(
+                'ProductName',
+                DB::raw('SUM(quantity) as totalQuantity'),
+                DB::raw('SUM(charge + (quantity * unitPrice)) as totalSales')
+            )
+            ->where('deliveryStatus', 'delivered')
+            ->groupBy('ProductName')
+            ->get();
+
+        return view('dashboarddisplay', compact(
+            'product',
+            'productCount',
+            'orders',
+            'reports',         
+            'chartReports'     
+        ));
     }
+
+    public function getChartData()
+{
+    $chartReports = DB::table('vwordersummary')
+        ->select('ProductName', DB::raw('SUM(quantity) as totalQuantity'), DB::raw('SUM(totalItemPrice) as totalSales'))
+        ->where('deliveryStatus', 'delivered')
+        ->groupBy('ProductName')
+        ->get();
+
+    return response()->json([
+        'labels' => $chartReports->pluck('ProductName'),
+        'quantities' => $chartReports->pluck('totalQuantity'),
+        'sales' => $chartReports->pluck('totalSales'),
+    ]);
+}
 }

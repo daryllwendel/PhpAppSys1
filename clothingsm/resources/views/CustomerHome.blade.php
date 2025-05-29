@@ -23,7 +23,7 @@
   <div class="customerdashboard" id="customerdashboard">
     <div class="subTitle1">
       <div>Hot Designs🔥</div>
-      <img src="{{asset("images/sampleimg.png")}}" alt="">
+      <img src="{{asset("images/hotDesigns-icon.png")}}" alt="" style="width: auto; height: 100px;">
     </div>
     <div class="hotDesigns">
       <div class="hotDesigns-container swiper">
@@ -56,7 +56,7 @@
       <button id="explore" class="explore-new-button">Explore New Designs</button>
     </div>
     <div class="subTitle2">
-      <div></div>
+      <img src="{{asset("images/newDesigns-icon.png")}}" alt="" style="width: auto; height: 100px;">  
       <div>New Designs</div>
     </div>
     <div class="newDesigns">

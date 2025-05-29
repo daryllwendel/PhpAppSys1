@@ -847,7 +847,7 @@ function hotdesign() {
       if (designdisplay3) {
         console.log('haxasdadaha')
         document.getElementById("subTitle1").innerHTML = `
-                <div>Hot Design</div>
+                <div style="font-weight:bold">Hot Designs</div>
                 <img src="{{ asset('images/sampleimg.png')}}" alt="">`
         const content3 = document.getElementById("subTitle2");
         content3.innerHTML = "";
