@@ -67,7 +67,6 @@
         <div class="body1 fade-in" id="change-container" >
         </div>
         <script src="{{asset('js/customerJS.js')}}"></script>
-         <script src="{{asset('js/customerButtons.js')}}"></script>
         <script>const currentCustomerId = {{ Auth::id() }};</script>
      <script>
         const nav5 = document.getElementById('hamboger');
