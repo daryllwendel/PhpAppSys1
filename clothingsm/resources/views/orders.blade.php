@@ -67,7 +67,7 @@
                     
                     <div class="form-group2">
                         <label for="email2">Email</label>
-                        <input type="email" id="email2" name="email2" value="{{$orderItems->username}}" class="form-control2" readonly>
+                        <input type="email" id="email2" name="email2" value="{{$orderItems->email}}" class="form-control2" readonly>
                     </div>
                     
                     <div class="form-group2">
@@ -186,7 +186,7 @@
                     
                     <div class="form-group2">
                         <label for="email2">Email</label>
-                        <input type="email" id="email2" name="email2" value="{{$orderItems->username}}" class="form-control2" readonly>
+                        <input type="email" id="email2" name="email2" value="{{$orderItems->email}}" class="form-control2" readonly>
                     </div>
                     
                     <div class="form-group2">
@@ -304,7 +304,7 @@
                     
                     <div class="form-group2">
                         <label for="email2">Email</label>
-                        <input type="email" id="email2" name="email2" value="{{$orderItems->username}}" class="form-control2" readonly>
+                        <input type="email" id="email2" name="email2" value="{{$orderItems->email}}" class="form-control2" readonly>
                     </div>
                     
                     <div class="form-group2">

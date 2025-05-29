@@ -1,699 +1,702 @@
-  /* For disabled inputs in delete form */
-  .name3 input, .price3 input, .type2 input, .printtype2 input {
-    background-color: #f9f9f9;
-    cursor: not-allowed;
-  }
-
-  body {
-    width: 100%;
-    max-width: 100%;
-    background: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-  }
-
-  .productcontent {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: auto auto;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    gap: 20px;
-  }
-
-  .items-1 {
-    grid-column: 1;
-    border-radius: 10px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 15px;
-  }
-
-  .items-1 img {
-    width: 20px;
-    height: 20px;
-  }
-
-  .items-1 .searchbars {
-    flex-grow: 1;
-    outline: 0;
-    border: 0;
-    padding: 8px 15px;
-    border-radius: 20px;
-    background: #ffffff;
-  }
-
-  .items-1 .buttonsubmit {
-    background-color: #ffffff;
-    border: 0;
-    border-radius: 20px;
-    padding: 8px 15px;
-    cursor: pointer;
-  }
-
-  .items-1 button:hover {
-    background: pink;
-  }
-
-  .items-2 {
-    grid-column: 2;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
-
-  .items-2 button {
-    background: #ffffff;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 12px;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-  }
-
-  .items-2 button:hover {
-    background: #e0e0e0;
-    transform: translateY(-2px);
-  }
-
-  .items-2 img {
-    width: 20px;
-    height: 20px;
-  }
-
-  /* UPDATED ITEMS-3 SECTION */
-  .items-3 {
-    grid-column: 1 / 3;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
-    max-height: 600px;
-    overflow-y: auto;
-  }
-
-  /* Ensure product cards have proper positioning for absolute elements */
-  .items-3 .product-card {
-    position: relative;
-    background: white;
-    border-radius: 8px;
-    overflow: visible; /* Changed from hidden to visible */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    width: 100%;
-  }
-
-  /* First item with pink background */
-  .items-3 .product-card:first-child {
-    background: white; /* Changed from pink to white like other cards */
-    padding: 0; /* Remove extra padding */
-    border-radius: 8px; /* Match other cards */
-  }
-
-  .items-3 .product-card img {
-    width: 100%;
-    background: #f0f0f0;
-    object-fit: contain;
-    display: block;
-    padding: 5px;
-    height: 180px;
-  }
-
-  .items-3 .product-card:first-child img {
-    background-color: #f0f0f0; /* Match other cards */
-    border-radius: 0; /* Match other cards */
-  }
-
-  .items-3 .product-info {
-    padding: 10px;
-    padding-bottom: 40px; /* Add extra padding to prevent content overlap with buttons */
-    background: transparent;
-  }
-  .product-name .status1{
-    background: #FFBB00;
-    border-radius: 30px;
-    padding: 10px;
-  }
-  .items-3 .product-name {
-    display: flex;
-    font-size: 1.1em;
-    font-weight: bold;
-    margin-bottom: 5px;
-    justify-content: space-between;
-  }
-
-  .items-3 .product-type {
-    font-size: 0.9em;
-    color: #333;
-    margin-bottom: 5px;
-  }
-
-  .items-3 .product-sizes {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    margin-bottom: 8px;
-  }
-
-  .items-3 .size-badge {
-    background: #f0f0f0;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.8em;
-    color: #333;
-  }
-
-  .items-3 .product-card:first-child .product-actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 5px 0;
-    margin-top: 5px;
-  }
-
-  /* Improved product actions positioning */
-  .items-3 .product-card .product-actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px 0;
-    /* Position this at the bottom of the card but initially hidden */
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateY(100%); /* Start below the card */
-    z-index: 2;
-  }
-
-  /* Show actions on hover with animation */
-  .items-3 .product-card:hover .product-actions {
-    opacity: 1;
-    transform: translateY(0); /* Slide up into view */
-  }
-
-  /* Ensure buttons are styled properly */
-  .items-3 .product-card .product-actions button {
-    padding: 5px 15px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.8em;
-    text-transform: uppercase;
-    z-index: 3;
-  }
-
-  .items-3 .product-card .product-actions .edit-btn {
-    background: #2196F3;
-    color: white;
-  }
-
-  .items-3 .product-card .product-actions .delete-btn {
-    background: #f44336;
-    color: white;
-  }
-
-  /* Add a subtle hover effect to product cards */
-  .items-3 .product-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .items-3 .product-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  }
-  /* END OF UPDATED ITEMS-3 SECTION */
-
-  .sample1 input[type="file"] {
-    display: none;
-  }
-
-  .sample1 label {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    border-radius: 10px;
-  }
-
-  .sample1 label:hover {
-    background-color: #45a049;
-  }
-
-  /* Modal Styles - Adjusted to match the image */
-  .additem, .edititem, .deleteitem {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    width: 600px;
-    max-width: 95%;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    z-index: 1000;
-    display: none;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-
-  /* Modal overlay background */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    display: none;
-  }
-
-  .reject, .reject2, .reject3 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-  }
-
-  .reject button, .reject2 button, .reject3 button {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: #666;
-    padding: 0;
-    margin: 0;
-    order: -1;
-    margin-right: 20px;
-  }
-
-  .reject span, .reject2 span, .reject3 span {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-  }
-
-  .additem form, .edititem form, .deleteitem form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  /* Size choices styling */
-  .size-choices {
-    grid-column: 1 / -1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .size-choices label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 8px 12px;
-    background: #f5f5f5;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .size-choices label:hover {
-    background: #e0e0e0;
-  }
-
-  .size-choices input[type="checkbox"] {
-    margin: 0;
-  }
-
-  .sample1, .sample2, .sample3 {
-    grid-column: 1;
-    grid-row: 2 / span 4;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .sample1 img, .sample2 img, .sample3 img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-
-  .productid, .productid2, .productid3,
-  .name1, .name2, .name3,
-  .price1, .price2, .price3,
-  .category2, .category3,
-  .type2, .printtype2 {
-    position: relative;
-    margin-bottom: 20px;
-  }
-
-  /* Unified input styling for text inputs and select elements */
-  .productid input, .productid2 input, .productid3 input,
-  .name1 input, .name2 input, .name3 input,
-  .price1 input, .price2 input, .price3 input,
-  .category1 select, .type select, .edittype select, .printtype select,
-  .type2 input, .printtype2 input {
-    width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    outline: none;
-    background: transparent;
-    font-size: 1em;
-    color: #333;
-  }
-
-  /* Special styling for fixed product ID fields */
-  .productid2 input, .productid3 input {
-    background-color: #f9f9f9;
-    cursor: not-allowed;
-    padding-top: 15px;
-  }
-
-  .productid2 span, .productid3 span{
-    position: absolute;
-    top: 0px;
-    left: 0;
-    font-size: 0.8rem;
-    color: #333;
-    transition: none;
-  }
-
-  .name3 span,.price3 span,.type2 span,.printtype2 span {
-    position: absolute;
-    top: -15px;
-    left: 0;
-    font-size: 0.8rem;
-    color: #333;
-  }
-
-  .productid span, .name1 span, .name2 span,
-  .price1 span, .price2 span,
-  .category2 span {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    color: #999;
-    transition: 0.3s;
-    pointer-events: none;
-  }
-
-  .productid input:focus ~ span, .productid input:valid ~ span,
-  .name1 input:focus ~ span, .name2 input:focus ~ span, .name3 input:focus ~ span,
-  .price1 input:focus ~ span, .price2 input:focus ~ span, .price3 input:focus ~ span,
-  .category2 input:focus ~ span, .category3 input:focus ~ span,
-  .type2 input:focus ~ span, .printtype2 input:focus ~ span,
-  .name1 input:valid ~ span, .name2 input:valid ~ span, .name3 input:valid ~ span,
-  .price1 input:valid ~ span, .price2 input:valid ~ span, .price3 input:valid ~ span,
-  .category2 input:valid ~ span, .category3 input:valid ~ span,
-  .type2 input:valid ~ span, .printtype2 input:valid ~ span {
-    top: -15px;
-    left: 0;
-    font-size: 0.8rem;
-    color: #333;
-  }
-
-  /* Fix dropdown styling for edit modal */
-  .category1, .type, .edittype, .printtype {
-    position: relative;
-    margin-bottom: 20px;
-  }
-
-  /* Style dropdowns to match inputs */
-  .category1 select, .type select, .edittype select, .printtype select {
-    width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    outline: none;
-    background: transparent;
-    font-size: 1em;
-    color: #333;
-    border-radius: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 0 top 50%;
-  }
-
-  .submit-btn, .editbutton, .delete-btn {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .editbutton {
-    background-color: #2196F3;
-  }
-
-  .delete-btn {
-    background-color: #f44336;
-  }
-
-  .submit-btn:hover {
-    background-color: #45a049;
-  }
-
-  .editbutton:hover {
-    background-color: #0b7dda;
-  }
-
-  .delete-btn:hover {
-    background-color: #d32f2f;
-  }
-
-  /* Table styles - to be replaced with grid cards */
-  .items-3 table {
-    display: none;
-  }
-
-  /* Upload image styles for edit modal */
-  .sample2 input[type="file"] {
-    display: none;
-  }
-
-  .sample2 label {
-    display: inline-block;
-    background-color: #2196F3;
-    color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    border-radius: 10px;
-  }
-
-  .sample2 label:hover {
-    background-color: #0b7dda;
-  }
-
-  /* Size options styling */
-  .sizes {
-    grid-column: 1 / -1;
-    margin-bottom: 20px;
-  }
-
-  .sizes span {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-
-  .size-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .size-options label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 8px 12px;
-    background: #f5f5f5;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .size-options label:hover {
-    background: #e0e0e0;
-  }
-
-  @media (max-width: 768px) {
-    .productcontent {
-      grid-template-columns: 1fr;
-    }
-    
-    .items-1, .items-2 {
-      grid-column: 1;
-    }
-    
-    .items-2 {
-      justify-content: flex-start;
-    }
-    
-    .items-3 {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .items-3 .product-card .product-actions {
-      /* On mobile, always show the buttons instead of on hover */
-      opacity: 1;
-      transform: translateY(0);
-      position: static; /* Not absolute on mobile */
-      background-color: transparent;
-    }
-    
-    .items-3 .product-info {
-      padding-bottom: 10px; /* Reset padding on mobile */
-    }
-    
-    .additem, .edititem, .deleteitem {
-      width: 90%;
-      padding: 15px;
-    }
-    
-    .additem form, .edititem form, .deleteitem form {
-      grid-template-columns: 1fr;
-    }
-    
-    .sample1, .sample2, .sample3 {
-      grid-row: auto;
-      grid-column: 1;
-      margin-bottom: 20px;
-    }
-
-    .size-options {
-      justify-content: center;
-    }
-  }
-  /* Status dropdown styling - matches printType */
-  .status-container {
-    position: relative;
-    margin-bottom: 20px;
-  }
-
-  .status-container select {
-    width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    outline: none;
-    background: transparent;
-    font-size: 1em;
-    color: #333;
-    border-radius: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 0 top 50%;
-  }
-
-  .status-container span {
-    position: absolute;
-    top: -15px;
-    left: 0;
-    font-size: 0.8rem;
-    color: #333;
-  }
-
-  /* Style for status options */
-  .status-container option {
-    padding: 8px;
-  }
-
-  /* Style dropdown labels for better UI */
-  .status-container label,
-  .edittype label,
-  .printtype label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 0.8rem;
-    color: #333;
-  }
-
-  /* Add visual indicators for status values */
-  .status-hidden {
-    color: #f44336; /* Red for hidden */
-  }
-
-  .status-display {
-    color: #4CAF50; /* Green for display */
-  }
-
-  /* Match visibility select with status styling */
-  .visibility-select {
-    margin-left: 10px;
-    padding: 3px 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-color: white;
-    font-size: 0.8em;
-  }
-
-  /* Make sure all selects have consistent styling */
-  select {
-    cursor: pointer;
-  }
-
-  /* Add status indicators in product cards */
-  .product-status {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 3px 8px;
-    border-radius: 10px;
-    font-size: 0.7em;
-    font-weight: bold;
-    z-index: 1;
-  }
-
-  .status-display-badge {
-    background-color: rgba(76, 175, 80, 0.2);
-    color: #2e7d32;
-    border: 1px solid #2e7d32;
-  }
-
-  .status-hidden-badge {
-    background-color: rgba(244, 67, 54, 0.2);
-    color: #c62828;
-    border: 1px solid #c62828;
-  }
-  @media (max-width: 480px) {
-    .items-3 {
-      grid-template-columns: 1fr;
-    }
-  }
+/* For disabled inputs in delete form */
+        .name3 input, .price3 input, .type2 input, .printtype2 input {
+            background-color: #f9f9f9;
+            cursor: not-allowed;
+        }
+
+        body {
+            width: 100%;
+            max-width: 100%;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .productcontent {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: auto auto;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .items-1 {
+            grid-column: 1;
+            border-radius: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+        }
+
+        .items-1 img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .items-1 .searchbars {
+            flex-grow: 1;
+            outline: 0;
+            border: 0;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: #ffffff;
+        }
+
+        .items-1 .buttonsubmit {
+            background-color: #ffffff;
+            border: 0;
+            border-radius: 20px;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .items-1 button:hover {
+            background: pink;
+        }
+
+        .items-2 {
+            grid-column: 2;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .items-2 button {
+            background: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .items-2 button:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .items-2 img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* UPDATED ITEMS-3 SECTION */
+        .items-3 {
+            grid-column: 1 / 3;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .items-3 .product-card {
+            position: relative;
+            background: white;
+            border-radius: 8px;
+            overflow: visible;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: 100%;
+        }
+
+        .items-3 .product-card img {
+            width: 100%;
+            background: #f0f0f0;
+            object-fit: contain;
+            display: block;
+            padding: 5px;
+            height: 180px;
+        }
+
+        .items-3 .product-info {
+            padding: 10px;
+            padding-bottom: 40px;
+            background: transparent;
+        }
+
+        .product-name .status1{
+            background: #FFBB00;
+            border-radius: 30px;
+            padding: 10px;
+        }
+
+        .items-3 .product-name {
+            display: flex;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            justify-content: space-between;
+        }
+
+        .items-3 .product-type {
+            font-size: 0.9em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .items-3 .product-sizes {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .items-3 .size-badge {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            color: #333;
+        }
+
+        .items-3 .product-card .product-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(100%);
+            z-index: 2;
+        }
+
+        .items-3 .product-card:hover .product-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .items-3 .product-card .product-actions button {
+            padding: 5px 15px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            z-index: 3;
+        }
+
+        .items-3 .product-card .product-actions .edit-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        .items-3 .product-card .product-actions .delete-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .items-3 .product-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .items-3 .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .sample1 input[type="file"] {
+            display: none;
+        }
+
+        .sample1 label {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .sample1 label:hover {
+            background-color: #45a049;
+        }
+
+        /* Modal Styles - Fixed for better UI */
+        .additem, .edititem, .deleteitem {
+            position: fixed;
+            top: 57%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            width: 700px;
+            max-width: 95%;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Modal overlay background */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .reject, .reject2, .reject3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .reject button, .reject2 button, .reject3 button {
+            background: #f44336;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .reject button:hover, .reject2 button:hover, .reject3 button:hover {
+            background: #d32f2f;
+            transform: scale(1.1);
+        }
+
+        .reject span, .reject2 span, .reject3 span {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .additem form, .edititem .editProduct, .deleteitem form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .sample1, .sample2, .sample3 {
+            grid-column: 1;
+            grid-row: 1 / span 4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px dashed #ddd;
+        }
+
+        .sample1 img, .sample2 img, .sample3 img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .productid, .productid2, .productid3,
+        .name1, .name2, .name3,
+        .price1, .price2, .price3,
+        .category2, .category3,
+        .type2, .printtype2 {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .productid input, .productid2 input, .productid3 input,
+        .name1 input, .name2 input, .name3 input,
+        .price1 input, .price2 input, .price3 input,
+        .category1 select, .type select, .edittype select, .printtype select,
+        .type2 input, .printtype2 input {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            outline: none;
+            background: transparent;
+            font-size: 1em;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+        .productid input:focus, .name1 input:focus, .name2 input:focus,
+        .price1 input:focus, .price2 input:focus,
+        .category1 select:focus, .type select:focus, .edittype select:focus, .printtype select:focus {
+            border-bottom-color: #2196F3;
+        }
+
+        .productid2 input, .productid3 input, .price2 input {
+            background-color: #f9f9f9;
+            cursor: not-allowed;
+            padding-top: 20px;
+        }
+
+        .productid2 span, .productid3 span ,.price2 span{
+            position: absolute;
+            top: 0px;
+            left: 0;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .name3 span,.price3 span,.type2 span,.printtype2 span {
+            position: absolute;
+            top: -18px;
+            left: 0;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .productid span, .name1 span, .name2 span,
+        .price1 span, .price2 span {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            color: #999;
+            transition: 0.3s;
+            pointer-events: none;
+            font-weight: 500;
+        }
+
+        .productid input:focus ~ span, .productid input:valid ~ span,
+        .name1 input:focus ~ span, .name2 input:focus ~ span,
+        .price1 input:focus ~ span, .price2 input:focus ~ span,
+        .name1 input:valid ~ span, .name2 input:valid ~ span,
+        .price1 input:valid ~ span, .price2 input:valid ~ span {
+            top: -18px;
+            left: 0;
+            font-size: 0.9rem;
+            color: #2196F3;
+            font-weight: 500;
+        }
+
+        .category1, .type, .edittype, .printtype {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .category1 select, .type select, .edittype select, .printtype select {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            outline: none;
+            background: transparent;
+            font-size: 1em;
+            color: #333;
+            border-radius: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 0 top 50%;
+            cursor: pointer;
+        }
+
+        .submit-btn, .editbutton, .delete-btn {
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .editbutton {
+            background-color: #2196F3;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .editbutton:hover {
+            background-color: #0b7dda;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .delete-btn:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .sample2 input[type="file"] {
+            display: none;
+        }
+
+        .sample2 label {
+            display: inline-block;
+            background-color: #2196F3;
+            color: white;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .sample2 label:hover {
+            background-color: #0b7dda;
+            transform: translateY(-2px);
+        }
+
+        .sizes {
+            grid-column: 1 / -1;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .sizes span {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .size-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .size-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .size-options label:hover {
+            background: #e3f2fd;
+            border-color: #2196F3;
+        }
+
+        .size-options input[type="checkbox"]:checked + label,
+        .size-options label:has(input[type="checkbox"]:checked) {
+            background: #2196F3;
+            color: white;
+            border-color: #2196F3;
+        }
+
+        .status-container {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .status-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .status-container select {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            outline: none;
+            background: transparent;
+            font-size: 1em;
+            color: #333;
+            border-radius: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 0 top 50%;
+            cursor: pointer;
+        }
+
+        .status-container select:focus {
+            border-bottom-color: #2196F3;
+        }
+
+        /* FIXED APPROVE SECTION STYLING */
+        .approve {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid #ff9800;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
+        }
+
+        .approve p {
+            margin: 0 0 20px 0;
+            font-size: 1.1em;
+            color: #e65100;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .approve button {
+            padding: 12px 24px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+
+        .approve button[type="submit"] {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+            box-shadow: 0 3px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .approve button[type="submit"]:hover {
+            background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .approve button[type="button"] {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+            color: white;
+            box-shadow: 0 3px 8px rgba(244, 67, 54, 0.3);
+        }
+
+        .approve button[type="button"]:hover {
+            background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+        }
+
+        .approve .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .productcontent {
+                grid-template-columns: 1fr;
+            }
+            
+            .items-1, .items-2 {
+                grid-column: 1;
+            }
+            
+            .items-2 {
+                justify-content: flex-start;
+            }
+            
+            .items-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .items-3 .product-card .product-actions {
+                opacity: 1;
+                transform: translateY(0);
+                position: static;
+                background-color: transparent;
+            }
+            
+            .items-3 .product-info {
+                padding-bottom: 10px;
+            }
+            
+            .additem, .edititem, .deleteitem {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            .additem form, .edititem .editProduct, .deleteitem form {
+                grid-template-columns: 1fr;
+            }
+            
+            .sample1, .sample2, .sample3 {
+                grid-row: auto;
+                grid-column: 1;
+                margin-bottom: 20px;
+            }
+
+            .size-options {
+                justify-content: center;
+            }
+
+            .approve {
+                padding: 15px;
+            }
+
+            .approve button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .approve .button-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .items-3 {
+                grid-template-columns: 1fr;
+            }
+        }

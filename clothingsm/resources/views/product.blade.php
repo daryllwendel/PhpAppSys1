@@ -139,7 +139,7 @@
     
     <!-- Edit Item Modal -->
     <div class="edititem" id="editModal">
-        <form class="editProduct" action="/product" method="POST" enctype="multipart/form-data">
+        <form class="editProduct" action="/products" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="reject2">
@@ -159,13 +159,13 @@
             </div>
      
             <div class="name2">
-                <input type="text" required="required" name="editName" id="editName">
+                <input type="text" required="required" name="editName" id="editName" >
                 <span>Name</span>
             </div>
     
             <div class="price2">
-                <input type="text" required="required" name="editPrice" id="editPrice">
-                <span>Price</span>
+                <input type="text" required="required" name="editPrice" id="editPrice"  >
+                <span>Price</span>  
             </div> 
     
             <div class="edittype">
