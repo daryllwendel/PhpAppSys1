@@ -1,25 +1,34 @@
 <?php
 
+use App\Models\User;
 use App\Http\Controllers\AddADesign;
 use App\Http\Controllers\addressform;
 use App\Http\Controllers\AdminOrders;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\registerform;
 
+use App\Http\Controllers\registerform;
 use function Laravel\Prompts\password;
+use App\Http\Controllers\OtpController;
+use App\Http\Controllers\ForgotPassword;
 use App\Http\Controllers\CustomerDisplay;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\passwordcontroller;
 use App\Http\Controllers\AddtoCartController;
 use App\Http\Controllers\CustomerOrderDisplay;
 use App\Http\Controllers\AdminDisplayController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CustomerDisplayController;
-use App\Http\Controllers\ReportController;
+Route::get('/send-otp-ui', function () {
+    return view('CustomerForgot-password');
+});
 
+Route::get('/CustomerForgot-password', function () {
+    return view('CustomerForgot-password');
+});
+
+
+Route::post('/reset-password', [ForgotPassword::class, 'forgotpassword']);
 Route::get('/', [CustomerDisplayController::class, 'LandingPageDisplay']);
-//Route::get('/', function(){
-//    return view('LandingPage');
-//});
 Route::get('/login', function () {
     return view('login');
 })->name('login');

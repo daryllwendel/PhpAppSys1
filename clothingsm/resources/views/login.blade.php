@@ -73,7 +73,7 @@
 				<div class="error-message" id="login-password-error"></div>
 			</div>
 			
-			<a href="#">Forgot your password?</a>
+			<a href="/CustomerForgot-password">Forgot your password?</a>
 			<p id="loginMsg" class="msg"></p>
 			<button>Sign In</button>
 		</form>
