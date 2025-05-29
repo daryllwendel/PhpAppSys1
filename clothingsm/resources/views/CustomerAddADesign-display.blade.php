@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add a Design</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/CustomerAddADesign-display.css') }}">
 </head>
 <body>
     <div class="completed-container">
-        <form action="/addadesign" method="POST" enctype="multipart/form-data">
+        <form action="/addadesign" class="addadesign" method="POST" enctype="multipart/form-data">
             @csrf
         <div class="add-a-design-container" id="add-a-design-container">
             <div class="import-design-container">
