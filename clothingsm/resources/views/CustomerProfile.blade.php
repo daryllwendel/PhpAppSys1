@@ -36,7 +36,7 @@
                     <div class="item-01">
                         <form action="{{route('user.upload')}}" class="profileimgage" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div>
+                            <div> 
                                 @if(Auth::user()->profile)
                                     <img class="user-image" src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile Picture" id="profile-pic">
                                 @else

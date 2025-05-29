@@ -31,7 +31,11 @@
   <div class="main-container">
  <nav class="nav">
             <div class="userNav">
-                  <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile Picture" class="profile-picture">
+                @if(Auth::user()->profile)
+                    <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile Picture" class="profile-picture">
+                @else
+                    <img src="{{ asset('images/user.png') }}" alt="Profile Picture" class="profile-picture">
+                @endif
 
                 <div class="user-info desktop-only">
                     <p class="customer-name">{{ $user->username }}</p>
