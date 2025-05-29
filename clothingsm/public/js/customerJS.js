@@ -4,6 +4,30 @@ function toggleMenu() {
     const nav = document.querySelector(".nav");
     nav.classList.toggle("expanded");
 }
+function loadloading(){
+    fetch('/loading')
+    .then(res => res.text())
+    .then((html)=>{
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        const loading = doc.querySelector('.loader-wrapper')
+        if(loading){
+           const content =document.getElementById('change-container')
+            content.innerHTML=''
+            content.appendChild(loading)
+        }else{
+            console.log('error loading')
+        }
+    }).catch((err) => console.error("Failed to load dashboard content:", err))
+}
+function clearLoading() {
+    const body = document.getElementById('change-container');
+    const loader = body.querySelector('.loader-wrapper');
+    if (loader) {
+        loader.remove();
+    }
+}
 
 function profileset(){
         const profile = document.getElementById("customerProfile");
@@ -125,7 +149,8 @@ function swipe(){
         }
     
     });
-}function initProductOverlay4(){
+}
+function initProductOverlay4(){
   const buyButtons = document.querySelectorAll(".buy-button");
   const overlay = document.getElementById("overlay");
   const modal = document.getElementById("product-modal");
@@ -345,6 +370,7 @@ function initCartListeners() {
 
      document.querySelectorAll(".addtocart").forEach(form => {
         form.addEventListener("submit", function(e) {
+          loadloading()
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -367,6 +393,7 @@ function initCartListeners() {
                 }
             })
             .catch(err => {
+              clearLoading()
                 console.error("Error:", err);
             });
         });
@@ -374,6 +401,7 @@ function initCartListeners() {
   }
    
   function loadcustomerdashboard() {
+    loadloading()
     fetch('/CustomerHome')
       .then(res => res.text())
       .then((html) => {
@@ -403,11 +431,15 @@ function initCartListeners() {
           swipe(); 
           initCartListeners();
           initProductOverlay()
+          clearLoading()
         } else {
           console.log('Failed to find dashboard content in response.');
         }
       })
-      .catch((err) => console.error("Failed to load dashboard content:", err));
+      .catch((err) => {
+        console.error("Failed to load customer:", err);
+        clearLoading(); 
+    });
   }
 
 
@@ -639,7 +671,7 @@ if (checkoutForm) {
           document.querySelectorAll(".deletecart").forEach(form => {
           form.addEventListener("submit", function(e) {
             e.preventDefault();
-
+            loadloading
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
@@ -660,6 +692,8 @@ if (checkoutForm) {
                 }
             })
             .catch(err => {
+
+              clearLoading()
                 console.error("Error:", err);
             });
         });
@@ -668,7 +702,6 @@ if (checkoutForm) {
      document.querySelectorAll(".checkout").forEach(form => {
         form.addEventListener("submit", function(e) {
             e.preventDefault();
-
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
@@ -681,25 +714,29 @@ if (checkoutForm) {
                 body: formData,
             })
             .then(res => {
-                if (res.ok) {      
-                  document.body.style.overflow = "auto";
-                  const checkoutForm = document.querySelector('.checkout-form');
-                  checkoutForm.style.opacity = '0.3'; // Faded look
-                  checkoutForm.style.pointerEvents = 'none'; // Disables all clicks, form submission, etc.
-                  checkoutForm.style.userSelect = 'none'; // Optional: Prevent text selection
-                  checkoutForm.style.overflow = 'hidden'; // Optional: Disable scroll if form has scrollable content
-                  document.querySelector('.confirmation-container').style.display='block'
+                if (res.ok) { 
+                  confirmcontainer()  
                 } else {
                     alert("Failed to accept order.");
                 }
             })
             .catch(err => {
+              confirmcontainer()
                 console.error("Error:", err);
             });
         });
     });
       });
      
+}
+function confirmcontainer(){
+  document.body.style.overflow = "auto";
+  const checkoutForm = document.querySelector('.checkout-form');
+  checkoutForm.style.opacity = '0.3'; // Faded look
+  checkoutForm.style.pointerEvents = 'none'; // Disables all clicks, form submission, etc.
+  checkoutForm.style.userSelect = 'none'; // Optional: Prevent text selection
+  checkoutForm.style.overflow = 'hidden'; // Optional: Disable scroll if form has scrollable content
+  document.querySelector('.confirmation-container').style.display='block'
 }
 
 function sortorders() {
@@ -779,7 +816,7 @@ function hotdesign(){
                 document.querySelectorAll(".hotdesigncart").forEach(form => {
                 form.addEventListener("submit", function(e) {
                 e.preventDefault();
-
+                  loadloading()
                 const formData = new FormData(form);
                 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
@@ -794,7 +831,8 @@ function hotdesign(){
                 .then(res => {
                     if (res.ok) {      
                       document.body.style.overflow = "auto";
-                        hotdesign();
+                      clearLoading();
+                        loaddesigns()
                     } else {
                         alert("Failed to accept order.");
                     }
@@ -833,7 +871,7 @@ function newdesign(){
                 document.querySelectorAll(".newdesigncart").forEach(form => {
                 form.addEventListener("submit", function(e) {
                 e.preventDefault();
-
+                  loadloading()
                 const formData = new FormData(form);
                 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
@@ -848,7 +886,8 @@ function newdesign(){
                 .then(res => {
                     if (res.ok) {      
                       document.body.style.overflow = "auto";
-                        newdesign();
+                      clearLoading();
+                        loaddesigns()
                     } else {
                         alert("Failed to accept order.");
                     }
@@ -863,11 +902,6 @@ function newdesign(){
             console.log('okay')
         }
     })
-}
-function test(){
-  const newdesign1  = document.getElementById("new")
-  newdesign1.addEventListener('click', newdesign)
-  alert('aahahah')
 }
 function mydesign(){
   fetch('/CustomerMyDesignOrder-display')
@@ -892,7 +926,7 @@ function mydesign(){
                 document.querySelectorAll(".mydesigncart").forEach(form => {
                 form.addEventListener("submit", function(e) {
                 e.preventDefault();
-
+                  loadloading()
                 const formData = new FormData(form);
                 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
@@ -907,7 +941,8 @@ function mydesign(){
                 .then(res => {
                     if (res.ok) {      
                       document.body.style.overflow = "auto";
-                        mydesign();
+                      clearLoading();
+                        loaddesigns()
                     } else {
                         alert("Failed to accept order.");
                     }
@@ -922,33 +957,42 @@ function mydesign(){
         }
     })
 }
-function loaddesigns(){
+function loaddesigns() {
+    loadloading();
+
     fetch('/CustomerNewDesigns')
     .then(res => res.text())
-    .then((html)=>{
-        const parser = new DOMParser()
-        const doc = parser.parseFromString(html,"text/html")
- 
-        const designdisplay = doc.querySelector(".main-container")
-        if(designdisplay){
-            console.log(' design daw')
-            document.getElementById("title").innerHTML=`
-            <div>Designs</div>`
+    .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        const designdisplay = doc.querySelector(".main-container");
+
+        if (designdisplay) {
+            console.log('design daw');
+            document.getElementById("title").innerHTML = `<div>Designs</div>`;
+
             const content = document.getElementById("change-container");
             content.innerHTML = "";
-            content.appendChild(designdisplay)
-             if(designdisplay){
-                document.getElementById("hot").addEventListener('click', hotdesign())
-                document.getElementById("hot").addEventListener('click', hotdesign)
-                document.getElementById("new").addEventListener('click', newdesign)
-                document.getElementById("my").addEventListener('click', mydesign)
-             }
-             
-        }else{
-            console.log('okayss')
+            content.appendChild(designdisplay);
+
+            // ✅ Only add listeners without immediately calling the functions
+            document.getElementById("hot").addEventListener('click', hotdesign());
+            document.getElementById("hot").addEventListener('click', hotdesign);
+            document.getElementById("new").addEventListener('click', newdesign);
+            document.getElementById("my").addEventListener('click', mydesign);
+        } else {
+            console.log('no design found');
         }
+
+        clearLoading();
     })
+    .catch((err) => {
+        console.error("Failed to load designs:", err);
+        clearLoading(); // Make sure to remove loader even on failure
+    });
 }
+
   function handleButtonClick(category) {
             console.log('Button clicked:', category);
             
@@ -966,6 +1010,7 @@ function loaddesigns(){
             
         }
 function loadprofile(){
+  loadloading()
     fetch('/CustomerProfile')
     .then(res => res.text())
     .then((html)=>{
@@ -984,7 +1029,7 @@ function loadprofile(){
             document.querySelectorAll(".location").forEach(form => {
             form.addEventListener("submit", function(e) {
             e.preventDefault();
-
+            loadloading()
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
@@ -997,14 +1042,14 @@ function loadprofile(){
                 body: formData,
             })
             .then(res => {
-                if (res.ok) {     
-                  alert("Update Successfully!");
+                if (res.ok) {    
                   loadprofile();
                 } else {
                     alert("Failed to accept order.");
                 }
             })
             .catch(err => {
+              clearLoading()
                 console.error("Error:", err);
             });
         });
@@ -1013,7 +1058,7 @@ function loadprofile(){
         document.querySelectorAll(".profileimgage").forEach(form => {
               form.addEventListener("submit", function(e) {
               e.preventDefault();
-
+                loadloading()
               const formData = new FormData(form);
               const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
@@ -1035,6 +1080,7 @@ function loadprofile(){
                   }
               })
               .catch(err => {
+                clearLoading()
                   console.error("Error:", err);
               });
           });
@@ -1042,10 +1088,14 @@ function loadprofile(){
             profileset()
             profilepic()
             address();
+            clearLoading()
         }else{
             console.log('okay')
         }
-    })
+    }).catch((err) => {
+        console.error("Failed to load profile:", err);
+        clearLoading(); // Make sure to remove loader even on failure
+    });
 }
 function attachOverlayEvents() {
     const orderElements = document.querySelectorAll(".order-row");
@@ -1073,6 +1123,7 @@ function attachOverlayEvents() {
 }  
 
 function loadorders(){
+  loadloading()
     fetch('/CustomerOrder-display')
     .then(res => res.text())
     .then((html) => {
@@ -1089,13 +1140,15 @@ function loadorders(){
             document.getElementById('statusFilter').addEventListener('change', toggleOrderList);
             document.getElementById('sortOptions').addEventListener('change', sortOrders);
             attachOverlayEvents()
+            clearLoading()
         } else {
             console.log('Failed to load .orderscont');
             console.log(orderdisplay);
         }
     })
-    .catch(err => {
-        console.error("Failed to fetch /CustomerOrder-display:", err);
+    .catch((err) => {
+        console.error("Failed to load orders:", err);
+        clearLoading(); // Make sure to remove loader even on failure
     });
 }
 
@@ -1115,6 +1168,7 @@ function profile3(){
   });
 }
 function adddesign(){
+  loadloading()
     fetch('/CustomerAddADesign-display')
     .then(res => res.text())
     .then((html)=>{
@@ -1130,12 +1184,13 @@ function adddesign(){
             content.innerHTML = "";
             content.appendChild(addadesign)
             profile3()
+            clearLoading()
             document.getElementById('cancel').addEventListener('click', loadcustomerdashboard)
 
             document.querySelectorAll(".addadesign").forEach(form => {
                 form.addEventListener("submit", function(e) {
                 e.preventDefault();
-
+                  loadloading()
                 const formData = new FormData(form);
                 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
@@ -1150,13 +1205,13 @@ function adddesign(){
                 .then(res => {
                     if (res.ok) {      
                       document.body.style.overflow = "auto";
-                      alert('Add design successful')
                         loaddesigns();
                     } else {
                         alert("Failed to add a design.");
                     }
                 })
                 .catch(err => {
+                  clearLoading()
                     console.error("Error:", err);
                 });
             });
@@ -1164,7 +1219,10 @@ function adddesign(){
         }else{
             console.log('okay')
         }
-    })
+    }).catch((err) => {
+        console.error("Failed to load add a design:", err);
+        clearLoading(); // Make sure to remove loader even on failure
+    });
 }
 
 function profilepic(){
@@ -1183,83 +1241,6 @@ function profilepic(){
             reader.readAsDataURL(file);
         }
     });
-}
-function changepass() {
-  const changepassForm = document.querySelector('#changepassform');
-const msg = document.getElementById('changepassMsg'); 
-
-changepassForm.addEventListener('submit', async e => {
-    e.preventDefault();  
-
-    msg.className = 'msg';
-    msg.textContent = 'Updating…';
-
-    const currpass = changepassForm.currpass.value;
-    const newpass = changepassForm.newpass.value;
-    const renewpass = changepassForm.renewpass.value;
-
-    if (!currpass) {
-        msg.classList.add('error');
-        msg.textContent = 'Current password is required.';
-        return;
-    }
-
-    if (!newpass) {
-        msg.classList.add('error');
-        msg.textContent = 'New password is required.';
-        return;
-    }
-
-    if (!renewpass) {
-        msg.classList.add('error');
-        msg.textContent = 'Please retype the new password.';
-        return;
-    }
-
-    if (newpass !== renewpass) {
-        msg.classList.add('error');
-        msg.textContent = 'New passwords do not match.';
-        return;
-    }
-
-    const payload = new URLSearchParams({
-        currpass: currpass,
-        newpass: newpass,
-        renewpass: renewpass,
-        _token: changepassForm._token.value
-    });
-
-    const ajaxURL = '/ajax/changepass'; // correct endpoint
-
-    try {
-        const r = await fetch(ajaxURL, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json' },
-            body: payload
-        });
-
-        const data = await r.json();
-
-        if (r.ok && data.ok) { 
-            msg.classList.add('ok');
-            msg.textContent = data.message || 'Password validated successfully!'; 
-            setTimeout(() => {
-                window.location = '/CustomerDashboard';
-            }, 1200);
-        } else {
-            msg.classList.add('error');
-            msg.textContent = data.message || 'Failed to validate password.'; 
-        }
-
-    } catch (err) {
-        msg.classList.add('error');
-        msg.textContent = 'Server error – please try again.';
-        console.error(err);
-    }
-});
-
-
-
 }
 
 

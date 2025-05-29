@@ -179,7 +179,18 @@ function optionitem() {
 
                  document.getElementById('editimg').disabled= false
                 document.getElementById('editName').disabled= false
-                document.getElementById('editPrice').disabled= false
+                const input = document.getElementById('editPrice');
+
+                input.readOnly = false; // NOT readonly
+
+                // Prevent typing and pasting
+                input.addEventListener('keydown', (e) => {
+                e.preventDefault(); // block key input
+                });
+                input.addEventListener('paste', (e) => {
+                e.preventDefault(); // block paste
+                });
+
                 document.getElementById('editCategory').disabled= false
                 document.getElementById('editprintType').disabled= false
                 document.getElementById('add-status').disabled= false
@@ -237,8 +248,8 @@ function optionitem() {
 
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
-
-            fetch("/product", {
+            loadloading()
+            fetch("/products    ", {
                 method: "POST",
                 headers: {
                     "X-CSRF-TOKEN": csrfToken,
@@ -258,6 +269,7 @@ function optionitem() {
                 }
             })
             .catch(err => {
+                clearLoading()
                 console.error("Error:", err);
             });
         });
@@ -271,6 +283,7 @@ function optionitem() {
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
+            loadloading()   
             fetch("/adddesign", {
                 method: "POST",
                 headers: {
@@ -291,6 +304,7 @@ function optionitem() {
                 }
             })
             .catch(err => {
+                clearLoading()
                 console.error("Error:", err);
             });
         });
@@ -302,7 +316,7 @@ function optionitem() {
 
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
-
+            loadloading()
             fetch("/approve", {
                 method: "POST",
                 headers: {
@@ -323,6 +337,7 @@ function optionitem() {
                 }
             })
             .catch(err => {
+                clearLoading()
                 console.error("Error:", err);
             });
         });
@@ -334,7 +349,7 @@ function optionitem() {
 
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
-
+            loadloading()
             fetch("/deletedesign", {
                 method: "POST",
                 headers: {
@@ -355,12 +370,36 @@ function optionitem() {
                 }
             })
             .catch(err => {
+                clearLoading()
                 console.error("Error:", err);
             });
         });
     });
 }
+function loadloading(){
+    fetch('/loading')
+    .then(res => res.text())
+    .then((html)=>{
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
 
+        const loading = doc.querySelector('.loader-wrapper')
+        if(loading){
+           const content =document.getElementById('body1')
+            content.innerHTML=''
+            content.appendChild(loading)
+        }else{
+            console.log('error loading')
+        }
+    }).catch((err) => console.error("Failed to load dashboard content:", err))
+}
+function clearLoading() {
+    const body = document.getElementById('body1');
+    const loader = body.querySelector('.loader-wrapper');
+    if (loader) {
+        loader.remove();
+    }
+}
 function loaddashboard(){
         fetch("/dashboarddisplay")
         .then(res => res.text())
@@ -557,7 +596,7 @@ function attachOverlayEvents() {
 
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
-
+            loadloading()
             fetch("/acceptorder", {
                 method: "POST",
                 headers: {
@@ -579,6 +618,7 @@ function attachOverlayEvents() {
                     
                     orders();
                 } else {
+                    clearLoading()
                     alert("Failed to accept order.");
                 }
             })
@@ -591,10 +631,11 @@ function attachOverlayEvents() {
     document.querySelectorAll(".accept-form2").forEach(form => {
         form.addEventListener("submit", function(e) {
             e.preventDefault();
+            loadloading()
 
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
-
+            
             fetch("/completeorder", {
                 method: "POST",
                 headers: {
@@ -620,6 +661,7 @@ function attachOverlayEvents() {
                 }
             })
             .catch(err => {
+                clearLoading()
                 console.error("Error:", err);
             });
         });

@@ -10,6 +10,7 @@
             <link rel="stylesheet" href="{{ asset('css/order.css') }}" />
             <link rel="stylesheet" href="{{ asset('css/products.css') }}" />
             <link rel="stylesheet" href="{{ asset('css/reports.css') }}" />
+            <link rel="stylesheet" href="{{asset('css/loading.css')}}">
             <script src="{{ asset('js/dashboard.js') }}"></script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
             <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

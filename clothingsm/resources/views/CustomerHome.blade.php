@@ -19,7 +19,7 @@
   <div class="dashboardtitle" id="dashboardtitle">
     <div>Home</div>
     <img src="{{asset("images/logo.png")}}" alt="">
-  </div> 
+  </div>
   <div class="customerdashboard" id="customerdashboard">
     <div class="subTitle1">
       <div>Hot Designs🔥</div>
@@ -36,11 +36,11 @@
                 <h2 class="card-title">{{ $item->name }}</h2>
               </button>
               <button class="buy-button card-link"
-                data-id="{{ $item->productId }}" 
-                data-name="{{ $item->name }}" 
-                data-price="{{ $item->price }}" 
-                data-type="{{ $item->type }}" 
-                data-printtype="{{ $item->printType }}" 
+                data-id="{{ $item->productId }}"
+                data-name="{{ $item->name }}"
+                data-price="{{ $item->price }}"
+                data-type="{{ $item->type }}"
+                data-printtype="{{ $item->printType }}"
                 data-img="{{ asset('storage/' . $item->productImg) }}"
                 data-status="{{ $item->status }}">
                 Buy
@@ -70,18 +70,18 @@
                 <h2 class="card-title">{{ $item->name }}</h2>
               </button>
               <button class="buy-button card-link"
-                data-id="{{ $item->productId }}" 
-                data-name="{{ $item->name }}" 
-                data-price="{{ $item->price }}" 
-                data-type="{{ $item->type }}" 
-                data-printtype="{{ $item->printType }}" 
+                data-id="{{ $item->productId }}"
+                data-name="{{ $item->name }}"
+                data-price="{{ $item->price }}"
+                data-type="{{ $item->type }}"
+                data-printtype="{{ $item->printType }}"
                 data-img="{{ asset('storage/' . $item->productImg) }}"
                 data-status="{{ $item->status }}">
                 Buy
               </button>
             </li>
             @endforeach
-          </ul> 
+          </ul>
           <div class="swiper-pagination"></div>
           <div class="swiper-slide-button swiper-button-prev"></div>
           <div class="swiper-slide-button swiper-button-next"></div>
@@ -99,7 +99,7 @@
       </div>
     </div>
   </div>
-</div>   
+</div>
 <div class="overlay" id="overlay">
   <div class="product-modal" id="product-modal">
       <form action="/addtocart" method="POST" class="addtocart">
@@ -110,13 +110,13 @@
 
           <button type="button" class="close-btn" aria-label="Close" id="close-btn">×</button>
           <div class="modal-header" name="product_name">Black and Yellow Gaming Sports Jersey</div>
-          
+
           <img src="{{ asset('storage/product-image.jpg') }}" alt="Black and Yellow Gaming Sports Jersey" class="product-image" id="modal-product-image">
-          
+
           <div class="product-info">
               <div class="price">₱ <span id="modal-price" name="product_price">360</span></div>
           </div>
-          
+
           <div class="button-container">
               <button type="submit" class="add-to-cart-btn">Add to cart</button>
           </div>

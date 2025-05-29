@@ -40,9 +40,15 @@ class AddADesign extends Controller
                 'printType' => $field['printType'], 
                 'productImg' => $path,
                 'customerId' => $field['customerId'],
-                'price' => 350,
                 'dateCreated' => now() 
             ]);
+            if ($field['type'] == 'Polo') {
+                $product['price'] = 300;
+            }else if($field['type'] =='T-Shirt'){
+                $product['price']== 280;
+            }else if($field['type'] =='Hoodie'){
+                $product['price']==350;
+            }
 
             foreach($field['sizes'] as $size) {
                 ProductSize::create([

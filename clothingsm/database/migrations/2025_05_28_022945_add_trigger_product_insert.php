@@ -113,24 +113,25 @@ class AddTriggerProductInsert extends Migration
                 VALUES (NEW.orderId, CONCAT(v_user_name, ' add order'));
             END
         ");
-
+        //ACCEPT TO SHIPPED
         DB::unprepared('
         CREATE TRIGGER trg_after_accept_order
         AFTER UPDATE ON tblorders
         FOR EACH ROW
         BEGIN
-            IF NEW.deliveryStatus = "shipped" AND OLD.deliveryStatus != "shipped" THEN
+            IF NEW.deliveryStatus = "shipped" THEN
                 INSERT INTO tblActivityLogs (order_id, action, created_at)
                 VALUES (NEW.orderId, "Admin accept orders", NOW());
             END IF;
         END
     ');
+    //SHIPPED TO DELIVERED
         DB::unprepared('
             CREATE TRIGGER trg_after_complete_order
             AFTER UPDATE ON tblorders
             FOR EACH ROW
             BEGIN
-                IF NEW.deliveryStatus = "delivered" AND OLD.deliveryStatus != "delivered" THEN
+                IF NEW.deliveryStatus = "delivered" THEN
                     INSERT INTO tblActivityLogs (order_id, action, created_at)
                     VALUES (NEW.orderId, "Orders complete", NOW());
                 END IF;

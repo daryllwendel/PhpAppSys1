@@ -21,6 +21,10 @@ Route::get('/', function(){
 Route::get('/login', function () {
     return view('login');  
 })->name('login');
+
+Route::get('/loading',function (){
+    return view('loading');
+})->name('loading');
  
 Route::get('/dashboarddisplay',[AdminDisplayController::class, 'dashboardDisplay'])->name('dashboarddisplay');
 
@@ -29,7 +33,7 @@ Route::post('/orders', [AdminOrders::class, 'acceptOrder'])->name('orders');
 Route::put('/acceptorder',[AdminOrders::class, 'acceptorders'])->name('orders');
 Route::put('/completeorder',[AdminOrders::class,'completeorders'])->name('orders');
 Route::get('/product', [AdminDashboardController::class, 'productid'])->name('product');
-Route::put('/product', [AdminDashboardController::class, 'editProduct']);
+Route::put('/products', [AdminDashboardController::class, 'editProduct']);
 Route::put('/approve', [AdminDashboardController::class, 'approve']);
 Route::delete('/deletedesign',[AdminDashboardController::class, 'deleteproduct']);
 

@@ -13,10 +13,8 @@
             <button id="my" data-category="my" onclick="handleButtonClick('my')">My Designs</button>
         </div>
         <div class="subTitle3" id="subTitle1">
-            <div>Current Category: <span id="currentCategory">None</span></div>
         </div>
         <div class="subTitle4" id="subTitle2">
-            <p style="padding: 20px;">Click a category button above to test responsiveness.</p>
         </div>
     </div>
 </body>

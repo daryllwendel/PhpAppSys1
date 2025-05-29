@@ -36,80 +36,93 @@ class AdminDashboardController extends Controller
         }
     }
 
-    public function editProduct(Request $request) {
-        try { 
-            $field = $request->validate([
-                'productId' => 'required',
-                'editProductImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'editName' => 'nullable|string',
-                'editPrice' => 'nullable|numeric',
-                'edittype1' => 'nullable|string', 
-                'printType1' => 'nullable|string',
-                'sizes' => 'nullable|array',
-                'sizes.*' => 'nullable|string|in:XS,S,M,L,XL,XXL',
-                'status' => 'nullable|string|in:display,hidden'
-            ]);
-            
-            $product = Product::where('productId', $field['productId'])->first();
-            
-            if (!$product) {
-                return redirect('/dashboard')->with('error', 'Product not found.');
-            }
-            
-            DB::beginTransaction();
-            
-            try {
-                if ($request->hasFile('editProductImage')) {
-                    if ($product->productImg) {
-                        Storage::disk('public')->delete($product->productImg);
-                    }
-                    $path = $request->file('editProductImage')->store('profiles', 'public');
-                    $product->productImg = $path;
-                }
-                
-                if (array_key_exists('editName', $field)) {
-                    $product->name = $field['editName'];
-                }
-                if (array_key_exists('editPrice', $field)) {
-                    $product->price = $field['editPrice'];
-                }
-                if (array_key_exists('edittype1', $field)) {
-                    $product->type = $field['edittype1'];
-                }
-                if (array_key_exists('printType1', $field)) {
-                    $product->printType = $field['printType1'];
-                }
-                if (array_key_exists('status', $field)) {
-                    $product->status = $field['status'];
-                }
-                
-                $product->save();
-                
-                if (!empty($field['sizes'])) {
-                    ProductSize::where('product_id', $product->productId)->delete();
+public function editProduct(Request $request) {
+    try {
+        $field = $request->validate([
+            'productId' => 'required',
+            'editProductImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'editName' => 'nullable|string',
+            'editPrice' => 'nullable|numeric',
+            'edittype1' => 'nullable|string',
+            'printType1' => 'nullable|string',
+            'sizes' => 'nullable|array',
+            'sizes.*' => 'nullable|string',
+            'status' => 'nullable|string|in:display,hidden'
+        ]);
 
-                    foreach($field['sizes'] as $size) {
+        $product = Product::where('productId', $field['productId'])->first();
+
+        if (!$product) {
+            return redirect('/dashboard')->with('error', 'Product not found.');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->hasFile('editProductImage')) {
+                if ($product->productImg) {
+                    Storage::disk('public')->delete($product->productImg);
+                }
+                $path = $request->file('editProductImage')->store('profiles', 'public');
+                $product->productImg = $path;
+            }
+
+            if (array_key_exists('editName', $field)) {
+                $product->name = $field['editName'];
+            }
+            if (array_key_exists('editPrice', $field)) {
+                $product->price = $field['editPrice'];
+            }
+            if (array_key_exists('edittype1', $field)) {
+                $product->type = $field['edittype1'];
+            }
+            if (array_key_exists('printType1', $field)) {
+                $product->printType = $field['printType1'];
+            }
+            if (array_key_exists('status', $field)) {
+                $product->status = $field['status'];
+            }
+
+            $product->save();
+
+            if (!empty($field['sizes'])) {
+                $sizesInOrders = DB::table('tblorder_items')
+                    ->where('productId', $product->productId)
+                    ->pluck('size')
+                    ->toArray();
+
+                foreach ($product->sizes() as $sizeModel) {
+                    if (!in_array($sizeModel->size, $sizesInOrders)) {
+                        $sizeModel->delete();
+                    }
+                }
+
+                foreach ($field['sizes'] as $size) {
+                    if (!$product->sizes()->where('size', $size)->exists()) {
                         ProductSize::create([
                             'product_id' => $product->productId,
-                            'size' => $size
+                            'size' => $size,
                         ]);
                     }
                 }
-                
-                DB::commit();
-                return redirect('/dashboard')->with('success', 'Product updated successfully.');
-            } catch(\Exception $e) {
-                DB::rollback();
-                if(isset($path)) {
-                    Storage::disk('public')->delete($path);
-                }
-                throw $e;
             }
-        } catch(\Exception $e) {
-            return redirect('/dashboard')->with('error', 'Failed to update product: ' . $e->getMessage());
+            
+            DB::commit();
+
+            return redirect('/dashboard')->with('success', 'Product updated successfully.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            if (isset($path)) {
+                Storage::disk('public')->delete($path);
+            }
+            throw $e;
         }
+    } catch (\Exception $e) {
+        return redirect('/dashboard')->with('error', 'Failed to update product: ' . $e->getMessage());
     }
-     
+}
+
+
     public function productid() {
         try {
             $products = DB::table('vwproduct_with_sizes')
