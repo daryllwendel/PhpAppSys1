@@ -185,6 +185,7 @@ body {
 
 /* Main Content */
 .body1 {
+    width: 100%;
     padding: 30px 20px;
     min-height: calc(100vh - 200px);
     background: white;

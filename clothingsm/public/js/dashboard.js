@@ -625,3 +625,166 @@ function attachOverlayEvents() {
         });
     });
 }   
+
+//reports
+
+window.filterReports = function(period) {
+    // Update table headers first
+    updateTableHeaders(period);
+    
+    const tbody = document.getElementById('ordersTableBody');
+    if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="5" class="no-data">Loading...</td></tr>';
+    }
+    
+    fetch(`/api/sales-report?filter=${period}`)
+        .then(response => response.json())
+        .then(data => {
+            // Update summary
+            const summaryTitle = document.getElementById('summaryTitle');
+            const summaryAmount = document.getElementById('summaryAmount');
+            
+            if (summaryTitle) {
+                summaryTitle.textContent = `Total Sales (${period.charAt(0).toUpperCase() + period.slice(1)})`;
+            }
+            if (summaryAmount) {
+                summaryAmount.textContent = `₱${data.totalSales.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+            }
+            
+            // Update table with grouped data
+            updateGroupedTable(data.groupedData, period);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            const tbody = document.getElementById('ordersTableBody');
+            if (tbody) {
+                tbody.innerHTML = '<tr><td colspan="5" class="no-data">Error loading data</td></tr>';
+            }
+        });
+};
+
+function updateGroupedTable(groupedData, period) {
+    const tbody = document.getElementById('ordersTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    if (groupedData && groupedData.length > 0) {
+        groupedData.forEach(group => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong>${group.label}</strong></td>
+                <td>${group.period}</td>
+                <td>${group.orderCount} orders</td>
+                <td>₱${group.sales.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+                <td>${group.date}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    } else {
+        tbody.innerHTML = '<tr><td colspan="5" class="no-data">No data found for the selected period</td></tr>';
+    }
+}
+
+function updateTableHeaders(period) {
+    const thead = document.querySelector('.reports-table thead tr');
+    if (!thead) return;
+    
+    let headers = '';
+    switch(period) {
+        case 'daily':
+            headers = `
+                <th>Hour</th>
+                <th>Time Range</th>
+                <th>Orders</th>
+                <th>Sales Amount</th>
+                <th>Date</th>
+            `;
+            break;
+        case 'weekly':
+            headers = `
+                <th>Day</th>
+                <th>Date</th>
+                <th>Orders</th>
+                <th>Sales Amount</th>
+                <th>Full Date</th>
+            `;
+            break;
+        case 'monthly':
+            headers = `
+                <th>Week</th>
+                <th>Date Range</th>
+                <th>Orders</th>
+                <th>Sales Amount</th>
+                <th>Period</th>
+            `;
+            break;
+        case 'yearly':
+            headers = `
+                <th>Month</th>
+                <th>Period</th>
+                <th>Orders</th>
+                <th>Sales Amount</th>
+                <th>Full Period</th>
+            `;
+            break;
+    }
+    
+    thead.innerHTML = headers;
+}
+
+function searchOrders() {
+    const searchInput = document.querySelector('.search-input');
+    if (!searchInput) return;
+    
+    const searchTerm = searchInput.value.toLowerCase();
+    const rows = document.querySelectorAll('#ordersTableBody tr');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+// Initialize when DOM is loaded or when reports content is loaded
+function initializeReports() {
+    // Load initial data
+    if (typeof filterReports === 'function') {
+        filterReports('monthly');
+    }
+    
+    // Add search event listener
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', searchOrders);
+    }
+}
+
+// Listen for both DOMContentLoaded and a custom event for when content is appended
+document.addEventListener('DOMContentLoaded', initializeReports);
+
+// Custom event for when reports content is dynamically loaded
+document.addEventListener('reportsContentLoaded', initializeReports);
+
+// Alternative: Use MutationObserver to detect when report content is added
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.type === 'childList') {
+            const reportContent = document.querySelector('.reportcontent');
+            if (reportContent && !reportContent.dataset.initialized) {
+                reportContent.dataset.initialized = 'true';
+                initializeReports();
+            }
+        }
+    });
+});
+
+// Start observing
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});

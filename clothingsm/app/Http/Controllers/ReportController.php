@@ -46,12 +46,57 @@ class ReportController extends Controller
             ->get();
 
         return view('report', [
-            'totalSales' => $sales->totalSales ?? 0,
+            'totalSales' => $sales ?? 0,
             'orders' => $orders
         ]);
     }
 
     
+    // public function getSalesReport(Request $request)
+    // {
+    //     $filter = $request->get('filter', 'monthly');
+
+    //     $query = DB::table('vwordersummary')->where('deliveryStatus', 'delivered');
+
+    //     switch ($filter) {
+    //         case 'daily':
+    //             $query->whereDate('dateOrdered', today());
+    //             break;
+    //         case 'weekly':
+    //             $query->whereBetween('dateOrdered', [now()->startOfWeek(), now()->endOfWeek()]);
+    //             break;
+    //         case 'monthly':
+    //             $query->whereMonth('dateOrdered', now()->month)
+    //                 ->whereYear('dateOrdered', now()->year);
+    //             break;
+    //         case 'yearly':
+    //             $query->whereYear('dateOrdered', now()->year);
+    //             break;
+    //     }
+
+    //     $orders = $query->get();
+
+    //     $totalSales = $orders->sum('totalItemPrice');
+
+    //     $formattedOrders = $orders->map(function ($order) {
+    //         return [
+    //             'orderId'        => $order->orderId,
+    //             'product_name'   => $order->ProductName,
+    //             'product_image'  => $order->productImg,
+    //             'quantity'       => $order->quantity,
+    //             'customer_name'  => $order->name,
+    //             'payment_method' => $order->paymentMethod,
+    //             'amount'         => $order->totalItemPrice,
+    //             'dateOrdered'    => $order->dateOrdered,
+    //         ];
+    //     });
+
+    //     return response()->json([
+    //         'totalSales' => $totalSales,
+    //         'orders'     => $formattedOrders,
+    //     ]);
+    // }
+
     public function getSalesReport(Request $request)
     {
         $filter = $request->get('filter', 'monthly');
@@ -75,26 +120,90 @@ class ReportController extends Controller
         }
 
         $orders = $query->get();
-
         $totalSales = $orders->sum('totalItemPrice');
 
-        $formattedOrders = $orders->map(function ($order) {
-            return [
-                'orderId'        => $order->orderId,
-                'product_name'   => $order->ProductName,
-                'product_image'  => $order->productImg,
-                'quantity'       => $order->quantity,
-                'customer_name'  => $order->name,
-                'payment_method' => $order->paymentMethod,
-                'amount'         => $order->totalItemPrice,
-                'dateOrdered'    => $order->dateOrdered,
-            ];
-        });
+        // Group the data based on filter
+        $groupedData = $this->groupOrdersByPeriod($orders, $filter);
 
         return response()->json([
             'totalSales' => $totalSales,
-            'orders'     => $formattedOrders,
+            'groupedData' => $groupedData,
+            'period' => $filter
         ]);
+    }
+
+    private function groupOrdersByPeriod($orders, $filter)
+    {
+        switch ($filter) {
+            case 'daily':
+                // For daily, group by hour
+                return $orders->groupBy(function ($order) {
+                    return Carbon::parse($order->dateOrdered)->format('H:00');
+                })->map(function ($hourOrders, $hour) {
+                    return [
+                        'label' => $hour,
+                        'period' => $hour,
+                        'sales' => $hourOrders->sum('totalItemPrice'),
+                        'orderCount' => $hourOrders->count(),
+                        'date' => Carbon::parse($hourOrders->first()->dateOrdered)->format('M d, Y')
+                    ];
+                })->sortBy('period')->values();
+
+            case 'weekly':
+                // Group by day of the week
+                return $orders->groupBy(function ($order) {
+                    return Carbon::parse($order->dateOrdered)->format('Y-m-d');
+                })->map(function ($dayOrders, $date) {
+                    $carbonDate = Carbon::parse($date);
+                    return [
+                        'label' => $carbonDate->format('l'), // Monday, Tuesday, etc.
+                        'period' => $carbonDate->format('M d'),
+                        'sales' => $dayOrders->sum('totalItemPrice'),
+                        'orderCount' => $dayOrders->count(),
+                        'date' => $carbonDate->format('M d, Y'),
+                        'sortKey' => $carbonDate->dayOfWeek
+                    ];
+                })->sortBy('sortKey')->values();
+
+            case 'monthly':
+                // Group by week of the month
+                return $orders->groupBy(function ($order) {
+                    $date = Carbon::parse($order->dateOrdered);
+                    return $date->weekOfMonth;
+                })->map(function ($weekOrders, $weekNumber) {
+                    $firstOrder = $weekOrders->first();
+                    $weekStart = Carbon::parse($firstOrder->dateOrdered)->startOfWeek();
+                    $weekEnd = Carbon::parse($firstOrder->dateOrdered)->endOfWeek();
+                    
+                    return [
+                        'label' => "Week {$weekNumber}",
+                        'period' => $weekStart->format('M d') . ' - ' . $weekEnd->format('M d'),
+                        'sales' => $weekOrders->sum('totalItemPrice'),
+                        'orderCount' => $weekOrders->count(),
+                        'date' => $weekStart->format('M d') . ' - ' . $weekEnd->format('M d, Y'),
+                        'sortKey' => $weekNumber
+                    ];
+                })->sortBy('sortKey')->values();
+
+            case 'yearly':
+                // Group by month
+                return $orders->groupBy(function ($order) {
+                    return Carbon::parse($order->dateOrdered)->format('Y-m');
+                })->map(function ($monthOrders, $monthKey) {
+                    $carbonDate = Carbon::createFromFormat('Y-m', $monthKey);
+                    return [
+                        'label' => $carbonDate->format('F'), // January, February, etc.
+                        'period' => $carbonDate->format('M Y'),
+                        'sales' => $monthOrders->sum('totalItemPrice'),
+                        'orderCount' => $monthOrders->count(),
+                        'date' => $carbonDate->format('F Y'),
+                        'sortKey' => $carbonDate->month
+                    ];
+                })->sortBy('sortKey')->values();
+
+            default:
+                return collect();
+        }
     }
 
 
