@@ -888,6 +888,7 @@ function mydesign(){
                 content2.appendChild(designdisplay2)
                 content2.appendChild(overlay)
                 initProductOverlay2()
+
                 document.querySelectorAll(".mydesigncart").forEach(form => {
                 form.addEventListener("submit", function(e) {
                 e.preventDefault();
@@ -1009,34 +1010,35 @@ function loadprofile(){
         });
     });
     //
-      document.querySelectorAll(".profileimgage").forEach(form => {
-            form.addEventListener("submit", function(e) {
-            e.preventDefault();
+        document.querySelectorAll(".profileimgage").forEach(form => {
+              form.addEventListener("submit", function(e) {
+              e.preventDefault();
 
-            const formData = new FormData(form);
-            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+              const formData = new FormData(form);
+              const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
-            fetch("/upload-profile", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": csrfToken,
-                    "X-Requested-With": "XMLHttpRequest",
-                },
-                body: formData,
-            })
-            .then(res => {
-                if (res.ok) {     
-                  alert("Update Successfully!");
-                  loadprofile();
-                } else {
-                    alert("Failed to accept order.");
-                }
-            })
-            .catch(err => {
-                console.error("Error:", err);
-            });
-        });
-    });
+              fetch("/upload-profile", {
+                  method: "POST",
+                  headers: {
+                      "X-CSRF-TOKEN": csrfToken,
+                      "X-Requested-With": "XMLHttpRequest",
+                  },
+                  body: formData,
+              })
+              .then(res => {
+                  if (res.ok) {     
+                    alert("Update Successfully!");
+                    const img = document.querySelector(".profile-picture");
+                    loadprofile();
+                  } else {
+                      alert("Failed to accept order.");
+                  }
+              })
+              .catch(err => {
+                  console.error("Error:", err);
+              });
+          });
+      });
             profileset()
             profilepic()
             address();
@@ -1129,6 +1131,36 @@ function adddesign(){
             content.appendChild(addadesign)
             profile3()
             document.getElementById('cancel').addEventListener('click', loadcustomerdashboard)
+
+            document.querySelectorAll(".addadesign").forEach(form => {
+                form.addEventListener("submit", function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+                fetch("/addadesign", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                    },
+                    body: formData,
+                })
+                .then(res => {
+                    if (res.ok) {      
+                      document.body.style.overflow = "auto";
+                      alert('Add design successful')
+                        loaddesigns();
+                    } else {
+                        alert("Failed to add a design.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                });
+            });
+        });
         }else{
             console.log('okay')
         }
@@ -1138,6 +1170,7 @@ function adddesign(){
 function profilepic(){
     const inputFile = document.getElementById("input-file");
     const profilePic = document.getElementById("profile-pic");
+    const userpic = document.querySelector('.profile-picture')
 
     inputFile.addEventListener("change", function () {
         const file = this.files[0];
@@ -1145,14 +1178,15 @@ function profilepic(){
             const reader = new FileReader();
             reader.onload = function (e) {
                 profilePic.src = e.target.result;
+                userpic.src = e.target.result
             };
             reader.readAsDataURL(file);
         }
     });
 }
 function changepass() {
-  const changepassForm = document.querySelector('#changepassform'); // Select the form correctly
-const msg = document.getElementById('changepassMsg'); // Message container
+  const changepassForm = document.querySelector('#changepassform');
+const msg = document.getElementById('changepassMsg'); 
 
 changepassForm.addEventListener('submit', async e => {
     e.preventDefault();  
@@ -1206,15 +1240,15 @@ changepassForm.addEventListener('submit', async e => {
 
         const data = await r.json();
 
-        if (r.ok && data.ok) {  // Check the 'ok' field from backend
+        if (r.ok && data.ok) { 
             msg.classList.add('ok');
-            msg.textContent = data.message || 'Password validated successfully!'; // Display message
+            msg.textContent = data.message || 'Password validated successfully!'; 
             setTimeout(() => {
                 window.location = '/CustomerDashboard';
             }, 1200);
         } else {
             msg.classList.add('error');
-            msg.textContent = data.message || 'Failed to validate password.'; // Use 'message' instead of 'error'
+            msg.textContent = data.message || 'Failed to validate password.'; 
         }
 
     } catch (err) {
