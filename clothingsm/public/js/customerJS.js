@@ -126,12 +126,12 @@ function profileset() {
 
 
 function sortOrders() {
-  const column = document.getElementById('sortOptions').value;
-  const lists = ['pendingList', 'shipList', 'completeList'];
-  const visibleListId = lists.find(id => {
-    const list = document.getElementById(id);
-    return list && list.style.display !== 'none';
-  });
+    const column = document.getElementById('sortOptions').value;
+    const lists = ['pendingList', 'shipList', 'completeList', 'cancelList'];
+    const visibleListId = lists.find(id => {
+        const list = document.getElementById(id);
+        return list && list.style.display !== 'none';
+    });
 
   if (!visibleListId) return;
 
@@ -154,12 +154,13 @@ function sortOrders() {
 }
 
 function toggleOrderList() {
-  const value = document.getElementById('statusFilter').value;
-  const lists = {
-    pending: 'pendingList',
-    shipped: 'shipList',
-    delivered: 'completeList'
-  };
+    const value = document.getElementById('statusFilter').value;
+    const lists = {
+        pending: 'pendingList',
+        shipped: 'shipList',
+        delivered: 'completeList',
+        cancelled: 'cancelList'
+    };
 
   for (const key in lists) {
     const listEl = document.getElementById(lists[key]);
@@ -511,26 +512,53 @@ function loadaddtocart() {
       const content = document.getElementById("change-container");
       const container = doc.querySelector('.confirmation-container')
 
-      document.getElementById("title").innerHTML = `<div>Cart</div>`;
-      content.innerHTML = "";
-      content.appendChild(addtocartdisplay);
-      content.appendChild(checkoutdisplay)
-      content.appendChild(container)
-      const paymentSelect = document.getElementById('payment');
-      const chargeTotal = document.getElementById('charge-total');
-      const grandTotalInput = document.getElementById('grand-total');
-      const cartSubtotalDisplay = document.getElementById('cart-total1');
-      const seeorder = document.querySelector('.btn-primary')
-      const seehome = document.querySelector('.btn-secondary')
-      if (seeorder) {
-        seeorder.addEventListener('click', loadorders)
-      }
-      if (seehome) {
-        seehome.addEventListener('click', loadcustomerdashboard)
-      }
-      function parsePeso(pesoString) {
-        return parseFloat(pesoString.replace(/[^\d.]/g, '')) || 0;
-      }
+          document.getElementById("title").innerHTML = `<div>Cart</div>`;
+          content.innerHTML = "";
+          content.appendChild(addtocartdisplay);
+          content.appendChild(checkoutdisplay)
+          content.appendChild(container)
+          const paymentSelect = document.getElementById('payment');
+          const chargeTotal = document.getElementById('charge-total');
+          const grandTotalInput = document.getElementById('grand-total');
+          const cartSubtotalDisplay = document.getElementById('cart-total1');
+          const seeorder = document.querySelector('.btn-primary')
+          const seehome = document.querySelector('.btn-secondary')
+          if(seeorder){
+            seeorder.addEventListener('click', loadorders)
+          } 
+          if(seehome){
+            seehome.addEventListener('click', loadcustomerdashboard)
+          }
+          function parsePeso(pesoString) {
+              return parseFloat(pesoString.replace(/[^\d.]/g, '')) || 0;
+          }
+          if (paymentSelect) {
+    paymentSelect.addEventListener('change', function () {
+        const selectedOption = paymentSelect.options[paymentSelect.selectedIndex];
+        const paymentName = selectedOption.textContent.trim().toLowerCase();
+        const number = selectedOption.dataset.number || '';
+        const bankName = selectedOption.dataset.bankname || '';
+        const name = selectedOption.dataset.name || '';
+
+        const gcashSection = document.getElementById('gcash-details');
+        const bankSection = document.getElementById('bank-details');
+
+        gcashSection.style.display = 'none';
+        bankSection.style.display = 'none';
+
+        if (paymentName.includes('gcash')) {
+            document.getElementById('gcash-number').value = number;
+            document.getElementById('gcash-name').value = name;
+            gcashSection.style.display = 'block';
+        } else if (paymentName.includes('bank')) {
+            document.getElementById('name').value = name;
+            document.getElementById('bank-name').value = bankName;
+            document.getElementById('number').value = number;
+            bankSection.style.display = 'block';
+        }
+    });
+}
+
 
       function updateGrandTotal() {
         if (!paymentSelect || !paymentSelect.selectedOptions.length) return;
@@ -1080,7 +1108,6 @@ function loadprofile() {
         document.querySelectorAll(".location").forEach(form => {
           form.addEventListener("submit", function (e) {
             e.preventDefault();
-            loadloading()
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
@@ -1092,15 +1119,15 @@ function loadprofile() {
               },
               body: formData,
             })
-              .then(res => {
-                if (res.ok) {
-                  loadprofile();
+            .then(res => {
+                if (res.ok) { 
+                  alert('Update successfully!')   
+                  loadprofile()
                 } else {
                   alert("Failed to accept order.");
                 }
-              })
-              .catch(err => {
-                clearLoading()
+            })
+            .catch(err => {
                 console.error("Error:", err);
               });
           });
@@ -1162,16 +1189,45 @@ function attachOverlayEvents() {
         orderElements.style.overflow = 'hidden'
       });
 
-      const rejectBtn = overlayEl.querySelector(".cancel-btn2");
-      if (rejectBtn) {
-        rejectBtn.addEventListener("click", function () {
-          overlayEl.style.display = "none";
-          orderEl.classList.remove("blurred");
+            const rejectBtn = overlayEl.querySelector(".cancel-btn2");
+            if (rejectBtn) {
+                rejectBtn.addEventListener("click", function () {
+                    overlayEl.style.display = "none";
+                    orderEl.classList.remove("blurred");cancel-btn2
+                });
+            }
+        }
+    });
+
+     document.querySelectorAll(".cancelorder").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/cancelorder", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) { 
+                  loadorders()  
+                } else {
+                    alert("Failed to accept order.");
+                }
+            })
+            .catch(err => {
+              confirmcontainer()
+                console.error("Error:", err);
+            });
         });
-      }
-    }
-  });
-}
+    });
+     
+}  
 
 function loadorders() {
   loadloading()
@@ -1245,27 +1301,28 @@ function adddesign() {
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
-            fetch("/addadesign", {
-              method: "POST",
-              headers: {
-                "X-CSRF-TOKEN": csrfToken,
-                "X-Requested-With": "XMLHttpRequest",
-              },
-              body: formData,
-            })
-              .then(res => {
-                if (res.ok) {
-                  document.body.style.overflow = "auto";
-                  loaddesigns();
-                } else {
-                  alert("Failed to add a design.");
-                }
-              })
-              .catch(err => {
-                clearLoading()
-                console.error("Error:", err);
-              });
-          });
+                fetch("/addadesign", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest",
+                    },
+                    body: formData,
+                })
+                .then(res => {
+                    if (res.ok) {      
+                      document.body.style.overflow = "auto";
+                        loaddesigns();
+                    } else {
+                        alert("Failed to add a design.");
+                    }
+                })
+                .catch(err => {
+                  clearLoading()
+                  alert('eorrs')
+                    console.error("Error:", err);
+                });
+            });
         });
       } else {
         console.log('okay')

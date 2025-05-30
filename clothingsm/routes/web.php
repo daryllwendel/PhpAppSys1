@@ -80,6 +80,7 @@ Route::get('/CustomerAddtoCart', [AddtoCartController::class, 'displaycart'])->m
 Route::post('/checkout', [AddtoCartController::class, 'checkout'])->middleware('auth')->name('CustomerAddtoCart');
 
 Route::get('/CustomerOrder-display', [CustomerOrderDisplay::class, 'customerPendingOrders'])->middleware('auth')->name('CustomerOrder-display');
+Route::PUT('/cancelorder',[AddtoCartController::class,'cancelorder'])->middleware('auth')->name('CustomerOrder-display');
 Route::get('/CustomerProductClicked-display', function(){
     return view('CustomerProductClicked-display');
 });

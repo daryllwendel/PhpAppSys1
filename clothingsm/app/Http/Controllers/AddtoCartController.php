@@ -132,4 +132,26 @@ public function checkout(Request $request)
     }
 }
 
+public function cancelorder(){
+    try {
+        $customerId = Auth::id();
+        $order = orders::where('customerId', $customerId)
+            ->where('deliveryStatus', 'pending')
+            ->first();
+
+        if (!$order) {
+            return redirect()->back()->with('error', 'No pending order found.');
+        }
+
+        // Update the order status to 'cancelled'
+        $order->update(['deliveryStatus' => 'cancelled']);
+
+
+        return redirect()->back()->with('success', 'Order cancelled successfully.');
+    } catch (Exception $e) {
+        Log::error('Failed to cancel order: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Failed to cancel order: ' . $e->getMessage());
+    }
+}
+
 }

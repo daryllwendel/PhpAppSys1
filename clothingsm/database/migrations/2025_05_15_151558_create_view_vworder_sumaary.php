@@ -39,6 +39,9 @@ return new class extends Migration
                 p.type,
                 o.created_at,
                 oi.productId as prodId,
+                pm.name as paymentName,
+                pm.bankName,
+                pm.number as accountNumber,
                 (oi.quantity * p.price) AS totalItemPrice
             FROM tblorders o
             LEFT JOIN tblorder_items oi ON o.orderId = oi.orderId
