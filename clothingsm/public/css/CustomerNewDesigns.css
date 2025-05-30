@@ -53,7 +53,7 @@
 
         .category-container button:hover,
         .category-container button:focus {
-            background: rgba(255, 192, 203, 0.8);
+            background: #ffbb00;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
             color: #000000 !important;
@@ -66,8 +66,8 @@
         }
 
         .category-container button.active {
-            background: rgba(255, 192, 203, 0.9) !important;
-            border-color: rgba(255, 192, 203, 0.8) !important;
+            background: #ffbb00 !important;
+            border-color: #ffbb00 !important;
             box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
             color: #000000 !important;
         }
@@ -139,15 +139,15 @@
             .category-container button:hover,
             .category-container button:focus,
             .category-container button:active {
-                background: rgba(255, 192, 203, 0.8);
+                background: #ffbb00;
                 color: #000000 !important;
-                border-color: rgba(255, 192, 203, 0.8);
+                border-color: #ffbb00;
                 transform: none;
             }
             
             .category-container button.active {
-                background: rgba(255, 192, 203, 0.9) !important;
-                border-color: rgba(255, 192, 203, 0.8) !important;
+                background: #ffbb00 !important;
+                border-color: #ffbb00 !important;
                 color: #000000 !important;
             }
             
@@ -190,14 +190,14 @@
             .category-container button:hover,
             .category-container button:focus,
             .category-container button:active {
-                background: rgba(255, 192, 203, 0.8);
+                background: #ffbb00;
                 color: #000000 !important;
-                border-color: rgba(255, 192, 203, 0.8);
+                border-color: #ffbb00;
             }
             
             .category-container button.active {
-                background: rgba(255, 192, 203, 0.9) !important;
-                border-color: rgba(255, 192, 203, 0.8) !important;
+                background: #ffbb00 !important;
+                border-color: #ffbb00 !important;
                 color: #000000 !important;
             }
             

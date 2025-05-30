@@ -45,9 +45,9 @@ class AddADesign extends Controller
             if ($field['type'] == 'Polo') {
                 $product['price'] = 300;
             }else if($field['type'] =='T-Shirt'){
-                $product['price']== 280;
+                $product['price'] = 280;
             }else if($field['type'] =='Hoodie'){
-                $product['price']==350;
+                $product['price'] = 350;
             }
 
             foreach($field['sizes'] as $size) {
@@ -61,8 +61,9 @@ class AddADesign extends Controller
             return redirect()->back()->with('success', 'Design added successfully');
 
         } catch(\Exception $e) {
+            dd($product);
             DB::rollBack();
-            if(isset($path)) {
+            if(isset($path)) {  
                 Storage::disk('public')->delete($path);
             }
             Log::error('Failed to add design: ' . $e->getMessage());
