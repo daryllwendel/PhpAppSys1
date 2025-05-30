@@ -876,8 +876,9 @@ function attachOverlayEvents() {
 //reports
 
 window.filterReports = function (period) {
-    // Update table headers first
+    
     updateTableHeaders(period);
+    updateSelectSortOptions(period);
 
     const tbody = document.getElementById('ordersTableBody');
     if (tbody) {
@@ -978,6 +979,53 @@ function updateTableHeaders(period) {
     }
 
     thead.innerHTML = headers;
+}
+
+function updateSelectSortOptions(period) {
+    const select = document.querySelector('.sort-select');
+    if (!select) return;
+
+    let options = '';
+    switch (period) {
+        case 'daily':
+            options = `
+                <option value="hour">Hour</option>
+                <option value="time-range">Time Range</option>
+                <option value="orders">Orders</option>
+                <option value="sales-amount">Sales Amount</option>
+                <option value="date">Date</option>
+            `;
+            break;
+        case 'weekly':
+            options = `
+                <option value="day">Day</option>
+                <option value="date">Date</option>
+                <option value="orders">Orders</option>
+                <option value="sales-amount">Sales Amount</option>
+                <option value="full-date">Full Date</option>
+            `;
+            break;
+        case 'monthly':
+            options = `
+                <option value="week">Week</option>
+                <option value="date-range">Date Range</option>
+                <option value="orders">Orders</option>
+                <option value="sales-amount">Sales Amount</option>
+                <option value="period">Period</option>
+            `;
+            break;
+        case 'yearly':
+            options = `
+                <option value="month">Month</option>
+                <option value="period">Period</option>
+                <option value="orders">Orders</option>
+                <option value="sales-amount">Sales Amount</option>
+                <option value="full-period">Full Period</option>
+            `;
+            break;
+    }
+
+    select.innerHTML = options;
 }
 
 function searchOrders() {
