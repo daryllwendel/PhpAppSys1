@@ -23,6 +23,9 @@ class CustomerOrderDisplay extends Controller
                 'quantity',
                 'productImg',
                 'size',
+                'paymentName',
+                'bankName',
+                'accountNumber',
                 DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
                 DB::raw('SUM(quantity) as totalQuantity'),
                 DB::raw('MAX(deliveryStatus) as deliveryStatus'),
@@ -46,6 +49,9 @@ class CustomerOrderDisplay extends Controller
                 'quantity',
                 'productImg',
                 'size',
+                'paymentName',
+                'bankName',
+                'accountNumber',
                 DB::raw('MAX(dateOrdered) as orderDate'),
                 DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
                 DB::raw('SUM(quantity) as totalQuantity'),
@@ -69,6 +75,9 @@ class CustomerOrderDisplay extends Controller
                 'quantity',
                 'productImg',
                 'size',
+                'paymentName',
+                'bankName',
+                'accountNumber',
                 DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
                 DB::raw('SUM(quantity) as totalQuantity'),
                 DB::raw('MAX(deliveryStatus) as deliveryStatus'),
@@ -79,7 +88,31 @@ class CustomerOrderDisplay extends Controller
             ->groupBy('orderId')
             ->orderBy('orderId', 'desc')
             ->get();
-        return view('CustomerOrder-display', compact('pendingOrders','completedOrders','shippedOrders'));
+            $cancelOrders = DB::table('vwordersummary')
+            ->select(
+                'ProductName',
+                'paymentMethod',
+                'orderId',
+                'productImg','charge',
+                'type',
+                'productId',
+                'quantity',
+                'productImg',
+                'size',
+                'paymentName',
+                'bankName',
+                'accountNumber',
+                DB::raw('SUM(quantity * unitPrice) as totalItemPrice'),
+                DB::raw('SUM(quantity) as totalQuantity'),
+                DB::raw('MAX(deliveryStatus) as deliveryStatus'),
+                DB::raw('SUM(quantity * unitPrice) + charge as grandTotal')
+            )
+            ->where('deliveryStatus', 'cancelled')
+            ->where('customerId', $customerId)
+            ->groupBy('orderId')
+            ->orderBy('orderId', 'desc')
+            ->get();
+        return view('CustomerOrder-display', compact('pendingOrders','completedOrders','shippedOrders','cancelOrders'));
     }
     
 }

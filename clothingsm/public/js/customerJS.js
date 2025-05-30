@@ -80,7 +80,7 @@ function profileset(){
 
 function sortOrders() {
     const column = document.getElementById('sortOptions').value;
-    const lists = ['pendingList', 'shipList', 'completeList'];
+    const lists = ['pendingList', 'shipList', 'completeList', 'cancelList'];
     const visibleListId = lists.find(id => {
         const list = document.getElementById(id);
         return list && list.style.display !== 'none';
@@ -111,7 +111,8 @@ function toggleOrderList() {
     const lists = {
         pending: 'pendingList',
         shipped: 'shipList',
-        delivered: 'completeList'
+        delivered: 'completeList',
+        cancelled: 'cancelList'
     };
 
     for (const key in lists) {
@@ -484,6 +485,33 @@ function loadaddtocart() {
           function parsePeso(pesoString) {
               return parseFloat(pesoString.replace(/[^\d.]/g, '')) || 0;
           }
+          if (paymentSelect) {
+    paymentSelect.addEventListener('change', function () {
+        const selectedOption = paymentSelect.options[paymentSelect.selectedIndex];
+        const paymentName = selectedOption.textContent.trim().toLowerCase();
+        const number = selectedOption.dataset.number || '';
+        const bankName = selectedOption.dataset.bankname || '';
+        const name = selectedOption.dataset.name || '';
+
+        const gcashSection = document.getElementById('gcash-details');
+        const bankSection = document.getElementById('bank-details');
+
+        gcashSection.style.display = 'none';
+        bankSection.style.display = 'none';
+
+        if (paymentName.includes('gcash')) {
+            document.getElementById('gcash-number').value = number;
+            document.getElementById('gcash-name').value = name;
+            gcashSection.style.display = 'block';
+        } else if (paymentName.includes('bank')) {
+            document.getElementById('name').value = name;
+            document.getElementById('bank-name').value = bankName;
+            document.getElementById('number').value = number;
+            bankSection.style.display = 'block';
+        }
+    });
+}
+
 
           function updateGrandTotal() {
               if (!paymentSelect || !paymentSelect.selectedOptions.length) return;
@@ -1033,7 +1061,6 @@ function loadprofile(){
             document.querySelectorAll(".location").forEach(form => {
             form.addEventListener("submit", function(e) {
             e.preventDefault();
-            loadloading()
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
@@ -1046,14 +1073,14 @@ function loadprofile(){
                 body: formData,
             })
             .then(res => {
-                if (res.ok) {    
-                  loadprofile();
+                if (res.ok) { 
+                  alert('Update successfully!')   
+                  loadprofile()
                 } else {
                     alert("Failed to accept order.");
                 }
             })
             .catch(err => {
-              clearLoading()
                 console.error("Error:", err);
             });
         });
@@ -1119,11 +1146,40 @@ function attachOverlayEvents() {
             if (rejectBtn) {
                 rejectBtn.addEventListener("click", function () {
                     overlayEl.style.display = "none";
-                    orderEl.classList.remove("blurred");
+                    orderEl.classList.remove("blurred");cancel-btn2
                 });
             }
         }
     });
+
+     document.querySelectorAll(".cancelorder").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+            fetch("/cancelorder", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                body: formData,
+            })
+            .then(res => {
+                if (res.ok) { 
+                  loadorders()  
+                } else {
+                    alert("Failed to accept order.");
+                }
+            })
+            .catch(err => {
+              confirmcontainer()
+                console.error("Error:", err);
+            });
+        });
+    });
+     
 }  
 
 function loadorders(){
@@ -1216,6 +1272,7 @@ function adddesign(){
                 })
                 .catch(err => {
                   clearLoading()
+                  alert('eorrs')
                     console.error("Error:", err);
                 });
             });

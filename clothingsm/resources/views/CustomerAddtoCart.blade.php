@@ -152,11 +152,30 @@
                             <option
                                 name="{{ $item->paymentMethodId }}"
                                 value="{{ $item->paymentMethodId }}"
-                                data-charge="{{ $item->charge }}">
+                                data-charge="{{ $item->charge }}"
+                                data-number={{$item->number }}
+                                data-bankName={{$item->bankName}}
+                                data-name={{$item->name}}>
                                 {{ $item->paymentName }}
                             </option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <div class="form-group" id="bank-details" style="display: none;">
+                        <label for="names">Name:</label>
+                        <input type="text" id="name" name="name" class="form-control" readonly>
+                        <label for="bank-name">Bank Name:</label>
+                        <input type="text" id="bank-name" name="bank_name" class="form-control" readonly>
+                        <label for="numbers">Number:</label>
+                        <input type="text" id="number" name="number" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group" id="gcash-details" style="display: none;">
+                        <label for="gcash-number">Gcash Number:</label>
+                        <input type="text" id="gcash-number" name="gcash_number" class="form-control" readonly>
+                        <label for="gcash-name">Gcash Name:</label>
+                        <input type="text" id="gcash-name" name="gcash_name" class="form-control" readonly>
                     </div>
 
                     <div class="form-group">
