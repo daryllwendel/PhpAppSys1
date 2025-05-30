@@ -1,6 +1,15 @@
+function toggleMenu() {
+    const menu = document.querySelector(".menu");
+    menu.classList.toggle("active");
+    const nav = document.querySelector(".nav");
+    nav.classList.toggle("expanded");
+}
 
-function loadloading() {
-  fetch('/loading')
+
+
+
+function loadloading(){
+    fetch('/loading')
     .then(res => res.text())
     .then((html) => {
       const parser = new DOMParser();

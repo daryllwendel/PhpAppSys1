@@ -17,7 +17,7 @@
             <!-- Search Section -->
             <div class="search-section">
                 <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search orders...">
+                    <input type="text" class="search-input" id="searchReportsInput" placeholder="Search orders...">
                     <button class="search-btn">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">

@@ -291,6 +291,7 @@ body{
 /* Modal Overlay Styles - Updated */
 .overlay {
     position: fixed;
+    margin-top: 40px;
     top: 0;
     left: 0;
     width: 100%;
