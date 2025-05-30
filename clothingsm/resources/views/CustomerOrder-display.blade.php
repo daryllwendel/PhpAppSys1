@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <title>Customer Orders</title>
     <link rel="stylesheet" href="{{ asset('css/CustomerOrder-display.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 <div class="orderscont">
     <!-- Top Controls -->
     <div class="top-controls">
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search orders...">
-            <span class="search-icon">🔍</span>
-        </div>
         <div class="status-filter">
             <select id="statusFilter" class="status-dropdown">
                 <option value="pending" selected>Pending</option>

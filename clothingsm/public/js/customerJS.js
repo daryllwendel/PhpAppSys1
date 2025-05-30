@@ -4,6 +4,10 @@ function toggleMenu() {
     const nav = document.querySelector(".nav");
     nav.classList.toggle("expanded");
 }
+
+
+
+
 function loadloading(){
     fetch('/loading')
     .then(res => res.text())

@@ -489,6 +489,8 @@ function orders(){
             attachOverlayEvents();
 
             document.getElementById('body1').style.display = 'grid';
+            
+            bouncesearchorders()
         } else {
             const emptyOrder = doc.querySelector('.emptyOrder')
             if(emptyOrder){
@@ -500,6 +502,177 @@ function orders(){
     })
     .catch((err) => console.error("Failed to load orders content:", err));
 }
+
+function bouncesearch() {
+    // Debounce utility
+    function debounce(func, delay) {
+        let timeout;
+        return function (...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
+
+    const searchInput = document.querySelector('.searchbars');
+    const resultsContainer = document.querySelector('.items-3');
+
+    // Fetch and render search results
+    const fetchResults = debounce(function () {
+        const query = searchInput.value;
+
+        if (query.trim() === '') {
+            product(); // fallback function
+            return;
+        }
+
+        fetch(`/search-products?query=${encodeURIComponent(query)}`)
+            .then(res => res.json())
+            .then(products => {
+                resultsContainer.innerHTML = '';
+
+                if (products.length === 0) {
+                    resultsContainer.innerHTML = '<p>No results found.</p>';
+                    return;
+                }
+
+                products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.classList.add('product-card');
+
+                    productCard.innerHTML = `
+                        <input type="hidden" name="productId" value="${product.productId}">
+                        <img src="/storage/${product.productImg}" alt="${product.name}">
+                        <div class="product-info">
+                            <div class="product-name">${product.name}
+                                <div class="status1">${product.viewStatus}</div>
+                            </div>
+                            <div class="product-type">Type: ${product.printType}
+                                <p>View: ${product.status}</p>
+                            </div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="edit-btn editbutton" 
+                                data-id="${product.productId}" 
+                                data-name="${product.name}" 
+                                data-price="${product.price}" 
+                                data-type="${product.type}" 
+                                data-printtype="${product.printType}" 
+                                data-productimg="/storage/${product.productImg}" 
+                                data-status="${product.status}" 
+                                data-viewstatus="${product.viewStatus}">
+                                EDIT
+                            </button>
+                            <button class="delete-btn deletebutton" 
+                                data-id="${product.productId}" 
+                                data-name="${product.name}" 
+                                data-price="${product.price}" 
+                                data-type="${product.type}" 
+                                data-printtype="${product.printType}" 
+                                data-productimg="/storage/${product.productImg}">
+                                DELETE
+                            </button>
+                        </div>
+                    `;
+
+                    resultsContainer.appendChild(productCard);
+                });
+            });
+    }, 300);
+
+    // Start listening to search input
+    searchInput.addEventListener('input', fetchResults);
+
+    // Delegate edit/delete button events
+    resultsContainer.addEventListener('click', function (e) {
+        const target = e.target;
+
+        // EDIT BUTTON HANDLER
+        if (target.classList.contains('editbutton')) {
+            const btn = target;
+            document.getElementById('editId').value = btn.dataset.id;
+            document.getElementById('editName').value = btn.dataset.name;
+            document.getElementById('editPrice').value = btn.dataset.price;
+            document.getElementById('editCategory').value = btn.dataset.type;
+            document.getElementById('editprintType').value = btn.dataset.printtype;
+            document.getElementById('editProductImage1').src = btn.dataset.productimg;
+            document.getElementById('add-status').value = btn.dataset.status;
+
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        // DELETE BUTTON HANDLER
+        if (target.classList.contains('deletebutton')) {
+            const btn = target;
+            document.getElementById('deleteId').value = btn.dataset.id;
+            document.getElementById('deleteName').value = btn.dataset.name;
+            document.getElementById('deletePrice').value = btn.dataset.price;
+            document.getElementById('deleteType').value = btn.dataset.type;
+            document.getElementById('deletePrintType').value = btn.dataset.printtype;
+            document.getElementById('deleteProductImage').src = btn.dataset.productimg;
+
+            document.querySelector('.deleteitem').style.display = 'block';
+        }
+    });
+}
+function bouncesearchorders() {
+    // Debounce utility function
+    function debounce(func, delay) {
+        let timeout;
+        return function (...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
+
+    const searchInput = document.getElementById('search1');
+    const allOrders = document.querySelectorAll('.acceptOrder .order, .completeOrder .order, .completedOrders .order');
+
+    function filterOrders() {
+        const query = searchInput.value.toLowerCase();
+
+        allOrders.forEach(order => {
+            const textContent = order.textContent.toLowerCase();
+            order.style.display = textContent.includes(query) ? '' : 'none';
+        });
+    }
+
+    const debouncedFilter = debounce(filterOrders, 300);
+
+    searchInput.addEventListener('input', debouncedFilter);
+}
+function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+function searchReports() {
+    const searchTerm = document.getElementById('searchReportsInput').value;
+
+    fetch(`/api/search-reports?query=${encodeURIComponent(searchTerm)}`)
+        .then(response => response.json())
+        .then(data => {
+            updateGroupedTable(data.groupedData); // You already have this function
+        })
+        .catch(error => {
+            console.error('Error searching reports:', error);
+            document.getElementById('ordersTableBody').innerHTML =
+                '<tr><td colspan="5" class="no-data">Error searching reports</td></tr>';
+        });
+}
+
+const debouncedSearchReports = debounce(searchReports, 300);
+
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('searchReportsInput');
+    searchInput.addEventListener('input', debouncedSearchReports);
+});
+
+
+
+
 function product(){
     fetch("/product")
     .then((res) => res.text())
@@ -524,6 +697,7 @@ function product(){
             optionitem();
             profilepic()
             profilepic1()
+            bouncesearch()
             document.getElementById('body1').style.display = 'grid'
         } else {
             const emptyProduct = doc.querySelector('.emptyProduct')

@@ -98,7 +98,6 @@
 
             menu.classList.toggle('active');
             hamburger.classList.toggle('active');
-            buttonsNav.style.display='block'
 
             setTimeout(() => {
                 menu.classList.remove('active');

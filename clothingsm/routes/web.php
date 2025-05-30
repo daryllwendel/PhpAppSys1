@@ -18,6 +18,8 @@ use App\Http\Controllers\CustomerOrderDisplay;
 use App\Http\Controllers\AdminDisplayController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CustomerDisplayController;
+use App\Http\Controllers\Search;
+
 Route::get('/send-otp-ui', function () {
     return view('CustomerForgot-password');
 });
@@ -25,6 +27,9 @@ Route::get('/send-otp-ui', function () {
 Route::get('/CustomerForgot-password', function () {
     return view('CustomerForgot-password');
 });
+Route::get('/search-products', [Search::class, 'search']);
+Route::get('/search-products', [Search::class,'searchorder']);
+
 
 
 Route::post('/reset-password', [ForgotPassword::class, 'forgotpassword']);
