@@ -97,7 +97,7 @@
 /* Table Header */
 .ordertext {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1fr 1fr;
   gap: 16px;
   padding: 16px 20px;
   background: #f9fafb;
@@ -125,7 +125,7 @@
 
 .hov {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1fr 1fr;
   gap: 16px;
   padding: 20px;
   cursor: pointer;
