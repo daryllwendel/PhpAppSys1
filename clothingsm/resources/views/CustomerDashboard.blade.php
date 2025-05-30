@@ -38,7 +38,8 @@
         <nav class="nav">
             <div class="userNav">
                 @if(Auth::user()->profile)
-                    <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile Picture" class="profile-picture">
+                    <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile Picture"
+                        class="profile-picture">
                 @else
                     <img src="{{ asset('images/user.png') }}" alt="Profile Picture" class="profile-picture">
                 @endif
@@ -78,91 +79,92 @@
         <div class="body1 fade-in" id="change-container">
         </div>
         <script>const currentCustomerId = {{ Auth::id() }};</script>
-     <script>
-        const nav5 = document.getElementById('hamboger');
-        const ham = document.querySelector('.hamburger');
+        <script>
+            const nav5 = document.getElementById('hamboger');
+            const ham = document.querySelector('.hamburger');
 
-    // Check if screen is 768px or less
-        const isMobile = window.matchMedia("(max-width: 768px)");
+            // Check if screen is 768px or less
+            const isMobile = window.matchMedia("(max-width: 768px)");
 
-    if (isMobile.matches) {
-        ham.addEventListener('click', function() {
-            nav5.style.display = 'block'; // Show it
-            setTimeout(() => {
-                nav5.style.display = 'none'; // Hide it after 1 second
-            }, 1000);
-        });
-    }
-
-
-
-        function toggleMenu() {
-            const menu = document.getElementById('menu');
-            const hamburger = document.querySelector('.hamburger');
-            const buttonsNav = document.querySelector('.buttonsNav')
-
-            menu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            buttonsNav.style.display='block'
-
-            setTimeout(() => {
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-                buttonsNav.style.display='none'
-            }, 1000);
-        }
-
-       document.addEventListener('DOMContentLoaded', function () {
-    const navButtons = document.querySelectorAll('.nav-button');
-    const contentArea = document.getElementById('content-area');
-
-    navButtons.forEach(button => {
-        button.classList.remove('active');
-
-        button.addEventListener('click', function () {
-            navButtons.forEach(btn => btn.classList.remove('active'));
-
-            this.classList.add('active');
-
-            if (window.innerWidth <= 768) {
-                toggleMenu();
+            if (isMobile.matches) {
+                ham.addEventListener('click', function () {
+                    nav5.style.display = 'block'; // Show it
+                    setTimeout(() => {
+                        nav5.style.display = 'none'; // Hide it after 1 second
+                    }, 1000);
+                });
             }
-        });
-    });
 
-    document.getElementById('buttondefault')?.classList.add('active');
-});
 
-        window.addEventListener('resize', function() {
-            const menu = document.getElementById('menu');
-            const hamburger = document.querySelector('.hamburger');
-            const buttonsNav = document.querySelector('.buttonsNav')
 
-            if (window.innerWidth > 768) {
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-                buttonsNav.style.display='block'
+            function toggleMenu() {
+                const menu = document.getElementById('menu');
+                const hamburger = document.querySelector('.hamburger');
+                const buttonsNav = document.querySelector('.buttonsNav')
 
+                menu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                buttonsNav.style.display = 'block'
+
+                setTimeout(() => {
+                    menu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    buttonsNav.style.display = 'none'
+                }, 1000);
             }
-        });
-        document.addEventListener('click', function(event) {
-            const nav = document.querySelector('.nav');
-            const menu = document.getElementById('menu');
-            const hamburger = document.querySelector('.hamburger');
-            const buttonNav=  document.getElementById('hamboger')
 
-            if (!nav.contains(event.target) && menu.classList.contains('active')) {
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-                nav.style.display = 'none'
-                menu.style.display = 'none'
-                hamburger.style.display = 'none'
-                buttonNav.style.display='none'
-            }
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="{{asset("js/customerJS.js")}}"></script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const navButtons = document.querySelectorAll('.nav-button');
+                const contentArea = document.getElementById('content-area');
+
+                navButtons.forEach(button => {
+                    button.classList.remove('active');
+
+                    button.addEventListener('click', function () {
+                        navButtons.forEach(btn => btn.classList.remove('active'));
+
+                        this.classList.add('active');
+
+                        if (window.innerWidth <= 768) {
+                            toggleMenu();
+                        }
+                    });
+                });
+
+                document.getElementById('buttondefault')?.classList.add('active');
+            });
+
+            window.addEventListener('resize', function () {
+                const menu = document.getElementById('menu');
+                const hamburger = document.querySelector('.hamburger');
+                const buttonsNav = document.querySelector('.buttonsNav')
+
+                if (window.innerWidth > 768) {
+                    menu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    buttonsNav.style.display = 'block'
+
+                }
+            });
+            document.addEventListener('click', function (event) {
+                const nav = document.querySelector('.nav');
+                const menu = document.getElementById('menu');
+                const hamburger = document.querySelector('.hamburger');
+                const buttonNav = document.querySelector('.buttonsNav')
+
+                if (!nav.contains(event.target) && menu.classList.contains('active')) {
+                    menu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    nav.style.display = 'none'
+                    menu.style.display = 'none'
+                    hamburger.style.display = 'none'
+                    buttonNav.style.display = 'none'
+                    console.log('clicked outside');
+                }
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="{{asset("js/customerJS.js")}}"></script>
 </body>
 
 </html>

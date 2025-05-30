@@ -1,15 +1,15 @@
 function toggleMenu() {
-    const menu = document.querySelector(".menu");
-    menu.classList.toggle("active");
-    const nav = document.querySelector(".nav");
-    nav.classList.toggle("expanded");
+  const menu = document.querySelector(".menu");
+  menu.classList.toggle("active");
+  const nav = document.querySelector(".nav");
+  nav.classList.toggle("expanded");
 }
 
 
 
 
-function loadloading(){
-    fetch('/loading')
+function loadloading() {
+  fetch('/loading')
     .then(res => res.text())
     .then((html) => {
       const parser = new DOMParser();
@@ -33,53 +33,54 @@ function clearLoading() {
   }
 }
 function toggleMenu() {
-                const menu = document.getElementById('menu');
-                const hamburger = document.querySelector('.hamburger');
+  const menu = document.getElementById('menu');
+  const hamburger = document.querySelector('.hamburger');
 
-                menu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-            }
+  menu.classList.toggle('active');
+  hamburger.classList.toggle('active');
+}
 
-            document.addEventListener('DOMContentLoaded', function () {
-             try {
-            const navButtons = document.querySelectorAll('.nav-button');
-        
-            navButtons.forEach(button => {
-            button.classList.remove('active');
-            
-            button.addEventListener('click', function () {
-                navButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                
-                if (window.innerWidth <= 768) {
-                    toggleMenu();
-                }
-            });
-                });
-            } catch (error) {
-        console.error('Navigation error:', error);
-    }
-        });
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    const navButtons = document.querySelectorAll('.nav-button');
 
-            window.addEventListener('resize', function () {
-                const menu = document.getElementById('menu');
-                const hamburger = document.querySelector('.hamburger');
+    navButtons.forEach(button => {
+      button.classList.remove('active');
 
-                if (window.innerWidth > 768) {
-                    menu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                }
-            });
-            document.addEventListener('click', function (event) {
-                const nav = document.querySelector('.nav');
-                const menu = document.getElementById('menu');
-                const hamburger = document.querySelector('.hamburger');
+      button.addEventListener('click', function () {
+        navButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
 
-                if (!nav.contains(event.target) && menu.classList.contains('active')) {
-                    menu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                }
-            });
+        if (window.innerWidth <= 768) {
+          toggleMenu();
+        }
+      });
+    });
+  } catch (error) {
+    console.error('Navigation error:', error);
+  }
+});
+
+window.addEventListener('resize', function () {
+  const menu = document.getElementById('menu');
+  const hamburger = document.querySelector('.hamburger');
+
+  if (window.innerWidth > 768) {
+    menu.classList.remove('active');
+    hamburger.classList.remove('active');
+  }
+});
+document.addEventListener('click', function (event) {
+  const nav = document.querySelector('.nav');
+  const menu = document.getElementById('menu');
+  const hamburger = document.querySelector('.hamburger');
+
+  if (!nav.contains(event.target) && menu.classList.contains('active')) {
+    menu.classList.remove('active');
+    hamburger.classList.remove('active');
+    console.log('Menu closed due to outside click');
+  }
+});
 function profileset() {
   const profile = document.getElementById("customerProfile");
   const password = document.getElementById("customerPassword");
@@ -126,12 +127,12 @@ function profileset() {
 
 
 function sortOrders() {
-    const column = document.getElementById('sortOptions').value;
-    const lists = ['pendingList', 'shipList', 'completeList', 'cancelList'];
-    const visibleListId = lists.find(id => {
-        const list = document.getElementById(id);
-        return list && list.style.display !== 'none';
-    });
+  const column = document.getElementById('sortOptions').value;
+  const lists = ['pendingList', 'shipList', 'completeList', 'cancelList'];
+  const visibleListId = lists.find(id => {
+    const list = document.getElementById(id);
+    return list && list.style.display !== 'none';
+  });
 
   if (!visibleListId) return;
 
@@ -154,13 +155,13 @@ function sortOrders() {
 }
 
 function toggleOrderList() {
-    const value = document.getElementById('statusFilter').value;
-    const lists = {
-        pending: 'pendingList',
-        shipped: 'shipList',
-        delivered: 'completeList',
-        cancelled: 'cancelList'
-    };
+  const value = document.getElementById('statusFilter').value;
+  const lists = {
+    pending: 'pendingList',
+    shipped: 'shipList',
+    delivered: 'completeList',
+    cancelled: 'cancelList'
+  };
 
   for (const key in lists) {
     const listEl = document.getElementById(lists[key]);
@@ -512,52 +513,52 @@ function loadaddtocart() {
       const content = document.getElementById("change-container");
       const container = doc.querySelector('.confirmation-container')
 
-          document.getElementById("title").innerHTML = `<div>Cart</div>`;
-          content.innerHTML = "";
-          content.appendChild(addtocartdisplay);
-          content.appendChild(checkoutdisplay)
-          content.appendChild(container)
-          const paymentSelect = document.getElementById('payment');
-          const chargeTotal = document.getElementById('charge-total');
-          const grandTotalInput = document.getElementById('grand-total');
-          const cartSubtotalDisplay = document.getElementById('cart-total1');
-          const seeorder = document.querySelector('.btn-primary')
-          const seehome = document.querySelector('.btn-secondary')
-          if(seeorder){
-            seeorder.addEventListener('click', loadorders)
-          } 
-          if(seehome){
-            seehome.addEventListener('click', loadcustomerdashboard)
-          }
-          function parsePeso(pesoString) {
-              return parseFloat(pesoString.replace(/[^\d.]/g, '')) || 0;
-          }
-          if (paymentSelect) {
-    paymentSelect.addEventListener('change', function () {
-        const selectedOption = paymentSelect.options[paymentSelect.selectedIndex];
-        const paymentName = selectedOption.textContent.trim().toLowerCase();
-        const number = selectedOption.dataset.number || '';
-        const bankName = selectedOption.dataset.bankname || '';
-        const name = selectedOption.dataset.name || '';
+      document.getElementById("title").innerHTML = `<div>Cart</div>`;
+      content.innerHTML = "";
+      content.appendChild(addtocartdisplay);
+      content.appendChild(checkoutdisplay)
+      content.appendChild(container)
+      const paymentSelect = document.getElementById('payment');
+      const chargeTotal = document.getElementById('charge-total');
+      const grandTotalInput = document.getElementById('grand-total');
+      const cartSubtotalDisplay = document.getElementById('cart-total1');
+      const seeorder = document.querySelector('.btn-primary')
+      const seehome = document.querySelector('.btn-secondary')
+      if (seeorder) {
+        seeorder.addEventListener('click', loadorders)
+      }
+      if (seehome) {
+        seehome.addEventListener('click', loadcustomerdashboard)
+      }
+      function parsePeso(pesoString) {
+        return parseFloat(pesoString.replace(/[^\d.]/g, '')) || 0;
+      }
+      if (paymentSelect) {
+        paymentSelect.addEventListener('change', function () {
+          const selectedOption = paymentSelect.options[paymentSelect.selectedIndex];
+          const paymentName = selectedOption.textContent.trim().toLowerCase();
+          const number = selectedOption.dataset.number || '';
+          const bankName = selectedOption.dataset.bankname || '';
+          const name = selectedOption.dataset.name || '';
 
-        const gcashSection = document.getElementById('gcash-details');
-        const bankSection = document.getElementById('bank-details');
+          const gcashSection = document.getElementById('gcash-details');
+          const bankSection = document.getElementById('bank-details');
 
-        gcashSection.style.display = 'none';
-        bankSection.style.display = 'none';
+          gcashSection.style.display = 'none';
+          bankSection.style.display = 'none';
 
-        if (paymentName.includes('gcash')) {
+          if (paymentName.includes('gcash')) {
             document.getElementById('gcash-number').value = number;
             document.getElementById('gcash-name').value = name;
             gcashSection.style.display = 'block';
-        } else if (paymentName.includes('bank')) {
+          } else if (paymentName.includes('bank')) {
             document.getElementById('name').value = name;
             document.getElementById('bank-name').value = bankName;
             document.getElementById('number').value = number;
             bankSection.style.display = 'block';
-        }
-    });
-}
+          }
+        });
+      }
 
 
       function updateGrandTotal() {
@@ -1119,15 +1120,15 @@ function loadprofile() {
               },
               body: formData,
             })
-            .then(res => {
-                if (res.ok) { 
-                  alert('Update successfully!')   
+              .then(res => {
+                if (res.ok) {
+                  alert('Update successfully!')
                   loadprofile()
                 } else {
                   alert("Failed to accept order.");
                 }
-            })
-            .catch(err => {
+              })
+              .catch(err => {
                 console.error("Error:", err);
               });
           });
@@ -1189,45 +1190,45 @@ function attachOverlayEvents() {
         orderElements.style.overflow = 'hidden'
       });
 
-            const rejectBtn = overlayEl.querySelector(".cancel-btn2");
-            if (rejectBtn) {
-                rejectBtn.addEventListener("click", function () {
-                    overlayEl.style.display = "none";
-                    orderEl.classList.remove("blurred");cancel-btn2
-                });
-            }
-        }
-    });
+      const rejectBtn = overlayEl.querySelector(".cancel-btn2");
+      if (rejectBtn) {
+        rejectBtn.addEventListener("click", function () {
+          overlayEl.style.display = "none";
+          orderEl.classList.remove("blurred"); cancel - btn2
+        });
+      }
+    }
+  });
 
-     document.querySelectorAll(".cancelorder").forEach(form => {
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+  document.querySelectorAll(".cancelorder").forEach(form => {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
-            fetch("/cancelorder", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": csrfToken,
-                    "X-Requested-With": "XMLHttpRequest",
-                },
-                body: formData,
-            })
-            .then(res => {
-                if (res.ok) { 
-                  loadorders()  
-                } else {
-                    alert("Failed to accept order.");
-                }
-            })
-            .catch(err => {
-              confirmcontainer()
-                console.error("Error:", err);
-            });
+      fetch("/cancelorder", {
+        method: "POST",
+        headers: {
+          "X-CSRF-TOKEN": csrfToken,
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        body: formData,
+      })
+        .then(res => {
+          if (res.ok) {
+            loadorders()
+          } else {
+            alert("Failed to accept order.");
+          }
+        })
+        .catch(err => {
+          confirmcontainer()
+          console.error("Error:", err);
         });
     });
-     
-}  
+  });
+
+}
 
 function loadorders() {
   loadloading()
@@ -1301,28 +1302,28 @@ function adddesign() {
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
-                fetch("/addadesign", {
-                    method: "POST",
-                    headers: {
-                        "X-CSRF-TOKEN": csrfToken,
-                        "X-Requested-With": "XMLHttpRequest",
-                    },
-                    body: formData,
-                })
-                .then(res => {
-                    if (res.ok) {      
-                      document.body.style.overflow = "auto";
-                        loaddesigns();
-                    } else {
-                        alert("Failed to add a design.");
-                    }
-                })
-                .catch(err => {
-                  clearLoading()
-                  alert('eorrs')
-                    console.error("Error:", err);
-                });
-            });
+            fetch("/addadesign", {
+              method: "POST",
+              headers: {
+                "X-CSRF-TOKEN": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+              },
+              body: formData,
+            })
+              .then(res => {
+                if (res.ok) {
+                  document.body.style.overflow = "auto";
+                  loaddesigns();
+                } else {
+                  alert("Failed to add a design.");
+                }
+              })
+              .catch(err => {
+                clearLoading()
+                alert('eorrs')
+                console.error("Error:", err);
+              });
+          });
         });
       } else {
         console.log('okay')

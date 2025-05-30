@@ -153,6 +153,19 @@ body {
     transform: rotate(-45deg) translate(6px, -6px);
 }
 
+#cartbutton{
+    background: transparent;
+    padding: 10px 10px;
+    transition: all 0.3s ease;
+}
+#cartbutton:hover {
+    cursor: pointer;
+    background: #ffbb00;
+    border-radius: 50%;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 174, 0, 0.3);
+}
+
 /* Title Section */
 .title1 {
     background: linear-gradient(135deg, #ffae00 0%, #ffd000 100%);
@@ -276,6 +289,7 @@ body {
     }
 
     .buttonsNav {
+        display:none;
         order: 3;
         width: 100%;
         margin-top: 15px;

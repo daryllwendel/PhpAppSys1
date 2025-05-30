@@ -8,7 +8,7 @@
 <body> 
   <div class="main-container">
         <div class="category-container">
-            <button id="hot" data-category="hot" onclick="handleButtonClick('hot')">Hot</button>
+            <button id="hot" data-category="hot" onclick="handleButtonClick('hot')" class="active">Hot</button>
             <button id="new" data-category="new" onclick="handleButtonClick('new')">New</button>
             <button id="my" data-category="my" onclick="handleButtonClick('my')">My Designs</button>
         </div>
