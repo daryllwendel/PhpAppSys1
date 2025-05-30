@@ -41,6 +41,11 @@ class registerform extends Controller
         $user = Auth::user();
         return view('CustomerProfile', compact('user'));
     }
+    public function adminProfile()
+    {
+        $user = Auth::user();
+        return view('AdminProfile', compact('user'));
+    }
 
     public function login(Request $request)
     {

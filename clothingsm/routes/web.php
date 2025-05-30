@@ -95,6 +95,11 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/CustomerProfile', [registerform::class, 'customerProfile']);
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/AdminProfile', [registerform::class, 'adminProfile']);
+});
+
 Route::post('/logout', [registerform::class, 'logout']);
 
 
@@ -111,3 +116,7 @@ Route::post('/addadesign', [AddADesign::class, 'AddADesign']);
 });
 
 Route::post('/ajax/login', [registerform::class, 'ajaxLogin'])->name('ajax.login');
+
+// Route::get('/AdminProfile', function () {
+//     return view('AdminProfile');
+// });
