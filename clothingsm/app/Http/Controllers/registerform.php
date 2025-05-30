@@ -65,7 +65,7 @@ class registerform extends Controller
     }
 
     public function registerform(Request $request)
-    {
+    { 
         $validated = $request->validate([
             'username' => ['required', 'min:4', 'max:15'],
             'name' => ['required'],
