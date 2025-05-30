@@ -7,12 +7,13 @@
 
 body {
     margin: 0;
-    background: url("../images/bg.png");
+    background: url("../images/selcouthBG.png");
     font-family: "Poppins", sans-serif;
     color: #333;
 }
 
 .profilecontainer {
+    width: 100%;
     max-width: 1200px;
     margin: 30px auto;
     padding: 0 20px;

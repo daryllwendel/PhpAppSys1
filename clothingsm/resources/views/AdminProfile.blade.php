@@ -159,6 +159,6 @@
     </div>
   </div>
 
-  <script src="{{asset('js/customer-profile.js')}}"></script>
+
 </body>
 </html>

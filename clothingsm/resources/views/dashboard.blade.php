@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/products.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/reports.css') }}" />
     <link rel="stylesheet" href="{{asset('css/loading.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/AdminProfile.css') }}">
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -20,7 +21,12 @@
 <body>
     <nav class="main-container">
         <div class="userNav">
-            <img src="{{ asset('images/selcouth.jpg') }}" alt="Admin Profile">
+            {{-- <img src="{{ asset('images/selcouth.jpg') }}" alt="Admin Profile"> --}}
+            @if(Auth::user()->profile)
+                <img class="user-image" src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile Picture" id="profile-pic">
+            @else
+                <img class="user-image" src="{{ asset('images/user.png') }}" alt="Profile Picture" id="profile-pic">
+            @endif
             <div class="user-info desktop-only">
                 <div class="customer-name">Admin</div>
                 <div class="user-role">Administrator</div>
@@ -44,6 +50,7 @@
                 <button class="nav-button" id="buttonorders">Orders</button>
                 <button class="nav-button" id="buttonproducts">Products</button>
                 <button class="nav-button" id="buttonreport">Reports</button>
+                <button class="nav-button" id="buttonProfile">Profile</button>
             </div>
         </div>
     </nav>

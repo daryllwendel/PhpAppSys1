@@ -1,7 +1,7 @@
 
 
-
-function swiper(){
+//For the prodfuct/jersey swiper
+function swiper() {
     var swiper = new Swiper(".slide-content", {
         slidesPerView: 3,
         spaceBetween: 25,
@@ -19,7 +19,7 @@ function swiper(){
             prevEl: ".swiper-button-prev",
         },
 
-        breakpoints:{
+        breakpoints: {
             0: {
                 slidesPerView: 1,
             },
@@ -32,47 +32,7 @@ function swiper(){
         },
     });
 }
-// function loadCharts() {
-//     const barchart = document.getElementById("barchart");
-//     const doughnut = document.getElementById("doughnut");
-
-//     if (barchart) {
-//         new Chart(barchart.getContext("2d"), {
-//             type: "bar",
-//             data: {
-//                 labels: ['Product A', 'Product B', 'Product C'],
-//                 datasets: [{
-//                     label: 'Sales',
-//                     data: [12, 19, 3],
-//                     backgroundColor: ['red', 'blue', 'green']
-//                 }]
-//             },
-//             options: {
-//                 responsive: true,
-//                 scales: {
-//                     y: { beginAtZero: true }
-//                 }
-//             }
-//         });
-//     }
-
-//     if (doughnut) {
-//         new Chart(doughnut.getContext("2d"), {
-//             type: "doughnut",
-//             data: {
-//                 labels: ['Red', 'Blue', 'Green'],
-//                 datasets: [{
-//                     label: 'Sales',
-//                     data: [10, 20, 30],
-//                     backgroundColor: ['red', 'blue', 'green']
-//                 }]
-//             },
-//             options: {
-//                 responsive: true
-//             }
-//         });
-//     }
-// }
+// Function to generate a random color for the charts
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -81,6 +41,7 @@ function getRandomColor() {
     }
     return color;
 }
+// Function to load charts with data from the server
 function loadCharts() {
     fetch('/api/dashboard-chart-data')
         .then(res => res.json())
@@ -140,7 +101,7 @@ function loadCharts() {
 document.addEventListener('DOMContentLoaded', loadCharts);
 
 
-function profilepic(){
+function profilepic() {
     const inputFile = document.getElementById("addimg");
     const profilePic = document.getElementById("newimg");
 
@@ -155,7 +116,7 @@ function profilepic(){
         }
     });
 }
-function profilepic1(){
+function profilepic1() {
     const inputFile = document.getElementById("editimg");
     const profilePic = document.querySelector(".img2");
 
@@ -219,21 +180,21 @@ function optionitem() {
             document.getElementById("editprintType").value = productPrintType;
             document.getElementById("add-status").value = productStatus;
             document.getElementById('approveProductId').value = productId
-            if(prodcutviewStatus === 'pending'){
+            if (prodcutviewStatus === 'pending') {
                 document.getElementById('approveMessage').style.display = 'block';
-                document.getElementById('editimg').disabled= true
-                document.getElementById('editName').disabled= true
-                document.getElementById('editPrice').disabled= true
-                document.getElementById('editCategory').disabled= true
-                document.getElementById('editprintType').disabled= true
-                document.getElementById('add-status').disabled= true
-                
-                document.getElementById('editimg').value= ''
-                document.getElementById('editName').value= ''
-                document.getElementById('editPrice').value= ''
-                document.getElementById('editCategory').value= ''
-                document.getElementById('editprintType').value= ''
-                document.getElementById('add-status').value= ''
+                document.getElementById('editimg').disabled = true
+                document.getElementById('editName').disabled = true
+                document.getElementById('editPrice').disabled = true
+                document.getElementById('editCategory').disabled = true
+                document.getElementById('editprintType').disabled = true
+                document.getElementById('add-status').disabled = true
+
+                document.getElementById('editimg').value = ''
+                document.getElementById('editName').value = ''
+                document.getElementById('editPrice').value = ''
+                document.getElementById('editCategory').value = ''
+                document.getElementById('editprintType').value = ''
+                document.getElementById('add-status').value = ''
                 const checkboxes = document.querySelectorAll('input[name="sizes[]"]');
 
                 checkboxes.forEach(checkbox => {
@@ -241,26 +202,26 @@ function optionitem() {
                 });
 
             }
-            if(prodcutviewStatus === 'approved'){
+            if (prodcutviewStatus === 'approved') {
                 document.getElementById('approveMessage').style.display = 'none';
 
-                 document.getElementById('editimg').disabled= false
-                document.getElementById('editName').disabled= false
+                document.getElementById('editimg').disabled = false
+                document.getElementById('editName').disabled = false
                 const input = document.getElementById('editPrice');
 
                 input.readOnly = false; // NOT readonly
 
                 // Prevent typing and pasting
                 input.addEventListener('keydown', (e) => {
-                e.preventDefault(); // block key input
+                    e.preventDefault(); // block key input
                 });
                 input.addEventListener('paste', (e) => {
-                e.preventDefault(); // block paste
+                    e.preventDefault(); // block paste
                 });
 
-                document.getElementById('editCategory').disabled= false
-                document.getElementById('editprintType').disabled= false
-                document.getElementById('add-status').disabled= false
+                document.getElementById('editCategory').disabled = false
+                document.getElementById('editprintType').disabled = false
+                document.getElementById('add-status').disabled = false
                 const checkboxes = document.querySelectorAll('input[name="sizes[]"]');
 
                 checkboxes.forEach(checkbox => {
@@ -310,7 +271,7 @@ function optionitem() {
 
     //edit a design ajax
     document.querySelectorAll(".editProduct").forEach(form => {
-        form.addEventListener("submit", function(e) {
+        form.addEventListener("submit", function (e) {
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -324,33 +285,33 @@ function optionitem() {
                 },
                 body: formData,
             })
-            .then(res => {
-                if (res.ok) {
-                    const overlay = form.closest(".additem");
-                    if (overlay) {
-                        overlay.style.display = "none";
+                .then(res => {
+                    if (res.ok) {
+                        const overlay = form.closest(".additem");
+                        if (overlay) {
+                            overlay.style.display = "none";
+                        }
+                        product();
+                    } else {
+                        alert("Failed to add order.");
                     }
-                    product();
-                } else {
-                    alert("Failed to add order.");
-                }
-            })
-            .catch(err => {
-                clearLoading()
-                console.error("Error:", err);
-            });
+                })
+                .catch(err => {
+                    clearLoading()
+                    console.error("Error:", err);
+                });
         });
     });
 
     //add a design ajax
     document.querySelectorAll(".addProductForm").forEach(form => {
-        form.addEventListener("submit", function(e) {
+        form.addEventListener("submit", function (e) {
             e.preventDefault();
 
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
-            loadloading()   
+            loadloading()
             fetch("/adddesign", {
                 method: "POST",
                 headers: {
@@ -359,26 +320,26 @@ function optionitem() {
                 },
                 body: formData,
             })
-            .then(res => {
-                if (res.ok) {
-                    const overlay = form.closest(".edititem");
-                    if (overlay) {
-                        overlay.style.display = "none";
-                    }  
-                    product();
-                } else {
-                    alert("Failed to edit order.");
-                }
-            })
-            .catch(err => {
-                clearLoading()
-                console.error("Error:", err);
-            });
+                .then(res => {
+                    if (res.ok) {
+                        const overlay = form.closest(".edititem");
+                        if (overlay) {
+                            overlay.style.display = "none";
+                        }
+                        product();
+                    } else {
+                        alert("Failed to edit order.");
+                    }
+                })
+                .catch(err => {
+                    clearLoading()
+                    console.error("Error:", err);
+                });
         });
     });
-     //approve a design ajax
+    //approve a design ajax
     document.querySelectorAll(".approve").forEach(form => {
-        form.addEventListener("submit", function(e) {
+        form.addEventListener("submit", function (e) {
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -392,26 +353,26 @@ function optionitem() {
                 },
                 body: formData,
             })
-            .then(res => {
-                if (res.ok) {
-                    const overlay = form.closest(".additem");
-                    if (overlay) {
-                        overlay.style.display = "none";
+                .then(res => {
+                    if (res.ok) {
+                        const overlay = form.closest(".additem");
+                        if (overlay) {
+                            overlay.style.display = "none";
+                        }
+                        product();
+                    } else {
+                        alert("Failed to add order.");
                     }
-                    product();
-                } else {
-                    alert("Failed to add order.");
-                }
-            })
-            .catch(err => {
-                clearLoading()
-                console.error("Error:", err);
-            });
+                })
+                .catch(err => {
+                    clearLoading()
+                    console.error("Error:", err);
+                });
         });
     });
     //delete a design ajax
     document.querySelectorAll(".deleteProduct").forEach(form => {
-        form.addEventListener("submit", function(e) {
+        form.addEventListener("submit", function (e) {
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -425,40 +386,40 @@ function optionitem() {
                 },
                 body: formData,
             })
-            .then(res => {
-                if (res.ok) {
-                    const overlay = form.closest(".deleteitem");
-                    if (overlay) {
-                        overlay.style.display = "none";
+                .then(res => {
+                    if (res.ok) {
+                        const overlay = form.closest(".deleteitem");
+                        if (overlay) {
+                            overlay.style.display = "none";
+                        }
+                        product();
+                    } else {
+                        alert("Failed to delete order.");
                     }
-                    product();
-                } else {
-                    alert("Failed to delete order.");
-                }
-            })
-            .catch(err => {
-                clearLoading()
-                console.error("Error:", err);
-            });
+                })
+                .catch(err => {
+                    clearLoading()
+                    console.error("Error:", err);
+                });
         });
     });
 }
-function loadloading(){
+function loadloading() {
     fetch('/loading')
-    .then(res => res.text())
-    .then((html)=>{
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
+        .then(res => res.text())
+        .then((html) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
 
-        const loading = doc.querySelector('.loader-wrapper')
-        if(loading){
-           const content =document.getElementById('body1')
-            content.innerHTML=''
-            content.appendChild(loading)
-        }else{
-            console.log('error loading')
-        }
-    }).catch((err) => console.error("Failed to load dashboard content:", err))
+            const loading = doc.querySelector('.loader-wrapper')
+            if (loading) {
+                const content = document.getElementById('body1')
+                content.innerHTML = ''
+                content.appendChild(loading)
+            } else {
+                console.log('error loading')
+            }
+        }).catch((err) => console.error("Failed to load dashboard content:", err))
 }
 function clearLoading() {
     const body = document.getElementById('body1');
@@ -467,16 +428,16 @@ function clearLoading() {
         loader.remove();
     }
 }
-function loaddashboard(){
-        fetch("/dashboarddisplay")
+function loaddashboard() {
+    fetch("/dashboarddisplay")
         .then(res => res.text())
         .then((html) => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, "text/html");
 
             const dashboardContent = doc.querySelector(".main-container");
-            if(dashboardContent){
-                document.getElementById("title1").innerHTML =`
+            if (dashboardContent) {
+                document.getElementById("title1").innerHTML = `
                 <div>Home</div>`
                 console.log('haaha')
                 const content = document.getElementById("body1");
@@ -485,27 +446,27 @@ function loaddashboard(){
                 swiper()
                 loadCharts()
                 document.getElementById('body1').style.display = 'flex'
-            }else{
+            } else {
                 console.log("Errorz")
             }
         })
-            .catch((err) => console.error("Failed to load dashboard content:", err))
+        .catch((err) => console.error("Failed to load dashboard content:", err))
 
 }
 
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
     loaddashboard();
-     document.addEventListener('click', function(event) {
-            const nav = document.querySelector('.nav');
-            const menu = document.getElementById('menu');
-            const hamburger = document.querySelector('.hamburger');
-            
-            if (!nav.contains(event.target) && menu.classList.contains('active')) {
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-            }
-        });
-    document.getElementById("buttondashboard").addEventListener("click",loaddashboard)
+    document.addEventListener('click', function (event) {
+        const nav = document.querySelector('.nav');
+        const menu = document.getElementById('menu');
+        const hamburger = document.querySelector('.hamburger');
+
+        if (!nav.contains(event.target) && menu.classList.contains('active')) {
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+    });
+    document.getElementById("buttondashboard").addEventListener("click", loaddashboard)
 })
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -513,99 +474,100 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 function sortorders() {
     const sort = document.getElementById('sortStatus').value;
-  
+
     const pendingList = document.getElementById('pendingOrders');
     const shipList = document.getElementById('shippedOrders');
     const completeList = document.getElementById('completedOrders')
-  
+
     if (sort === 'pending') {
         pendingList.style.display = 'block';
         shipList.style.display = 'none';
-        completeList.style.display='none';
+        completeList.style.display = 'none';
     } else if (sort === 'shipped') {
         pendingList.style.display = 'none';
         shipList.style.display = 'block';
-        completeList.style.display='none'
-    }else if(sort === 'delivered'){
+        completeList.style.display = 'none'
+    } else if (sort === 'delivered') {
         pendingList.style.display = 'none';
         shipList.style.display = 'none';
-        completeList.style.display='block' 
+        completeList.style.display = 'block'
     }
-  }
-function orders(){
-    fetch("/orders?_t=" + new Date().getTime())
-    .then(res => res.text())
-    .then((html) => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-
-        const dashboardContent = doc.querySelector(".ordercontainer");
-
-        if (dashboardContent) {
-            document.getElementById("title1").innerHTML = "<div>Orders</div>";
-            const content = document.getElementById("body1");
-            content.innerHTML = "";
-
-            content.appendChild(dashboardContent.cloneNode(true));
-            document.getElementById('sortStatus').addEventListener('change', sortorders);
-            const overlays = doc.querySelectorAll(".checkout-container-layout2");
-            overlays.forEach(overlay => {
-                content.appendChild(overlay.cloneNode(true));
-            });
-
-            attachOverlayEvents();
-
-            document.getElementById('body1').style.display = 'grid';
-        } else {
-            const emptyOrder = doc.querySelector('.emptyOrder')
-            if(emptyOrder){
-                const content = document.getElementById('body1')
-                content.innerHTML=""
-                content.appendChild(emptyOrder.cloneNode(true))
-            }
-        }
-    })
-    .catch((err) => console.error("Failed to load orders content:", err));
 }
-function product(){
-    fetch("/product")
-    .then((res) => res.text())
-    .then((html) => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
+function orders() {
+    fetch("/orders?_t=" + new Date().getTime())
+        .then(res => res.text())
+        .then((html) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
 
-        const dashboardContent = doc.querySelector(".productcontent");
-        const deleteitem = doc.querySelector(".deleteitem");
-        const edititem = doc.querySelector(".edititem");
-        const additem = doc.querySelector(".additem")
+            const dashboardContent = doc.querySelector(".ordercontainer");
 
-        if (dashboardContent) {
-            document.getElementById("title1").innerHTML =`
-            <div>Products</div>`
-            const content = document.getElementById("body1");
-            content.innerHTML = "";
-            content.appendChild(dashboardContent);
-            content.appendChild(deleteitem);
-            content.appendChild(edititem);
-            content.appendChild(additem);
-            optionitem();
-            profilepic()
-            profilepic1()
-            document.getElementById('body1').style.display = 'grid'
-        } else {
-            const emptyProduct = doc.querySelector('.emptyProduct')
-            if(emptyProduct){
-                const content = document.getElementById('body1')
-                content.innerHTML=""
-                content.appendChild(emptyProduct.cloneNode(true))
+            if (dashboardContent) {
+                document.getElementById("title1").innerHTML = "<div>Orders</div>";
+                const content = document.getElementById("body1");
+                content.innerHTML = "";
+
+                content.appendChild(dashboardContent.cloneNode(true));
+                document.getElementById('sortStatus').addEventListener('change', sortorders);
+                const overlays = doc.querySelectorAll(".checkout-container-layout2");
+                overlays.forEach(overlay => {
+                    content.appendChild(overlay.cloneNode(true));
+                });
+
+                attachOverlayEvents();
+
+                document.getElementById('body1').style.display = 'grid';
+            } else {
+                const emptyOrder = doc.querySelector('.emptyOrder')
+                if (emptyOrder) {
+                    const content = document.getElementById('body1')
+                    content.innerHTML = ""
+                    content.appendChild(emptyOrder.cloneNode(true))
+                }
             }
-        }
-    })
-    .catch((err) => console.error("Failed to load dashboard content:", err));
+        })
+        .catch((err) => console.error("Failed to load orders content:", err));
+}
+function product() {
+    fetch("/product")
+        .then((res) => res.text())
+        .then((html) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+
+            const dashboardContent = doc.querySelector(".productcontent");
+            const deleteitem = doc.querySelector(".deleteitem");
+            const edititem = doc.querySelector(".edititem");
+            const additem = doc.querySelector(".additem")
+
+            if (dashboardContent) {
+                document.getElementById("title1").innerHTML = `
+            <div>Products</div>`
+                const content = document.getElementById("body1");
+                content.innerHTML = "";
+                content.appendChild(dashboardContent);
+                content.appendChild(deleteitem);
+                content.appendChild(edititem);
+                content.appendChild(additem);
+                optionitem();
+                profilepic()
+                profilepic1()
+                document.getElementById('body1').style.display = 'grid'
+            } else {
+                const emptyProduct = doc.querySelector('.emptyProduct')
+                if (emptyProduct) {
+                    const content = document.getElementById('body1')
+                    content.innerHTML = ""
+                    content.appendChild(emptyProduct.cloneNode(true))
+                }
+            }
+        })
+        .catch((err) => console.error("Failed to load dashboard content:", err));
 }
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("buttonproducts").addEventListener("click", product);
 });
+
 
 
 
@@ -623,7 +585,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const dashboardContent = doc.querySelector(".reportcontent");
 
                 if (dashboardContent) {
-                    document.getElementById("title1").innerHTML =`
+                    document.getElementById("title1").innerHTML = `
                     <div>Reports</div>`
                     const content = document.getElementById("body1");
                     content.innerHTML = "";
@@ -635,6 +597,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch((err) => console.error("Failed to load dashboard content:", err));
     });
 });
+
+
 function attachOverlayEvents() {
     const orderElements = document.querySelectorAll(".order");
     const overlayElements = document.querySelectorAll(".checkout-container-layout2");
@@ -658,7 +622,7 @@ function attachOverlayEvents() {
         }
     });
     document.querySelectorAll(".accept-form").forEach(form => {
-        form.addEventListener("submit", function(e) {
+        form.addEventListener("submit", function (e) {
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -672,37 +636,37 @@ function attachOverlayEvents() {
                 },
                 body: formData,
             })
-            .then(res => {
-                if (res.ok) {
-                    const overlay = form.closest(".overlay");
-                    if (overlay) {
-                        overlay.style.display = "none";
+                .then(res => {
+                    if (res.ok) {
+                        const overlay = form.closest(".overlay");
+                        if (overlay) {
+                            overlay.style.display = "none";
+                        }
+                        const blurredOrder = document.querySelector(".order.blurred");
+                        if (blurredOrder) {
+                            blurredOrder.classList.remove("blurred");
+                        }
+
+                        orders();
+                    } else {
+                        clearLoading()
+                        alert("Failed to accept order.");
                     }
-                    const blurredOrder = document.querySelector(".order.blurred");
-                    if (blurredOrder) {
-                        blurredOrder.classList.remove("blurred");
-                    }
-                    
-                    orders();
-                } else {
-                    clearLoading()
-                    alert("Failed to accept order.");
-                }
-            })
-            .catch(err => {
-                console.error("Error:", err);
-            });
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                });
         });
     });
     //ship
     document.querySelectorAll(".accept-form2").forEach(form => {
-        form.addEventListener("submit", function(e) {
+        form.addEventListener("submit", function (e) {
             e.preventDefault();
             loadloading()
 
             const formData = new FormData(form);
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
-            
+
             fetch("/completeorder", {
                 method: "POST",
                 headers: {
@@ -711,55 +675,55 @@ function attachOverlayEvents() {
                 },
                 body: formData,
             })
-            .then(res => {
-                if (res.ok) {
-                    const overlay = form.closest(".overlay");
-                    if (overlay) {
-                        overlay.style.display = "none";
+                .then(res => {
+                    if (res.ok) {
+                        const overlay = form.closest(".overlay");
+                        if (overlay) {
+                            overlay.style.display = "none";
+                        }
+                        const blurredOrder = document.querySelector(".order.blurred");
+                        if (blurredOrder) {
+                            blurredOrder.classList.remove("blurred");
+                        }
+
+                        orders();
+                    } else {
+                        alert("Failed to accept order.");
                     }
-                    const blurredOrder = document.querySelector(".order.blurred");
-                    if (blurredOrder) {
-                        blurredOrder.classList.remove("blurred");
-                    }
-                    
-                    orders();
-                } else {
-                    alert("Failed to accept order.");
-                }
-            })
-            .catch(err => {
-                clearLoading()
-                console.error("Error:", err);
-            });
+                })
+                .catch(err => {
+                    clearLoading()
+                    console.error("Error:", err);
+                });
         });
     });
-}   
+}
 
 //reports
 
-window.filterReports = function(period) {
+window.filterReports = function (period) {
     // Update table headers first
     updateTableHeaders(period);
-    
+
     const tbody = document.getElementById('ordersTableBody');
     if (tbody) {
         tbody.innerHTML = '<tr><td colspan="5" class="no-data">Loading...</td></tr>';
     }
-    
+
     fetch(`/api/sales-report?filter=${period}`)
         .then(response => response.json())
         .then(data => {
             // Update summary
             const summaryTitle = document.getElementById('summaryTitle');
             const summaryAmount = document.getElementById('summaryAmount');
-            
+
             if (summaryTitle) {
                 summaryTitle.textContent = `Total Sales (${period.charAt(0).toUpperCase() + period.slice(1)})`;
             }
             if (summaryAmount) {
-                summaryAmount.textContent = `₱${data.totalSales.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                summaryAmount.textContent = `₱${data.totalSales.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
             }
-            
+
             // Update table with grouped data
             updateGroupedTable(data.groupedData, period);
         })
@@ -775,9 +739,9 @@ window.filterReports = function(period) {
 function updateGroupedTable(groupedData, period) {
     const tbody = document.getElementById('ordersTableBody');
     if (!tbody) return;
-    
+
     tbody.innerHTML = '';
-    
+
     if (groupedData && groupedData.length > 0) {
         groupedData.forEach(group => {
             const row = document.createElement('tr');
@@ -785,7 +749,7 @@ function updateGroupedTable(groupedData, period) {
                 <td><strong>${group.label}</strong></td>
                 <td>${group.period}</td>
                 <td>${group.orderCount} orders</td>
-                <td>₱${group.sales.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+                <td>₱${group.sales.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                 <td>${group.date}</td>
             `;
             tbody.appendChild(row);
@@ -798,9 +762,9 @@ function updateGroupedTable(groupedData, period) {
 function updateTableHeaders(period) {
     const thead = document.querySelector('.reports-table thead tr');
     if (!thead) return;
-    
+
     let headers = '';
-    switch(period) {
+    switch (period) {
         case 'daily':
             headers = `
                 <th>Hour</th>
@@ -838,17 +802,17 @@ function updateTableHeaders(period) {
             `;
             break;
     }
-    
+
     thead.innerHTML = headers;
 }
 
 function searchOrders() {
     const searchInput = document.querySelector('.search-input');
     if (!searchInput) return;
-    
+
     const searchTerm = searchInput.value.toLowerCase();
     const rows = document.querySelectorAll('#ordersTableBody tr');
-    
+
     rows.forEach(row => {
         const text = row.textContent.toLowerCase();
         if (text.includes(searchTerm)) {
@@ -865,7 +829,7 @@ function initializeReports() {
     if (typeof filterReports === 'function') {
         filterReports('monthly');
     }
-    
+
     // Add search event listener
     const searchInput = document.querySelector('.search-input');
     if (searchInput) {
@@ -880,8 +844,8 @@ document.addEventListener('DOMContentLoaded', initializeReports);
 document.addEventListener('reportsContentLoaded', initializeReports);
 
 // Alternative: Use MutationObserver to detect when report content is added
-const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
+const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
         if (mutation.type === 'childList') {
             const reportContent = document.querySelector('.reportcontent');
             if (reportContent && !reportContent.dataset.initialized) {
@@ -891,6 +855,157 @@ const observer = new MutationObserver(function(mutations) {
         }
     });
 });
+
+
+
+
+//For Admin Profile
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("buttonProfile").addEventListener("click", loadprofile);
+});
+
+
+function loadprofile() {
+    console.log('loading profile')
+    loadloading()
+    fetch('/AdminProfile')
+        .then(res => res.text())
+        .then((html) => {
+            const parser = new DOMParser()
+            const doc = parser.parseFromString(html, "text/html")
+
+            const profledisplay = doc.querySelector(".profilecontainer")
+            if (profledisplay) {
+                console.log('profile display found')
+                document.getElementById("title1").innerHTML = `
+            <div>Admin Profile</div>`
+                const content = document.getElementById("body1");
+                content.innerHTML = "";
+                content.appendChild(profledisplay)
+
+                document.querySelectorAll(".location").forEach(form => {
+                    form.addEventListener("submit", function (e) {
+                        e.preventDefault();
+                        loadloading()
+                        const formData = new FormData(form);
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+                        fetch("/location", {
+                            method: "POST",
+                            headers: {
+                                "X-CSRF-TOKEN": csrfToken,
+                                "X-Requested-With": "XMLHttpRequest",
+                            },
+                            body: formData,
+                        })
+                            .then(res => {
+                                if (res.ok) {
+                                    loadprofile();
+                                } else {
+                                    alert("Failed to accept order.");
+                                }
+                            })
+                            .catch(err => {
+                                clearLoading()
+                                console.error("Error:", err);
+                            });
+                    });
+                });
+                //
+                document.querySelectorAll(".profileimgage").forEach(form => {
+                    form.addEventListener("submit", function (e) {
+                        e.preventDefault();
+                        loadloading()
+                        const formData = new FormData(form);
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
+
+                        fetch("/upload-profile", {
+                            method: "POST",
+                            headers: {
+                                "X-CSRF-TOKEN": csrfToken,
+                                "X-Requested-With": "XMLHttpRequest",
+                            },
+                            body: formData,
+                        })
+                            .then(res => {
+                                if (res.ok) {
+                                    alert("Update Successfully!");
+                                    const img = document.querySelector(".profile-picture");
+                                    loadprofile();
+                                } else {
+                                    alert("Failed to accept order.");
+                                }
+                            })
+                            .catch(err => {
+                                clearLoading()
+                                console.error("Error:", err);
+                            });
+                    });
+                });
+                profileset()
+                profilepic()
+                clearLoading()
+            } else {
+                console.log('okay')
+            }
+        }).catch((err) => {
+            console.error("Failed to load profile:", err);
+            clearLoading(); // Make sure to remove loader even on failure
+        });
+}
+
+function profileset() {
+    const profile = document.getElementById("customerProfile");
+    const password = document.getElementById("customerPassword");
+
+    const profcus = document.querySelector(".profcus");
+    const profileInfo = document.querySelector(".profileInfo");
+    const changepass = document.querySelector(".changepass");
+    const locationSection = document.querySelector(".location");
+
+    function hideAllSections() {
+        profcus.style.display = "none";
+        changepass.style.display = "none";
+        locationSection.style.display = "none";
+        profileInfo.style.display = "none"
+    }
+
+    profile.addEventListener("click", function () {
+        hideAllSections();
+        profcus.style.display = "grid";
+        profileInfo.style.display = "grid";
+    });
+
+    password.addEventListener("click", function () {
+        hideAllSections();
+        changepass.style.display = "grid";
+    });
+
+
+    hideAllSections();
+    profcus.style.display = "grid";
+    profileInfo.style.display = "grid"
+}
+
+
+function profilepic() {
+    const inputFile = document.getElementById("input-file");
+    const profilePic = document.getElementById("profile-pic");
+    const userpic = document.querySelector('.profile-picture')
+
+    inputFile.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                profilePic.src = e.target.result;
+                userpic.src = e.target.result
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
 
 // Start observing
 observer.observe(document.body, {
