@@ -174,126 +174,166 @@ function toggleOrderList() {
   sortOrders(); // Re-sort after changing list
 }
 
-function swipe(){
-  console.log('Initializing Swiper for customer dashboard...');
-    // Get all card wrappers (for both hot designs and new designs)
-    const cardWrappers = document.querySelectorAll('.card-wrapper');
-    let i = 1;
-    cardWrappers.forEach(wrapper => {
-        i++;
-        console.log(`Processing wrapper ${i}...`);
-        // Count the actual number of slides in this specific wrapper
-        const slideCount = wrapper.querySelectorAll('.swiper-slide').length;
+// function swipe(){
+//   console.log('Initializing Swiper for customer dashboard...');
+//     // Get all card wrappers (for both hot designs and new designs)
+//     const cardWrappers = document.querySelectorAll('.card-wrapper');
+//     let i = 1;
+//     cardWrappers.forEach(wrapper => {
+//         i++;
+//         console.log(`Processing wrapper ${i}...`);
+//         // Count the actual number of slides in this specific wrapper
+//         const slideCount = wrapper.querySelectorAll('.swiper-slide').length;
         
-        // If 3 or fewer items, disable Swiper and show all items
-        if (slideCount <= 3) {
-          console.log(`Disabling Swiper for wrapper ${i} with ${slideCount} items...`);
-            // First, destroy any existing Swiper instance
-            if (wrapper.swiper) {
-                wrapper.swiper.destroy(true, true);
-            }
+//         // If 3 or fewer items, disable Swiper and show all items
+//         if (slideCount <= 3) {
+//           console.log(`Disabling Swiper for wrapper ${i} with ${slideCount} items...`);
+//             // First, destroy any existing Swiper instance
+//             if (wrapper.swiper) {
+//                 wrapper.swiper.destroy(true, true);
+//             }
             
-            // Remove swiper container class to prevent automatic initialization
-            const swiperContainer = wrapper.closest('.swiper');
-            if (swiperContainer) {
-              console.log(`Removing Swiper class from wrapper ${i}...`);
-                swiperContainer.classList.remove('swiper');
-                swiperContainer.classList.add('grid-container'); // Add custom class for styling
-            }
+//             // Remove swiper container class to prevent automatic initialization
+//             const swiperContainer = wrapper.closest('.swiper');
+//             if (swiperContainer) {
+//               console.log(`Removing Swiper class from wrapper ${i}...`);
+//                 swiperContainer.classList.remove('swiper');
+//                 swiperContainer.classList.add('grid-container'); // Add custom class for styling
+//             }
             
-            // Remove swiper classes and apply grid layout
-            const cardList = wrapper.querySelector('.card-list');
-            cardList.classList.remove('swiper-wrapper');
-            cardList.style.display = 'flex';
-            cardList.style.flexWrap = 'wrap';
-            cardList.style.justifyContent = 'center';
-            cardList.style.gap = '20px';
-            cardList.style.width = '100%';
+//             // Remove swiper classes and apply grid layout
+//             const cardList = wrapper.querySelector('.card-list');
+//             cardList.classList.remove('swiper-wrapper');
+//             cardList.style.display = 'flex';
+//             cardList.style.flexWrap = 'wrap';
+//             cardList.style.justifyContent = 'center';
+//             cardList.style.gap = '20px';
+//             cardList.style.width = '100%';
             
-            // Remove swiper-slide class from individual items and reset styles
-            const cardItems = wrapper.querySelectorAll('.card-item');
-            cardItems.forEach(item => {
-                item.classList.remove('swiper-slide');
-                item.style.flex = '0 1 300px'; // Flexible width with max 300px
-                item.style.minWidth = '280px';
-                item.style.transform = 'none'; // Reset any transform applied by Swiper
-                item.style.opacity = '1'; // Ensure visibility
-            });
+//             // Remove swiper-slide class from individual items and reset styles
+//             const cardItems = wrapper.querySelectorAll('.card-item');
+//             cardItems.forEach(item => {
+//                 item.classList.remove('swiper-slide');
+//                 item.style.flex = '0 1 300px'; // Flexible width with max 300px
+//                 item.style.minWidth = '280px';
+//                 item.style.transform = 'none'; // Reset any transform applied by Swiper
+//                 item.style.opacity = '1'; // Ensure visibility
+//             });
             
-            // Hide navigation and pagination
-            const pagination = wrapper.querySelector('.swiper-pagination');
-            const nextBtn = wrapper.querySelector('.swiper-button-next');
-            const prevBtn = wrapper.querySelector('.swiper-button-prev');
+//             // Hide navigation and pagination
+//             const pagination = wrapper.querySelector('.swiper-pagination');
+//             const nextBtn = wrapper.querySelector('.swiper-button-next');
+//             const prevBtn = wrapper.querySelector('.swiper-button-prev');
             
-            if (pagination) pagination.style.display = 'none';
-            if (nextBtn) nextBtn.style.display = 'none';
-            if (prevBtn) prevBtn.style.display = 'none';
+//             if (pagination) pagination.style.display = 'none';
+//             if (nextBtn) nextBtn.style.display = 'none';
+//             if (prevBtn) prevBtn.style.display = 'none';
             
-        } else {
-            // 4 or more items - initialize Swiper normally
-            const swiperContainer = wrapper.closest('.swiper');
-            if (swiperContainer && !swiperContainer.classList.contains('swiper')) {
-                swiperContainer.classList.add('swiper');
-                swiperContainer.classList.remove('grid-container');
-            }
+//         } else {
+//             // 4 or more items - initialize Swiper normally
+//             const swiperContainer = wrapper.closest('.swiper');
+//             if (swiperContainer && !swiperContainer.classList.contains('swiper')) {
+//                 swiperContainer.classList.add('swiper');
+//                 swiperContainer.classList.remove('grid-container');
+//             }
             
-            // Ensure swiper classes are present
-            const cardList = wrapper.querySelector('.card-list');
-            if (!cardList.classList.contains('swiper-wrapper')) {
-                cardList.classList.add('swiper-wrapper');
-            }
+//             // Ensure swiper classes are present
+//             const cardList = wrapper.querySelector('.card-list');
+//             if (!cardList.classList.contains('swiper-wrapper')) {
+//                 cardList.classList.add('swiper-wrapper');
+//             }
             
-            const cardItems = wrapper.querySelectorAll('.card-item');
-            cardItems.forEach(item => {
-                if (!item.classList.contains('swiper-slide')) {
-                    item.classList.add('swiper-slide');
-                }
-                // Reset inline styles that might interfere
-                item.style.flex = '';
-                item.style.minWidth = '';
-                item.style.transform = '';
-                item.style.opacity = '';
-            });
+//             const cardItems = wrapper.querySelectorAll('.card-item');
+//             cardItems.forEach(item => {
+//                 if (!item.classList.contains('swiper-slide')) {
+//                     item.classList.add('swiper-slide');
+//                 }
+//                 // Reset inline styles that might interfere
+//                 item.style.flex = '';
+//                 item.style.minWidth = '';
+//                 item.style.transform = '';
+//                 item.style.opacity = '';
+//             });
             
-            // Show navigation and pagination
-            const pagination = wrapper.querySelector('.swiper-pagination');
-            const nextBtn = wrapper.querySelector('.swiper-button-next');
-            const prevBtn = wrapper.querySelector('.swiper-button-prev');
+//             // Show navigation and pagination
+//             const pagination = wrapper.querySelector('.swiper-pagination');
+//             const nextBtn = wrapper.querySelector('.swiper-button-next');
+//             const prevBtn = wrapper.querySelector('.swiper-button-prev');
             
-            if (pagination) pagination.style.display = '';
-            if (nextBtn) nextBtn.style.display = '';
-            if (prevBtn) prevBtn.style.display = '';
+//             if (pagination) pagination.style.display = '';
+//             if (nextBtn) nextBtn.style.display = '';
+//             if (prevBtn) prevBtn.style.display = '';
             
-            // Initialize Swiper
-            new Swiper(swiperContainer, {
-                loop: true,
-                spaceBetween: 30,
+//             // Initialize Swiper
+//             new Swiper(swiperContainer, {
+//                 loop: true,
+//                 spaceBetween: 30,
                 
-                pagination: {
-                    el: wrapper.querySelector('.swiper-pagination'),
-                    clickable: true,
-                    dynamicBullets: true,
-                },
+//                 pagination: {
+//                     el: wrapper.querySelector('.swiper-pagination'),
+//                     clickable: true,
+//                     dynamicBullets: true,
+//                 },
                 
-                navigation: {
-                    nextEl: wrapper.querySelector('.swiper-button-next'),
-                    prevEl: wrapper.querySelector('.swiper-button-prev'),
-                },
+//                 navigation: {
+//                     nextEl: wrapper.querySelector('.swiper-button-next'),
+//                     prevEl: wrapper.querySelector('.swiper-button-prev'),
+//                 },
                 
-                breakpoints: {
-                    0: {
-                        slidesPerView: 1
-                    },
-                    768: {
-                        slidesPerView: 2
-                    },
-                    1024: {
-                        slidesPerView: 3
-                    }
-                }
-            });
+//                 breakpoints: {
+//                     0: {
+//                         slidesPerView: 1
+//                     },
+//                     768: {
+//                         slidesPerView: 2
+//                     },
+//                     1024: {
+//                         slidesPerView: 3
+//                     }
+//                 }
+//             });
+//         }
+//     });
+// }
+function swipe() {
+    new Swiper('.card-wrapper', {
+    loop: true,
+    spaceBetween: 30,
+
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        dynamicBullets: true,
+    },
+
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    breakpoints:{
+        0:{
+            slidesPerView: 1
+        },
+        768:{
+            slidesPerView: 2
+        },
+        1024:{
+            slidesPerView: 3
         }
-    });
+    }
+
+});
+
+
+
+function toggleMenu() {
+    const menu = document.querySelector(".buttonsNav");
+    menu.classList.toggle("active");
+    const nav = document.querySelector(".nav");
+    nav.classList.toggle("expanded");
+}
 }
 
 function initProductOverlay4() {
