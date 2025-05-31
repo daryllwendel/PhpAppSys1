@@ -88,7 +88,7 @@ body {
 }
 
 .import-design-container:hover img {
-    border-color: #ff9eb5;
+    border-color: #ffbb00;
 }
 
 .import-design-container .input-file {
@@ -97,7 +97,7 @@ body {
 
 .import-design-container .input-file-button p {
     padding: 12px 30px;
-    background: #ff9eb5;
+    background: #ffbb00;
     color: white;
     border-radius: 50px;
     border: 2px solid transparent;
@@ -109,8 +109,8 @@ body {
 
 .import-design-container .input-file-button p:hover {
     background: white;
-    color: #ff9eb5;
-    border-color: #ff9eb5;
+    color: #ffbb00;
+    border-color: #ffbb00;
     transform: translateY(-2px);
 }
 
@@ -150,7 +150,7 @@ body {
 
 .design-info-container input:focus {
     outline: none;
-    border-color: #ff9eb5;
+    border-color: #ffbb00;
     box-shadow: 0 0 0 3px rgba(255, 158, 181, 0.2);
 }
 
@@ -210,7 +210,7 @@ body {
 .product-type-checkbox:checked + .product-type-option,
 .print-type-checkbox:checked + .print-type,
 .size-checkbox:checked + .size-option {
-    background: #ff9eb5;
+    background: #ffbb00;
     color: white;
     transform: translateY(-2px);
 }
@@ -325,7 +325,7 @@ body {
 
 .design-info-1 select:focus {
     outline: none;
-    border-color: #ff9eb5;
+    border-color: #ffbb00;
     box-shadow: 0 0 0 3px rgba(255, 158, 181, 0.2);
 }
 
@@ -339,7 +339,7 @@ body {
     font-weight: bold;
     border: none;
     background: none;
-    color: #ff6b93;
+    color: #ffbb00;
     cursor: pointer;
     padding: 0 5px;
     border-radius: 50%;
@@ -361,7 +361,7 @@ body {
 
 .add-button {
     padding: 14px;
-    background: #ff9eb5;
+    background: #ffbb00;
     border: none;
     border-radius: 8px;
     transition: 0.2s ease;
@@ -373,7 +373,7 @@ body {
 }
 
 .add-button:hover {
-    background: #ff8aa8;
+    background: #ffbb00;
     transform: translateY(-2px);
 }
 
@@ -405,7 +405,7 @@ body {
 }
 
 .price-value {
-    color: #ff6b93;
+    color: #ffbb00;
 }
 
 /* Buttons */
@@ -429,12 +429,12 @@ body {
 }
 
 #submit {
-    background: #ff9eb5;
+    background: #ffbb00;
     color: white;
 }
 
 #submit:hover {
-    background: #ff8aa8;
+    background: #ffbb00;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(255, 158, 181, 0.3);
 }

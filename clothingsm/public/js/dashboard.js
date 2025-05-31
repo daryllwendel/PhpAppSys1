@@ -136,6 +136,7 @@ function profilepic1() {
     });
 }
 function optionitem() {
+    const modalOverlay = document.getElementById('modalOverlay');
     const additem = document.querySelector(".addbutton");
     const deleteitem = document.querySelectorAll(".deletebutton");
     const edititem = document.querySelectorAll(".editbutton");
@@ -156,6 +157,13 @@ function optionitem() {
         add.style.display = "grid";
         productcontainer.style.pointerEvents = "none"
         productcontainer.style.filter = "auto";
+
+        const checkboxes = document.querySelectorAll('input[name="sizes[]"]');
+
+                checkboxes.forEach(checkbox => {
+                    checkbox.disabled = false;
+                });
+
     });
 
     close1.addEventListener("click", function () {
@@ -203,7 +211,7 @@ function optionitem() {
 
                 checkboxes.forEach(checkbox => {
                     checkbox.disabled = true;
-                });
+                }); 
 
             }
             if (prodcutviewStatus === 'approved') {
@@ -226,6 +234,7 @@ function optionitem() {
                 document.getElementById('editCategory').disabled = false
                 document.getElementById('editprintType').disabled = false
                 document.getElementById('add-status').disabled = false
+
                 const checkboxes = document.querySelectorAll('input[name="sizes[]"]');
 
                 checkboxes.forEach(checkbox => {
@@ -239,6 +248,7 @@ function optionitem() {
     });
 
     close2.addEventListener("click", function () {
+        modalOverlay.style.display = "none";
         edit.style.display = "none";
         productcontainer.style.filter = "none";
         productcontainer.style.pointerEvents = "auto";
@@ -630,6 +640,7 @@ function bouncesearch() {
             document.getElementById('add-status').value = btn.dataset.status;
 
             document.getElementById('editModal').style.display = 'block';
+            document.getElementById('modalOverlay').style.display = 'block';
         }
 
         // DELETE BUTTON HANDLER

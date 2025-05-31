@@ -404,10 +404,17 @@
         }
 
         .productid input:focus ~ span, .productid input:valid ~ span,
-        .name1 input:focus ~ span, .name2 input:focus ~ span,
-        .price1 input:focus ~ span, .price2 input:focus ~ span,
+        .name1 input:focus ~ span, 
+        .price1 input:focus ~ span,
         .name1 input:valid ~ span, .name2 input:valid ~ span,
         .price1 input:valid ~ span, .price2 input:valid ~ span {
+            top: -18px;
+            left: 0;
+            font-size: 0.9rem;
+            color: #2196F3;
+            font-weight: 500;
+        }
+        .name2 span, .price2 span{
             top: -18px;
             left: 0;
             font-size: 0.9rem;

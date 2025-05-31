@@ -46,9 +46,7 @@
         <div class="hotDesigns">
             @if($productCount > 0)
                 <div class="hotDesigns-container swiper">
-
                     <div class="card-wrapper">
-
                         <ul class="card-list swiper-wrapper">
                             @foreach($all as $item)
                                 <li class="card-item swiper-slide">

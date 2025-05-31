@@ -162,8 +162,11 @@
                     </div>
 
                     <div class="name2">
-                        <input type="text" required="required" name="editName" id="editName">
-                        <span>Name</span>
+                        <div>
+                            <input type="text" required="required" name="editName" id="editName">
+                            <span>Name</span>
+                        </div>
+                        
                     </div>
 
                     <div class="price2">
