@@ -39,6 +39,9 @@ class AddADesign extends Controller
             case 'Hoodie':
                 $price = 400;
                 break;
+            case 'Jersey':
+                $price = 300;
+                break;
             default:
                 $price = 300; 
                 break;
