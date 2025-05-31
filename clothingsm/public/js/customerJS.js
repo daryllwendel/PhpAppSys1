@@ -1,9 +1,4 @@
-function toggleMenu() {
-  const menu = document.querySelector(".menu");
-  menu.classList.toggle("active");
-  const nav = document.querySelector(".nav");
-  nav.classList.toggle("expanded");
-}
+
 
 
 
@@ -32,55 +27,11 @@ function clearLoading() {
     loader.remove();
   }
 }
-function toggleMenu() {
-  const menu = document.getElementById('menu');
-  const hamburger = document.querySelector('.hamburger');
 
-  menu.classList.toggle('active');
-  hamburger.classList.toggle('active');
-}
 
-document.addEventListener('DOMContentLoaded', function () {
-  try {
-    const navButtons = document.querySelectorAll('.nav-button');
 
-    navButtons.forEach(button => {
-      button.classList.remove('active');
 
-      button.addEventListener('click', function () {
-        navButtons.forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
 
-        if (window.innerWidth <= 768) {
-          toggleMenu();
-        }
-      });
-    });
-  } catch (error) {
-    console.error('Navigation error:', error);
-  }
-});
-
-window.addEventListener('resize', function () {
-  const menu = document.getElementById('menu');
-  const hamburger = document.querySelector('.hamburger');
-
-  if (window.innerWidth > 768) {
-    menu.classList.remove('active');
-    hamburger.classList.remove('active');
-  }
-});
-document.addEventListener('click', function (event) {
-  const nav = document.querySelector('.nav');
-  const menu = document.getElementById('menu');
-  const hamburger = document.querySelector('.hamburger');
-
-  if (!nav.contains(event.target) && menu.classList.contains('active')) {
-    menu.classList.remove('active');
-    hamburger.classList.remove('active');
-    console.log('Menu closed due to outside click');
-  }
-});
 function profileset() {
   const profile = document.getElementById("customerProfile");
   const password = document.getElementById("customerPassword");
@@ -326,15 +277,8 @@ function swipe() {
 
 });
 
-
-
-function toggleMenu() {
-    const menu = document.querySelector(".buttonsNav");
-    menu.classList.toggle("active");
-    const nav = document.querySelector(".nav");
-    nav.classList.toggle("expanded");
 }
-}
+
 
 function initProductOverlay4() {
   const buyButtons = document.querySelectorAll(".buy-button");
