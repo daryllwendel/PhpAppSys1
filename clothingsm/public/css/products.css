@@ -56,8 +56,15 @@
             cursor: pointer;
         }
 
+        .buttonsubmit{
+            border: 2px solid #ffbb00;
+            transition: 0.2s ease;
+        }
+
         .items-1 button:hover {
-            background: pink;
+            transform: translateY(-2px);
+            font-weight: bold;
+            background: #ffbb00;
         }
 
         .items-2 {
@@ -69,7 +76,7 @@
 
         .items-2 button {
             background: #ffffff;
-            border: none;
+            border: 2px solid transparent;
             border-radius: 5px;
             padding: 8px 12px;
             cursor: pointer;
@@ -80,6 +87,7 @@
         .items-2 button:hover {
             background: #e0e0e0;
             transform: translateY(-2px);
+            border: 2px solid #ffbb00;  
         }
 
         .items-2 img {
@@ -227,6 +235,11 @@
 
         .sample1 label:hover {
             background-color: #45a049;
+        }
+
+        .no-products{
+            display: flex;
+            justify-content: center;
         }
 
         /* Modal Styles - Fixed for better UI */

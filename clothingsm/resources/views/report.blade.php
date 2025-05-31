@@ -46,7 +46,7 @@
             </div>
 
             <!-- Reports Section -->
-            <div class="reports-section">
+            <div class="reports-section"  style="overflow: auto">
                 <div class="reports-header">
                     <h2 class="reports-title">Reports</h2>
                     <select class="sort-select">

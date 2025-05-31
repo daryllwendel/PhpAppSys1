@@ -105,17 +105,21 @@ function profilepic() {
     const inputFile = document.getElementById("addimg");
     const profilePic = document.getElementById("newimg");
 
+   
+
     inputFile.addEventListener("change", function () {
         const file = this.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
+                console.log('i also ran');
                 profilePic.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
     });
 }
+
 function profilepic1() {
     const inputFile = document.getElementById("editimg");
     const profilePic = document.querySelector(".img2");
@@ -445,7 +449,7 @@ function loaddashboard() {
                 content.appendChild(dashboardContent)
                 swiper()
                 loadCharts()
-                document.getElementById('body1').style.display = 'flex'
+                document.getElementById('body1').style.display = 'block'
             } else {
                 console.log("Errorz")
             }
@@ -726,7 +730,7 @@ function product(){
             profilepic()
             profilepic1()
             bouncesearch()
-            document.getElementById('body1').style.display = 'grid'
+            document.getElementById('body1').style.display = 'block'
         } else {
             const emptyProduct = doc.querySelector('.emptyProduct')
             if(emptyProduct){
@@ -1087,6 +1091,34 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("buttonProfile").addEventListener("click", loadprofile);
 });
 
+function profilepicForAdmin() {
+    console.log('profile pic running!');
+    const inputFile = document.getElementById("input-file");
+    const profilePicHeader = document.getElementById("profile-pic");
+    const profilePicAdmin = document.getElementById("profile-pic-admin");
+
+    if (!inputFile || !profilePicAdmin) {
+        console.warn("Missing input or image element for preview");
+        return;
+    }
+
+    inputFile.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            console.log('file selected');
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                profilePicAdmin.src = e.target.result;
+                profilePicHeader.src = e.target.result; // Update header image as well
+            };
+            reader.readAsDataURL(file);
+        } else {
+            console.log('no file selected');
+        }
+    });
+}
+
+
 
 function loadprofile() {
     console.log('loading profile')
@@ -1166,7 +1198,7 @@ function loadprofile() {
                     });
                 });
                 profileset()
-                profilepic()
+                profilepicForAdmin()
                 clearLoading()
             } else {
                 console.log('okay')
@@ -1211,23 +1243,26 @@ function profileset() {
 }
 
 
-function profilepic() {
-    const inputFile = document.getElementById("input-file");
-    const profilePic = document.getElementById("profile-pic");
-    const userpic = document.querySelector('.profile-picture')
+// function profilepic() {
+//     const inputFile = document.getElementById("input-file");
+//     const profilePic = document.getElementById("profile-pic");
 
-    inputFile.addEventListener("change", function () {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                profilePic.src = e.target.result;
-                userpic.src = e.target.result
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-}
+//     inputFile.addEventListener("change", function () {
+//         const file = this.files[0];
+//         if (file) {
+            
+//             const reader = new FileReader();
+//             reader.onload = function (e) {
+                
+//                 profilePic.src = e.target.result;
+//             };
+//             reader.readAsDataURL(file);
+//         }
+//     });
+// }
+
+
+
 
 // Start observing
 observer.observe(document.body, {

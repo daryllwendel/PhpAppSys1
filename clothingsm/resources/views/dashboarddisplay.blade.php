@@ -10,7 +10,8 @@
 <body> 
 <div class="main-container">
     <div class="dashboardcontainer">
-        <div class="recent"><h2>Design</h2>
+        <div class="recent">
+            <h2>Design</h2>
         </div>
         <div class="slide-container swiper">
             <div class="slide-content">
@@ -65,13 +66,6 @@
                 <div class="chart">
                     <canvas class="doughnut" id="doughnut" height="300" width="300"></canvas>
                     <canvas class="barchart" id="barchart" height="300" width="300"></canvas>
-                    {{-- <script>
-                        window.chartData = {
-                                labels: @json($chartReports->pluck('ProductName')),
-                                quantities: @json($chartReports->pluck('totalQuantity')),
-                                sales: @json($chartReports->pluck('totalSales'))
-                            };
-                    </script> --}}
                 </div>
             </div>
         </div>

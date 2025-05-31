@@ -69,7 +69,6 @@ class AddADesign extends Controller
             return redirect()->back()->with('success', 'Design added successfully');
 
         } catch(\Exception $e) {
-            dd($product);
             DB::rollBack();
             if(isset($path)) {  
                 Storage::disk('public')->delete($path);
