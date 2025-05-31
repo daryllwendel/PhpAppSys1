@@ -8,18 +8,22 @@
 </head>
 <body>
   <div class="customerNewOrder-container" id="customerNewOrder-container">
-        <div class="product-grid">
+        <div class="product-grid1">
           @foreach ($newdesign as $item)
-            <div class="product-card">
-                <div class="product-image">
-                    <div class="placeholder-image">
+            <div class="product-card1">
+                <div class="product-image1">
+                    <div class="placeholder-image1">
                       <img src="{{ asset('storage/' . $item->productImg) }}" alt="">
                     </div>
-                    <div class="special-tag">gr out hits a special place in your heart</div>
+                    @if ($item->customerId != null )
+                        <div class="special-tag1">Customer-requested!</div>
+                    @else
+                        <div class="special-tag1">New Ready-to-Print!</div>
+                    @endif
                 </div>
-                <div class="product-info">
-                    <div class="product-number">{{$item->name}}</div>
-                    <button class="buy-button"
+                <div class="product-info1">
+                    <div class="product-number1">{{$item->name}}</div>
+                    <button class="buy-button1"
                     data-id4="{{ $item->productId }}" 
                     data-name4="{{ $item->name }}" 
                     data-price4="{{ $item->price }}" 

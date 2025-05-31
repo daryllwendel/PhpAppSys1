@@ -488,9 +488,9 @@ function initProductOverlay() {
       const productStatus = button.getAttribute('data-status');
 
       // Update modal content
-      document.querySelector(".modal-header").textContent = productName;
+      document.querySelector(".modal-header1").textContent = productName;
       document.querySelector(".product-image").src = productImg;
-      document.querySelector(".price").textContent = productPrice;
+      document.querySelector(".price").textContent = "P" + productPrice;
       document.getElementById('productId').value = productId;
       document.getElementById('productPrice').value = productPrice;
 

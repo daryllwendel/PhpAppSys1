@@ -129,9 +129,9 @@
 .buy-button1 {
     width: 100%;
     padding: 14px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ffae00 0%, #ffd000 100%);
     color: white;
-    border: none;
+    border: 2px solid transparent;
     border-radius: 15px;
     font-weight: 600;
     cursor: pointer;
@@ -139,11 +139,14 @@
     font-family: Poppins, sans-serif;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
     margin-top: auto;
+    transition: 0.2s ease;
 }
 
 .buy-button1:hover {
-    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    background: white;
     transform: translateY(-2px);
+    border: 2px solid #ffae00;
+    color: #ffae00;
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 

@@ -74,7 +74,13 @@ class CustomerDisplayController extends Controller
         ->orderByDesc('occurrences')
         ->get();
 
-    return view('CustomerHotOrder-display', compact('mydesign2'));
+        $selectAll = DB::table('vwproduct_with_sizes')
+        ->where('status', 'display')
+        ->orderBy('dateCreated', 'desc')
+        ->groupBy('productId') 
+        ->get();
+
+    return view('CustomerHotOrder-display', compact('mydesign2', 'selectAll'));
 }
 
 public function newdesign(){

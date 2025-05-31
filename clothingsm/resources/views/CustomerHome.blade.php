@@ -125,7 +125,7 @@
                 <input type="hidden" name="price" id="productPrice">
 
                 <button type="button" class="close-btn" aria-label="Close" id="close-btn">×</button>
-                <div class="modal-header" name="product_name">Black and Yellow Gaming Sports Jersey</div>
+                <div class="modal-header1" name="product_name">Black and Yellow Gaming Sports Jersey</div>
 
                 <img src="{{ asset('storage/product-image.jpg') }}" alt="Black and Yellow Gaming Sports Jersey"
                     class="product-image" id="modal-product-image">

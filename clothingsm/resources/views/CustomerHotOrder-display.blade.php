@@ -9,13 +9,21 @@
 <body>
      <div class="customerhot-container1">
         <div class="product-grid1">
-          @foreach ($mydesign2 as $item)
+          @foreach ($mydesign2 as $index => $item)
             <div class="product-card1">
                 <div class="product-image1">
                     <div class="placeholder-image1">
                       <img src="{{ asset('storage/' . $item->productImg) }}" alt="">
                     </div>
-                    <div class="special-tag1">gr out hits a special place in your heart</div>
+                    @php
+                      $item2 = $selectAll[$index] ?? null;
+                    @endphp
+                    @if ($item2 && $item2->customerId != null)
+                        <div class="special-tag1">Customer-requested!</div>
+                    @else
+                        <div class="special-tag1">New Ready-to-Print!</div>
+                    @endif
+                    {{-- <div class="special-tag1">gr out hits a special place in your heart</div> --}}
                 </div>
                 <div class="product-info1">
                     <div class="product-number1">{{$item->name}}</div>
