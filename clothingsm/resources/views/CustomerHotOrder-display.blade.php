@@ -19,9 +19,9 @@
                       $item2 = $selectAll[$index] ?? null;
                     @endphp
                     @if ($item2 && $item2->customerId != null)
-                        <div class="special-tag1">Customer-requested!</div>
-                    @else
                         <div class="special-tag1">New Ready-to-Print!</div>
+                    @else
+                        <div class="special-tag1">Customer-requested!</div>
                     @endif
                     {{-- <div class="special-tag1">gr out hits a special place in your heart</div> --}}
                 </div>

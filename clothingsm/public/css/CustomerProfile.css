@@ -7,7 +7,7 @@
 
 body {
     margin: 0;
-    background: url("../images/bg.png");
+    background: url("../images/selcouthBG.png");
     font-family: "Poppins", sans-serif;
     color: #333;
 }
@@ -56,7 +56,7 @@ body {
 }
 
 .slideButton button:hover {
-    background-color: #ffebee;
+    background-color: #ffda74;
     transform: translateY(-2px);
 }
 
@@ -110,7 +110,7 @@ body {
 .insertImg button {
     font-size: 14px;
     padding: 8px 15px;
-    background: #ff4081;
+    background: #ffbb00;
     color: white;
     border-radius: 20px;
     border: none;
@@ -225,7 +225,7 @@ body {
 }
 
 .item-21 input:focus, .item-22 input:focus, .item-23 input:focus {
-    border-color: #ff4081;
+    border-color: #ffbb00;
     box-shadow: 0 0 0 2px rgba(255, 64, 129, 0.2);
     background-color: #fff;
 }
@@ -248,7 +248,7 @@ body {
 .item-23 input:valid ~ span {
     transform: translateY(-25px);
     font-size: 12px;
-    color: #ff4081;
+    color: #ffbb00;
     background-color: #fff;
     padding: 0 5px;
 }
@@ -261,7 +261,7 @@ body {
 
 .item-24 button {
     padding: 12px 30px;
-    background-color: #ff4081;
+    background-color: #ffbb00;
     color: white;
     border: none;
     border-radius: 25px;
@@ -271,7 +271,7 @@ body {
 }
 
 .item-24 button:hover {
-    background-color: #e91e63;
+    background-color: #ffda74;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -301,7 +301,7 @@ body {
 }
 
 .location select:focus, .location input:focus {
-    border-color: #ff4081;
+    border-color: #ffbb00;
     box-shadow: 0 0 0 2px rgba(255, 64, 129, 0.2);
     background-color: #fff;
 }
@@ -314,7 +314,7 @@ body {
 
 .item-36 button {
     padding: 12px 30px;
-    background-color: #ff4081;
+    background-color: #ffbb00;
     color: white;
     border: none;
     border-radius: 25px;
@@ -324,7 +324,7 @@ body {
 }
 
 .item-36 button:hover {
-    background-color: #e91e63;
+    background-color: #ffda74;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
