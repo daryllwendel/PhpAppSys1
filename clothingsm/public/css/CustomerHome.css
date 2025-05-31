@@ -166,12 +166,6 @@ body{
 }
 
 
-.hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 5px;
-}
 
 .hamburger div {
     width: 30px;
@@ -205,28 +199,7 @@ body{
         padding: 10px 10px;
         height: 50px;
     }
-    .menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: rgba(255, 192, 203, 0.49);
-        padding: 10px 0;
-        transition: 0.2s ease-in-out;
-        align-items: center;
-    }
-    .menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: #333;
-        padding: 10px 0;
-    }
+    
 
     .menu.active .nav-button{
         width: 100%;

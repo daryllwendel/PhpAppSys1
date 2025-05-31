@@ -12,9 +12,9 @@
 <body>
     <div class="shopping-cart">
         <div class="shopping-cart-container">
-            <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                <span class="material-symbols-outlined" id="back" style="cursor: pointer; margin-right: 20px; font-family: 'Material Symbols Outlined';">X</span>
-                <h1 class="shopping-cart-header" style="margin: 0;">Your Cart</h1>
+            <div class="shopping-cart-header">
+                <span class="material-symbols-outlined" id="back">close</span>
+                <p>Your Cart</p>
             </div>
             @if(isset($order_items) && $order_items->count() > 0)
                 @foreach ($order_items as $item)
@@ -234,7 +234,7 @@
         </form>
         </div>
     </div>
-     <div class="confirmation-container"  style="display: none"  >
+     <div class="confirmation-container" >
         <div class="floating-elements">
             <div class="floating-bag">👜</div>
             <div class="floating-crown">👑</div>

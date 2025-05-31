@@ -56,9 +56,6 @@ Route::delete('/deletedesign',[AdminDashboardController::class, 'deleteproduct']
 
 Route::get('/report', [ReportController::class, 'salesReport'])->name('sales.report');
 Route::get('/api/sales-report', [ReportController::class, 'getSalesReport']);
-// Route::get('/report', function(){
-//     return view('report');
-// });
 
 Route::get('/CustomerAddADesign-display', function() {
     return view('CustomerAddADesign-display');
