@@ -1,0 +1,120 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html,
+body {
+    display: grid;
+    height: 100%;
+    place-items: center;
+    background-color: #e8e8e8;
+}
+
+.card {
+    position: relative;
+    padding: 9px;
+    margin-left: 10px;
+    background-color: #e8e8e8;
+    border-radius: 35px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+        rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-conic-gradient(#e8e8e8 0.0000001%, #93a1a1 0.000104%) 60% 60%/600% 600%;
+    filter: opacity(10%) contrast(105%);
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 600px;
+    background-color: #e2e0e0;
+    border-radius: 30px;
+    padding: 20px;
+}
+
+.content h2 {
+    margin-bottom: 10px;
+    font-size: 36px;
+    font-weight: 900;
+    color: #c7c4c4;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: monospace;
+}
+
+.content .input-group {
+    position: relative;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.content .input-group input {
+    border: 0;
+    outline: none;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #c7c4c4;
+    border-radius: 7px;
+}
+
+.content .input-group i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4d5151;
+}
+.content button {
+    width: 100%;
+    border: 0;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-size: 18px;
+    background-color: #9d00ff;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: monospace;
+    margin: 10px 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #8200d3;
+}
+
+.content p {
+    font-size: 12px;
+}
+
+.content p>a {
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.content p>a:hover {
+    color: blue;
+}
+.cookies{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
