@@ -525,58 +525,62 @@ function bouncesearch() {
             return;
         }
 
-        fetch(`/search-products?query=${encodeURIComponent(query)}`)
+        fetch(`/search-product?query=${encodeURIComponent(query)}`)
             .then(res => res.json())
-            .then(products => {
-                resultsContainer.innerHTML = '';
+           .then(data => {
+    console.log('Search response:', data);
+    const products = data.products; // ✅ get the actual array
 
-                if (products.length === 0) {
-                    resultsContainer.innerHTML = '<p>No results found.</p>';
-                    return;
-                }
+    resultsContainer.innerHTML = '';
 
-                products.forEach(product => {
-                    const productCard = document.createElement('div');
-                    productCard.classList.add('product-card');
+    if (!Array.isArray(products) || products.length === 0) {
+        resultsContainer.innerHTML = '<p>No results found.</p>';
+        return;
+    }
 
-                    productCard.innerHTML = `
-                        <input type="hidden" name="productId" value="${product.productId}">
-                        <img src="/storage/${product.productImg}" alt="${product.name}">
-                        <div class="product-info">
-                            <div class="product-name">${product.name}
-                                <div class="status1">${product.viewStatus}</div>
-                            </div>
-                            <div class="product-type">Type: ${product.printType}
-                                <p>View: ${product.status}</p>
-                            </div>
-                        </div>
-                        <div class="product-actions">
-                            <button class="edit-btn editbutton" 
-                                data-id="${product.productId}" 
-                                data-name="${product.name}" 
-                                data-price="${product.price}" 
-                                data-type="${product.type}" 
-                                data-printtype="${product.printType}" 
-                                data-productimg="/storage/${product.productImg}" 
-                                data-status="${product.status}" 
-                                data-viewstatus="${product.viewStatus}">
-                                EDIT
-                            </button>
-                            <button class="delete-btn deletebutton" 
-                                data-id="${product.productId}" 
-                                data-name="${product.name}" 
-                                data-price="${product.price}" 
-                                data-type="${product.type}" 
-                                data-printtype="${product.printType}" 
-                                data-productimg="/storage/${product.productImg}">
-                                DELETE
-                            </button>
-                        </div>
-                    `;
+    products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('product-card');
 
-                    resultsContainer.appendChild(productCard);
-                });
-            });
+        productCard.innerHTML = `
+            <input type="hidden" name="productId" value="${product.productId}">
+            <img src="/storage/${product.productImg}" alt="${product.name}">
+            <div class="product-info">
+                <div class="product-name">${product.name}
+                    <div class="status1">${product.viewStatus}</div>
+                </div>
+                <div class="product-type">Type: ${product.printType}
+                    <p>View: ${product.status}</p>
+                </div>
+            </div>
+            <div class="product-actions">
+                <button class="edit-btn editbutton" 
+                    data-id="${product.productId}" 
+                    data-name="${product.name}" 
+                    data-price="${product.price}" 
+                    data-type="${product.type}" 
+                    data-printtype="${product.printType}" 
+                    data-productimg="/storage/${product.productImg}" 
+                    data-status="${product.status}" 
+                    data-viewstatus="${product.viewStatus}">
+                    EDIT
+                </button>
+                <button class="delete-btn deletebutton" 
+                    data-id="${product.productId}" 
+                    data-name="${product.name}" 
+                    data-price="${product.price}" 
+                    data-type="${product.type}" 
+                    data-printtype="${product.printType}" 
+                    data-productimg="/storage/${product.productImg}">
+                    DELETE
+                </button>
+            </div>
+        `;
+
+        resultsContainer.appendChild(productCard);
+    });
+})
+
     }, 300);
 
     // Start listening to search input
@@ -640,6 +644,7 @@ function bouncesearchorders() {
 
     searchInput.addEventListener('input', debouncedFilter);
 }
+
 function debounce(func, delay) {
     let timeout;
     return function (...args) {

@@ -74,23 +74,7 @@
          <script src="{{asset('js/customerButtons.js')}}"></script>
         <script>const currentCustomerId = {{ Auth::id() }};</script>
      <script>
-        const nav5 = document.getElementById('hamboger');
         const ham = document.querySelector('.hamburger');
-
-    // Check if screen is 768px or less
-        const isMobile = window.matchMedia("(max-width: 768px)");
-
-    if (isMobile.matches) {
-        ham.addEventListener('click', function() {
-            nav5.style.display = 'block'; // Show it
-            setTimeout(() => {
-                nav5.style.display = 'none'; // Hide it after 1 second
-            }, 1000);
-        });
-    }
-
-
-
         function toggleMenu() {
             const menu = document.getElementById('menu');
             const hamburger = document.querySelector('.hamburger');
@@ -98,12 +82,6 @@
 
             menu.classList.toggle('active');
             hamburger.classList.toggle('active');
-
-            setTimeout(() => {
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-                buttonsNav.style.display='none'
-            }, 1000);
         }
 
        document.addEventListener('DOMContentLoaded', function () {
@@ -151,7 +129,6 @@
                 nav.style.display = 'none'
                 menu.style.display = 'none'
                 hamburger.style.display = 'none'
-                buttonNav.style.display='none'
             }
         });
     </script>

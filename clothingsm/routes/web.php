@@ -27,7 +27,7 @@ Route::get('/send-otp-ui', function () {
 Route::get('/CustomerForgot-password', function () {
     return view('CustomerForgot-password');
 });
-Route::get('/search-products', [Search::class, 'search']);
+Route::get('/search-product', [Search::class, 'search']);
 Route::get('/search-products', [Search::class,'searchorder']);
 
 
