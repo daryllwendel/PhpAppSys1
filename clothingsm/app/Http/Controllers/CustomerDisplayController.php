@@ -31,6 +31,7 @@ class CustomerDisplayController extends Controller
         $all = DB::table('vwproduct_with_sizes')
         ->select('productId', 'name', 'productImg', 'status', 'price', 'type', 'printType')
         ->where('status', 'display')
+        ->groupBy('productId')
         ->get();
         $productCount = DB::table('tblproducts')->count();
         return view('CustomerHome', compact('product', 'productCount', 'all'));

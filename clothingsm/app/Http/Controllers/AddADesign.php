@@ -28,7 +28,21 @@ class AddADesign extends Controller
         ]);
 
         Log::info('Validated data: ' . json_encode($field));
-
+        
+        switch ($field['type']) {
+            case 'T-Shirt':
+                $price = 280;
+                break;
+            case 'Polo':
+                $price = 350;
+                break;
+            case 'Hoodie':
+                $price = 400;
+                break;
+            default:
+                $price = 300; 
+                break;
+    }
         DB::beginTransaction();
 
         try {
@@ -40,15 +54,9 @@ class AddADesign extends Controller
                 'printType' => $field['printType'], 
                 'productImg' => $path,
                 'customerId' => $field['customerId'],
+                'price' => $price,
                 'dateCreated' => now() 
             ]);
-            if ($field['type'] == 'Polo') {
-                $product['price'] = 300;
-            }else if($field['type'] =='T-Shirt'){
-                $product['price']== 280;
-            }else if($field['type'] =='Hoodie'){
-                $product['price']==350;
-            }
 
             foreach($field['sizes'] as $size) {
                 ProductSize::create([
