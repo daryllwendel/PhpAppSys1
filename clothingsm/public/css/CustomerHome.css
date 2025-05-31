@@ -205,7 +205,39 @@ body{
         padding: 10px 10px;
         height: 50px;
     }
-    
+    .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 192, 203, 0.49);
+        padding: 10px 0;
+        transition: 0.2s ease-in-out;
+        align-items: center;
+    }
+    .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #333;
+        padding: 10px 0;
+    }
+
+    .menu.active .nav-button{
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .menu button {
+        text-align: center;
+        padding: 15px;
+        width: 100%;
+    }
 
     .hamburger {
         display: flex;

@@ -80,39 +80,16 @@
         <div class="body1 fade-in" id="change-container">
         </div>
         <script>const currentCustomerId = {{ Auth::id() }};</script>
-        <script>
-            const nav5 = document.getElementById('hamboger');
-            const ham = document.querySelector('.hamburger');
+     <script>
+        const ham = document.querySelector('.hamburger');
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            const hamburger = document.querySelector('.hamburger');
+            const buttonsNav = document.querySelector('.buttonsNav')
 
-            // Check if screen is 768px or less
-            const isMobile = window.matchMedia("(max-width: 768px)");
-
-            if (isMobile.matches) {
-                ham.addEventListener('click', function () {
-                    nav5.style.display = 'block'; // Show it
-                    setTimeout(() => {
-                        nav5.style.display = 'none'; // Hide it after 1 second
-                    }, 1000);
-                });
-            }
-
-
-
-            function toggleMenu() {
-                const menu = document.getElementById('menu');
-                const hamburger = document.querySelector('.hamburger');
-                const buttonsNav = document.querySelector('.buttonsNav')
-
-                menu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-                buttonsNav.style.display = 'block'
-
-                setTimeout(() => {
-                    menu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    buttonsNav.style.display = 'none'
-                }, 1000);
-            }
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
 
             document.addEventListener('DOMContentLoaded', function () {
                 const navButtons = document.querySelectorAll('.nav-button');
@@ -153,19 +130,17 @@
                 const hamburger = document.querySelector('.hamburger');
                 const buttonNav = document.querySelector('.buttonsNav')
 
-                if (!nav.contains(event.target) && menu.classList.contains('active')) {
-                    menu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    nav.style.display = 'none'
-                    menu.style.display = 'none'
-                    hamburger.style.display = 'none'
-                    buttonNav.style.display = 'none'
-                    console.log('clicked outside');
-                }
-            });
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script src="{{asset("js/customerJS.js")}}"></script>
+            if (!nav.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                nav.style.display = 'none'
+                menu.style.display = 'none'
+                hamburger.style.display = 'none'
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="{{asset("js/customerJS.js")}}"></script>
 </body>
 
 </html>

@@ -16,7 +16,6 @@
             <div class="items-1">
                 <img src="{{ asset('images/search.png') }}" alt="Search">
                 <input type="search" placeholder="Search.." class="searchbars">
-                <button class="buttonsubmit">Search</button>
             </div>
 
             <div class="items-2">
@@ -107,7 +106,8 @@
                             <option value="Polo">Polo</option>
                             <option value="Tshirt">T-Shirt</option>
                             <option value="Hoodie">Hoodie</option>
-                        </select>
+                            <option value="Jersey">Jersey</option>
+                </select>
                     </div>
 
                     <div class="category1">
@@ -115,8 +115,7 @@
                             <option value="sublimation">Sublimation</option>
                             <option value="embroidery">Embroidery</option>
                             <option value="print">Print</option>
-                            <option value="jersey">Jersey</option>
-                        </select>
+                                </select>
                     </div>
 
                     <div class="sizes">
@@ -179,7 +178,8 @@
                             <option value="Polo">Polo</option>
                             <option value="T-Shirt">T-Shirt</option>
                             <option value="Hoodie">Hoodie</option>
-                        </select>
+                            <option value="Jersey">Jersey</option>
+                </select>
                     </div>
 
                     <div class="printtype">
