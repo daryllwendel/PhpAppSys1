@@ -67,7 +67,7 @@
           <button class="buy-button card-link"
             data-id="{{ $item->productId }}"
             data-name="{{ $item->name }}"
-            data-price="{{ $item->totalItemPrice   }}"
+            data-price="{{ $item->price}}"
             data-type="hot"
             data-printtype="N/A"
             data-img="{{ asset('storage/' . $item->productImg) }}"

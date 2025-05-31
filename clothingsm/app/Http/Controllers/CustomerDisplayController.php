@@ -40,20 +40,10 @@ class CustomerDisplayController extends Controller
     ->orderByDesc('totalOrders')
     ->limit(10)
     ->get();
-    $noorders = DB::table('vwordersummary')
-    ->select(
-        'productId',
-        'name',
-        'productImg',
-        'status',
-        'totalItemPrice',
-        DB::raw('COUNT(DISTINCT orderId) as totalOrders')
-    )
-    ->where('status', 'display')
-    ->groupBy('productId', 'name', 'productImg', 'status')
-    ->orderByDesc('totalOrders')
-    ->limit(10)
-    ->get();
+    $noorders =DB::table('vwproduct_with_sizes')
+        ->where('status', 'display')
+        ->groupBy('productId') 
+        ->get();
 
 
     $newdesign = DB::table('vwproduct_with_sizes')
