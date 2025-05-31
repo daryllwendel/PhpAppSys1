@@ -23,19 +23,52 @@ class CustomerDisplayController extends Controller
         $productCount = DB::table('tblproducts')->count();
         return view('LandingPage', compact('product', 'productCount', 'all'));
     }
-    public function CustomerDisplay(){
-        $product = DB::table('vwproduct_with_sizes')
-            ->select('productId', 'name', 'productImg', 'status')
-            ->where('status', 'display')
-            ->get();
-        $all = DB::table('vwproduct_with_sizes')
-        ->select('productId', 'name', 'productImg', 'status', 'price', 'type', 'printType')
+   public function CustomerDisplay() {
+    // Most ordered products with status 'display' and delivered
+    $hotDesigns = DB::table('vwordersummary')
+    ->select(
+        'productId',
+        'name',
+        'productImg',
+        'status',
+        'totalItemPrice',
+        DB::raw('COUNT(DISTINCT orderId) as totalOrders')
+    )
+    ->where('status', 'display')
+    ->where('deliveryStatus', 'delivered')
+    ->groupBy('productId', 'name', 'productImg', 'status')
+    ->orderByDesc('totalOrders')
+    ->limit(10)
+    ->get();
+    $noorders = DB::table('vwordersummary')
+    ->select(
+        'productId',
+        'name',
+        'productImg',
+        'status',
+        'totalItemPrice',
+        DB::raw('COUNT(DISTINCT orderId) as totalOrders')
+    )
+    ->where('status', 'display')
+    ->groupBy('productId', 'name', 'productImg', 'status')
+    ->orderByDesc('totalOrders')
+    ->limit(10)
+    ->get();
+
+
+    $newdesign = DB::table('vwproduct_with_sizes')
         ->where('status', 'display')
-        ->groupBy('productId')
+        ->orderBy('dateCreated', 'desc')
+        ->groupBy('productId') 
         ->get();
-        $productCount = DB::table('tblproducts')->count();
-        return view('CustomerHome', compact('product', 'productCount', 'all'));
-    }
+
+
+    $productCount = DB::table('tblproducts')->count();
+
+    return view('CustomerHome', compact('hotDesigns', 'newdesign', 'productCount','noorders'));
+}
+
+
 
     public function mydesign(Request $request){
         $customerId = Auth::id();

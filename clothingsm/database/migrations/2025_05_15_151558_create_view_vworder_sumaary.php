@@ -41,6 +41,7 @@ return new class extends Migration
                 oi.productId as prodId,
                 pm.name as paymentName,
                 pm.bankName,
+                p.status,
                 pm.number as accountNumber,
                 (oi.quantity * p.price) AS totalItemPrice
             FROM tblorders o
