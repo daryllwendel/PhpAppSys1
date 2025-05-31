@@ -1,0 +1,208 @@
+ @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+        * {
+            font-family: Poppins, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .category-container {
+            display: flex;
+            padding: 20px 50px;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 100;
+        }
+
+        .category-container button {
+            padding: 12px 40px;
+            font-size: 18px;
+            font-weight: 500;
+            border: 2px solid #ffbb00;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #000000 !important;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            min-height: 45px;
+            position: relative;
+            z-index: 101;
+            pointer-events: auto;
+            -webkit-tap-highlight-color: rgba(255, 192, 203, 0.3);
+        }
+
+        .category-container button:hover,
+        .category-container button:focus {
+            background: #ffbb00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
+            color: #000000 !important;
+            outline: none;
+        }
+
+        .category-container button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(255, 192, 203, 0.4);
+        }
+
+        .category-container button.active {
+            background: #ffbb00 !important;
+            border-color: #ffbb00 !important;
+            box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
+            color: #000000 !important;
+        }
+
+        .subTitle3 {
+            padding: 40px 0 40px 60px;
+            font-size: 40px;
+            font-weight: 600;
+            color: black;
+            text-align: justify;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .subTitle4 {
+            flex: 1;
+            background: white;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: auto;
+            position: relative;
+            min-height: 500px;
+            max-height: 700px;
+            z-index: 10;
+        }
+
+        /* Responsive design with fixes */
+        @media screen and (max-width: 768px) {
+            #id{
+                padding: 100px;
+                color: blue !important;
+            }
+            .category-container {
+                padding: 15px 20px;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 15px;
+                min-height: 80px;
+                position: relative;
+                z-index: 100;
+                backdrop-filter: none;
+                background: rgba(255, 255, 255, 0.2);
+            }
+            
+            .category-container button {
+                padding: 15px 25px;
+                font-size: 16px;
+                flex: 1;
+                min-width: 120px;
+                min-height: 50px;
+                color: #000000 !important;
+                background: rgba(255, 255, 255, 0.3);
+                border: 2px solid rgba(0, 0, 0, 0.2);
+                font-weight: 600;
+                backdrop-filter: none;
+                touch-action: manipulation;
+                -webkit-user-select: none;
+                user-select: none;
+                position: relative;
+                z-index: 101;
+                -webkit-appearance: none;
+                -webkit-touch-callout: none;
+            }
+            
+            .category-container button:hover,
+            .category-container button:focus,
+            .category-container button:active {
+                background: #ffbb00;
+                color: #000000 !important;
+                border-color: #ffbb00;
+                transform: none;
+            }
+            
+            .category-container button.active {
+                background: #ffbb00 !important;
+                border-color: #ffbb00 !important;
+                color: #000000 !important;
+            }
+            
+            .subTitle3 {
+                padding: 15px 20px;
+                font-size: 20px;
+            }
+            
+            .subTitle4 {
+                margin: 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .category-container {
+                padding: 15px 10px;
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .category-container button {
+                padding: 15px 20px;
+                font-size: 14px;
+                min-width: 100px;
+                min-height: 50px;
+                flex-shrink: 0;
+                color: #000000 !important;
+                background: rgba(255, 255, 255, 0.4);
+                border: 2px solid rgba(0, 0, 0, 0.3);
+                font-weight: 600;
+                backdrop-filter: none;
+                touch-action: manipulation;
+                -webkit-appearance: none;
+                -webkit-touch-callout: none;
+            }
+            
+            .category-container button:hover,
+            .category-container button:focus,
+            .category-container button:active {
+                background: #ffbb00;
+                color: #000000 !important;
+                border-color: #ffbb00;
+            }
+            
+            .category-container button.active {
+                background: #ffbb00 !important;
+                border-color: #ffbb00 !important;
+                color: #000000 !important;
+            }
+            
+            .subTitle3 {
+                font-size: 18px;
+                padding: 15px;
+            }
+        }

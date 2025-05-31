@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+*{
+    font-family: Poppins, sans-serif;
+}
+body{
+    margin: 0;
+
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../images/selcouthBG.png");
+    background-size: cover;
+    background-position: center;
+    /*background: url("../images/selcouthBG.png");*/
+
+}
+
+.add-a-design-container{
+    margin: 10px 0px 10px 0px;
+    height: 750px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.add-a-design-container .import-design-container{
+    display: flex;
+    flex-flow: row wrap;
+    width: 400px;
+    height: 500px;
+    justify-content: center;
+}
+.back-button{
+    background: white;
+    border: 2px solid transparent;
+    height: 50px;
+    width: 50px;
+    transition: 0.2s ease;
+    border-radius: 50%;
+}
+.back-button:hover{
+    border-color: #FFA1A1;
+    background: pink;
+}
+.add-a-design-container .design-info-container{
+    display: block;
+    width: 1000px;
+    height: 600px;
+    padding: 50px 50px 50px 50px;
+}
+.add-a-design-container .import-design-container img{
+    background: gray;
+    height: 400px;
+    width: 400px;
+    border-radius: 50%;
+}
+.add-a-design-container .import-design-container .input-file{
+    display: none;
+}
+.add-a-design-container .import-design-container .input-file-button p{
+    padding: 10px 20px 10px 20px;
+    background: #d2d2d2;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    transition: 0.2s ease;
+}
+
+.add-a-design-container .import-design-container .input-file-button p:hover{
+    background: white;
+    border-color: lightgray;
+}
+
+
+.design-info-container .title-1, .title-2{
+    font-weight: bold;
+    font-size: 30px;
+}
+.design-info-container .sizes-available{
+    display: flex;
+    height: 50px;
+    align-items: center;
+    padding: 0px 50px 0px 50px;
+}
+.design-info-container .sizes-available div{
+    background: lightgray;
+    padding: 5px 15px 5px 15px;
+    margin: 0px 5px 0px 5px;
+}
+.design-info-container .design-quantity-container{
+    display: flex;
+    flex-flow: column wrap;
+    padding: 0px 50px 0px 50px;
+    height: 75%;
+}
+.design-info-container .design-quantity-container .title-2-1{
+    display: flex;
+}
+.design-info-container .design-quantity-container .title-2-1 div{
+    font-size: 20px;
+}
+.design-info-container .design-quantity-container .title-2-1 .title-name, .title-jersey{
+    width: 380px;
+}
+
+.design-info-container .design-quantity-container .design-info input{
+    width: 350px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 0px 10px 0px 10px;
+}
+.design-info-container .design-quantity-container .design-info select{
+    height: 50px;
+    width: 75px;
+    font-size: 16px;
+}
+.design-info-container .design-quantity-container .design-info .add-button{
+    width: 88vh;
+    padding: 10px;
+    background: pink;
+    border: 2px solid transparent;
+    transition: 0.2s ease;
+    font-size: 20px;
+}
+.design-info-container .design-quantity-container .design-info .add-button:hover{
+    border-color: pink;
+    background: white;
+}
+.design-info-container .design-quantity-container .design-info .submit-cancel-container{
+    display: flex;
+    height:200px;
+    align-items: center;
+}
+.design-info-container .design-quantity-container .design-info .submit-cancel-container button{
+    padding: 20px 60px 20px 60px;
+    font-size: 20px;
+    background: pink;
+    border: 2px solid transparent;
+    margin: 20px;
+    transition: 0.2s ease;
+}
+.design-info-container .design-quantity-container .design-info .submit-cancel-container button:hover{
+    background: white;
+    border-color: pink;
+}
