@@ -43,8 +43,8 @@
                                 <div class="product-type-option" data-type="Hoodie">Hoodie</div>
                             </label>
                             <label class="product-type-option-wrapper">
-                                <input type="radio" name="type" value="Jersey" class="product-type-checkbox">
-                                <div class="product-type-option" data-type="Jersey">Jersey</div>
+                                <input type="radio" name="type" value="Long Sleeve" class="product-type-checkbox">
+                                <div class="product-type-option" data-type="Long Sleeve">Long Sleeve</div>
                             </label>
                         </div>
                     </div>
