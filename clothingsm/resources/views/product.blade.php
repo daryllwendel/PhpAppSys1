@@ -107,7 +107,14 @@
                             <option value="Tshirt">T-Shirt</option>
                             <option value="Hoodie">Hoodie</option>
                             <option value="Jersey">Jersey</option>
-                </select>
+                        </select>
+                    </div>
+                    <div class="jerseyset">
+                        <select name="setofjersey" id="setofjersey">
+                            <option value="up">Up</option>
+                            <option value="down">Down</option>
+                            <option value="set">Set</option>
+                        </select>
                     </div>
 
                     <div class="category1">
@@ -180,6 +187,14 @@
                             <option value="Hoodie">Hoodie</option>
                             <option value="Jersey">Jersey</option>
                 </select>
+                    </div>
+                     <div class="jerseyset" id="jerseyDropdown">
+                        <select name="setofjersey" id="setofjersey">
+                            <option value="" disabled selected>Select Jersey Type</option>
+                            <option value="up">Up (Top Only)</option>
+                            <option value="down">Down (Down Only)</option>
+                            <option value="set">Set</option>
+                        </select>
                     </div>
 
                     <div class="printtype">

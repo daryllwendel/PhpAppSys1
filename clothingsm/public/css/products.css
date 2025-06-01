@@ -446,6 +446,71 @@
             cursor: pointer;
         }
 
+        /* ENHANCED JERSEY DROPDOWN STYLING */
+        .jerseyset {
+            position: relative;
+            margin-bottom: 25px;
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.4s ease;
+        }
+
+        .jerseyset.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .jerseyset select {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-bottom: 2px solid #ff9800;
+            outline: none;
+            background: transparent;
+            font-size: 1em;
+            color: #333;
+            border-radius: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='%23ff9800' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 0 top 50%;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .jerseyset select:focus {
+            border-bottom-color: #f57c00;
+        }
+
+        .jerseyset::before {
+            content: "Jersey Type";
+            position: absolute;
+            top: -18px;
+            left: 0;
+            font-size: 0.9rem;
+            color: #ff9800;
+            font-weight: 600;
+        }
+
+        .jerseyset select option {
+            padding: 10px;
+            background: white;
+            color: #333;
+        }
+
+        /* Jersey container highlight */
+        .jersey-container {
+            padding: 15px;
+            background: rgba(255, 152, 0, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+            margin-bottom: 20px;
+        }
+
         .submit-btn, .editbutton, .delete-btn {
             padding: 12px 25px;
             background-color: #4CAF50;
