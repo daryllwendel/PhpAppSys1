@@ -31,16 +31,16 @@ class AddADesign extends Controller
         
         switch ($field['type']) {
             case 'T-Shirt':
-                $price = 280;
+                $price = 295;
                 break;
             case 'Polo':
-                $price = 350;
+                $price = 420;
                 break;
             case 'Hoodie':
-                $price = 400;
+                $price = 500;
                 break;
-            case 'Jersey':
-                $price = 300;
+            case 'Long Sleeve':
+                $price = 450;
                 break;
             default:
                 $price = 300; 

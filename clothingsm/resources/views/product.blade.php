@@ -50,7 +50,7 @@
                                     data-name="{{ $item->name }}" data-price="{{ $item->price }}"
                                     data-type="{{ $item->type }}" data-printtype="{{ $item->printType }}"
                                     data-productImg="{{ asset('storage/' . $item->productImg) }}"
-                                    data-status="{{ $item->status }}" data-viewStatus="{{ $item->viewStatus }}"
+                                    data-status="{{ $item->status }}" data-viewStatus="{{ $item->viewStatus }}" 
                                     id="editbutton">EDIT
                                 </button>
                                 <button class="delete-btn deletebutton" data-id="{{ $item->productId }}"
@@ -106,14 +106,7 @@
                             <option value="Polo">Polo</option>
                             <option value="Tshirt">T-Shirt</option>
                             <option value="Hoodie">Hoodie</option>
-                            <option value="Jersey">Jersey</option>
-                        </select>
-                    </div>
-                    <div class="jerseyset">
-                        <select name="setofjersey" id="setofjersey">
-                            <option value="up">Up</option>
-                            <option value="down">Down</option>
-                            <option value="set">Set</option>
+                            <option value="Long Sleeve">Long Sleeve</option>
                         </select>
                     </div>
 
@@ -122,7 +115,7 @@
                             <option value="sublimation">Sublimation</option>
                             <option value="embroidery">Embroidery</option>
                             <option value="print">Print</option>
-                                </select>
+                        </select>
                     </div>
 
                     <div class="sizes">
@@ -185,17 +178,10 @@
                             <option value="Polo">Polo</option>
                             <option value="T-Shirt">T-Shirt</option>
                             <option value="Hoodie">Hoodie</option>
-                            <option value="Jersey">Jersey</option>
-                </select>
-                    </div>
-                     <div class="jerseyset" id="jerseyDropdown">
-                        <select name="setofjersey" id="setofjersey">
-                            <option value="" disabled selected>Select Jersey Type</option>
-                            <option value="up">Up (Top Only)</option>
-                            <option value="down">Down (Down Only)</option>
-                            <option value="set">Set</option>
+                            <option value="Long Sleeve">Long Sleeve</option>
                         </select>
                     </div>
+ 
 
                     <div class="printtype">
                         <select name="printType1" id="editprintType" class="printType1">
