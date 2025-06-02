@@ -50,7 +50,7 @@
                                     data-name="{{ $item->name }}" data-price="{{ $item->price }}"
                                     data-type="{{ $item->type }}" data-printtype="{{ $item->printType }}"
                                     data-productImg="{{ asset('storage/' . $item->productImg) }}"
-                                    data-status="{{ $item->status }}" data-viewStatus="{{ $item->viewStatus }}" 
+                                    data-status="{{ $item->status }}" data-viewStatus="{{ $item->viewStatus }}"
                                     id="editbutton">EDIT
                                 </button>
                                 <button class="delete-btn deletebutton" data-id="{{ $item->productId }}"
@@ -106,8 +106,8 @@
                             <option value="Polo">Polo</option>
                             <option value="Tshirt">T-Shirt</option>
                             <option value="Hoodie">Hoodie</option>
-                            <option value="Long Sleeve">Long Sleeve</option>
-                        </select>
+                            <option value="Jersey">Jersey</option>
+                </select>
                     </div>
 
                     <div class="category1">
@@ -115,7 +115,7 @@
                             <option value="sublimation">Sublimation</option>
                             <option value="embroidery">Embroidery</option>
                             <option value="print">Print</option>
-                        </select>
+                                </select>
                     </div>
 
                     <div class="sizes">
@@ -178,10 +178,9 @@
                             <option value="Polo">Polo</option>
                             <option value="T-Shirt">T-Shirt</option>
                             <option value="Hoodie">Hoodie</option>
-                            <option value="Long Sleeve">Long Sleeve</option>
-                        </select>
+                            <option value="Jersey">Jersey</option>
+                </select>
                     </div>
- 
 
                     <div class="printtype">
                         <select name="printType1" id="editprintType" class="printType1">

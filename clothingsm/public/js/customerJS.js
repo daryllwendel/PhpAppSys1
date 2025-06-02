@@ -125,183 +125,160 @@ function toggleOrderList() {
   sortOrders(); // Re-sort after changing list
 }
 
-function swipe(){
-  console.log('Initializing Swiper for customer dashboard...');
-    // Get all card wrappers (for both hot designs and new designs)
-    const cardWrappers = document.querySelectorAll('.card-wrapper');
-    let i = 1;
-    cardWrappers.forEach(wrapper => {
-        i++;
-        console.log(`Processing wrapper ${i}...`);
-        // Count the actual number of slides in this specific wrapper
-        const slideCount = wrapper.querySelectorAll('.swiper-slide').length;
+// function swipe(){
+//   console.log('Initializing Swiper for customer dashboard...');
+//     // Get all card wrappers (for both hot designs and new designs)
+//     const cardWrappers = document.querySelectorAll('.card-wrapper');
+//     let i = 1;
+//     cardWrappers.forEach(wrapper => {
+//         i++;
+//         console.log(`Processing wrapper ${i}...`);
+//         // Count the actual number of slides in this specific wrapper
+//         const slideCount = wrapper.querySelectorAll('.swiper-slide').length;
         
-        // If 3 or fewer items, disable Swiper and show all items
-        if (slideCount <= 3) {
-          console.log(`Disabling Swiper for wrapper ${i} with ${slideCount} items...`);
-            // First, destroy any existing Swiper instance
-            if (wrapper.swiper) {
-                wrapper.swiper.destroy(true, true);
-            }
+//         // If 3 or fewer items, disable Swiper and show all items
+//         if (slideCount <= 3) {
+//           console.log(`Disabling Swiper for wrapper ${i} with ${slideCount} items...`);
+//             // First, destroy any existing Swiper instance
+//             if (wrapper.swiper) {
+//                 wrapper.swiper.destroy(true, true);
+//             }
             
-            // Remove swiper container class to prevent automatic initialization
-            const swiperContainer = wrapper.closest('.swiper');
-            if (swiperContainer) {
-              console.log(`Removing Swiper class from wrapper ${i}...`);
-                swiperContainer.classList.remove('swiper');
-                swiperContainer.classList.add('grid-container'); // Add custom class for styling
-            }
+//             // Remove swiper container class to prevent automatic initialization
+//             const swiperContainer = wrapper.closest('.swiper');
+//             if (swiperContainer) {
+//               console.log(`Removing Swiper class from wrapper ${i}...`);
+//                 swiperContainer.classList.remove('swiper');
+//                 swiperContainer.classList.add('grid-container'); // Add custom class for styling
+//             }
             
-            // Remove swiper classes and apply grid layout
-            const cardList = wrapper.querySelector('.card-list');
-            cardList.classList.remove('swiper-wrapper');
-            cardList.style.display = 'flex';
-            cardList.style.flexWrap = 'wrap';
-            cardList.style.justifyContent = 'center';
-            cardList.style.gap = '20px';
-            cardList.style.width = '100%';
+//             // Remove swiper classes and apply grid layout
+//             const cardList = wrapper.querySelector('.card-list');
+//             cardList.classList.remove('swiper-wrapper');
+//             cardList.style.display = 'flex';
+//             cardList.style.flexWrap = 'wrap';
+//             cardList.style.justifyContent = 'center';
+//             cardList.style.gap = '20px';
+//             cardList.style.width = '100%';
             
-            // Remove swiper-slide class from individual items and reset styles
-            const cardItems = wrapper.querySelectorAll('.card-item');
-            cardItems.forEach(item => {
-                item.classList.remove('swiper-slide');
-                item.style.flex = '0 1 300px'; // Flexible width with max 300px
-                item.style.minWidth = '280px';
-                item.style.transform = 'none'; // Reset any transform applied by Swiper
-                item.style.opacity = '1'; // Ensure visibility
-            });
+//             // Remove swiper-slide class from individual items and reset styles
+//             const cardItems = wrapper.querySelectorAll('.card-item');
+//             cardItems.forEach(item => {
+//                 item.classList.remove('swiper-slide');
+//                 item.style.flex = '0 1 300px'; // Flexible width with max 300px
+//                 item.style.minWidth = '280px';
+//                 item.style.transform = 'none'; // Reset any transform applied by Swiper
+//                 item.style.opacity = '1'; // Ensure visibility
+//             });
             
-            // Hide navigation and pagination
-            const pagination = wrapper.querySelector('.swiper-pagination');
-            const nextBtn = wrapper.querySelector('.swiper-button-next');
-            const prevBtn = wrapper.querySelector('.swiper-button-prev');
+//             // Hide navigation and pagination
+//             const pagination = wrapper.querySelector('.swiper-pagination');
+//             const nextBtn = wrapper.querySelector('.swiper-button-next');
+//             const prevBtn = wrapper.querySelector('.swiper-button-prev');
             
-            if (pagination) pagination.style.display = 'none';
-            if (nextBtn) nextBtn.style.display = 'none';
-            if (prevBtn) prevBtn.style.display = 'none';
+//             if (pagination) pagination.style.display = 'none';
+//             if (nextBtn) nextBtn.style.display = 'none';
+//             if (prevBtn) prevBtn.style.display = 'none';
             
-        } else {
-            // 4 or more items - initialize Swiper normally
-            const swiperContainer = wrapper.closest('.swiper');
-            if (swiperContainer && !swiperContainer.classList.contains('swiper')) {
-                swiperContainer.classList.add('swiper');
-                swiperContainer.classList.remove('grid-container');
-            }
+//         } else {
+//             // 4 or more items - initialize Swiper normally
+//             const swiperContainer = wrapper.closest('.swiper');
+//             if (swiperContainer && !swiperContainer.classList.contains('swiper')) {
+//                 swiperContainer.classList.add('swiper');
+//                 swiperContainer.classList.remove('grid-container');
+//             }
             
-            // Ensure swiper classes are present
-            const cardList = wrapper.querySelector('.card-list');
-            if (!cardList.classList.contains('swiper-wrapper')) {
-                cardList.classList.add('swiper-wrapper');
-            }
+//             // Ensure swiper classes are present
+//             const cardList = wrapper.querySelector('.card-list');
+//             if (!cardList.classList.contains('swiper-wrapper')) {
+//                 cardList.classList.add('swiper-wrapper');
+//             }
             
-            const cardItems = wrapper.querySelectorAll('.card-item');
-            cardItems.forEach(item => {
-                if (!item.classList.contains('swiper-slide')) {
-                    item.classList.add('swiper-slide');
-                }
-                // Reset inline styles that might interfere
-                item.style.flex = '';
-                item.style.minWidth = '';
-                item.style.transform = '';
-                item.style.opacity = '';
-            });
+//             const cardItems = wrapper.querySelectorAll('.card-item');
+//             cardItems.forEach(item => {
+//                 if (!item.classList.contains('swiper-slide')) {
+//                     item.classList.add('swiper-slide');
+//                 }
+//                 // Reset inline styles that might interfere
+//                 item.style.flex = '';
+//                 item.style.minWidth = '';
+//                 item.style.transform = '';
+//                 item.style.opacity = '';
+//             });
             
-            // Show navigation and pagination
-            const pagination = wrapper.querySelector('.swiper-pagination');
-            const nextBtn = wrapper.querySelector('.swiper-button-next');
-            const prevBtn = wrapper.querySelector('.swiper-button-prev');
+//             // Show navigation and pagination
+//             const pagination = wrapper.querySelector('.swiper-pagination');
+//             const nextBtn = wrapper.querySelector('.swiper-button-next');
+//             const prevBtn = wrapper.querySelector('.swiper-button-prev');
             
-            if (pagination) pagination.style.display = '';
-            if (nextBtn) nextBtn.style.display = '';
-            if (prevBtn) prevBtn.style.display = '';
+//             if (pagination) pagination.style.display = '';
+//             if (nextBtn) nextBtn.style.display = '';
+//             if (prevBtn) prevBtn.style.display = '';
             
-            // Initialize Swiper
-            new Swiper(swiperContainer, {
-                loop: true,
-                spaceBetween: 30,
+//             // Initialize Swiper
+//             new Swiper(swiperContainer, {
+//                 loop: true,
+//                 spaceBetween: 30,
                 
-                pagination: {
-                    el: wrapper.querySelector('.swiper-pagination'),
-                    clickable: true,
-                    dynamicBullets: true,
-                },
+//                 pagination: {
+//                     el: wrapper.querySelector('.swiper-pagination'),
+//                     clickable: true,
+//                     dynamicBullets: true,
+//                 },
                 
-                navigation: {
-                    nextEl: wrapper.querySelector('.swiper-button-next'),
-                    prevEl: wrapper.querySelector('.swiper-button-prev'),
-                },
+//                 navigation: {
+//                     nextEl: wrapper.querySelector('.swiper-button-next'),
+//                     prevEl: wrapper.querySelector('.swiper-button-prev'),
+//                 },
                 
-                breakpoints: {
-                    0: {
-                        slidesPerView: 1
-                    },
-                    768: {
-                        slidesPerView: 2
-                    },
-                    1024: {
-                        slidesPerView: 3
-                    }
-                }
-            });
-        }
-    });
-}
-// function swipe() {
-//     new Swiper('.card-wrapper', {
-//     loop: true,
-//     spaceBetween: 30,
-
-//     // If we need pagination
-//     pagination: {
-//         el: '.swiper-pagination',
-//         clickable: true,
-//         dynamicBullets: true,
-//     },
-
-//     // Navigation arrows
-//     navigation: {
-//         nextEl: '.swiper-button-next',
-//         prevEl: '.swiper-button-prev',
-//     },
-//     breakpoints:{
-//         0:{
-//             slidesPerView: 1
-//         },
-//         768:{
-//             slidesPerView: 2
-//         },
-//         1024:{
-//             slidesPerView: 3
+//                 breakpoints: {
+//                     0: {
+//                         slidesPerView: 1
+//                     },
+//                     768: {
+//                         slidesPerView: 2
+//                     },
+//                     1024: {
+//                         slidesPerView: 3
+//                     }
+//                 }
+//             });
 //         }
-//     }
-
-// });
-
+//     });
 // }
-function addjerseytype(){
-  // Function to show/hide jersey dropdown based on selected radio
-function toggleJerseyDropdown() {
-  const jerseyDropdown = document.getElementById('jerseydropdown');
-  // Get selected radio input with name 'type'
-  const selectedType = document.querySelector('input[name="type"]:checked');
+function swipe() {
+    new Swiper('.card-wrapper', {
+    loop: true,
+    spaceBetween: 30,
 
-  if (selectedType && selectedType.value === 'Jersey') {
-    jerseyDropdown.style.display = 'block';  // Show dropdown
-  } else {
-    jerseyDropdown.style.display = 'none';   // Hide dropdown
-  }
-}
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        dynamicBullets: true,
+    },
 
-// Attach event listeners to all radios to trigger toggle on change
-const radios = document.querySelectorAll('input[name="type"]');
-radios.forEach(radio => {
-  radio.addEventListener('change', toggleJerseyDropdown);
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    breakpoints:{
+        0:{
+            slidesPerView: 1
+        },
+        768:{
+            slidesPerView: 2
+        },
+        1024:{
+            slidesPerView: 3
+        }
+    }
+
 });
 
-// Call once on page load to set initial state
-toggleJerseyDropdown();
-
 }
+
 
 function initProductOverlay4() {
   const buyButtons = document.querySelectorAll(".buy-button");
@@ -918,60 +895,6 @@ function confirmcontainer() {
   checkoutForm.style.overflow = 'hidden'; // Optional: Disable scroll if form has scrollable content
   document.querySelector('.confirmation-container').style.display = 'block'
 }
-function dropdownjersey(){
-  const typeSelect = document.getElementById('type');
-            const jerseyDropdown = document.getElementById('jerseyDropdown');
-            const jerseySelect = document.getElementById('setofjersey');
-
-            // Function to show/hide jersey dropdown
-            function toggleJerseyDropdown() {
-                if (typeSelect.value === 'Jersey') {
-                    jerseyDropdown.classList.add('show', 'animate');
-                    jerseySelect.required = true;
-                } else {
-                    jerseyDropdown.classList.remove('show', 'animate');
-                    jerseySelect.required = false;
-                    jerseySelect.value = ''; // Reset selection
-                }
-            }
-
-            // Add event listener to type select
-            typeSelect.addEventListener('change', toggleJerseyDropdown);
-
-            // Initialize on page load
-            toggleJerseyDropdown();
-
-            // Optional: Add visual feedback for jersey selection
-            jerseySelect.addEventListener('change', function() {
-                if (this.value) {
-                    this.style.borderBottomColor = '#4CAF50';
-                    setTimeout(() => {
-                        this.style.borderBottomColor = '#ddd';
-                    }, 1000);
-                }
-            });
-
-            // Enhanced user experience: Add hover effects
-            typeSelect.addEventListener('mouseenter', function() {
-                this.style.borderBottomColor = '#2196F3';
-            });
-
-            typeSelect.addEventListener('mouseleave', function() {
-                if (this !== document.activeElement) {
-                    this.style.borderBottomColor = '#ddd';
-                }
-            });
-
-            jerseySelect.addEventListener('mouseenter', function() {
-                this.style.borderBottomColor = '#ff9800';
-            });
-
-            jerseySelect.addEventListener('mouseleave', function() {
-                if (this !== document.activeElement) {
-                    this.style.borderBottomColor = '#ddd';
-                }
-            });
-}
 
 function sortorders() {
   const sort = document.getElementById('statusFilter').value;
@@ -1447,7 +1370,6 @@ function adddesign() {
         content.appendChild(addadesign)
         profile3()
         clearLoading()
-        addjerseytype()
         document.getElementById('cancel').addEventListener('click', loadcustomerdashboard)
 
         document.querySelectorAll(".addadesign").forEach(form => {
