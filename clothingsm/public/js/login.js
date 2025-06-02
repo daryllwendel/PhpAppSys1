@@ -117,104 +117,85 @@ if (loginForm && msg) {
 
 // Registration
 document.querySelectorAll(".register").forEach(form => {
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
+   form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    clearAllErrors();
 
-        clearAllErrors();
+    const username = form.username.value.trim();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const rawMobile = form.mobile_number.value.trim();
+    const password = form.password.value;
 
-        const username = form.username.value.trim();
-        const name = form.name.value.trim();
-        const email = form.email.value.trim();
-        const rawMobile = form.mobile_number.value.trim();
-        const password = form.password.value;
+    let hasErrors = false;
 
-        let hasErrors = false;
+    if (!username || username.length < 4) {
+        showError('reg-username', 'Username must be at least 4 characters');
+        hasErrors = true;
+    }
+    if (!name || name.length < 2) {
+        showError('reg-name', 'Please enter your full name');
+        hasErrors = true;
+    }
+    if (!email || !validateEmail(email)) {
+        showError('reg-email', 'Please enter a valid email address');
+        hasErrors = true;
+    }
+    if (!rawMobile || !validateMobile(rawMobile)) {
+        showError('reg-mobile', 'Please enter a valid mobile number');
+        hasErrors = true;
+    }
+    if (!password || password.length < 8) {
+        showError('reg-password', 'Password must be at least 8 characters');
+        hasErrors = true;
+    }
 
-        if (!username || username.length < 3) {
-            showError('reg-username', 'Username must be at least 4 characters');
-            hasErrors = true;
-        }
+    if (hasErrors) return;
 
-        if (!name || name.length < 2) {
-            showError('reg-name', 'Please enter your full name');
-            hasErrors = true;
-        }
+    let formattedMobile = rawMobile.startsWith('09') ? '+63' + rawMobile.slice(1) : rawMobile;
+    form.mobile_number.value = formattedMobile;
 
-        if (!email || !validateEmail(email)) {
-            showError('reg-email', 'Please enter a valid email address');
-            hasErrors = true;
-        }
+    const formData = new FormData(form);
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
 
-        if (!rawMobile || !validateMobile(rawMobile)) {
-            showError('reg-mobile', 'Please enter a valid mobile number');
-            hasErrors = true;
-        }
-
-        if (!password || password.length < 6) {
-            showError('reg-password', 'Password must be at least 8 characters');
-            hasErrors = true;
-        }
-
-        if (hasErrors) return;
-
-        // Convert 09XXXXXXXXX to +639XXXXXXXXX
-        let formattedMobile = rawMobile;
-        if (rawMobile.startsWith('09')) {
-            formattedMobile = '+63' + rawMobile.slice(1);
-        }
-        form.mobile_number.value = formattedMobile;
-
-        const formData = new FormData(form);
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "";
-
-        fetch("/register", {
+    try {
+        const res = await fetch("/register", {
             method: "POST",
             headers: {
                 "X-CSRF-TOKEN": csrfToken,
                 "X-Requested-With": "XMLHttpRequest",
             },
             body: formData,
-        })
-          .then(async res => {
-    const contentType = res.headers.get("content-type") || "";
-
-    if (!contentType.includes("application/json")) {
-        const text = await res.text();
-        throw new Error("Unexpected response from server. Not JSON.");
-    }
-
-    const data = await res.json();
-
-    if (res.ok && data.ok) {
-        alert("Account Created Successfully!");
-        form.reset();
-        document.getElementById('myButton').disabled = true;
-        container.classList.remove("right-panel-active");
-    } else if (data.errors) {
-        Object.keys(data.errors).forEach(field => {
-            const inputId = 'reg-' + field;
-            showError(inputId, data.errors[field][0]);
         });
-    } else {
-        throw new Error(data.message || "Registration failed");
-    }
-})
-        .then(data => {
-            // <-- at this point, `data` is undefined!
-            if (data.ok) {
-                alert("Account Created Successfully!");
-                form.reset();
-                document.getElementById('myButton').disabled = true;
-                container.classList.remove("right-panel-active");
-            } else if (data.errors) {
-                Object.keys(data.errors).forEach(field => {
-                    const inputId = 'reg-' + field;
-                    showError(inputId, data.errors[field][0]);
-                });
-            }
-        })
 
+        const contentType = res.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+            const text = await res.text();
+            throw new Error("Unexpected server response. Not JSON.");
+        }
+
+        const data = await res.json();
+
+        if (res.ok && data.ok) {
+            alert("Account Created Successfully!");
+            form.reset();
+            document.getElementById('myButton').disabled = true;
+            container.classList.remove("right-panel-active");
+        } else if (data.errors) {
+            Object.keys(data.errors).forEach(field => {
+                const inputId = 'reg-' + field;
+                showError(inputId, data.errors[field][0]);
             });
+        } else {
+            throw new Error(data.message || "Registration failed");
+        }
+
+    } catch (error) {
+        alert(error.message);
+        console.error(error);
+    }
+});
+
         });
 
 // Real-time validation
